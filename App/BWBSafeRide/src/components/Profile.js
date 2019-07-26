@@ -156,8 +156,8 @@ export default class Profile extends ValidationComponent {
              visible={this.state.modalVisible}
              >
                  <View style={styles.modal}>
-                     <View style={{color: '#d3a04c'}}>
-                         <Text>Update Profile</Text>
+                     <View style={{color: '#d3a04c', backgroundColor: '#1c1b22', textAlign: 'center', alignSelf: 'stretch', paddingVertical: 20, marginVertical: 20, color: '#fff'}}>
+                         <Text style={{textAlign: 'center', color: '#fff'}}>Update Profile</Text>
                      </View>
                     <View style={styles.inputWrap}>
                         <TextInput style={styles.inputBox2} placeholder="First Name" defaultValue={this.state.userData.first_name} onChangeText={(first_name) => this.setState({first_name})} />
@@ -169,10 +169,12 @@ export default class Profile extends ValidationComponent {
                     </View>
                     <TextInput style={styles.inputBox} placeholder="City" defaultValue={this.state.userData.city} onChangeText={(city) => this.setState({city})} />
                     <TextInput style={styles.inputBox} placeholder="ZIP Code" keyboardType="number-pad" defaultValue={this.state.userData.zip_code} onChangeText={(zip_code) => this.setState({zip_code})} />
-                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.updateSubmit() }>
+                    <TouchableOpacity style={styles.modalButtonContainer1} onPress={() => this.updateSubmit() }>
+                        <Icon type="FontAwesome" name="edit" style={{ fontSize: 22, color: 'white', paddingRight: 10 }} />
                         <Text style={styles.buttonText}>Update</Text>
                     </TouchableOpacity>
-                     <TouchableOpacity style={styles.buttonContainer} onPress={() => { this.setModalVisible(!this.state.modalVisible); }}>
+                     <TouchableOpacity style={styles.modalButtonContainer2} onPress={() => { this.setModalVisible(!this.state.modalVisible); }}>
+                        <Icon type="FontAwesome" name="window-close" style={{ fontSize: 22, color: 'white', paddingRight: 10 }} />
                          <Text style={styles.buttonText}>Close</Text>
                      </TouchableOpacity>
                  </View>
@@ -205,8 +207,10 @@ export default class Profile extends ValidationComponent {
                   <Text style={styles.description}>Address:  </Text>
                   <Text style={styles.description2}>{this.state.userData.city} {this.state.userData.zip_code}</Text>
                 </ListItem>
+                  <Text> </Text>
               </List>
                <TouchableOpacity style={styles.buttonContainer} onPress={() => { this.setModalVisible(true); }}>
+                 <Icon type="FontAwesome" name="edit" style={{ fontSize: 22, color: 'white', paddingRight: 10 }} />
                  <Text style={styles.buttonText}>Update Profile</Text>
                </TouchableOpacity>
              </View>
@@ -299,11 +303,33 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#fff'
     },
+    modalButtonContainer1: {
+        marginTop: 20,
+        height:45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom:20,
+        width: 150,
+        borderRadius:30,
+        backgroundColor: '#d3a04c'
+    },
+    modalButtonContainer2: {
+        height:45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom:20,
+        width: 150,
+        borderRadius:30,
+        backgroundColor: '#660000'
+    },
     modal: {
         marginTop: 20,
-        backgroundColor: 'white',
+        backgroundColor: '#ddd',
         alignSelf: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 30
     },
     inputWrap: {
         flexDirection: 'row'
