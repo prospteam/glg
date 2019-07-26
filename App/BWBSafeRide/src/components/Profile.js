@@ -34,6 +34,7 @@ export default class Profile extends ValidationComponent {
 
     setModalVisible(visible) {
         this.setState({modalVisible: visible});
+        this.setUserData();
     }
 
     componentDidMount(){
@@ -83,7 +84,6 @@ export default class Profile extends ValidationComponent {
             }).then((response) => response.json())
               .then((responseJson) => {
                  Alert.alert(JSON.stringify(responseJson.msg));
-                 this.forceUpdateHandler();
               }).catch((error) => {
                 console.error(error);
               });
@@ -127,7 +127,7 @@ export default class Profile extends ValidationComponent {
         }).catch((error) => {
           console.error(error);
         });
-  // >>>>>>> 2023b29d881665e4dc67ab7a58958d218ea3c9ad
+
       }
     }
 

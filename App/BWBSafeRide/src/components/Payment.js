@@ -26,9 +26,17 @@ export default class Payment extends Component {
                 </Content>
                 <Footer>
                     <FooterTab style={{backgroundColor:"#1c1b22"}}>
-                        <Button vertical active>
-                            <Icon active name="map" />
+                        <Button vertical onPress={() => this.props.navigation.navigate('Dashboard')}>
+                            <Icon name="apps" />
+                            <Text>Dashboard</Text>
+                        </Button>
+                        <Button vertical>
+                            <Icon name="map" />
                             <Text>Book Now</Text>
+                        </Button>
+                        <Button vertical>
+                            <Icon name="navigate" />
+                            <Text>Navigate</Text>
                         </Button>
                     </FooterTab>
                 </Footer>
