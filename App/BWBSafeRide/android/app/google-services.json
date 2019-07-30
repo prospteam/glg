@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "26144570290",
+    "firebase_url": "https://bwb-safe-ride.firebaseio.com",
+    "project_id": "bwb-safe-ride",
+    "storage_bucket": "bwb-safe-ride.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26144570290:android:8dd231222ee490b0",
+        "android_client_info": {
+          "package_name": "com.bwbsaferide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26144570290-jbvdrs564f3sker91eb1ect7dc1sncka.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB56A4OvGoUWIEn6IZ49EMjxqK35aghi3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26144570290-jbvdrs564f3sker91eb1ect7dc1sncka.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
