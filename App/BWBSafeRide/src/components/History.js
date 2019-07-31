@@ -26,21 +26,17 @@ export default class History extends Component {
                 </Content>
                 <Footer>
                     <FooterTab style={{backgroundColor:"#1c1b22"}}>
-                        <Button vertical>
+                        <Button vertical onPress={() => this.props.navigation.navigate('Dashboard')}>
                             <Icon name="apps" />
-                            <Text>Apps</Text>
+                            <Text>Dashboard</Text>
                         </Button>
                         <Button vertical>
-                            <Icon name="camera" />
-                            <Text>Camera</Text>
+                            <Icon name="map" />
+                            <Text>Book Now</Text>
                         </Button>
-                        <Button vertical active>
-                            <Icon active name="navigate" />
+                        <Button vertical>
+                            <Icon name="navigate" />
                             <Text>Navigate</Text>
-                        </Button>
-                        <Button vertical>
-                            <Icon name="person" />
-                            <Text>Contact</Text>
                         </Button>
                     </FooterTab>
                 </Footer>
