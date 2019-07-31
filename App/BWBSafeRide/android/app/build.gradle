@@ -138,7 +138,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-paypal')
     implementation project(':react-native-paypal-wrapper')
     implementation project(':react-native-firebase')
     implementation project(':react-native-vector-icons')

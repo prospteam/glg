@@ -66,6 +66,9 @@
 		A0A10F331B7D4E67A07A3CA4 /* libRNVectorIcons-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604D5C00F5C64ACF9B8EE360 /* libRNVectorIcons-tvOS.a */; };
 		F5DA758E52FB45A8A5895C09 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD783302C02646DA86C85513 /* libRNFirebase.a */; };
 		5ACDD9C6568E4CEDB38A5029 /* libRNPaypalWrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FFE0BDFFC34D21AE036492 /* libRNPaypalWrapper.a */; };
+		3AF2FDE989324B4C9142C7BB /* libRNStripePayment.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8416E072A8D42C9B80F6079 /* libRNStripePayment.a */; };
+		4BC9C089A94D45BDA4B09315 /* libRNPaypal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFA52EF6D9148B382290B52 /* libRNPaypal.a */; };
+		144A2B41B0F543E8BBC325B3 /* libStripeNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A592B3FD8A34D26978A4ECB /* libStripeNative.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -406,6 +409,12 @@
 		BD783302C02646DA86C85513 /* libRNFirebase.a */ = {isa = PBXFileReference; name = "libRNFirebase.a"; path = "libRNFirebase.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		77AEE58942824FAEA443AB62 /* RNPaypalWrapper.xcodeproj */ = {isa = PBXFileReference; name = "RNPaypalWrapper.xcodeproj"; path = "../node_modules/react-native-paypal-wrapper/ios/RNPaypalWrapper.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		83FFE0BDFFC34D21AE036492 /* libRNPaypalWrapper.a */ = {isa = PBXFileReference; name = "libRNPaypalWrapper.a"; path = "libRNPaypalWrapper.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		3608A3A27BC740349F8BDB90 /* RNStripePayment.xcodeproj */ = {isa = PBXFileReference; name = "RNStripePayment.xcodeproj"; path = "../node_modules/react-native-stripe-payment/ios/RNStripePayment.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		B8416E072A8D42C9B80F6079 /* libRNStripePayment.a */ = {isa = PBXFileReference; name = "libRNStripePayment.a"; path = "libRNStripePayment.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		ED60B267825F480582C4A174 /* RNPaypal.xcodeproj */ = {isa = PBXFileReference; name = "RNPaypal.xcodeproj"; path = "../node_modules/react-native-paypal/ios/RNPaypal.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		2CFA52EF6D9148B382290B52 /* libRNPaypal.a */ = {isa = PBXFileReference; name = "libRNPaypal.a"; path = "libRNPaypal.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		5F7D0CAB9F8B4B8EBE0A8B0C /* StripeNative.xcodeproj */ = {isa = PBXFileReference; name = "StripeNative.xcodeproj"; path = "../node_modules/react-native-stripe/StripeNative.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		7A592B3FD8A34D26978A4ECB /* libStripeNative.a */ = {isa = PBXFileReference; name = "libStripeNative.a"; path = "libStripeNative.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -440,6 +449,9 @@
 				ED08AFF8E80B40AF84A0C21D /* libRNVectorIcons.a in Frameworks */,
 				F5DA758E52FB45A8A5895C09 /* libRNFirebase.a in Frameworks */,
 				5ACDD9C6568E4CEDB38A5029 /* libRNPaypalWrapper.a in Frameworks */,
+				3AF2FDE989324B4C9142C7BB /* libRNStripePayment.a in Frameworks */,
+				4BC9C089A94D45BDA4B09315 /* libRNPaypal.a in Frameworks */,
+				144A2B41B0F543E8BBC325B3 /* libStripeNative.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,6 +649,9 @@
 				F9076E83C8CE46399B9FD465 /* RNVectorIcons.xcodeproj */,
 				60C57D7F460340C586DF39CE /* RNFirebase.xcodeproj */,
 				77AEE58942824FAEA443AB62 /* RNPaypalWrapper.xcodeproj */,
+				3608A3A27BC740349F8BDB90 /* RNStripePayment.xcodeproj */,
+				ED60B267825F480582C4A174 /* RNPaypal.xcodeproj */,
+				5F7D0CAB9F8B4B8EBE0A8B0C /* StripeNative.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1319,6 +1334,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1328,6 +1346,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-stripe-payment\ios",
+					"$(SRCROOT)\..\node_modules\react-native-paypal\ios",
+					"$(SRCROOT)\..\node_modules\react-native-stripe\StripeNative/**",
 				);
 			};
 			name = Debug;
@@ -1357,6 +1378,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1366,6 +1390,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-stripe-payment\ios",
+					"$(SRCROOT)\..\node_modules\react-native-paypal\ios",
+					"$(SRCROOT)\..\node_modules\react-native-stripe\StripeNative/**",
 				);
 			};
 			name = Release;
@@ -1394,6 +1421,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-stripe-payment\ios",
+					"$(SRCROOT)\..\node_modules\react-native-paypal\ios",
+					"$(SRCROOT)\..\node_modules\react-native-stripe\StripeNative/**",
 				);
 			};
 			name = Debug;
@@ -1421,6 +1451,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-stripe-payment\ios",
+					"$(SRCROOT)\..\node_modules\react-native-paypal\ios",
+					"$(SRCROOT)\..\node_modules\react-native-stripe\StripeNative/**",
 				);
 			};
 			name = Release;
@@ -1458,6 +1491,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1467,6 +1503,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-stripe-payment\ios",
+					"$(SRCROOT)\..\node_modules\react-native-paypal\ios",
+					"$(SRCROOT)\..\node_modules\react-native-stripe\StripeNative/**",
 				);
 			};
 			name = Debug;
@@ -1504,6 +1543,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1513,6 +1555,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-stripe-payment\ios",
+					"$(SRCROOT)\..\node_modules\react-native-paypal\ios",
+					"$(SRCROOT)\..\node_modules\react-native-stripe\StripeNative/**",
 				);
 			};
 			name = Release;
@@ -1549,6 +1594,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1558,6 +1606,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-stripe-payment\ios",
+					"$(SRCROOT)\..\node_modules\react-native-paypal\ios",
+					"$(SRCROOT)\..\node_modules\react-native-stripe\StripeNative/**",
 				);
 			};
 			name = Debug;
@@ -1594,6 +1645,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1603,6 +1657,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-stripe-payment\ios",
+					"$(SRCROOT)\..\node_modules\react-native-paypal\ios",
+					"$(SRCROOT)\..\node_modules\react-native-stripe\StripeNative/**",
 				);
 			};
 			name = Release;

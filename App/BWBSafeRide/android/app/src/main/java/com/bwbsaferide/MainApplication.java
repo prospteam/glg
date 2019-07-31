@@ -3,7 +3,6 @@ package com.bwbsaferide;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.smarkets.paypal.RNPaypalPackage;
 import com.taessina.paypal.RNPaypalWrapperPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -30,7 +29,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNPaypalPackage(),
             new RNPaypalWrapperPackage(),
             new RNFirebasePackage(),
             new VectorIconsPackage(),
