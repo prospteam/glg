@@ -4,10 +4,10 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.airbnb.android.react.maps.MapsPackage;
-import io.invertase.firebase.RNFirebasePackage;
-import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
-import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
-import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+// import io.invertase.firebase.RNFirebasePackage;
+// import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
+// import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
+// import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import com.taessina.paypal.RNPaypalWrapperPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
@@ -33,10 +33,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFirebasePackage(),
-            new RNFirebaseMessagingPackage(),
-            new RNFirebaseNotificationsPackage(),
-            new RNFirebaseAuthPackage(),
+            // new RNFirebasePackage(),
+            // new RNFirebaseMessagingPackage(),
+            // new RNFirebaseNotificationsPackage(),
+            // new RNFirebaseAuthPackage(),
             new RNPaypalWrapperPackage(),
             new MapsPackage(),
             new VectorIconsPackage(),
