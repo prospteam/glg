@@ -155,7 +155,7 @@ dependencies {
 
     //implementation "com.google.firebase:firebase-auth:17.0.0"
     //implementation "com.google.android.gms:play-services-base:16.1.0"
-    /implementation "com.google.firebase:firebase-core:16.0.9"
+    //implementation "com.google.firebase:firebase-core:16.0.9"
     //implementation ('com.google.firebase:firebase-messaging:17.3.4'){
     //    exclude group: 'com.google.firebase', module: 'firebase-iid'
     //  }
@@ -179,4 +179,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
