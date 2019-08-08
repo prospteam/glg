@@ -10,15 +10,23 @@ class MapContainer extends React.Component {
   };
 
   componentDidMount() {
+    // this.updateState({
+    //   latitude: 123.9,
+    //   longitude: 10.2833,
+    // });
     this.getInitialState();
   }
 
   getInitialState() {
+    console.log('getting current loc');
     getLocation().then(data => {
       this.updateState({
         latitude: data.latitude,
         longitude: data.longitude,
       });
+      console.log(data);
+      console.log(this.state);
+      console.log('location updated');
     });
   }
 

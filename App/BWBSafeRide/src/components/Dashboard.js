@@ -63,7 +63,7 @@ export default class Dashboard extends Component {
               }
             )
             if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-              that.callLocation(that);
+              // that.callLocation(that);
             }
           } catch (err) {
             alert("Something went wrong.");
@@ -108,6 +108,7 @@ export default class Dashboard extends Component {
      //    //Setting state Latitude to re re-render the Longitude Text
      // });
   }
+
   //  async componentDidMount() {
   //    await requestLocationPermission();
   //     this.watchID = navigator.geolocation.watchPosition((position) => {
@@ -169,7 +170,7 @@ export default class Dashboard extends Component {
         //   isLogged: true,
         //   });
         console.log('naa');
-        console.log(await AsyncStorage.getItem('userData'));
+        // console.log(await AsyncStorage.getItem('userData'));
       }else {
           this.props.navigation.navigate('Logout');
       }
@@ -194,30 +195,32 @@ export default class Dashboard extends Component {
       console.log(this.state);
       this.checkSession();
 
-        return (
-          <Container>
-            <Header>
-             <Left style={{ flexDirection: 'row' }}>
-              <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={{ color: '#d3a04c', marginRight: 15 }} />
-             </Left>
-             <Right>
-             </Right>
-            </Header>
-            <Content>
-              <View style={styles.container}>
-                <MapContainer />
-              </View>
-            </Content>
-            <Footer>
-              <FooterTab style={{backgroundColor:"#1c1b22"}}>
-                  <Button vertical active onPress={() => getCurrentLocation()}>
-                      <Icon active name="map" />
-                      <Text>Book Now</Text>
-                  </Button>
-              </FooterTab>
-            </Footer>
-        </Container>
-        );
+      return (
+        <Container>
+          <Header>
+           <Left style={{ flexDirection: 'row' }}>
+            <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={{ color: '#d3a04c', marginRight: 15 }} />
+           </Left>
+           <Right>
+           </Right>
+          </Header>
+          <Content>
+            <View style={styles.container}>
+              <MapContainer />
+            </View>
+          </Content>
+          {
+          // <Footer>
+          //   <FooterTab style={{backgroundColor:"#1c1b22"}}>
+          //       <Button vertical active onPress={() => getCurrentLocation()}>
+          //           <Icon active name="map" />
+          //           <Text>Book Now</Text>
+          //       </Button>
+          //   </FooterTab>
+          // </Footer>
+          }
+      </Container>
+      );
     }
 }
 
