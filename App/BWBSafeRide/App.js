@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView, ImageBackground, Image} from 'react-native';
+import {Platform, StyleSheet, Text, View, ScrollView, ImageBackground, Image, Alert} from 'react-native';
 import { Container, Content, StyleProvider } from 'native-base';
 import getTheme from './native-base-theme/components';
 import material from './native-base-theme/variables/material';
@@ -21,6 +21,8 @@ import Routes from './src/components/Routes';
 import AsyncStorage from '@react-native-community/async-storage';
 import companyLogosm from './src/assets/images/main_logo-sm.png';
 import { createDrawerNavigator, createAppContainer, DrawerItems, DrawerNavigation } from 'react-navigation';
+// import firebase from 'react-native-firebase';
+// import type, { Notification, NotificationOpen } from 'react-native-firebase';
 
 var Spinner = require('react-native-spinkit');
 
@@ -94,6 +96,73 @@ type Props = {};
 
 export default class App extends Component<Props> {
 
+    // async pushNotif(){
+    //     if (Platform.OS === 'android') {
+    //       try {
+    //         const res = await firebase.messaging().requestPermission();
+    //         const fcmToken = await firebase.messaging().getToken();
+    //         if (fcmToken) {
+    //           console.debug('FCM Token: ', fcmToken);
+    //           const enabled = await firebase.messaging().hasPermission();
+    //           if (enabled) {
+    //             Alert.alert('FCM messaging has permission:' + enabled)
+    //           } else {
+    //             try {
+    //               await firebase.messaging().requestPermission();
+    //               Alert.alert('FCM permission granted')
+    //             } catch (error) {
+    //               Alert.alert('FCM Permission Error', error);
+    //             }
+    //           }
+    //
+    //         } else {
+    //           Alert.alert('FCM Token not available');
+    //         }
+    //       } catch (e) {
+    //         Alert.alert('Error initializing FCM', e);
+    //       }
+    //     }
+    // }
+    //
+    // subscribeToNotificationListeners() {
+    //     const channel = new firebase.notifications.Android.Channel(
+    //         'notification_channel_name', // To be Replaced as per use
+    //         'Notifications', // To be Replaced as per use
+    //         firebase.notifications.Android.Importance.Max
+    //     ).setDescription('A Channel To manage the notifications related to Application');
+    //     firebase.notifications().android.createChannel(channel);
+    //
+    //     this.notificationListener = firebase.notifications().onNotification((notification) => {
+    //         console.log('onNotification notification-->', notification);
+    //         console.log('onNotification notification.data -->', notification.data);
+    //         console.log('onNotification notification.notification -->', notification.notification);
+    //         // Process your notification as required
+    //         this.displayNotification(notification)
+    //     });
+    // }
+    //
+    // displayNotification = (notification) => {
+    //     if (Platform.OS === 'android') {
+    //         const localNotification = new firebase.notifications.Notification({
+    //             sound: 'default',
+    //             show_in_foreground: true,
+    //         }).setNotificationId(notification.notificationId)
+    //             .setTitle(notification.title)
+    //             .setSubtitle(notification.subtitle)
+    //             .setBody(notification.body)
+    //             .setData(notification.data)
+    //             .android.setChannelId('notification_channel_name') // e.g. the id you chose above
+    //             .android.setSmallIcon('ic_notification_icon') // create this icon in Android Studio
+    //             .android.setColor(colors.colorAccent) // you can set a color here
+    //             .android.setPriority(firebase.notifications.Android.Priority.High);
+    //
+    //         firebase.notifications()
+    //             .displayNotification(localNotification)
+    //             .catch(err => console.error(err));
+    //
+    //     }
+    // }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -104,7 +173,23 @@ export default class App extends Component<Props> {
 
   componentDidMount() {
     this.checkSession();
+    // firebase.messaging().hasPermission().then(hasPermission => {
+    //        if (hasPermission) {
+    //            this.subscribeToNotificationListeners()
+    //        } else {
+    //            firebase.messaging().requestPermission().then(() => {
+    //                this.subscribeToNotificationListeners()
+    //            }).catch(error => {
+    //                console.error(error);
+    //
+    //            })
+    //        }
+    //    })
   }
+
+    componentWillUnmount() {
+        // this.notificationListener();
+    }
 
   if(isLoading){
     return (

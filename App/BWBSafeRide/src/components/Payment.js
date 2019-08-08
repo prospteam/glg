@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Alert, View, StyleSheet, Switch } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
 import PayPal from 'react-native-paypal-wrapper';
+
 // import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
 
 export default class Payment extends Component {
@@ -21,13 +22,20 @@ export default class Payment extends Component {
 
     processPayPal(){
         // // 3 env available: NO_NETWORK, SANDBOX, PRODUCTION
-        PayPal.initialize(PayPal.NO_NETWORK, "AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R");
+        PayPal.initialize(PayPal.SANDBOX, "Aa0S2ymxf9Kw5CzJxtl5AuMX0mYH4Xl8zplqIXXf_iw_CDwW505itVibzvldGCix6Fp3l15WNPGomUXp");
         PayPal.pay({
           price: '40.70',
           currency: 'USD',
-          description: 'Your description goes here',
-        }).then(confirm => console.log(confirm))
-          .catch(error => console.log(error));
+          description: 'Booking Payment',
+      }).then(confirm => {
+          confirmjson = JSON.parse(JSON.stringify(confirm));
+          if(confirmjson.response.state === 'approved'){
+              Alert.alert("Booking successfully paid.");
+          }else{
+              Alert.alert("Error processing the payment.");
+          }
+
+      }).catch(error => JSON.parse(JSON.stringify(error)));
     }
 
     processStripe(){
@@ -84,7 +92,7 @@ export default class Payment extends Component {
                    }
                  </View>*/}
                  <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center", marginTop: 30}}>
-                     <Button onPress={() => this.processPayPal()}>
+                     <Button onPress={() => this.processPayPal()} style={s.paypalBtn}>
                          <Icon type="FontAwesome" name="cc-paypal" />
                          <Text>
                           PayPal
@@ -132,4 +140,7 @@ const s = StyleSheet.create({
     fontSize: 16,
     color: "black",
   },
+  paypalBtn: {
+      borderRadius: 30
+  }
 });
