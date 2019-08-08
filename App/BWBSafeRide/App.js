@@ -187,9 +187,9 @@ export default class App extends Component<Props> {
     //    })
   }
 
-    componentWillUnmount() {
+    // componentWillUnmount() {
         // this.notificationListener();
-    }
+    // }
 
   if(isLoading){
     return (
