@@ -37,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RNFirebaseNotificationsPackage(),
             new RNFirebaseAuthPackage(),
             new RNPaypalWrapperPackage(),
+            new MapsPackage(),
             new VectorIconsPackage(),
             new RNSpinkitPackage(),
             new AsyncStoragePackage(),
