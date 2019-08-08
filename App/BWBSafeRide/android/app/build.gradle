@@ -94,6 +94,10 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
+    //lintOptions {
+    //    abortOnError false
+    //}
+
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
@@ -139,20 +143,31 @@ android {
 }
 
 dependencies {
-
     implementation(project(':react-native-maps')){
       exclude group: 'com.google.android.gms', module: 'play-services-base'
       exclude group: 'com.google.android.gms', module: 'play-services-maps'
+   }
+    compile(project(':react-native-firebase')) {
+       transitive = false
     }
     implementation 'com.google.android.gms:play-services-base:12.0.0'
     implementation 'com.google.android.gms:play-services-maps:12.0.0'
 
+    implementation "com.google.firebase:firebase-auth:17.0.0"
+    implementation "com.google.android.gms:play-services-base:16.1.0"
+    implementation "com.google.firebase:firebase-core:16.0.9"
+    implementation ('com.google.firebase:firebase-messaging:17.3.4'){
+        exclude group: 'com.google.firebase', module: 'firebase-iid'
+    }
+    implementation "com.google.firebase:firebase-iid:17.1.2"
+    implementation project(':react-native-paypal-wrapper')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-spinkit')
     implementation project(':@react-native-community_async-storage')
     implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 
@@ -162,3 +177,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply plugin: 'com.google.gms.google-services'
