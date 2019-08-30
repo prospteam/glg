@@ -18,6 +18,7 @@ import Profile from './src/components/Profile';
 import History from './src/components/History';
 import Payment from './src/components/Payment';
 import Routes from './src/components/Routes';
+import Bookings from './src/components/Bookings';
 import AsyncStorage from '@react-native-community/async-storage';
 import companyLogosm from './src/assets/images/main_logo-sm.png';
 import { createDrawerNavigator, createAppContainer, DrawerItems, DrawerNavigation } from 'react-navigation';
@@ -66,6 +67,9 @@ const MyDrawerNavigator = createDrawerNavigator({
       },
       Payment: {
         screen: Payment,
+      },
+      Bookings: {
+          screen: Bookings,
       },
       Logout: {
         screen: Routes,

@@ -9,7 +9,7 @@ class MapInput extends React.Component {
             <GooglePlacesAutocomplete
                 placeholder='Search'
                 minLength={2}
-                autoFocus={true}
+                autoFocus={false}
                 returnKeyType={'search'}
                 listViewDisplayed={false}
                 fetchDetails={true}
