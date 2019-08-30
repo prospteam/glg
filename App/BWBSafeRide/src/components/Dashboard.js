@@ -204,12 +204,13 @@ export default class Dashboard extends Component {
            <Right>
            </Right>
           </Header>
-          <Content>
+          <Content Styles={{position:'relative'}}>
             <View style={styles.container}>
               <MapContainer />
             </View>
           </Content>
           {
+
           // <Footer>
           //   <FooterTab style={{backgroundColor:"#1c1b22"}}>
           //       <Button vertical active onPress={() => getCurrentLocation()}>
