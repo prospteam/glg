@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Dimensions, Alert, PermissionsAndroid, TextInput, View, StyleSheet } from 'react-native';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Switch } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import MapView from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import MapContainer from './MapContainer';
+import Helpers from '../../Helpers';
 
 
 const { width, height } = Dimensions.get('window');
@@ -48,7 +49,78 @@ export default class Dashboard extends Component {
   //   navigator.geolocation.clearWatch(this.watchID);
   // }
 
+  constructor(){
+      super();
+      this.state = {
+          switchValue: false,
+          user_type: null
+      }
+  }
+
+  toggleSwitch = async () => {
+
+      const data = JSON.parse(await AsyncStorage.getItem('userData'));
+
+      let msg = '';
+      this.setState({ switchValue: !this.state.switchValue });
+
+      fetch(Helpers.api_url+'update_driver_status', {
+       method: 'POST',
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         driver_id: data.user_id,
+         status_name: JSON.stringify(this.state.switchValue)
+       })
+     }).then((response) => response.json())
+       .then((responseJson) => {
+
+           if(responseJson.response === 'success'){
+               msg = responseJson.msg;
+               Alert.alert(msg);
+           }
+
+       }).catch((error) => {
+         console.error(error);
+       });
+
+  }
+
+  async getDriverStatus(){
+      const data = JSON.parse(await AsyncStorage.getItem('userData'));
+
+      this.setState({ user_type: data['user_type_id'] });
+
+      fetch(Helpers.api_url+'get_driver_status', {
+       method: 'POST',
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         driver_id: data.user_id
+       })
+     }).then((response) => response.json())
+       .then((responseJson) => {
+
+           if(responseJson.status === 'true'){
+               this.setState({ switchValue: true });
+           }else{
+               this.setState({ switchValue: false });
+           }
+
+       }).catch((error) => {
+         console.error(error);
+       });
+
+  }
+
   componentDidMount() {
+
+      this.getDriverStatus();
+
     var that = this;
       //Checking for the permission just after component loaded
       // if(Platform.OS === 'ios'){
@@ -202,6 +274,7 @@ export default class Dashboard extends Component {
             <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={{ color: '#d3a04c', marginRight: 15 }} />
            </Left>
            <Right>
+             {this.state.user_type === '3' && <View style={{flexDirection: 'row'}}><Text style={{color: '#d3a04c'}}>I am available  </Text><Switch onValueChange = {this.toggleSwitch} value={this.state.switchValue} trackColor={{false: '#c1191c', true: "#32CD32"}} thumbColor={'#d3a04c'} /></View> }
            </Right>
           </Header>
           <Content Styles={{position:'relative'}}>

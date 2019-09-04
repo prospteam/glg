@@ -50,6 +50,7 @@ export default class Bookings extends Component {
 		   listType: 'Pending',
 		   details: [],
 		   user: [],
+		   reserve_button: 'Start',
 		   listViewData_p: [],
 		   listViewData_r: [],
 		   listViewData_c: [],
@@ -164,6 +165,10 @@ export default class Bookings extends Component {
 			 Alert.alert(JSON.stringify(responseJson.msg));
 			 this.displayBookings();
 
+			 if(JSON.stringify(responseJson.reserve_button) !== ''){
+				 this.setState({ reserve_button: responseJson.reserve_button });
+			 }
+
 		 }).catch((error) => {
 		   console.error(error);
 		 });
@@ -251,7 +256,6 @@ export default class Bookings extends Component {
                 <Header>
                  <Left style={{ flexDirection: 'row' }}>
                   <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={{ color: '#d3a04c', marginRight: 15 }} />
-                  <Text style={{ color: '#d3a04c' }}>BOOKINGS</Text>
                  </Left>
                  <Right>
                  </Right>
@@ -290,7 +294,7 @@ export default class Bookings extends Component {
                                     {backgroundColor: this.state.listType === type ? '#d3a04c' : 'white'},
 									{color: this.state.listType === type ? '#fff' : '#ddd'}
 								]}
-								onPress={ _ => this.setState({listType: type}) }
+								onPress={ () => this.setState({listType: type}) }
 							>
 								<Text>{type}</Text>
 							</TouchableOpacity>
@@ -425,7 +429,7 @@ export default class Bookings extends Component {
 								</Animated.View>
 							</TouchableOpacity>
 								<TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnReserve]} onPress={ () => this.updateBooking(data.item.id) }>
-									<Text style={styles.backTextWhite}>Done</Text>
+									<Text style={styles.backTextWhite}>{this.state.reserve_button}</Text>
 								</TouchableOpacity>
 							</View>
 						)}
