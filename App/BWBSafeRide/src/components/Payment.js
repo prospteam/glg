@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Alert, View, StyleSheet, Switch } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
 import PayPal from 'react-native-paypal-wrapper';
-
 // import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
+import Helpers from '../../Helpers';
 
 export default class Payment extends Component {
 
@@ -15,36 +15,105 @@ export default class Payment extends Component {
     };
 
     // state = { useLiteCreditCardInput: false };
-    //
     // _onChange = (formData) => console.log(JSON.stringify(formData, null, " "));
     // _onFocus = (field) => console.log("focusing", field);
     // _setUseLiteCreditCardInput = (useLiteCreditCardInput) => this.setState({ useLiteCreditCardInput });
 
     processPayPal(){
-        // // 3 env available: NO_NETWORK, SANDBOX, PRODUCTION
-        PayPal.initialize(PayPal.SANDBOX, "Aa0S2ymxf9Kw5CzJxtl5AuMX0mYH4Xl8zplqIXXf_iw_CDwW505itVibzvldGCix6Fp3l15WNPGomUXp");
-        PayPal.pay({
-          price: '40.70',
-          currency: 'USD',
-          description: 'Booking Payment',
+      // console.log('HERE');
+      let param = this.props.navigation.getParam('params',false);
+      // console.log(param.payByDistance);
+      // console.log(JSON.parse(param));
+      // console.log(this.props.navigation);
+      // debugger;
+      // // 3 env available: NO_NETWORK, SANDBOX, PRODUCTION
+      PayPal.initialize(PayPal.SANDBOX, "Aa0S2ymxf9Kw5CzJxtl5AuMX0mYH4Xl8zplqIXXf_iw_CDwW505itVibzvldGCix6Fp3l15WNPGomUXp");
+      PayPal.pay({
+        price: ''+param.payByDistance,
+        // price: '40.70',
+        currency: 'USD',
+        description: 'Booking Payment',
       }).then(confirm => {
-          confirmjson = JSON.parse(JSON.stringify(confirm));
-          if(confirmjson.response.state === 'approved'){
-              Alert.alert("Booking successfully paid.");
-          }else{
-              Alert.alert("Error processing the payment.");
-          }
+        // console.log('RETURNINIG');
+        // console.log(param);
+        // console.log(param);
 
+        // chosenDate: "Sep 17 2019 "
+        // chosenTime: ""
+        // distance: 236.405
+        // duration: 133.03333333333333
+        // form_from_latlong: {latitude: 42.9607266, longitude: -85.495471}
+        // form_from_text: "Ada, Michigan, USA"
+        // form_to_latlong: {latitude: 44.7719461, longitude: -85.5014607}
+        // form_to_text: "Acme, MI, USA"
+        // payByDistance: 652.86375
+
+
+        confirmjson = JSON.parse(JSON.stringify(confirm));
+        if(confirmjson.response.state === 'approved'){
+          console.log(param);
+          console.log('accessing api');
+          Alert.alert('accessing api');
+          fetch(Helpers.rest_api_url+'common/app_customer_bookings', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                set:{
+                  user_id: "37",
+                  booking_date: param.chosenDate,
+                  pickup_location: param.form_from_text,
+                  dropoff_location: param.form_to_text,
+                  pickup_time: param.chosenDate,
+                  travel_date: param.chosenDate,
+                  booking_status: "",
+                },
+              })
+            // }).then((responseJson) => {
+              // console.log(responseJson);
+              // Alert.alert(responseJson);
+               // if(responseJson.response === 'success'){
+               //      // this.setData(responseJson.data);
+               //      // Actions.dashboard();
+               //      // this.props.navigation.navigate('Dashboard');
+               //  } else{
+               //    Alert.alert(JSON.stringify(responseJson.msg));
+               //  }
+              // }).catch((error) => console.error(error));
+          }).then((response) => response.json())
+            .then((responseJson) => {
+            console.log(responseJson);
+            // Alert.alert(responseJson);
+             // if(responseJson.response === 'success'){
+             //      // this.setData(responseJson.data);
+             //      // Actions.dashboard();
+             //      // this.props.navigation.navigate('Dashboard');
+             //  } else{
+             //    Alert.alert(JSON.stringify(responseJson.msg));
+             //  }
+            }).catch((error) => {
+              console.error(error);
+            });
+          Alert.alert("Booking successfully paid.");
+        }else{
+          Alert.alert("Error processing the payment.");
+        }
       }).catch(error => JSON.parse(JSON.stringify(error)));
     }
 
     processStripe(){
-
     }
 
     render() {
+      console.log('try to get passed params');
+      const params = this.props.navigation.getParam('params',false);
+      console.log(params);
+      // console.log(this.props.navigation.getParam('params','asd'));
+      // console.log(this.props.navigation.getParam('param2',''));
         return (
-            <Container>
+          <Container>
             <Header>
              <Left style={{ flexDirection: 'row' }}>
               <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={{ color: '#d3a04c', marginRight: 15 }} />
@@ -54,6 +123,30 @@ export default class Payment extends Component {
              </Right>
             </Header>
                 <Content>
+                  {params ? (
+                    <>
+                      <Text>
+                        Chosen Date:
+                        {params.chosenDate}
+                      </Text>
+                      <Text>
+                        Chosen Time:
+                        {params.chosenTime}
+                      </Text>
+                      <Text>
+                        Total Travel Distance:
+                        {params.distance}
+                      </Text>
+                      <Text>
+                        Pickup Location:
+                        {params.form_from_text}
+                      </Text>
+                      <Text>
+                        Dropoff Location:
+                        {params.form_to_text}
+                      </Text>
+                    </>
+                  ):null }
                 {/*<View style={s.container}>
                    <Switch
                      style={s.switch}

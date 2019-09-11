@@ -172,7 +172,7 @@ export default class Dashboard extends Component {
         console.log('naa');
         // console.log(await AsyncStorage.getItem('userData'));
       }else {
-          this.props.navigation.navigate('Logout');
+          this.props.actions.navigate('Logout');
       }
       // setTimeout(() => {
       //   this.setState({
@@ -206,19 +206,18 @@ export default class Dashboard extends Component {
           </Header>
           <Content Styles={{position:'relative'}}>
             <View style={styles.container}>
-              <MapContainer />
+              <MapContainer {...this.props.navigation}/>
             </View>
           </Content>
           {
-
-          // <Footer>
-          //   <FooterTab style={{backgroundColor:"#1c1b22"}}>
-          //       <Button vertical active onPress={() => getCurrentLocation()}>
-          //           <Icon active name="map" />
-          //           <Text>Book Now</Text>
-          //       </Button>
-          //   </FooterTab>
-          // </Footer>
+            // <Footer>
+            //   <FooterTab style={{backgroundColor:"#1c1b22"}}>
+            //       <Button vertical active onPress={() => getCurrentLocation()}>
+            //           <Icon active name="map" />
+            //           <Text>Book Now</Text>
+            //       </Button>
+            //   </FooterTab>
+            // </Footer>
           }
       </Container>
       );

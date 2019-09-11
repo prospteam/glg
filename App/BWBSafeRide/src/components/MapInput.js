@@ -13,8 +13,12 @@ class MapInput extends React.Component {
                 returnKeyType={'search'}
                 listViewDisplayed={false}
                 fetchDetails={true}
-                onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                    this.props.notifyChange(details.geometry.location);
+                onPress={(data, details = null) => {
+                    //'details' is provided when fetchDetails = true
+                    this.props.notifyChange(details.geometry.location,data.description);
+                    // console.log(data);
+                    // console.log(details);
+                    // console.log('what a life');
                   }
                 }
                 query={{

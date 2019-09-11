@@ -104,13 +104,10 @@ export default class Profile extends ValidationComponent {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-
           user_id: data.user_id
        })
-
       }).then((response) => response.json())
         .then((responseJson) => {
-
          if(responseJson.response === 'success')
           {
               this.setState({ userData: responseJson.data });
@@ -121,9 +118,7 @@ export default class Profile extends ValidationComponent {
               this.setState({ city: responseJson.data.city });
               this.setState({ zip_code: responseJson.data.zip_code });
               this.setState({ user_id: responseJson.data.user_id });
-
           }
-
         }).catch((error) => {
           console.error(error);
         });

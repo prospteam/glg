@@ -38,6 +38,7 @@ const destroySession = async () => {
   // Actions.dashboard();
   // PAGE REDIRECTION HERE
 }
+
 const DrawerContent = (props) => (
   <View>
     <View
@@ -54,7 +55,8 @@ const DrawerContent = (props) => (
   </View>
 );
 
-const MyDrawerNavigator = createDrawerNavigator({
+const MyDrawerNavigator = createDrawerNavigator(
+    {
       Dashboard:{
         screen: Dashboard,
       },
@@ -63,9 +65,10 @@ const MyDrawerNavigator = createDrawerNavigator({
       },
       History: {
         screen: History,
+
       },
       Payment: {
-        screen: Payment,
+        screen: (props) => <Payment {...props} test='test' />,
       },
       Logout: {
         screen: Routes,
@@ -90,11 +93,98 @@ const MyDrawerNavigator = createDrawerNavigator({
     }
 );
 
+
+const MyDrawerNavigatorDriver = createDrawerNavigator(
+    {
+      DashboardDriver:{
+        screen: Dashboard,
+      },
+      Profile: {
+        screen: Profile,
+      },
+      History: {
+        screen: History,
+
+      },
+      Payment: {
+        screen: (props) => <Payment {...props} test='test' />,
+      },
+      Logout: {
+        screen: Routes,
+        navigationOptions: ({navigation}) => {
+            return {
+                drawerLabel: () => null,
+            }
+        }
+        // screen: () => {
+        //   AsyncStorage.removeItem('userData');
+        //   return <Routes />;
+        //   },
+        // navigationOptions: ({navigation}) => {
+        //     return {
+        //         drawerLabel: () => null,
+        //     }
+        // }
+      }
+    },
+    {
+      contentComponent: DrawerContent,
+    }
+);
+
+const MyDrawerNavigatorRider = createDrawerNavigator(
+    {
+      HistoryRider: {
+        screen: History,
+      },
+      Profile: {
+        screen: Profile,
+      },
+      History: {
+        screen: History,
+      },
+      Payment: {
+        screen: (props) => <Payment {...props} test='test' />,
+      },
+      Logout: {
+        screen: Routes,
+        navigationOptions: ({navigation}) => {
+            return {
+                drawerLabel: () => null,
+            }
+        }
+        // screen: () => {
+        //   AsyncStorage.removeItem('userData');
+        //   return <Routes />;
+        //   },
+        // navigationOptions: ({navigation}) => {
+        //     return {
+        //         drawerLabel: () => null,
+        //     }
+        // }
+      }
+    },
+    {
+      contentComponent: DrawerContent,
+    }
+);
+
+// const destroySession = async () => {
+//   await AsyncStorage.removeItem('userData');
+//   // Actions.dashboard();
+//   // PAGE REDIRECTION HERE
+// }
+
 const MyApp = createAppContainer(MyDrawerNavigator);
+
+const MyAppRider = createAppContainer(MyDrawerNavigatorRider);
+const MyAppDriver = createAppContainer(MyDrawerNavigatorRider);
+// const MyApp = () => createAppContainewr((true)?MyDrawerNavigator:MyDrawerNavigatorRider);
 
 type Props = {};
 
 export default class App extends Component<Props> {
+
 
     // async pushNotif(){
     //     if (Platform.OS === 'android') {
@@ -168,11 +258,14 @@ export default class App extends Component<Props> {
     this.state = {
         isLoading: true,
         isLogged: false,
+        userType:"rider",
       }
   }
 
   componentDidMount() {
     this.checkSession();
+    console.log('going to get');
+    // this.getUserType();
     // firebase.messaging().hasPermission().then(hasPermission => {
     //        if (hasPermission) {
     //            this.subscribeToNotificationListeners()
@@ -210,7 +303,40 @@ export default class App extends Component<Props> {
         isLoading: false,
         });
       }, 1000);
+
+
+    console.log('gettingUserType!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    // console.log(await AsyncStorage.getItem('userData'));
+    let userData = JSON.parse(await AsyncStorage.getItem('userData'));
+
+    // console.log(userData);
+    // console.log('getting single');
+    // console.log(userData.login_id);
+    if (userData.user_type_id==3) {
+      this.setState({
+        userType: "driver",
+        });
+        console.log('I AMA DRIVER');
+    }else if (userData.user_type_id==2) {
+      this.setState({
+        userType: "rider",
+        });
+        console.log('I AMA RIDER');
+    }else if (userData.user_type_id==1) {
+      this.setState({
+        userType: "admin",
+        });
+        console.log('I AMA ADMIN');
+    }else {
+      this.setState({
+        userType: "joiner",
+        });
+    }
+    // console.log(this.state);
   }
+
+  // getUserType = async () => {
+  // }
 
   destroySession = async () => {
     await AsyncStorage.removeItem('userData');
@@ -228,6 +354,8 @@ export default class App extends Component<Props> {
   }
 
   render() {
+    // console.log('Getting');
+    // console.log(AsyncStorage.setItem('userData', true));
     const { isLogged, isLoading } = this.state;
 
     if(isLoading){
@@ -246,9 +374,17 @@ export default class App extends Component<Props> {
       // );
     // }else{
     //
+    // this.state.userType?<MyApp />:<MyAppRider />;
+    // <MyApp />
       return (
         <StyleProvider style={getTheme(material)}>
-          <MyApp />
+            {
+              this.state.userType=="rider"?
+              (<MyAppRider />)
+              :this.state.userType=="driver"?
+              (<MyAppDriver />)
+              :(<MyApp />)
+            }
         </StyleProvider>
       );
     // }

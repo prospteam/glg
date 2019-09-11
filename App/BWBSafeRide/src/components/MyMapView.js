@@ -13,8 +13,8 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
     this.mapView = null;
 
 const MyMapView = (props) => {
-  console.log('MyMapView Renedering');
-  console.log(props);
+  // console.log('MyMapView Renedering');
+  // console.log(props);
   height = (props.height)?props.height+300:height;
   return (
     <MapView
