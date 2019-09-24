@@ -7,7 +7,6 @@ import MapViewDirections from 'react-native-maps-directions';
 import MapContainer from './MapContainer';
 import Helpers from '../../Helpers';
 
-
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 // const LATITUDE = 37.771707;
@@ -18,7 +17,6 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const origin = {latitude: 37.3318456, longitude: -122.0296002};
 const destination = {latitude: 37.771707, longitude: -122.4053769};
 const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
-
 
 const getCurrentLocation = () => {
   alert('3');
@@ -34,7 +32,6 @@ const getCurrentLocation = () => {
    //    //   }
    //    //   this.onRegionChange(region, region.latitude, region.longitude);
    //    }, (error)=>console.log(error));
-
 }
 
 export default class Dashboard extends Component {

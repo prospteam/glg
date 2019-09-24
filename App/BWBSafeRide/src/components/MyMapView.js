@@ -4,21 +4,19 @@ import { Dimensions } from 'react-native';
 import MapViewDirections from 'react-native-maps-directions';
 
 let { width, height } = Dimensions.get('window');
-
 const origin = {latitude: 37.3318456, longitude: -122.0296002};
 const destination = {latitude: 37.771707, longitude: -122.4053769};
 const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 
-
-    this.mapView = null;
+this.mapView = null;
 
 const MyMapView = (props) => {
   // console.log('MyMapView Renedering');
   // console.log(props);
-  height = (props.height)?props.height+300:height;
+  // height = (props.height)?props.height+300:height;
   return (
     <MapView
-        style={{ flex: 1,  height: height,  width: width }}
+        style={{ flex: 1,  height: height-100,  width: width }}
         region={props.region}
         showsUserLocation={true}
         ref={c => this.mapView = c}
@@ -44,7 +42,6 @@ const MyMapView = (props) => {
                 props.getData(result)
                 // console.log(`Distance: ${result.distance} km`)
                 // console.log(`Duration: ${result.duration} min.`)
-
                 this.mapView.fitToCoordinates(result.coordinates, {
                   edgePadding: {
                     right: (width / 20),
@@ -57,10 +54,8 @@ const MyMapView = (props) => {
               onError={(errorMessage) => {
                 console.log('GOT AN ERROR');
               }}
-
             />
     </MapView>
   )
 }
-
 export default MyMapView;

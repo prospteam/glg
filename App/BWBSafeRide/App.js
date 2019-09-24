@@ -5,7 +5,6 @@
  * @format
  * @flow
  */
-
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, ScrollView, ImageBackground, Image, Alert} from 'react-native';
 import { Container, Content, StyleProvider } from 'native-base';
@@ -14,11 +13,13 @@ import material from './native-base-theme/variables/material';
 import LoginView from './src/components/LoginView';
 import RegisterView from './src/components/RegisterView';
 import Dashboard from './src/components/Dashboard';
+import DriverDashboard from './src/components/DriverDashboard';
 import Profile from './src/components/Profile';
 import History from './src/components/History';
 import Payment from './src/components/Payment';
 import Routes from './src/components/Routes';
 import Bookings from './src/components/Bookings';
+import * as TripHistory from './src/components/Bookings';
 import AsyncStorage from '@react-native-community/async-storage';
 import companyLogosm from './src/assets/images/main_logo-sm.png';
 import { createDrawerNavigator, createAppContainer, DrawerItems, DrawerNavigation } from 'react-navigation';
@@ -28,7 +29,8 @@ import { createDrawerNavigator, createAppContainer, DrawerItems, DrawerNavigatio
 var Spinner = require('react-native-spinkit');
 
 const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+  ios: 'Press Cmd+R to reload,\n' +
+    'Cmd+D or shake for dev menu',
   android:
     'Double tap R on your keyboard to reload,\n' +
     'Shake or press menu button for dev menu',
@@ -57,6 +59,99 @@ const DrawerContent = (props) => (
 );
 
 const MyDrawerNavigator = createDrawerNavigator(
+  {
+    Dashboard:{
+      screen: Dashboard,
+    },
+    Profile: {
+      screen: Profile,
+    },
+    History: {
+      screen: History,
+    },
+    Bookings: {
+      screen: Bookings,
+    },
+    Payment: {
+      screen: (props) => <Payment {...props} test='test' />,
+      navigationOptions: ({navigation}) => {
+          return {
+              drawerLabel: () => null,
+          }
+      }
+    },
+    Logout: {
+      screen: Routes,
+      navigationOptions: ({navigation}) => {
+          return {
+              drawerLabel: () => null,
+          }
+      }
+      // screen: () => {
+      //   AsyncStorage.removeItem('userData');
+      //   return <Routes />;
+      //   },
+      // navigationOptions: ({navigation}) => {
+      //     return {
+      //         drawerLabel: () => null,
+      //     }
+      // }
+    }
+  },
+  {
+    contentComponent: DrawerContent,
+  }
+);
+
+const MyDrawerNavigatorDriver = createDrawerNavigator(
+  {
+    Dashboard:{
+      screen: Dashboard,
+    },
+    DriverDashboard:{
+      screen: DriverDashboard,
+    },
+    Profile: {
+      screen: Profile,
+    },
+    History: {
+      screen: History,
+    },
+    Payment: {
+      screen: (props) => <Payment {...props} test='test' />,
+      navigationOptions: ({navigation}) => {
+          return {
+              drawerLabel: () => null,
+          }
+      }
+    },
+    Bookings: {
+      screen: Bookings,
+    },
+    Logout: {
+      screen: Routes,
+      navigationOptions: ({navigation}) => {
+          return {
+              drawerLabel: () => null,
+          }
+      }
+      // screen: () => {
+      //   AsyncStorage.removeItem('userData');
+      //   return <Routes />;
+      //   },
+      // navigationOptions: ({navigation}) => {
+      //     return {
+      //         drawerLabel: () => null,
+      //     }
+      // }
+    }
+  },
+  {
+    contentComponent: DrawerContent,
+  }
+);
+
+const MyDrawerNavigatorRider = createDrawerNavigator(
     {
       Dashboard:{
         screen: Dashboard,
@@ -66,89 +161,22 @@ const MyDrawerNavigator = createDrawerNavigator(
       },
       History: {
         screen: History,
-
-      },
-      Payment: {
-        screen: (props) => <Payment {...props} test='test' />,
-      },
-      Logout: {
-        screen: Routes,
-        navigationOptions: ({navigation}) => {
-            return {
-                drawerLabel: () => null,
-            }
-        }
-        // screen: () => {
-        //   AsyncStorage.removeItem('userData');
-        //   return <Routes />;
-        //   },
-        // navigationOptions: ({navigation}) => {
-        //     return {
-        //         drawerLabel: () => null,
-        //     }
-        // }
-      }
-    },
-    {
-      contentComponent: DrawerContent,
-    }
-);
-
-
-const MyDrawerNavigatorDriver = createDrawerNavigator(
-    {
-      DashboardDriver:{
-        screen: Dashboard,
-      },
-      Profile: {
-        screen: Profile,
-      },
-      History: {
-        screen: History,
-
-      },
-      Payment: {
-        screen: (props) => <Payment {...props} test='test' />,
-      },
-      Logout: {
-        screen: Routes,
-        navigationOptions: ({navigation}) => {
-            return {
-                drawerLabel: () => null,
-            }
-        }
-        // screen: () => {
-        //   AsyncStorage.removeItem('userData');
-        //   return <Routes />;
-        //   },
-        // navigationOptions: ({navigation}) => {
-        //     return {
-        //         drawerLabel: () => null,
-        //     }
-        // }
-      }
-    },
-    {
-      contentComponent: DrawerContent,
-    }
-);
-
-const MyDrawerNavigatorRider = createDrawerNavigator(
-    {
-      HistoryRider: {
-        screen: History,
-      },
-      Profile: {
-        screen: Profile,
-      },
-      History: {
-        screen: History,
-      },
-      Payment: {
-        screen: (props) => <Payment {...props} test='test' />,
       },
       Bookings: {
-          screen: Bookings,
+        screen: Bookings,
+        navigationOptions: ({navigation}) => {
+            return {
+                drawerLabel: () => "Trip History",
+            }
+        }
+      },
+      Payment: {
+        screen: (props) => <Payment {...props} test='test' />,
+        navigationOptions: ({navigation}) => {
+            return {
+                drawerLabel: () => null,
+            }
+        }
       },
       Logout: {
         screen: Routes,
@@ -182,7 +210,7 @@ const MyDrawerNavigatorRider = createDrawerNavigator(
 const MyApp = createAppContainer(MyDrawerNavigator);
 
 const MyAppRider = createAppContainer(MyDrawerNavigatorRider);
-const MyAppDriver = createAppContainer(MyDrawerNavigatorRider);
+const MyAppDriver = createAppContainer(MyDrawerNavigatorDriver);
 // const MyApp = () => createAppContainewr((true)?MyDrawerNavigator:MyDrawerNavigatorRider);
 
 type Props = {};
@@ -217,7 +245,6 @@ export default class App extends Component<Props> {
     //       }
     //     }
     // }
-    //
     // subscribeToNotificationListeners() {
     //     const channel = new firebase.notifications.Android.Channel(
     //         'notification_channel_name', // To be Replaced as per use
@@ -267,8 +294,8 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount() {
-    this.checkSession();
     console.log('going to get');
+    this.checkSession();
     // this.getUserType();
     // firebase.messaging().hasPermission().then(hasPermission => {
     //        if (hasPermission) {
@@ -297,46 +324,48 @@ export default class App extends Component<Props> {
   }
 
   checkSession = async () => {
+    let varUserType ="";
     if(await AsyncStorage.getItem('userData')){
       this.setState({
         isLogged: true,
         });
     }
-    setTimeout(() => {
+    if(await AsyncStorage.getItem('userData')){
       this.setState({
-        isLoading: false,
+        isLogged: true,
         });
-      }, 1000);
+    }
 
-
-    console.log('gettingUserType!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    // console.log('gettingUserType!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     // console.log(await AsyncStorage.getItem('userData'));
     let userData = JSON.parse(await AsyncStorage.getItem('userData'));
 
     // console.log(userData);
     // console.log('getting single');
     // console.log(userData.login_id);
-    if (userData.user_type_id==3) {
-      this.setState({
-        userType: "driver",
-        });
-        console.log('I AMA DRIVER');
-    }else if (userData.user_type_id==2) {
-      this.setState({
-        userType: "rider",
-        });
-        console.log('I AMA RIDER');
-    }else if (userData.user_type_id==1) {
-      this.setState({
-        userType: "admin",
-        });
-        console.log('I AMA ADMIN');
-    }else {
-      this.setState({
-        userType: "joiner",
-        });
+    if (userData.user_type_id) {
+      if (userData.user_type_id==3) {
+        varUserType = "driver";
+          console.log('I AMA DRIVER');
+      }else if (userData.user_type_id==2) {
+        varUserType = "rider";
+          console.log('I AMA RIDER');
+      }else if (userData.user_type_id==1) {
+        varUserType = "admin";
+          console.log('I AMA ADMIN');
+      }else {
+        varUserType = "joiner";
+      }
+      // console.log(this.state);
+    }else{
+      varUserType = "rider";
     }
-    // console.log(this.state);
+    setTimeout(() => {
+      this.setState({
+        userType: varUserType,
+        isLoading: false,
+        });
+      }, 1000);
   }
 
   // getUserType = async () => {
@@ -358,17 +387,18 @@ export default class App extends Component<Props> {
   }
 
   render() {
+    console.log(this.state.userType);
     // console.log('Getting');
     // console.log(AsyncStorage.setItem('userData', true));
     const { isLogged, isLoading } = this.state;
 
-    if(isLoading){
-      return (
-        <View style={styles.container}>
-          <Spinner type="9CubeGrid" color="#d3a04c" />
-        </View>
-        );
-    }
+    // if(isLoading){
+    //   return (
+    //     <View style={styles.container}>
+    //       <Spinner type="9CubeGrid" color="#d3a04c" />
+    //     </View>
+    //     );
+    // }
 
     // if(isLogged === false){
       // return (
@@ -380,6 +410,7 @@ export default class App extends Component<Props> {
     //
     // this.state.userType?<MyApp />:<MyAppRider />;
     // <MyApp />
+
       return (
         <StyleProvider style={getTheme(material)}>
             {

@@ -69,6 +69,9 @@ export default class Bookings extends Component {
 
 		// console.error(this.state.user['user_id']);
 
+		console.log(await AsyncStorage.getItem('userData'));
+		console.log("zzzz");
+
 		this.displayBookings();
 		setTimeout(() => {
 			this.setState({isLoading: false});
@@ -104,7 +107,6 @@ export default class Bookings extends Component {
 		// }else{
 		// 	Alert.alert(responseJson.response);
 		// }
-
 		// console.error(this.state.listViewData);
 
       }).catch((error) => {
@@ -230,26 +232,38 @@ export default class Bookings extends Component {
 	}
 
 	render() {
-
-			const { isLoading } = this.state;
-
-			if(isLoading){
-	          return (
-	              <View style={styles.container2}>
-	               <Spinner type="9CubeGrid" color="#d3a04c" />
-	              </View>
-	            );
-	        }
-
-			const data = this.state.details;
-
-			let string = '';
-
-			for (const [ key, value ] of Object.entries(data)){
-			    string = string + key.replace(/_/g,' ').toUpperCase() + ": " + value + '\n';
+		const { isLoading, user } = this.state;
+		console.log(user);
+		console.log("asdasd");
+		let tabs = [];
+		if (user.user_type_id) {
+			if (user.user_type_id==2) {
+				tabs = ['Pending', 'Reserved'];
+			}else{
+				tabs = ['TripHistory'];
 			}
+		}else{
+			tabs = ['Pending', 'Reserved', 'Completed'];
+		}
 
-			const details = string;
+		if(isLoading){
+      return (
+        <View style={styles.container2}>
+         <Spinner type="9CubeGrid" color="#d3a04c" />
+        </View>
+      );
+    }
+
+		const data = this.state.details;
+
+		let string = '';
+
+		for (const [ key, value ] of Object.entries(data)){
+		    string = string + key.replace(/_/g,' ').toUpperCase() + ": " + value + '\n';
+		}
+
+		const details = string;
+
 
 		return (
 			<View style={styles.container}>
@@ -286,7 +300,8 @@ export default class Bookings extends Component {
 
 				<View style={styles.controls}>
 					<View style={styles.switchContainer}>
-						{ ['Pending', 'Reserved', 'Completed'].map( type => (
+						{ tabs.map( type => (
+						// { ['Pending', 'Reserved', 'Completed'].map( type => (
 							<TouchableOpacity
 								key={type}
 								style={[
@@ -311,6 +326,10 @@ export default class Bookings extends Component {
 					{
 						this.state.listType === 'Completed' &&
 						<Text>(Completed customer bookings)</Text>
+					}
+					{
+						this.state.listType === 'TripHistory' &&
+						<Text>(Trip history list)</Text>
 					}
 				</View>
 
@@ -480,7 +499,7 @@ export default class Bookings extends Component {
 									<Icon type="FontAwesome" name="eye" style={{ fontSize: 19, color: 'white' }} />
 								</Animated.View>
 							</TouchableOpacity>
-								<TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnDelete]} onPress={ () => this.removeBooking(data.item.id) }>
+							<TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnDelete]} onPress={ () => this.removeBooking(data.item.id) }>
 								<Animated.View
 									style={[
 										styles.trash,
@@ -500,9 +519,9 @@ export default class Bookings extends Component {
 								>
 									<Icon type="FontAwesome" name="trash" style={{ fontSize: 19, color: 'white' }} />
 								</Animated.View>
-								</TouchableOpacity>
+							</TouchableOpacity>
 
-							</View>
+						</View>
 						)}
 						leftOpenValue={75}
 						rightOpenValue={-75}
