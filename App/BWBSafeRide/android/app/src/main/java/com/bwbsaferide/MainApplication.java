@@ -3,6 +3,7 @@ package com.bwbsaferide;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 // import io.invertase.firebase.RNFirebasePackage;
 // import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
@@ -33,16 +34,18 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            // new RNFirebasePackage(),
-            // new RNFirebaseMessagingPackage(),
-            // new RNFirebaseNotificationsPackage(),
-            // new RNFirebaseAuthPackage(),
-            new MapsPackage(),
-            new RNPaypalWrapperPackage(),
-            new VectorIconsPackage(),
-            new RNSpinkitPackage(),
-            new AsyncStoragePackage(),
-            new RNGestureHandlerPackage()
+            new ReactNativePushNotificationPackage(),
+
+          // new RNFirebasePackage(),
+          // new RNFirebaseMessagingPackage(),
+          // new RNFirebaseNotificationsPackage(),
+          // new RNFirebaseAuthPackage(),
+          new MapsPackage(),
+          new RNPaypalWrapperPackage(),
+          new VectorIconsPackage(),
+          new RNSpinkitPackage(),
+          new AsyncStoragePackage(),
+          new RNGestureHandlerPackage()
       );
     }
 

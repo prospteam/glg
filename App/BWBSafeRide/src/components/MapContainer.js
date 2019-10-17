@@ -157,7 +157,6 @@ class MapContainer extends React.Component {
     // console.log(state.form_from_latlong);
   }
 
-
   setDate(newDate) {
     // console.log('setting');
     this.setState({ chosenDate: newDate });
