@@ -16,6 +16,7 @@ const sample_img_link = 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web
 const TAB_BAR_HEIGHT = 80;
 const DRAWER_HEIGHT_SMALL = 300;
 const DRAWER_HEIGHT_BIG = 500;
+const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 
 // const DRAWER_HEIGHT_SMALL = 80;
 
@@ -31,6 +32,7 @@ class MapContainer extends React.Component {
       latitudeDelta: 3,
       longitudeDelta: 3,
     },
+    geocode_name: null,
   };
   // constructor(props) {
   //   super(props);
@@ -47,6 +49,40 @@ class MapContainer extends React.Component {
     // });
     this.getInitialState();
     this.checkBookingStatus();
+  }
+
+  reverseGeocode(latitude, longitude){
+      fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + latitude + ',' + longitude + '&key=' + GOOGLE_MAPS_APIKEY)
+          .then((response) => response.json())
+          .then((responseJson) => {
+              const data = {
+                  // user_id: this.state.userid,
+                  latitude: latitude,
+                  longitude: longitude,
+                  location_name: responseJson.results[0].formatted_address
+              }
+
+              this.setState({geocode_name: responseJson.results[0].formatted_address});
+
+             //  const self = this;
+             //  const api = url()+'api/save_location';
+             //
+             //  fetch(api, {
+             //   method: 'POST',
+             //   headers: {
+             //     'Accept': 'application/json',
+             //     'Content-Type': 'application/json',
+             //   },
+             //   body: JSON.stringify(data)
+             // }).then((response) => response.json())
+             //   .then((res) => {
+             //      Alert.alert(res.msg);
+             //
+             //   }).catch((error) => {
+             //     console.error(error);
+             //   });
+
+          })
   }
 
   async checkBookingStatus() {
@@ -120,6 +156,8 @@ class MapContainer extends React.Component {
           longitudeDelta: longDelta,
         },
       });
+
+      this.reverseGeocode(location.latitude, location.longitude);
   }
 
   updateSelectedLatLong(location) {
@@ -276,6 +314,7 @@ class MapContainer extends React.Component {
               selectedLatLong={this.state.selectedLatLong}
               onRegionChange={reg => this.onMapRegionChange(reg)}
               getData={params => this.getDataFromMap(params)}
+              geocode_name={this.state.geocode_name}
             />
             {can_book || this.state.can_book ?(
               <>
