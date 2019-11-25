@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View, KeyboardAvoidingView } from 'react-native';
+import { Image, View, KeyboardAvoidingView, Alert } from 'react-native';
 import { Button, Text, Input, Form, Item, Label, DatePicker,Thumbnail, Left, Body } from 'native-base';
 import MapInput from './MapInput';
 import MyMapView from './MyMapView';
@@ -34,6 +34,9 @@ class MapContainer extends React.Component {
       longitudeDelta: 3,
     },
     geocode_name: null,
+    geocode_lat: null,
+    geocode_long: null,
+    login_id: null
   };
 
   // constructor(props) {
@@ -75,6 +78,9 @@ class MapContainer extends React.Component {
                   location_name: responseJson.results[0].formatted_address
               }
               this.setState({geocode_name: responseJson.results[0].formatted_address});
+              this.setState({geocode_lat: latitude});
+              this.setState({geocode_long: longitude});
+
              //  const self = this;
              //  const api = url()+'api/save_location';
              //
@@ -99,46 +105,83 @@ class MapContainer extends React.Component {
 
     const data = JSON.parse(await AsyncStorage.getItem('userData'));
 
-    console.log(data);
-    console.log('DATA');
+    // console.log(data);
+    // console.log('DATA');
 
-    // user_type
+    // // user_type
+
+    // fetch(Helpers.ci_url+'booking/user_booking_status/'+data.login_id, {
+    // method: 'GET',
+    // headers: {
+    //   'Accept': 'application/json',
+    //   'Content-Type': 'application/json',
+    // }
+    // }).then((response) => response.json())
+    // .then((responseJson) => {
+    //   console.log('getting API');
+    //   console.log(responseJson);
+    //   if(responseJson.num_of_active_booking > 0){
+    //     this.setState({
+    //       can_book:true,
+    //       driver_details:responseJson.driver_details,
+    //       booking_details:responseJson.booking_details,
+    //     });
+    //   }else{
+    //     this.setState({
+    //       can_book:false,
+    //       driver_details:[],
+    //       booking_details:[],
+    //     });
+    //   }
+    // }).catch((error) => {
+    //   console.log('NOT getting API');
+    //   // console.error(error);
+    // });
+    //   // this.setState({ region });
+    //   // console.log('GETTING DSISTSATNCEEEEEEEE');
+    //   // console.log(params);
+    //   //   this.setState({
+    //   //     distance:params.distance,
+    //   //     duration:params.duration,
+    //   //     height:500
+    //   //   });
+    this.setState({login_id: data.login_id});
 
     fetch(Helpers.ci_url+'booking/user_booking_status/'+data.login_id, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-    }).then((response) => response.json())
-    .then((responseJson) => {
-      console.log('getting API');
-      console.log(responseJson);
-      if(responseJson.num_of_active_booking > 0){
-        this.setState({
-          can_book:true,
-          driver_details:responseJson.driver_details,
-          booking_details:responseJson.booking_details,
-        });
-      }else{
-        this.setState({
-          can_book:false,
-          driver_details:[],
-          booking_details:[],
-        });
-      }
-    }).catch((error) => {
-      console.log('NOT getting API');
-      // console.error(error);
-    });
-      // this.setState({ region });
-      // console.log('GETTING DSISTSATNCEEEEEEEE');
-      // console.log(params);
-      //   this.setState({
-      //     distance:params.distance,
-      //     duration:params.duration,
-      //     height:500
-      //   });
+     method: 'GET',
+     headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json',
+     }
+   }).then((response) => response.json())
+     .then((responseJson) => {
+       console.log('getting API');
+       console.log(responseJson);
+        if(responseJson.num_of_active_booking > 0){
+          // msg = responseJson.msg;
+          // Alert.alert(msg);
+          this.setState({
+            can_book:true,
+            driver_details:responseJson.driver_details
+          });
+        }else{
+          this.setState({
+            can_book:false,
+            driver_details:[],
+          });
+        }
+     }).catch((error) => {
+       console.log('NOT getting API');
+       // console.error(error);
+     });
+    // this.setState({ region });
+    // console.log('GETTING DSISTSATNCEEEEEEEE');
+    // console.log(params);
+    //   this.setState({
+    //     distance:params.distance,
+    //     duration:params.duration,
+    //     height:500
+    //   });
       // console.log(this.state);
   }
 
@@ -333,6 +376,9 @@ class MapContainer extends React.Component {
               onRegionChange={reg => this.onMapRegionChange(reg)}
               getData={params => this.getDataFromMap(params)}
               geocode_name={this.state.geocode_name}
+              geocode_lat={this.state.geocode_lat}
+              geocode_long={this.state.geocode_long}
+              login_id={this.state.login_id}
             />
             {
 

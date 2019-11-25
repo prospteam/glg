@@ -1,8 +1,9 @@
 import React from 'react';
 import MapView, { AnimatedRegion, Marker  } from 'react-native-maps';
-import { Dimensions } from 'react-native';
-import { Icon } from 'native-base';
+import { Dimensions, TouchableHighlight, TouchableOpacity, View, Alert } from 'react-native';
+import { Icon, Text } from 'native-base';
 import MapViewDirections from 'react-native-maps-directions';
+import Helpers from '../../Helpers';
 
 let { width, height } = Dimensions.get('window');
 const origin = {latitude: 37.3318456, longitude: -122.0296002};
@@ -35,11 +36,62 @@ const MyMapView = (props) => {
                title={"Pickup Location"}
                description={props.geocode_name}
                pinColor='#45A163'
-            />}
+            >
+            <MapView.Callout tooltip={true}
+                style={{backgroundColor: '#d3a04c'}}
+                onPress={() => {
+                            const data = {
+                                location_name: props.geocode_name,
+                                latitude: props.geocode_lat,
+                                longitude: props.geocode_long,
+                                login_id: props.login_id
+                            }
+
+                            // Alert.alert(data.location_name);
+
+                            fetch(Helpers.api_url+'save_location', {
+                                 method: 'POST',
+                                 headers: {
+                                   'Accept': 'application/json',
+                                   'Content-Type': 'application/json',
+                                 },
+                                 body: JSON.stringify(data)
+                               }).then((response) => response.json())
+                                 .then((res) => {
+                                    Alert.alert(res.msg);
+
+                                 }).catch((error) => {
+                                   console.error(error);
+                                 });
+
+                            // const api = url()+'api/save_location';
+
+                           //  fetch(api, {
+                           //   method: 'POST',
+                           //   headers: {
+                           //     'Accept': 'application/json',
+                           //     'Content-Type': 'application/json',
+                           //   },
+                           //   body: JSON.stringify(data)
+                           // }).then((response) => response.json())
+                           //   .then((res) => {
+                           //      Alert.alert(res.msg);
+                           //
+                           //   }).catch((error) => {
+                           //     console.error(error);
+                           //   });
+                }}
+            >
+                <TouchableOpacity>
+                    <Text style={{color: '#fff', padding: 10}}>Bookmark location</Text>
+                </TouchableOpacity>
+            </MapView.Callout>
+            </MapView.Marker>
+        }
             {props.form_to && <MapView.Marker
                  coordinate={props.form_to}
                  title={"Drop-off Location"}
-                 description={"description"}
+                 description={props.geocode_name}
               />}
               {
         // <MapView.Marker
