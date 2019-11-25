@@ -95,7 +95,7 @@ class MapContainer extends React.Component {
 
     const data = JSON.parse(await AsyncStorage.getItem('userData'));
 
-    this.setState({login_id: data.login_id})
+    this.setState({login_id: data.login_id});
 
     fetch(Helpers.ci_url+'booking/user_booking_status/'+data.login_id, {
      method: 'GET',
