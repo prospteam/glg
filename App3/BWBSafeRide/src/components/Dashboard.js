@@ -142,7 +142,6 @@ export default class Dashboard extends Component {
         requestLocationPermission();
       // }
   }
-
   callLocation(that){
     console.log('getting Location');
      navigator.geolocation.getCurrentPosition(
@@ -294,25 +293,6 @@ let params = false;
             <View style={styles.container}>
             {
               // <Text>
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
               //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
               //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
               //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl

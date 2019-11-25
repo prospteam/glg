@@ -23,6 +23,12 @@ const MyMapView = (props) => {
         showsUserLocation={true}
         // ref={c => this.mapView = c}
         onRegionChangeComplete={(reg) => props.onRegionChange(reg)}
+        // initialRegion={{
+        //     latitude: 37.78825,
+        //     longitude: -122.4324,
+        //     latitudeDelta: 0.0,
+        //     longitudeDelta: 0.0,
+        // }}
         >
           {props.form_from && <MapView.Marker
                coordinate={props.form_from}
@@ -35,6 +41,14 @@ const MyMapView = (props) => {
                  title={"Drop-off Location"}
                  description={"description"}
               />}
+              {
+        // <MapView.Marker
+        //     coordinate={{latitude: 37.78825,
+        //     longitude: -122.4324}}
+        //     title={"title"}
+        //     description={"description"}
+        //  />
+         }
           <MapViewDirections
             origin={props.form_from}
             destination={props.form_to}
