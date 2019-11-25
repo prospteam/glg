@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View, KeyboardAvoidingView } from 'react-native';
+import { Image, View, KeyboardAvoidingView, Alert } from 'react-native';
 import { Button, Text, Input, Form, Item, Label, DatePicker,Thumbnail, Left, Body } from 'native-base';
 import MapInput from './MapInput';
 import MyMapView from './MyMapView';
@@ -33,6 +33,9 @@ class MapContainer extends React.Component {
       longitudeDelta: 3,
     },
     geocode_name: null,
+    geocode_lat: null,
+    geocode_long: null,
+    login_id: null
   };
   // constructor(props) {
   //   super(props);
@@ -63,6 +66,8 @@ class MapContainer extends React.Component {
               }
 
               this.setState({geocode_name: responseJson.results[0].formatted_address});
+              this.setState({geocode_lat: latitude});
+              this.setState({geocode_long: longitude});
 
              //  const self = this;
              //  const api = url()+'api/save_location';
@@ -90,6 +95,8 @@ class MapContainer extends React.Component {
 
     const data = JSON.parse(await AsyncStorage.getItem('userData'));
 
+    this.setState({login_id: data.login_id})
+
     fetch(Helpers.ci_url+'booking/user_booking_status/'+data.login_id, {
      method: 'GET',
      headers: {
@@ -105,7 +112,7 @@ class MapContainer extends React.Component {
           // Alert.alert(msg);
           this.setState({
             can_book:true,
-            driver_details:responseJson.driver_details,
+            driver_details:responseJson.driver_details
           });
         }else{
           this.setState({
@@ -315,6 +322,9 @@ class MapContainer extends React.Component {
               onRegionChange={reg => this.onMapRegionChange(reg)}
               getData={params => this.getDataFromMap(params)}
               geocode_name={this.state.geocode_name}
+              geocode_lat={this.state.geocode_lat}
+              geocode_long={this.state.geocode_long}
+              login_id={this.state.login_id}
             />
             {can_book || this.state.can_book ?(
               <>

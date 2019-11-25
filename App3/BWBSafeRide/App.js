@@ -20,6 +20,7 @@ import Payment from './src/components/Payment';
 import Routes from './src/components/Routes';
 import DriverProfile from './src/components/DriverProfile';
 import Bookings from './src/components/Bookings';
+import PinnedLocations from './src/components/PinnedLocations';
 import * as TripHistory from './src/components/Bookings';
 import AsyncStorage from '@react-native-community/async-storage';
 import companyLogosm from './src/assets/images/main_logo-sm.png';
@@ -180,6 +181,9 @@ const MyDrawerNavigatorRider = createDrawerNavigator(
       },
       History: {
         screen: History,
+      },
+      PinnedLocations: {
+        screen: PinnedLocations,
       },
       Bookings: {
         screen: Bookings,
