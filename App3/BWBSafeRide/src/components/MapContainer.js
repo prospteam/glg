@@ -23,6 +23,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 class MapContainer extends React.Component {
 
   state = {
+    is_finish_check_booking_status:false,
     is_user_type_ready:false,
     driver_details:[],
     can_book:false,
@@ -146,6 +147,8 @@ class MapContainer extends React.Component {
     //   //     height:500
     //   //   });
     this.setState({login_id: data.login_id});
+    console.log(Helpers.ci_url+'booking/user_booking_status/'+data.login_id);
+    console.log('XDXDXDXD');
 
     fetch(Helpers.ci_url+'booking/user_booking_status/'+data.login_id, {
      method: 'GET',
@@ -161,19 +164,25 @@ class MapContainer extends React.Component {
           // msg = responseJson.msg;
           // Alert.alert(msg);
           this.setState({
-            can_book:true,
-            driver_details:responseJson.driver_details
+            can_book:false,
+            driver_details:responseJson.driver_details,
+            booking_details:responseJson.booking_details,
           });
         }else{
           this.setState({
-            can_book:false,
+            can_book:true,
             driver_details:[],
+            booking_details:[],
           });
         }
      }).catch((error) => {
        console.log('NOT getting API');
        // console.error(error);
      });
+
+     this.setState({
+      is_finish_check_booking_status:true,
+    });
     // this.setState({ region });
     // console.log('GETTING DSISTSATNCEEEEEEEE');
     // console.log(params);
@@ -267,8 +276,8 @@ class MapContainer extends React.Component {
 
   getDataFromMap(params) {
     // this.setState({ region });
-    console.log('GETTING DSISTSATNCEEEEEEEE');
-    console.log(params);
+    // console.log('GETTING DSISTSATNCEEEEEEEE');
+    // console.log(params);
       this.setState({
         distance:params.distance,
         duration:params.duration,
@@ -358,11 +367,16 @@ class MapContainer extends React.Component {
     // console.log(this.state);
     // console.log("getting NEW PROPS");
     const { window_height, can_book } =this.props;
-    // console.log('MapContainer Rendered');
+    console.log('YYYYYYYYYYYYYY');
+    console.log(can_book);
+    console.log(this.state.can_book);this.state.booking_details
+    console.log(this.state.booking_details);
+    console.log('XXXXXXXX');
     const { distance, duration } = this.state;
 
     // console.log(distance);
     // console.log("distance Calculating");
+
 
     return (
       <View style={{ flex: 1 ,  backgroundColor:'red'}}>
@@ -381,9 +395,8 @@ class MapContainer extends React.Component {
               login_id={this.state.login_id}
             />
             {
-
-            this.state.is_user_type_ready==false ? null
-            : can_book || this.state.can_book ?(
+            this.state.is_user_type_ready==false || !this.state.booking_details ? null
+            : (!can_book && this.state.booking_details.length >= 1 ) ?(
               <>
               {
                 // <Left>
@@ -458,7 +471,7 @@ class MapContainer extends React.Component {
                       textAlign: 'center',
                     }}>
                     {
-                      this.state.user.user_type_id == 3 ? null: can_book || this.state.can_book ?(
+                      this.state.user.user_type_id == 3 ? null: !can_book || !this.state.can_book ?(
                           <Thumbnail
                             source={{uri: `data:image/gif;base64,${this.state.driver_details.photo}`}} />
                           ):(
@@ -527,6 +540,9 @@ class MapContainer extends React.Component {
               </>
             ):(
               <>
+              {
+
+              (this.state.user.user_type_id == 3 && (can_book || this.state.can_book) && this.state.is_finish_check_booking_status) ? (this.props.navigate('Bookings')):(
               <BottomDrawer
                 containerHeight={ window_height - 15 }
                 offset={0}
@@ -579,7 +595,7 @@ class MapContainer extends React.Component {
                       fontSize:20,
                       marginBottom:15
                     }}>
-                      {this.state.is_user_type_ready?('Where are you goingxxx?'):('asd')}
+                      {this.state.is_user_type_ready?('Where are you going?'):('__')}
                     </Text>
                   <Label>Pickup</Label>
                   <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'from',loc_text)} placeholder='Enter pickup location.'/>
@@ -645,6 +661,8 @@ class MapContainer extends React.Component {
                   </View>
                 </View>
               </BottomDrawer>
+                )
+              }
                 </>
               )
             }
