@@ -10,6 +10,7 @@ import BottomDrawer from 'rn-bottom-drawer';
 import styles from '.././assets/my_styles.js';
 import Helpers from '../../Helpers';
 import AsyncStorage from '@react-native-community/async-storage';
+import firebase from './common/Firebase';
 
 const sample_img_link = 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/assets/images/sample.png';
 
@@ -21,8 +22,8 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 // const DRAWER_HEIGHT_SMALL = 80;
 
 class MapContainer extends React.Component {
-
   state = {
+    testlocation:null,
     is_finish_check_booking_status:false,
     is_user_type_ready:false,
     driver_details:[],
@@ -40,20 +41,20 @@ class MapContainer extends React.Component {
     login_id: null
   };
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     isDateTimePickerVisible: false
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    
+    this.ref = firebase.firestore().collection('books');
+  }
 
   async componentDidMount() {
 
     this.setState({
-      user: JSON.parse(await AsyncStorage.getItem('userData')) ,
+      user: JSON.parse(await AsyncStorage.getItem('userData')),
       is_user_type_ready:true,
     });
 
+    this.ref.onSnapshot(this.driverLocationListener);
 
     // setTimeout(() => {
     //   this.setState({isLoading: false});
@@ -66,6 +67,24 @@ class MapContainer extends React.Component {
     // });
     this.getInitialState();
     this.checkBookingStatus();
+  }
+
+  driverLocationListener = (querySnapShot) => {
+    const books = [];
+    // console.log("FAYR");
+    // console.log(querySnapShot);
+    querySnapShot.forEach((doc) =>{
+      // console.log("ITEM");
+      // console.log(doc);
+      // console.log(doc.data());
+      const { name } = doc.data();
+      // books.push({
+      //   name
+      // });
+      this.setState({
+        testlocation: doc.data(),
+      });
+    });
   }
 
   reverseGeocode(latitude, longitude){
@@ -147,15 +166,15 @@ class MapContainer extends React.Component {
     //   //     height:500
     //   //   });
     this.setState({login_id: data.login_id});
-    console.log(Helpers.ci_url+'booking/user_booking_status/'+data.login_id);
-    console.log('XDXDXDXD');
+    console.log(Helpers.ci_url+'booking/user_boonotifyChangeking_status/'+data.login_id);
+    // console.log('XDXDXDXD');
 
-    fetch(Helpers.ci_url+'booking/user_booking_status/'+data.login_id, {
-     method: 'GET',
-     headers: {
-       'Accept': 'application/json',
-       'Content-Type': 'application/json',
-     }
+  fetch(Helpers.ci_url+'booking/user_booking_status/'+data.login_id, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
    }).then((response) => response.json())
      .then((responseJson) => {
        console.log('getting API');
@@ -310,7 +329,8 @@ class MapContainer extends React.Component {
     // Actions.payment();
 
     // NOTE:
-    this.props.navigate('Payment',{params:formData});
+    this.props.navigation.navigate('Payment',{params:formData});
+
     // this.props.navigate('Payment');
     // console.log('Booknow');
     // console.log(formData);
@@ -361,28 +381,30 @@ class MapContainer extends React.Component {
   };
 
   render() {
-
-
     // console.log("MY STATUS");
     // console.log(this.state);
     // console.log("getting NEW PROPS");
     const { window_height, can_book } =this.props;
-    console.log('YYYYYYYYYYYYYY');
-    console.log(can_book);
-    console.log(this.state.can_book);this.state.booking_details
-    console.log(this.state.booking_details);
-    console.log('XXXXXXXX');
+    
+    // console.log('YYYYYYYYYYYYYY');
+    // console.log(this.state.testlocation);
+    // console.log(this.state.can_book);
+    // console.log(this.state.booking_details);
+    // this.state.booking_details ? console.log(this.state.booking_details.length): console.log("not yet");
+    // console.log('XXXXXXXX');
     const { distance, duration } = this.state;
-
     // console.log(distance);
     // console.log("distance Calculating");
-
+    console.log('YYYYYYYYYYYYYY');
+    const marker1 = this.state.is_user_type_ready ? this.state.user != 3 ? this.state.testlocation ? this.state.testlocation : null :null:null;
+    // console.log(this.props);
 
     return (
       <View style={{ flex: 1 ,  backgroundColor:'red'}}>
         {this.state.region['latitude'] ? (
           <View style={{ flex: 1, backgroundColor:'blue' }}>
             <MyMapView
+              marker1={marker1}
               region={this.state.region}
               form_from={this.state.form_from_latlong}
               form_to={this.state.form_to_latlong}
@@ -394,9 +416,10 @@ class MapContainer extends React.Component {
               geocode_long={this.state.geocode_long}
               login_id={this.state.login_id}
             />
+
             {
-            this.state.is_user_type_ready==false || !this.state.booking_details ? null
-            : (!can_book && this.state.booking_details.length >= 1 ) ?(
+            this.state.is_user_type_ready == false || !this.state.booking_details ? null
+            : (!can_book && this.state.booking_details != [] ) ?(
               <>
               {
                 // <Left>
@@ -414,6 +437,7 @@ class MapContainer extends React.Component {
                 // downDisplay={0.5}
                 backgroundColor='rgba(255, 0, 0, 0)'
               >
+
                 <View style={{
                   zIndex:1,
                   position: 'absolute',
@@ -424,6 +448,7 @@ class MapContainer extends React.Component {
                   paddingVertical: 10,
                   paddingHorizontal: 30,
                 }}>
+
                 <View style={{
                   padding:20,
                   borderRadius:10,

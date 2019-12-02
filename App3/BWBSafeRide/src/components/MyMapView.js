@@ -20,16 +20,19 @@ const MyMapView = (props) => {
     <MapView
         style={{ flex: 1,  height: height-100,  width: width }}
         // region={{origin}}
-        region={props.region}
+        // region={props.region}
         showsUserLocation={true}
         // ref={c => this.mapView = c}
         onRegionChangeComplete={(reg) => props.onRegionChange(reg)}
-        // initialRegion={{
-        //     latitude: 37.78825,
-        //     longitude: -122.4324,
-        //     latitudeDelta: 0.0,
-        //     longitudeDelta: 0.0,
-        // }}
+        initialRegion={{
+          // latitude: props.marker1 ? props.marker1.latitude:37.78825,
+          latitude: 37.78825,
+          // longitude: props.marker1 ? props.marker1.longitude:-122.4324,
+          longitude: -122.4324,
+          latitudeDelta: 0.0,
+          longitudeDelta: 0.0,
+        }}
+
         >
           {props.form_from && <MapView.Marker
                coordinate={props.form_from}
@@ -40,15 +43,13 @@ const MyMapView = (props) => {
             <MapView.Callout tooltip={true}
                 style={{backgroundColor: '#d3a04c'}}
                 onPress={() => {
-                            const data = {
-                                location_name: props.geocode_name,
-                                latitude: props.geocode_lat,
-                                longitude: props.geocode_long,
-                                login_id: props.login_id
-                            }
-
+                          const data = {
+                              location_name: props.geocode_name,
+                              latitude: props.geocode_lat,
+                              longitude: props.geocode_long,
+                              login_id: props.login_id
+                          }
                             // Alert.alert(data.location_name);
-
                             fetch(Helpers.api_url+'save_location', {
                                  method: 'POST',
                                  headers: {
@@ -93,7 +94,19 @@ const MyMapView = (props) => {
                  title={"Drop-off Location"}
                  description={props.geocode_name}
               />}
+
+            {true && <MapView.Marker
+                 coordinate={{
+                    // latitude: 37.78825,
+                    latitude: props.marker1 ? props.marker1.latitude:37.78825,
+                    // longitude: -122.4324,
+                    longitude: props.marker1 ? props.marker1.longitude:-122.4324,
+                  }}
+                 title={"Drop-off LocationX"}
+                 description={props.geocode_name}
+              />}
               {
+
         // <MapView.Marker
         //     coordinate={{latitude: 37.78825,
         //     longitude: -122.4324}}

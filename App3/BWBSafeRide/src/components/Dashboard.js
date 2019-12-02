@@ -278,6 +278,10 @@ let params = false;
       // console.log("render");
       // console.log(this.state);
       this.checkSession();
+    console.log("XDXDXXDXDXD");
+
+      console.log(this.props);
+
 
       return (
         <Container>
@@ -304,7 +308,7 @@ let params = false;
               //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
               // </Text>
 
-                <MapContainer {...this.props.navigation} {...params} window_height={height}/>
+                <MapContainer navigation={this.props.navigation} {...params} window_height={height}/>
               }
             </View>
           </Content>
