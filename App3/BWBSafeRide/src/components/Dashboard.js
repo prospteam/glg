@@ -14,8 +14,8 @@ const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-const origin = {latitude: 37.3318456, longitude: -122.0296002};
-const destination = {latitude: 37.771707, longitude: -122.4053769};
+const origin = {latitude: 37.3318456, longitude: 123.0296002};
+const destination = {latitude: 37.771707, longitude: 123.4053769};
 const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 
 const getCurrentLocation = () => {
@@ -46,8 +46,8 @@ export default class Dashboard extends Component {
   //   navigator.geolocation.clearWatch(this.watchID);
   // }
 
-  constructor(){
-      super();
+  constructor(props){
+      super(props);
       this.state = {
           switchValue: false,
           user_type: null
@@ -115,6 +115,9 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
+
+      // const {latitude} = this.props;
+      // navigation.getParam('latitude', 0)
 
       this.getDriverStatus();
 
@@ -252,7 +255,12 @@ export default class Dashboard extends Component {
     }
 
     render() {
-let params = false;
+        const { navigation } = this.props;
+
+        const set_destination_lat = navigation.getParam('latitude', 0);
+        const set_destination_long = navigation.getParam('longitude', 0);
+
+        let params = false;
       if (this.props.navigation.getParam('params',false)) {
         params = this.props.navigation.getParam('params',false);
         // console.log('XDXDXDXDXD');
@@ -293,38 +301,7 @@ let params = false;
           <Content Styles={{position:'relative'}}>
             <View style={styles.container}>
             {
-              // <Text>
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              //   aslkdjsakljdkla slkjdklas jdlkjsa kldjaskl
-              // </Text>
-
-                <MapContainer {...this.props.navigation} {...params} window_height={height}/>
+                <MapContainer navigation={this.props.navigation} {...params} pinned_latitude={navigation.getParam('pinned_loc_lat', 0)} pinned_longitude={navigation.getParam('pinned_loc_long', 0)} pinned_stat={navigation.getParam('pinned_stat', true)} window_height={height} set_destination_lat={set_destination_lat} set_destination_long={set_destination_long} />
               }
             </View>
           </Content>
