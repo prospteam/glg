@@ -145,7 +145,6 @@ export default class Dashboard extends Component {
         requestLocationPermission();
       // }
   }
-
   callLocation(that){
     console.log('getting Location');
      navigator.geolocation.getCurrentPosition(

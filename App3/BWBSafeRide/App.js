@@ -25,6 +25,8 @@ import * as TripHistory from './src/components/Bookings';
 import AsyncStorage from '@react-native-community/async-storage';
 import companyLogosm from './src/assets/images/main_logo-sm.png';
 import { createDrawerNavigator, createAppContainer, DrawerItems, DrawerNavigation } from 'react-navigation';
+import Firebase from '.src/components/common/Firebase';
+
 // import firebase from 'react-native-firebase';
 // import type, { Notification, NotificationOpen } from 'react-native-firebase';
 

@@ -103,8 +103,7 @@ export default class Bookings extends Component {
 				// 				listViewData_r: responseJson.data.data_reserved.map(Object.values).map((_,i) => ({key: `${i}`, id: `${_[0]}`, user: `${_[1]}`, text: `Booking Date: ${_[2]}`})),
 				// 				listViewData_c: responseJson.data.data_completed.map(Object.values).map((_,i) => ({key: `${i}`, id: `${_[0]}`, user: `${_[1]}`, text: `Booking Date: ${_[2]}`}))
 			}
-			Alert.alert(responseJson.response);
-
+			Alert.alert(responseJson.response+"1");
 		}
 
 		// console.error(this.state.listViewData);
@@ -166,7 +165,7 @@ export default class Bookings extends Component {
 		 })
 	   }).then((response) => response.json())
 		 .then((responseJson) => {
-			 Alert.alert(JSON.stringify(responseJson.msg));
+			 Alert.alert(JSON.stringify(responseJson.msg)+"2");
 			 this.displayBookings();
 
 			 if(JSON.stringify(responseJson.reserve_button) !== ''){
@@ -193,7 +192,7 @@ export default class Bookings extends Component {
 		 })
 	   }).then((response) => response.json())
 		 .then((responseJson) => {
-			 Alert.alert(JSON.stringify(responseJson.msg));
+			 Alert.alert(JSON.stringify(responseJson.msg)+"3");
 			 this.displayBookings();
 
 		 }).catch((error) => {
@@ -234,6 +233,8 @@ export default class Bookings extends Component {
 	}
 
 	render() {
+
+
 
 			const { isLoading } = this.state;
 
@@ -347,7 +348,7 @@ export default class Bookings extends Component {
 										{
 											transform: [
 												{
-													scale: this.rowSwipeAnimatedValues[data.item.key].interpolate({ // data.item.key IS EMPTY MUST RETURN INTEGER
+													scale: this.rowSwipeAnimatedValues[data.item.key].interpolate({
 														inputRange: [45, 90],
 														outputRange: [0, 1],
 														extrapolate: 'clamp',
