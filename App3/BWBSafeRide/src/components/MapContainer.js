@@ -43,8 +43,8 @@ class MapContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    
-    this.ref = firebase.firestore().collection('books');
+
+    this.ref = firebase.firestore().collection('driver_location_logs');
   }
 
   async componentDidMount() {
@@ -88,37 +88,37 @@ class MapContainer extends React.Component {
   }
 
   reverseGeocode(latitude, longitude){
-      fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + latitude + ',' + longitude + '&key=' + GOOGLE_MAPS_APIKEY)
-          .then((response) => response.json())
-          .then((responseJson) => {
-              const data = {
-                  // user_id: this.state.userid,
-                  latitude: latitude,
-                  longitude: longitude,
-                  location_name: responseJson.results[0].formatted_address
-              }
-              this.setState({geocode_name: responseJson.results[0].formatted_address});
-              this.setState({geocode_lat: latitude});
-              this.setState({geocode_long: longitude});
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + latitude + ',' + longitude + '&key=' + GOOGLE_MAPS_APIKEY)
+        .then((response) => response.json())
+        .then((responseJson) => {
+            const data = {
+                // user_id: this.state.userid,
+                latitude: latitude,
+                longitude: longitude,
+                location_name: responseJson.results[0].formatted_address
+            }
+            this.setState({geocode_name: responseJson.results[0].formatted_address});
+            this.setState({geocode_lat: latitude});
+            this.setState({geocode_long: longitude});
 
-             //  const self = this;
-             //  const api = url()+'api/save_location';
-             //
-             //  fetch(api, {
-             //   method: 'POST',
-             //   headers: {
-             //     'Accept': 'application/json',
-             //     'Content-Type': 'application/json',
-             //   },
-             //   body: JSON.stringify(data)
-             // }).then((response) => response.json())
-             //   .then((res) => {
-             //      Alert.alert(res.msg);
-             //
-             //   }).catch((error) => {
-             //     console.error(error);
-             //   });
-          })
+           //  const self = this;
+           //  const api = url()+'api/save_location';
+           //
+           //  fetch(api, {
+           //   method: 'POST',
+           //   headers: {
+           //     'Accept': 'application/json',
+           //     'Content-Type': 'application/json',
+           //   },
+           //   body: JSON.stringify(data)
+           // }).then((response) => response.json())
+           //   .then((res) => {
+           //      Alert.alert(res.msg);
+           //
+           //   }).catch((error) => {
+           //     console.error(error);
+           //   });
+        })
   }
 
   async checkBookingStatus() {
@@ -385,7 +385,7 @@ class MapContainer extends React.Component {
     // console.log(this.state);
     // console.log("getting NEW PROPS");
     const { window_height, can_book } =this.props;
-    
+
     // console.log('YYYYYYYYYYYYYY');
     // console.log(this.state.testlocation);
     // console.log(this.state.can_book);
@@ -514,15 +514,14 @@ class MapContainer extends React.Component {
                       flex:1,
                       alignItems: this.state.user.user_type_id==3?'center':'stretch',
                     }}>
+
                     {
                       // can_book || this.state.can_book ?(
                         <>
                           <Text note>
                           {this.state.user.user_type_id == 3 ? "Your rider":"Your driver"
-
                           // {this.state.is_user_type_ready?('Where are you goingxxx?'):('asd')}
                           }
-
                           </Text>
                           <Text>{this.state.driver_details.first_name} {this.state.driver_details.last_name}</Text>
                           <Text>{this.state.driver_details.email}</Text>

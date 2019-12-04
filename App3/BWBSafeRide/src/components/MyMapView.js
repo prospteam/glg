@@ -20,19 +20,26 @@ const MyMapView = (props) => {
     <MapView
         style={{ flex: 1,  height: height-100,  width: width }}
         // region={{origin}}
-        // region={props.region}
+        // region={props.marker1?props.marker1:props.region?props.region:origin}
+        region={{
+          latitude: props.marker1 ? props.marker1.latitude:37.78825,
+          // latitude: 37.78825,
+          longitude: props.marker1 ? props.marker1.longitude:-122.4324,
+          // longitude: -122.4324,
+          latitudeDelta: 0.0,
+          longitudeDelta: 0.0,
+        }}
         showsUserLocation={true}
         // ref={c => this.mapView = c}
         onRegionChangeComplete={(reg) => props.onRegionChange(reg)}
         initialRegion={{
-          // latitude: props.marker1 ? props.marker1.latitude:37.78825,
-          latitude: 37.78825,
-          // longitude: props.marker1 ? props.marker1.longitude:-122.4324,
-          longitude: -122.4324,
+          latitude: props.marker1 ? props.marker1.latitude:37.78825,
+          // latitude: 37.78825,
+          longitude: props.marker1 ? props.marker1.longitude:-122.4324,
+          // longitude: -122.4324,
           latitudeDelta: 0.0,
           longitudeDelta: 0.0,
         }}
-
         >
           {props.form_from && <MapView.Marker
                coordinate={props.form_from}
@@ -95,7 +102,7 @@ const MyMapView = (props) => {
                  description={props.geocode_name}
               />}
 
-            {true && <MapView.Marker
+            {props.marker1 && <MapView.Marker
                  coordinate={{
                     // latitude: 37.78825,
                     latitude: props.marker1 ? props.marker1.latitude:37.78825,
@@ -103,7 +110,7 @@ const MyMapView = (props) => {
                     longitude: props.marker1 ? props.marker1.longitude:-122.4324,
                   }}
                  title={"Drop-off LocationX"}
-                 description={props.geocode_name}
+                 // description={props.geocode_name}
               />}
               {
 
