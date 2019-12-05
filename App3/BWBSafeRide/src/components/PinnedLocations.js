@@ -105,7 +105,11 @@ export default class PinnedLocations extends Component {
                             <TouchableOpacity onPress={() => this.deleteLocation(location.location_id)} ><Icon type="FontAwesome" name="times" style={{fontSize: 18, color: '#fff' }} /></TouchableOpacity>
                         </View>
                         <View style={{backgroundColor: '#000', padding: 5, marginTop: 10}}>
-                            <TouchableOpacity onPress={() => {Alert.alert('pin location button pressed')}}><Text style={{color: '#d3a04c', textAlign: 'center', padding: 5}}>Pin Location</Text></TouchableOpacity>
+                            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Dashboard',{
+                                pinned_loc_lat: location.latitude,
+                                pinned_loc_long: location.longitude,
+                                pinned_stat: true,
+                            })}}><Text style={{color: '#d3a04c', textAlign: 'center', padding: 5}}>Pin Location</Text></TouchableOpacity>
                         </View>
                     </View>
                 })}

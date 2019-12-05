@@ -38,7 +38,10 @@ class MapContainer extends React.Component {
     geocode_name: null,
     geocode_lat: null,
     geocode_long: null,
-    login_id: null
+    login_id: null,
+    pinned_stat: false
+    // pinned_latitude: 0,
+    // pinned_longitude: 0
   };
 
   constructor(props) {
@@ -49,6 +52,10 @@ class MapContainer extends React.Component {
 
   async componentDidMount() {
 
+    const {pinned_stat} = this.props;
+
+    this.setState({pinned_stat: pinned_stat});
+
     this.setState({
       user: JSON.parse(await AsyncStorage.getItem('userData')),
       is_user_type_ready:true,
@@ -56,15 +63,19 @@ class MapContainer extends React.Component {
 
     this.ref.onSnapshot(this.driverLocationListener);
 
-    // setTimeout(() => {
-    //   this.setState({isLoading: false});
-    // }, 1000);
-
-    // console.log('DID Mount');
+    // console.log('MapContainer-start');
+    // console.log(this.props);
+    // console.log('MapContainer-end');
+    //
+    // this.setState({pinned_latitude: this.props.pinned_latitude});
+    // this.setState({pinned_longitude: this.props.pinned_longitude});
+    //
     // this.updateState({
-    //   latitude: 123.9,
-    //   longitude: 10.2833,
+    //   latitude: parseFloat(pinned_lat),
+    //   longitude: parseFloat(pinned_long),
     // });
+
+
     this.getInitialState();
     this.checkBookingStatus();
   }
@@ -216,6 +227,13 @@ class MapContainer extends React.Component {
   getInitialState() {
 
     getLocation().then(data => {
+
+        // this.updateState({
+        //   latitude: parseFloat(pinned_lat),
+        //   longitude: parseFloat(pinned_long),
+        // });
+
+
       this.updateState({
         latitude: data.latitude,
         longitude: data.longitude,
@@ -231,6 +249,17 @@ class MapContainer extends React.Component {
   }
 
   updateState(location) {
+
+      // this.setState({pinned_latitude: 0});
+      // this.setState({pinned_longitude: 0});
+
+      // const {pinned_lat, pinned_long} = this.props;
+      //
+      // this.updateState({
+      //   latitude: parseFloat(pinned_lat),
+      //   longitude: parseFloat(pinned_long),
+      // });
+
       let latDelta = (location.latitudeDelta) ? location.latitudeDelta:0.003;
       let longDelta = (location.longitudeDelta) ? location.longitudeDelta:0.003;
       this.setState({
@@ -257,6 +286,11 @@ class MapContainer extends React.Component {
   }
 
   getCoordsFromName(loc,inputField, inputText) {
+
+    this.setState({pinned_stat: false});
+
+    // alert(this.state.pinned_stat);
+
     this.updateState({
       latitude: loc.lat,
       longitude: loc.lng,
@@ -361,12 +395,36 @@ class MapContainer extends React.Component {
     return `0${time}`;
   }
 
+  pad(number, length) {
+
+      var str = '' + number;
+      while (str.length < length) {
+          str = '0' + str;
+      }
+
+      return str;
+  }
+
+  tConv24(time24) {
+      let hourEnd = time24.indexOf(":");
+      let H = +time24.substr(0, hourEnd);
+      let h = H % 12 || 12;
+      let ampm = (H < 12 || H === 24) ? "AM" : "PM";
+      let min = time24.substr(hourEnd + 1, 3);
+      if(min < 10){
+          min = "0" + min;
+      }
+      time24 = this.pad(h, 2) + ":" + min + " " + ampm;
+
+      return time24;
+  };
+
   handleDatePicked = date => {
     // console.log("A date has been picked: ", date);
     let hours = date.getHours();
     let minutes = date.getMinutes();
     let seconds = date.getSeconds();
-    this.setState({ chosenTime: `${hours}:${minutes}` });
+    this.setState({ chosenTime: this.tConv24(hours+":"+minutes) });
     // console.log(`${hours}:${minutes}:${seconds}`);
     // console.log('GOT time');
     this.hideDateTimePicker();
@@ -384,15 +442,14 @@ class MapContainer extends React.Component {
     // console.log("MY STATUS");
     // console.log(this.state);
     // console.log("getting NEW PROPS");
-    const { window_height, can_book } =this.props;
-
-    // console.log('YYYYYYYYYYYYYY');
-    // console.log(this.state.testlocation);
-    // console.log(this.state.can_book);
-    // console.log(this.state.booking_details);
-    // this.state.booking_details ? console.log(this.state.booking_details.length): console.log("not yet");
-    // console.log('XXXXXXXX');
+    const { window_height, can_book, pinned_latitude, pinned_longitude, navigation, set_destination_lat, set_destination_long } = this.props;
+    // console.log('MapContainer Rendered');
     const { distance, duration } = this.state;
+
+    const set_destination_latlong = {
+        latitude: set_destination_lat,
+        longitude: set_destination_long
+    }
     // console.log(distance);
     // console.log("distance Calculating");
     console.log('YYYYYYYYYYYYYY');
@@ -407,7 +464,7 @@ class MapContainer extends React.Component {
               marker1={marker1}
               region={this.state.region}
               form_from={this.state.form_from_latlong}
-              form_to={this.state.form_to_latlong}
+              form_to={this.state.form_to_latlong || set_destination_latlong}
               selectedLatLong={this.state.selectedLatLong}
               onRegionChange={reg => this.onMapRegionChange(reg)}
               getData={params => this.getDataFromMap(params)}
@@ -415,6 +472,10 @@ class MapContainer extends React.Component {
               geocode_lat={this.state.geocode_lat}
               geocode_long={this.state.geocode_long}
               login_id={this.state.login_id}
+              pinned_lat={this.props.pinned_latitude}
+              pinned_long={this.props.pinned_longitude}
+              pinned_stat={this.state.pinned_stat}
+              navigation={this.props.navigation}
             />
 
             {
@@ -630,7 +691,7 @@ class MapContainer extends React.Component {
                     }}
                   />
                   <Label>Drop-Off</Label>
-                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'to',loc_text)} placeholder='Enter drop-off location' />
+                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'to',loc_text)} latlong={set_destination_latlong} placeholder='Enter drop-off location' />
                   {distance ?(
                     <Form>
                       <View
