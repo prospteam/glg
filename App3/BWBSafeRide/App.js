@@ -311,13 +311,12 @@ export default class App extends Component<Props> {
     let varUserType ="";
 
     if(await AsyncStorage.getItem('userData')){
-      this.setState({
-        isLogged: true,
+        this.setState({
+          isLogged: true,
         });
-        
-        // console.log('BUWHAHAAAAAAAAAAAAAAAAAAX');
-        // console.log(await AsyncStorage.getItem('userData'));
-        // console.log('BUWHAHAAAAAAAAAAAAAAAAAA');
+        console.log('LOGGED USER');
+        console.log(await AsyncStorage.getItem('userData'));
+        console.log('LOGGED USER');
     }
 
     // if(await AsyncStorage.getItem('userData')){
