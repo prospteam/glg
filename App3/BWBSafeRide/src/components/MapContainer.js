@@ -11,6 +11,7 @@ import styles from '.././assets/my_styles.js';
 import Helpers from '../../Helpers';
 import AsyncStorage from '@react-native-community/async-storage';
 import firebase from './common/Firebase';
+import Geolocation from "@react-native-community/geolocation";
 
 const sample_img_link = 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/assets/images/sample.png';
 
@@ -26,7 +27,10 @@ class MapContainer extends React.Component {
     testlocation:null,
     is_finish_check_booking_status:false,
     is_user_type_ready:false,
+    user:null,
     driver_details:[],
+    my_latitude:0,
+    my_longitude:0,
     can_book:false,
     isDateTimePickerVisible: false,
     region: {
@@ -48,9 +52,22 @@ class MapContainer extends React.Component {
     super(props);
 
     this.ref = firebase.firestore().collection('driver_location_logs');
+
+      console.log('LOEDDEDDDD1');
   }
 
+
+
   async componentDidMount() {
+
+
+          // this.driverSendLocation();
+
+    // if (this.state.booking_details) {
+
+      // this.ref.onSnapshot(this.driverLocationListener);
+
+    // }
 
     const {pinned_stat} = this.props;
 
@@ -61,41 +78,121 @@ class MapContainer extends React.Component {
       is_user_type_ready:true,
     });
 
-    this.ref.onSnapshot(this.driverLocationListener);
-
     // console.log('MapContainer-start');
     // console.log(this.props);
     // console.log('MapContainer-end');
     //
     // this.setState({pinned_latitude: this.props.pinned_latitude});
     // this.setState({pinned_longitude: this.props.pinned_longitude});
-    //
     // this.updateState({
     //   latitude: parseFloat(pinned_lat),
     //   longitude: parseFloat(pinned_long),
     // });
-
 
     this.getInitialState();
     this.checkBookingStatus();
   }
 
   driverLocationListener = (querySnapShot) => {
-    const books = [];
-    // console.log("FAYR");
-    // console.log(querySnapShot);
-    querySnapShot.forEach((doc) =>{
-      // console.log("ITEM");
-      // console.log(doc);
-      // console.log(doc.data());
-      const { name } = doc.data();
-      // books.push({
-      //   name
-      // });
-      this.setState({
-        testlocation: doc.data(),
-      });
+    // const books = [];
+    // // console.log("FAYR");
+    // // console.log(querySnapShot);
+    // querySnapShot.forEach((doc) => {
+    //   console.log("ITEM");
+    //   console.log(doc);
+    //   console.log(doc.data());
+    //   const { name } = doc.data();
+    //   // books.push({
+    //   //   name
+    //   // });
+    //   this.setState({
+    //     testlocation: doc.data(),
+    //   });
+    // });
+
+    this.ref.doc(this.state.booking_details.booking_id).onSnapshot(docSnapshot => {
+      console.log(`Received doc snapshot:`);
+      console.log(docSnapshot);
+
+        this.setState({
+          testlocation: docSnapshot.data(),
+        });
+          // this.setState({
+          //   testlocation: doc.data(),
+          // });
+      // ...
+    }, err => {
+      console.log(`Encountered error: ${err}`);
     });
+  }
+
+  driverSendLocation(){
+    const watchId = Geolocation.watchPosition(
+      pos => {
+        console.log("GETTINGS");
+        // console.log(newCoordinate);
+        // setError("");
+        this.setState({
+          my_latitude: pos.coords.latitude,
+          my_longitude: pos.coords.longitude,
+        });
+
+        if (this.state.booking_details){
+          const ref_single = this.ref.doc(this.state.booking_details.booking_id);
+          ref_single.get()
+            .then((docSnapshot) => {
+                if (this.state.login_id) {
+                  if (docSnapshot.exists) {
+                      ref_single.update({
+                        // booking_id:this.state.booking_details.booking_id,
+                        booking_id:0,
+                        driver_id:this.state.login_id,
+                        latitude:pos.coords.latitude,
+                        longitude:pos.coords.longitude,
+                      })
+                      .catch(function(error) {
+                          console.error("Error adding document: ", error);
+                      });
+                  } else {
+                    ref_single.set({
+                      // booking_id:this.state.booking_details.booking_id,
+                      booking_id:0,
+                      driver_id:this.state.login_id,
+                      latitude:pos.coords.latitude,
+                      longitude:pos.coords.longitude,
+                    })
+                    .catch(function(error) {
+                        console.error("Error adding document: ", error);
+                    });
+                  }
+                }
+              // console.log('ALKSDJASJLDKASJLKDASKDJLAKSJ');
+              // console.log(docSnapshot);
+
+              // Add a new document with a generated id.
+              // db.collection("cities").add({
+              //     name: "Tokyo",
+              //     country: "Japan"
+              // })
+              // .then(function(docRef) {
+              //     console.log("Document written with ID: ", docRef.id);
+              // })
+              // .catch(function(error) {
+              //     console.error("Error adding document: ", error);
+              // });
+
+
+          });
+        }
+
+        // setPosition({
+        //   latitude: pos.coords.latitude,
+        //   longitude: pos.coords.longitude
+        // });
+      },
+      e => setError(e.message+"ERRRORR NOOOOO")
+    );
+
   }
 
   reverseGeocode(latitude, longitude){
@@ -193,11 +290,16 @@ class MapContainer extends React.Component {
         if(responseJson.num_of_active_booking > 0){
           // msg = responseJson.msg;
           // Alert.alert(msg);
+
           this.setState({
             can_book:false,
             driver_details:responseJson.driver_details,
             booking_details:responseJson.booking_details,
           });
+// this.state.user.user_type_id
+          console.log('LOEDDEDDDD2');
+          this.ref.onSnapshot(this.driverLocationListener);
+
         }else{
           this.setState({
             can_book:true,
@@ -225,23 +327,21 @@ class MapContainer extends React.Component {
   }
 
   getInitialState() {
-
     getLocation().then(data => {
-
-        // this.updateState({
-        //   latitude: parseFloat(pinned_lat),
-        //   longitude: parseFloat(pinned_long),
-        // });
-
-
-      this.updateState({
-        latitude: data.latitude,
-        longitude: data.longitude,
+      console.log('GET LOCATION');
+      // this.updateState({
+      //   latitude: data.latitude,
+      //   longitude: data.longitude,
+      // });
+      // this.updateSelectedLatLong({
+      //   latitude: data.latitude,
+      //   longitude: data.longitude,
+      // });
+      this.setState({
+        my_latitude: data.latitude,
+        my_longitude: data.longitude,
       });
-      this.updateSelectedLatLong({
-        latitude: data.latitude,
-        longitude: data.longitude,
-      });
+      // return data;
     })
     .catch(err => {
       console.log('Error:'+err.message);
@@ -286,19 +386,16 @@ class MapContainer extends React.Component {
   }
 
   getCoordsFromName(loc,inputField, inputText) {
-
     this.setState({pinned_stat: false});
-
     // alert(this.state.pinned_stat);
-
-    this.updateState({
-      latitude: loc.lat,
-      longitude: loc.lng,
-    });
-    this.updateSelectedLatLong({
-      latitude: loc.lat,
-      longitude: loc.lng,
-    });
+    // this.updateState({
+    //   latitude: loc.lat,
+    //   longitude: loc.lng,
+    // });
+    // this.updateSelectedLatLong({
+    //   latitude: loc.lat,
+    //   longitude: loc.lng,
+    // });
 
     if (inputField==='from') {
       this.setState({
@@ -439,6 +536,7 @@ class MapContainer extends React.Component {
   };
 
   render() {
+
     // console.log("MY STATUS");
     // console.log(this.state);
     // console.log("getting NEW PROPS");
@@ -461,6 +559,8 @@ class MapContainer extends React.Component {
         {this.state.region['latitude'] ? (
           <View style={{ flex: 1, backgroundColor:'blue' }}>
             <MyMapView
+              my_latitude={this.state.my_latitude}
+              my_longitude={this.state.my_longitude}
               marker1={marker1}
               region={this.state.region}
               form_from={this.state.form_from_latlong}

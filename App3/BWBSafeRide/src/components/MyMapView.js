@@ -20,6 +20,7 @@ const MyMapView = (props) => {
   return (
     <MapView
         style={{ flex: 1,  height: height-100,  width: width }}
+        
         // region={{origin}}
         // region={props.marker1?props.marker1:props.region?props.region:origin}
         // region={{
@@ -30,6 +31,7 @@ const MyMapView = (props) => {
         //   latitudeDelta: 0.0,
         //   longitudeDelta: 0.0,
         // }}
+
         region={{
             latitude: (props.pinned_stat == true) ? parseFloat(props.pinned_lat) : props.region.latitude,
             longitude: (props.pinned_stat == true) ? parseFloat(props.pinned_long) : props.region.longitude,
@@ -108,13 +110,24 @@ const MyMapView = (props) => {
                  title={"Drop-off Location"}
                  description={props.geocode_name}
               />}
-              
+
             {props.marker1 && <MapView.Marker
                  coordinate={{
                     // latitude: 37.78825,
                     latitude: props.marker1 ? props.marker1.latitude:37.78825,
                     // longitude: -122.4324,
                     longitude: props.marker1 ? props.marker1.longitude:-122.4324,
+                  }}
+                 title={"Drop-off LocationX"}
+                 // description={props.geocode_name}
+              />}
+
+            {props.my_latitude!=0 && <MapView.Marker
+                 coordinate={{
+                    // latitude: 37.78825,
+                    latitude: props.my_latitude,
+                    // longitude: -122.4324,
+                    longitude: props.my_longitude,
                   }}
                  title={"Drop-off LocationX"}
                  // description={props.geocode_name}

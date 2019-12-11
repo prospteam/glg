@@ -27,7 +27,6 @@ import companyLogosm from './src/assets/images/main_logo-sm.png';
 import { createDrawerNavigator, createAppContainer, DrawerItems, DrawerNavigation } from 'react-navigation';
 // import firebase from './src/components/common/Firebase';
 
-
 var Spinner = require('react-native-spinkit');
 
 // var PushNotification = require("react-native-push-notification");
@@ -38,8 +37,6 @@ var Spinner = require('react-native-spinkit');
 //       message: 'My Notification Message', // STRING: The notification message
 //       data: {}, // OBJECT: The push data
 // });
-
-
 
 
 const instructions = Platform.select({
