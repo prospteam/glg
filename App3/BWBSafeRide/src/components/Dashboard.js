@@ -283,6 +283,10 @@ export default class Dashboard extends Component {
       // console.log("render");
       // console.log(this.state);
       this.checkSession();
+    console.log("XDXDXXDXDXD");
+
+      console.log(this.props);
+
 
       return (
         <Container>
