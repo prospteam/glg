@@ -10,6 +10,7 @@ import BottomDrawer from 'rn-bottom-drawer';
 import styles from '.././assets/my_styles.js';
 import Helpers from '../../Helpers';
 import AsyncStorage from '@react-native-community/async-storage';
+import Geolocation from 'react-native-geolocation-service';
 
 const sample_img_link = 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/assets/images/sample.png';
 
@@ -38,12 +39,43 @@ class MapContainer extends React.Component {
     geocode_lat: null,
     geocode_long: null,
     login_id: null,
-    pinned_stat: false
-    // pinned_latitude: 0,
-    // pinned_longitude: 0
+    pinned_stat: false,
+    set_destination_lat: this.props.set_destination_lat,
+    set_destination_long: this.props.set_destination_long
   };
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.set_destination_lat !== this.props.set_destination_lat) {
+            this.setState({set_destination_lat: this.props.set_destination_lat});
+        }
+
+        if(prevProps.set_destination_long !== this.props.set_destination_long) {
+            this.setState({set_destination_long: this.props.set_destination_long});
+        }
+    }
+
+  watchID: ?number = null;
+
   constructor(props) {
     super(props);
+
+    // Alert.alert("Watch Position");
+
+    this.watchID = Geolocation.watchPosition((position) => {
+      //const lastPosition = JSON.stringify(position);
+      //this.setState({lastPosition});
+
+        this.setState({
+            region: {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              latitudeDelta:  0.015,
+              longitudeDelta: 0.0121
+            }
+        });
+      },
+      (error) => Alert.alert(JSON.stringify(error))
+      );
   }
 
   async componentDidMount() {
@@ -71,9 +103,12 @@ class MapContainer extends React.Component {
     //   longitude: parseFloat(pinned_long),
     // });
 
-
     this.getInitialState();
     this.checkBookingStatus();
+  }
+
+  componentWillUnmount(){
+      Geolocation.clearWatch(this.watchID);
   }
 
   reverseGeocode(latitude, longitude){
@@ -270,8 +305,8 @@ class MapContainer extends React.Component {
     // alert(this.state.pinned_stat);
 
     this.updateState({
-      latitude: loc.lat,
-      longitude: loc.lng,
+      latitude: loc.lat || this.state.set_destination_lat,
+      longitude: loc.lng || this.state.set_destination_long,
     });
     this.updateSelectedLatLong({
       latitude: loc.lat,
@@ -295,6 +330,8 @@ class MapContainer extends React.Component {
           latitude: loc.lat,
           longitude: loc.lng,
         },
+        set_destination_lat: loc.lat,
+        set_destination_long: loc.lng
       });
     }
   }
@@ -326,29 +363,35 @@ class MapContainer extends React.Component {
 
     let payByDistance = baseFare*(state.distance+1);
 
-    const formData = {
-      chosenDate:state.chosenDate.toString().substr(4, 12),
-      chosenTime:state.chosenTime.toString().substr(15, 24),
-      distance:state.distance,
-      duration:state.duration,
-      form_from_latlong:state.form_from_latlong,
-      form_from_text:state.form_from_text,
-      form_to_latlong:state.form_to_latlong,
-      form_to_text:state.form_to_text,
-      payByDistance:payByDistance,
-    };
+    if(typeof(state.chosenDate) === 'undefined'){
+        Alert.alert('Please select date of pickup.');
+    }else if(typeof(state.chosenTime) === 'undefined'){
+            Alert.alert('Please select time of pickup.');
+    }else{
+        const formData = {
+          chosenDate:state.chosenDate.toString().substr(4, 12),
+          chosenTime:state.chosenTime,
+          distance:state.distance,
+          duration:state.duration,
+          form_from_latlong:state.form_from_latlong,
+          form_from_text:state.form_from_text,
+          form_to_latlong:state.form_to_latlong,
+          form_to_text:state.form_to_text,
+          payByDistance:payByDistance,
+        };
 
-    // Actions.payment();
+        // Actions.payment();
 
-    // NOTE:
-    this.props.navigation.navigate('Payment',{params:formData});
-    // this.props.navigate('Payment');
-    // console.log('Booknow');
-    // console.log(formData);
-    // console.log('state');
-    // console.log(state);
-    // console.log(state.form_from_latlong);
-    // console.log(state.form_from_latlong);
+        // NOTE:
+        this.props.navigation.navigate('Payment',{params:formData});
+        // this.props.navigate('Payment');
+        // console.log('Booknow');
+        // console.log(formData);
+        // console.log('state');
+        // console.log(state);
+        // console.log(state.form_from_latlong);
+        // console.log(state.form_from_latlong);
+    }
   }
 
   // testfunction(){
@@ -421,13 +464,13 @@ class MapContainer extends React.Component {
     // console.log("MY STATUS");
     // console.log(this.state);
     // console.log("getting NEW PROPS");
-    const { window_height, can_book, pinned_latitude, pinned_longitude, navigation, set_destination_lat, set_destination_long } = this.props;
+    const { window_height, can_book, pinned_latitude, pinned_longitude, navigation } = this.props;
     // console.log('MapContainer Rendered');
     const { distance, duration } = this.state;
 
     const set_destination_latlong = {
-        latitude: set_destination_lat,
-        longitude: set_destination_long
+        latitude: this.state.set_destination_lat,
+        longitude: this.state.set_destination_long
     }
     // console.log(distance);
     // console.log("distance Calculating");
@@ -440,7 +483,7 @@ class MapContainer extends React.Component {
             <MyMapView
               region={this.state.region}
               form_from={this.state.form_from_latlong}
-              form_to={this.state.form_to_latlong || set_destination_latlong}
+              form_to={set_destination_latlong}
               selectedLatLong={this.state.selectedLatLong}
               onRegionChange={reg => this.onMapRegionChange(reg)}
               getData={params => this.getDataFromMap(params)}
@@ -657,7 +700,7 @@ class MapContainer extends React.Component {
                       {this.state.is_user_type_ready?('Where are you going?'):('__')}
                     </Text>
                   <Label>Pickup</Label>
-                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'from',loc_text)} placeholder='Enter pickup location.'/>
+                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'from',loc_text)} latlong={this.state.form_from_latlong} placeholder='Enter pickup location.'/>
                   <View
                     style={{
                       borderBottomColor: '#d9d9d9',

@@ -13,6 +13,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 // this.mapView = null;
 
 const MyMapView = (props) => {
+    // Alert.alert('hello');
   console.log('MyMapView Rendering-start');
   console.log(props);
   console.log('MyMapView Rendering-end');
@@ -23,8 +24,10 @@ const MyMapView = (props) => {
         // region={{origin}}
         // region={props.region}
         region={{
-            latitude: (props.pinned_stat == true) ? parseFloat(props.pinned_lat) : props.region.latitude,
-            longitude: (props.pinned_stat == true) ? parseFloat(props.pinned_long) : props.region.longitude,
+            // latitude: (props.pinned_stat == true) ? parseFloat(props.pinned_lat) : props.region.latitude,
+            // longitude: (props.pinned_stat == true) ? parseFloat(props.pinned_long) : props.region.longitude,
+            latitude: (props.pinned_lat != 0) ? parseFloat(props.pinned_lat) : props.region.latitude,
+            longitude: (props.pinned_long != 0) ? parseFloat(props.pinned_long) : props.region.longitude,
             latitudeDelta: props.region.latitudeDelta,
             longitudeDelta: props.region.longitudeDelta
         }}
@@ -92,7 +95,6 @@ const MyMapView = (props) => {
             {props.form_to && <MapView.Marker
                  coordinate={props.form_to}
                  title={"Drop-off Location"}
-                 description={props.geocode_name}
               />}
               {(props.pinned_lat !== 0) && <MapView.Marker
                    coordinate={{latitude: parseFloat(props.pinned_lat), longitude: parseFloat(props.pinned_long)}}

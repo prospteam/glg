@@ -47,12 +47,12 @@ export default class PinnedLocations extends Component {
             // Alert.alert(res.response);
             if(res.response === 'success'){
                 this.setState({
-                    locations_list: res.data
+                    locations_list: res.data,
+                    function(){
+                        console.log(this.state.locations_list);
+                    }
                 });
             }
-
-            console.log(this.state.locations_list);
-
 
         }).catch((error) => {
             console.error(error);
