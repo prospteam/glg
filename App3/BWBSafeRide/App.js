@@ -22,13 +22,10 @@ import DriverProfile from './src/components/DriverProfile';
 import Bookings from './src/components/Bookings';
 import PinnedLocations from './src/components/PinnedLocations';
 import * as TripHistory from './src/components/Bookings';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage, { useAsyncStorage } from '@react-native-community/async-storage';
 import companyLogosm from './src/assets/images/main_logo-sm.png';
 import { createDrawerNavigator, createAppContainer, DrawerItems, DrawerNavigation } from 'react-navigation';
-// import Firebase from '.src/components/common/Firebase';
-
-// import firebase from 'react-native-firebase';
-// import type, { Notification, NotificationOpen } from 'react-native-firebase';
+// import firebase from './src/components/common/Firebase';
 
 var Spinner = require('react-native-spinkit');
 
@@ -40,6 +37,7 @@ var Spinner = require('react-native-spinkit');
 //       message: 'My Notification Message', // STRING: The notification message
 //       data: {}, // OBJECT: The push data
 // });
+
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -242,73 +240,6 @@ type Props = {};
 
 export default class App extends Component<Props> {
 
-
-    // async pushNotif(){
-    //     if (Platform.OS === 'android') {
-    //       try {
-    //         const res = await firebase.messaging().requestPermission();
-    //         const fcmToken = await firebase.messaging().getToken();
-    //         if (fcmToken) {
-    //           console.debug('FCM Token: ', fcmToken);
-    //           const enabled = await firebase.messaging().hasPermission();
-    //           if (enabled) {
-    //             Alert.alert('FCM messaging has permission:' + enabled)
-    //           } else {
-    //             try {
-    //               await firebase.messaging().requestPermission();
-    //               Alert.alert('FCM permission granted')
-    //             } catch (error) {
-    //               Alert.alert('FCM Permission Error', error);
-    //             }
-    //           }
-    //
-    //         } else {
-    //           Alert.alert('FCM Token not available');
-    //         }
-    //       } catch (e) {
-    //         Alert.alert('Error initializing FCM', e);
-    //       }
-    //     }
-    // }
-    // subscribeToNotificationListeners() {
-    //     const channel = new firebase.notifications.Android.Channel(
-    //         'notification_channel_name', // To be Replaced as per use
-    //         'Notifications', // To be Replaced as per use
-    //         firebase.notifications.Android.Importance.Max
-    //     ).setDescription('A Channel To manage the notifications related to Application');
-    //     firebase.notifications().android.createChannel(channel);
-    //
-    //     this.notificationListener = firebase.notifications().onNotification((notification) => {
-    //         console.log('onNotification notification-->', notification);
-    //         console.log('onNotification notification.data -->', notification.data);
-    //         console.log('onNotification notification.notification -->', notification.notification);
-    //         // Process your notification as required
-    //         this.displayNotification(notification)
-    //     });
-    // }
-    //
-    // displayNotification = (notification) => {
-    //     if (Platform.OS === 'android') {
-    //         const localNotification = new firebase.notifications.Notification({
-    //             sound: 'default',
-    //             show_in_foreground: true,
-    //         }).setNotificationId(notification.notificationId)
-    //             .setTitle(notification.title)
-    //             .setSubtitle(notification.subtitle)
-    //             .setBody(notification.body)
-    //             .setData(notification.data)
-    //             .android.setChannelId('notification_channel_name') // e.g. the id you chose above
-    //             .android.setSmallIcon('ic_notification_icon') // create this icon in Android Studio
-    //             .android.setColor(colors.colorAccent) // you can set a color here
-    //             .android.setPriority(firebase.notifications.Android.Priority.High);
-    //
-    //         firebase.notifications()
-    //             .displayNotification(localNotification)
-    //             .catch(err => console.error(err));
-    //
-    //     }
-    // }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -317,11 +248,13 @@ export default class App extends Component<Props> {
         userType:"rider",
       }
 
-
+      // this.ref = firebase.firestore().collection('books');
+      // this.Save = this.Save.bind(this);
   }
 
   componentDidMount() {
-    console.log('going to get');
+    // this.ref.onSnapshot(this.onCollectionsListener);
+    // console.log('going to get');
     this.checkSession();
     // this.getUserType();
     // firebase.messaging().hasPermission().then(hasPermission => {
@@ -338,13 +271,32 @@ export default class App extends Component<Props> {
     //    })
   }
 
+  // onCollectionsListener = (querySnapShot) => {
+  //   const books = [];
+  //   // console.log("FAYR");
+  //   // console.log(querySnapShot);
+  //   querySnapShot.forEach((doc) =>{
+
+  //     // console.log("ITEM");
+  //     // console.log(doc);
+  //     // const { name } = doc.data();
+  //     // books.push({
+  //     //   key:doc.id,
+  //     //   doc,
+  //     //   name
+  //     // });
+  //   });
+  //   this.setState({
+  //     books
+  //   });
+  // }
     // componentWillUnmount() {
         // this.notificationListener();
     // }
 
   if(TRUE){
   // if(isLoading){
-  console.log('CAME HERE');
+  // console.log('CAME HERE');
     return (
         <View style={styles.container}>
           <Spinner type="9CubeGrid" color="#d3a04c" />
@@ -356,15 +308,13 @@ export default class App extends Component<Props> {
     let varUserType ="";
 
     if(await AsyncStorage.getItem('userData')){
-      this.setState({
-        isLogged: true,
+        this.setState({
+          isLogged: true,
         });
-        console.log('BUWHAHAAAAAAAAAAAAAAAAAAX');
+        console.log('LOGGED USER');
         console.log(await AsyncStorage.getItem('userData'));
-        console.log('BUWHAHAAAAAAAAAAAAAAAAAA');
+        console.log('LOGGED USER');
     }
-
-
 
     // if(await AsyncStorage.getItem('userData')){
     //   this.setState({
@@ -392,7 +342,8 @@ export default class App extends Component<Props> {
         varUserType = "admin";
           console.log('I AMA ADMIN');
       }else {
-        varUserType = "joiner";
+        console.log('I AMA Not in the list');
+        varUserType = "rider";
       }
       // console.log(this.state);
     }else{
@@ -425,7 +376,7 @@ export default class App extends Component<Props> {
   }
 
   render() {
-    console.log(this.state.userType);
+    // console.log(this.state.userType);
     // console.log('Getting');
     // console.log(AsyncStorage.setItem('userData', true));
     const { isLogged, isLoading } = this.state;

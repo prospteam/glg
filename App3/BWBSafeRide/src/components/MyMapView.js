@@ -21,19 +21,37 @@ const MyMapView = (props) => {
   return (
     <MapView
         style={{ flex: 1,  height: height-100,  width: width }}
+        
         // region={{origin}}
-        // region={props.region}
+        // region={props.marker1?props.marker1:props.region?props.region:origin}
+        // region={{
+        //   latitude: props.marker1 ? props.marker1.latitude:37.78825,
+        //   // latitude: 37.78825,
+        //   longitude: props.marker1 ? props.marker1.longitude:-122.4324,
+        //   // longitude: -122.4324,
+        //   latitudeDelta: 0.0,
+        //   longitudeDelta: 0.0,
+        // }}
+
         region={{
             // latitude: (props.pinned_stat == true) ? parseFloat(props.pinned_lat) : props.region.latitude,
             // longitude: (props.pinned_stat == true) ? parseFloat(props.pinned_long) : props.region.longitude,
             latitude: (props.pinned_lat != 0) ? parseFloat(props.pinned_lat) : props.region.latitude,
             longitude: (props.pinned_long != 0) ? parseFloat(props.pinned_long) : props.region.longitude,
             latitudeDelta: props.region.latitudeDelta,
-            longitudeDelta: props.region.longitudeDelta
+            longitudeDelta: props.region.longitudeDelta,
         }}
         showsUserLocation={true}
         // ref={c => this.mapView = c}
-        // onRegionChangeComplete={(reg) => props.onRegionChange(reg)}
+        onRegionChangeComplete={(reg) => props.onRegionChange(reg)}
+        // initialRegion={{
+        //   latitude: props.marker1 ? props.marker1.latitude:37.78825,
+        //   // latitude: 37.78825,
+        //   longitude: props.marker1 ? props.marker1.longitude:-122.4324,
+        //   // longitude: -122.4324,
+        //   latitudeDelta: 0.0,
+        //   longitudeDelta: 0.0,
+        // }}
         >
           {props.form_from && <MapView.Marker
                coordinate={props.form_from}
@@ -44,15 +62,13 @@ const MyMapView = (props) => {
             <MapView.Callout tooltip={true}
                 style={{backgroundColor: '#d3a04c'}}
                 onPress={() => {
-                            const data = {
-                                location_name: props.geocode_name,
-                                latitude: props.geocode_lat,
-                                longitude: props.geocode_long,
-                                login_id: props.login_id
-                            }
-
+                          const data = {
+                              location_name: props.geocode_name,
+                              latitude: props.geocode_lat,
+                              longitude: props.geocode_long,
+                              login_id: props.login_id
+                          }
                             // Alert.alert(data.location_name);
-
                             fetch(Helpers.api_url+'save_location', {
                                  method: 'POST',
                                  headers: {
@@ -95,6 +111,28 @@ const MyMapView = (props) => {
             {props.form_to && <MapView.Marker
                  coordinate={props.form_to}
                  title={"Drop-off Location"}
+              />}
+
+            {props.marker1 && <MapView.Marker
+                 coordinate={{
+                    // latitude: 37.78825,
+                    latitude: props.marker1 ? props.marker1.latitude:37.78825,
+                    // longitude: -122.4324,
+                    longitude: props.marker1 ? props.marker1.longitude:-122.4324,
+                  }}
+                 title={"Drop-off LocationX"}
+                 // description={props.geocode_name}
+              />}
+
+            {props.my_latitude!=0 && <MapView.Marker
+                 coordinate={{
+                    // latitude: 37.78825,
+                    latitude: props.my_latitude,
+                    // longitude: -122.4324,
+                    longitude: props.my_longitude,
+                  }}
+                 title={"Drop-off LocationX"}
+                 // description={props.geocode_name}
               />}
               {(props.pinned_lat !== 0) && <MapView.Marker
                    coordinate={{latitude: parseFloat(props.pinned_lat), longitude: parseFloat(props.pinned_long)}}
