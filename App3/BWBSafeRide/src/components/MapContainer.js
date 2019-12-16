@@ -619,7 +619,7 @@ class MapContainer extends React.Component {
 
             {
             this.state.is_user_type_ready == false || !this.state.booking_details ? null
-            : (can_book && this.state.booking_details != [] ) ?(
+            : (!can_book && this.state.booking_details != [] ) ?(
               <>
               {
                 // <Left>
