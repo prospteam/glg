@@ -11,6 +11,8 @@ import styles from '.././assets/my_styles.js';
 import Helpers from '../../Helpers';
 import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from 'react-native-geolocation-service';
+import firebase from './common/firebase';
+// import Geolocation from "@react-native-community/geolocation";
 
 const sample_img_link = 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/assets/images/sample.png';
 
@@ -22,11 +24,14 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 // const DRAWER_HEIGHT_SMALL = 80;
 
 class MapContainer extends React.Component {
-
   state = {
+    testlocation:null,
     is_finish_check_booking_status:false,
     is_user_type_ready:false,
+    user:null,
     driver_details:[],
+    my_latitude:0,
+    my_longitude:0,
     can_book:false,
     isDateTimePickerVisible: false,
     region: {
@@ -59,6 +64,10 @@ class MapContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.ref = firebase.firestore().collection('driver_location_logs');
+
+      // console.log('LOEDDEDDDD1');
+
     // Alert.alert("Watch Position");
 
     this.watchID = Geolocation.watchPosition((position) => {
@@ -78,18 +87,27 @@ class MapContainer extends React.Component {
       );
   }
 
+
+
   async componentDidMount() {
+
+
+          // this.driverSendLocation();
+
+    // if (this.state.booking_details) {
+
+      // this.ref.onSnapshot(this.driverLocationListener);
+
+    // }
 
     const {pinned_stat} = this.props;
 
     this.setState({pinned_stat: pinned_stat});
 
     this.setState({
-      user: JSON.parse(await AsyncStorage.getItem('userData')) ,
+      user: JSON.parse(await AsyncStorage.getItem('userData')),
       is_user_type_ready:true,
     });
-
-    // alert(this.state.pinned_stat);
 
     // console.log('MapContainer-start');
     // console.log(this.props);
@@ -97,7 +115,6 @@ class MapContainer extends React.Component {
     //
     // this.setState({pinned_latitude: this.props.pinned_latitude});
     // this.setState({pinned_longitude: this.props.pinned_longitude});
-    //
     // this.updateState({
     //   latitude: parseFloat(pinned_lat),
     //   longitude: parseFloat(pinned_long),
@@ -107,42 +124,140 @@ class MapContainer extends React.Component {
     this.checkBookingStatus();
   }
 
-  componentWillUnmount(){
-      Geolocation.clearWatch(this.watchID);
+  driverLocationListener = (querySnapShot) => {
+    // const books = [];
+    // // console.log("FAYR");
+    // // console.log(querySnapShot);
+    // querySnapShot.forEach((doc) => {
+    //   console.log("ITEM");
+    //   console.log(doc);
+    //   console.log(doc.data());
+    //   const { name } = doc.data();
+    //   // books.push({
+    //   //   name
+    //   // });
+    //   this.setState({
+    //     testlocation: doc.data(),
+    //   });
+    // });
+
+    this.ref.doc(this.state.booking_details.booking_id).onSnapshot(docSnapshot => {
+      console.log(`Received doc snapshot:`);
+      console.log(docSnapshot);
+
+        this.setState({
+          testlocation: docSnapshot.data(),
+        });
+          // this.setState({
+          //   testlocation: doc.data(),
+          // });
+      // ...
+    }, err => {
+      console.log(`Encountered error: ${err}`);
+    });
+  }
+
+  driverSendLocation(){
+    const watchId = Geolocation.watchPosition(
+      pos => {
+        console.log("GETTINGS");
+        // console.log(newCoordinate);
+        // setError("");
+        this.setState({
+          my_latitude: pos.coords.latitude,
+          my_longitude: pos.coords.longitude,
+        });
+
+        if (this.state.booking_details){
+          const ref_single = this.ref.doc(this.state.booking_details.booking_id);
+          ref_single.get()
+            .then((docSnapshot) => {
+                if (this.state.login_id) {
+                  if (docSnapshot.exists) {
+                      ref_single.update({
+                        // booking_id:this.state.booking_details.booking_id,
+                        booking_id:0,
+                        driver_id:this.state.login_id,
+                        latitude:pos.coords.latitude,
+                        longitude:pos.coords.longitude,
+                      })
+                      .catch(function(error) {
+                          console.error("Error adding document: ", error);
+                      });
+                  } else {
+                    ref_single.set({
+                      // booking_id:this.state.booking_details.booking_id,
+                      booking_id:0,
+                      driver_id:this.state.login_id,
+                      latitude:pos.coords.latitude,
+                      longitude:pos.coords.longitude,
+                    })
+                    .catch(function(error) {
+                        console.error("Error adding document: ", error);
+                    });
+                  }
+                }
+              // console.log('ALKSDJASJLDKASJLKDASKDJLAKSJ');
+              // console.log(docSnapshot);
+
+              // Add a new document with a generated id.
+              // db.collection("cities").add({
+              //     name: "Tokyo",
+              //     country: "Japan"
+              // })
+              // .then(function(docRef) {
+              //     console.log("Document written with ID: ", docRef.id);
+              // })
+              // .catch(function(error) {
+              //     console.error("Error adding document: ", error);
+              // });
+
+
+          });
+        }
+
+        // setPosition({
+        //   latitude: pos.coords.latitude,
+        //   longitude: pos.coords.longitude
+        // });
+      },
+      e => setError(e.message+"ERRRORR NOOOOO")
+    );
+
   }
 
   reverseGeocode(latitude, longitude){
-      fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + latitude + ',' + longitude + '&key=' + GOOGLE_MAPS_APIKEY)
-          .then((response) => response.json())
-          .then((responseJson) => {
-              const data = {
-                  // user_id: this.state.userid,
-                  latitude: latitude,
-                  longitude: longitude,
-                  location_name: responseJson.results[0].formatted_address
-              }
-              this.setState({geocode_name: responseJson.results[0].formatted_address});
-              this.setState({geocode_lat: latitude});
-              this.setState({geocode_long: longitude});
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + latitude + ',' + longitude + '&key=' + GOOGLE_MAPS_APIKEY)
+        .then((response) => response.json())
+        .then((responseJson) => {
+            const data = {
+                // user_id: this.state.userid,
+                latitude: latitude,
+                longitude: longitude,
+                location_name: responseJson.results[0].formatted_address
+            }
+            this.setState({geocode_name: responseJson.results[0].formatted_address});
+            this.setState({geocode_lat: latitude});
+            this.setState({geocode_long: longitude});
 
-             //  const self = this;
-             //  const api = url()+'api/save_location';
-             //
-             //  fetch(api, {
-             //   method: 'POST',
-             //   headers: {
-             //     'Accept': 'application/json',
-             //     'Content-Type': 'application/json',
-             //   },
-             //   body: JSON.stringify(data)
-             // }).then((response) => response.json())
-             //   .then((res) => {
-             //      Alert.alert(res.msg);
-             //
-             //   }).catch((error) => {
-             //     console.error(error);
-             //   });
-          })
+           //  const self = this;
+           //  const api = url()+'api/save_location';
+           //
+           //  fetch(api, {
+           //   method: 'POST',
+           //   headers: {
+           //     'Accept': 'application/json',
+           //     'Content-Type': 'application/json',
+           //   },
+           //   body: JSON.stringify(data)
+           // }).then((response) => response.json())
+           //   .then((res) => {
+           //      Alert.alert(res.msg);
+           //
+           //   }).catch((error) => {
+           //     console.error(error);
+           //   });
+        })
   }
 
   async checkBookingStatus() {
@@ -190,15 +305,15 @@ class MapContainer extends React.Component {
     //   //     height:500
     //   //   });
     this.setState({login_id: data.login_id});
-    console.log(Helpers.ci_url+'booking/user_booking_status/'+data.login_id);
-    console.log('XDXDXDXD');
+    console.log(Helpers.ci_url+'booking/user_boonotifyChangeking_status/'+data.login_id);
+    // console.log('XDXDXDXD');
 
-    fetch(Helpers.ci_url+'booking/user_booking_status/'+data.login_id, {
-     method: 'GET',
-     headers: {
-       'Accept': 'application/json',
-       'Content-Type': 'application/json',
-     }
+  fetch(Helpers.ci_url+'booking/user_booking_status/'+data.login_id, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
    }).then((response) => response.json())
      .then((responseJson) => {
        console.log('getting API');
@@ -206,11 +321,16 @@ class MapContainer extends React.Component {
         if(responseJson.num_of_active_booking > 0){
           // msg = responseJson.msg;
           // Alert.alert(msg);
+
           this.setState({
             can_book:false,
             driver_details:responseJson.driver_details,
             booking_details:responseJson.booking_details,
           });
+// this.state.user.user_type_id
+          console.log('LOEDDEDDDD2');
+          this.ref.onSnapshot(this.driverLocationListener);
+
         }else{
           this.setState({
             can_book:true,
@@ -238,23 +358,21 @@ class MapContainer extends React.Component {
   }
 
   getInitialState() {
-
     getLocation().then(data => {
-
-        // this.updateState({
-        //   latitude: parseFloat(pinned_lat),
-        //   longitude: parseFloat(pinned_long),
-        // });
-
-
-      this.updateState({
-        latitude: data.latitude,
-        longitude: data.longitude,
+      console.log('GET LOCATION');
+      // this.updateState({
+      //   latitude: data.latitude,
+      //   longitude: data.longitude,
+      // });
+      // this.updateSelectedLatLong({
+      //   latitude: data.latitude,
+      //   longitude: data.longitude,
+      // });
+      this.setState({
+        my_latitude: data.latitude,
+        my_longitude: data.longitude,
       });
-      this.updateSelectedLatLong({
-        latitude: data.latitude,
-        longitude: data.longitude,
-      });
+      // return data;
     })
     .catch(err => {
       console.log('Error:'+err.message);
@@ -299,19 +417,17 @@ class MapContainer extends React.Component {
   }
 
   getCoordsFromName(loc,inputField, inputText) {
-
     this.setState({pinned_stat: false});
-
     // alert(this.state.pinned_stat);
 
     this.updateState({
       latitude: loc.lat || this.state.set_destination_lat,
       longitude: loc.lng || this.state.set_destination_long,
     });
-    this.updateSelectedLatLong({
-      latitude: loc.lat,
-      longitude: loc.lng,
-    });
+    // this.updateSelectedLatLong({
+    //   latitude: loc.lat,
+    //   longitude: loc.lng,
+    // });
 
     if (inputField==='from') {
       this.setState({
@@ -460,7 +576,6 @@ class MapContainer extends React.Component {
 
   render() {
 
-
     // console.log("MY STATUS");
     // console.log(this.state);
     // console.log("getting NEW PROPS");
@@ -474,13 +589,18 @@ class MapContainer extends React.Component {
     }
     // console.log(distance);
     // console.log("distance Calculating");
-
+    console.log('YYYYYYYYYYYYYY');
+    const marker1 = this.state.is_user_type_ready ? this.state.user != 3 ? this.state.testlocation ? this.state.testlocation : null :null:null;
+    // console.log(this.props);
 
     return (
       <View style={{ flex: 1 ,  backgroundColor:'red'}}>
         {this.state.region['latitude'] ? (
           <View style={{ flex: 1, backgroundColor:'blue' }}>
             <MyMapView
+              my_latitude={this.state.my_latitude}
+              my_longitude={this.state.my_longitude}
+              marker1={marker1}
               region={this.state.region}
               form_from={this.state.form_from_latlong}
               form_to={set_destination_latlong}
@@ -496,9 +616,10 @@ class MapContainer extends React.Component {
               pinned_stat={this.state.pinned_stat}
               navigation={this.props.navigation}
             />
+
             {
-            this.state.is_user_type_ready==false || !this.state.booking_details ? null
-            : (!can_book && this.state.booking_details.length >= 1 ) ?(
+            this.state.is_user_type_ready == false || !this.state.booking_details ? null
+            : (can_book && this.state.booking_details != [] ) ?(
               <>
               {
                 // <Left>
@@ -516,6 +637,7 @@ class MapContainer extends React.Component {
                 // downDisplay={0.5}
                 backgroundColor='rgba(255, 0, 0, 0)'
               >
+
                 <View style={{
                   zIndex:1,
                   position: 'absolute',
@@ -526,6 +648,7 @@ class MapContainer extends React.Component {
                   paddingVertical: 10,
                   paddingHorizontal: 30,
                 }}>
+
                 <View style={{
                   padding:20,
                   borderRadius:10,
@@ -591,15 +714,14 @@ class MapContainer extends React.Component {
                       flex:1,
                       alignItems: this.state.user.user_type_id==3?'center':'stretch',
                     }}>
+
                     {
                       // can_book || this.state.can_book ?(
                         <>
                           <Text note>
                           {this.state.user.user_type_id == 3 ? "Your rider":"Your driver"
-
                           // {this.state.is_user_type_ready?('Where are you goingxxx?'):('asd')}
                           }
-
                           </Text>
                           <Text>{this.state.driver_details.first_name} {this.state.driver_details.last_name}</Text>
                           <Text>{this.state.driver_details.email}</Text>
