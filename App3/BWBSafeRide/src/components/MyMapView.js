@@ -21,7 +21,7 @@ const MyMapView = (props) => {
   return (
     <MapView
         style={{ flex: 1,  height: height-100,  width: width }}
-        
+
         // region={{origin}}
         // region={props.marker1?props.marker1:props.region?props.region:origin}
         // region={{
@@ -43,7 +43,7 @@ const MyMapView = (props) => {
         }}
         showsUserLocation={true}
         // ref={c => this.mapView = c}
-        onRegionChangeComplete={(reg) => props.onRegionChange(reg)}
+        // onRegionChangeComplete={(reg) => props.onRegionChange(reg)}
         // initialRegion={{
         //   latitude: props.marker1 ? props.marker1.latitude:37.78825,
         //   // latitude: 37.78825,

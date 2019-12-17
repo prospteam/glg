@@ -60,6 +60,7 @@ class MapInput extends React.Component {
 
                 // this.setState({set_destination_name: responseJson.results[0].formatted_address});
                 this.locationRef.setAddressText(responseJson.results[0].formatted_address);
+                // this.props.notifyChange({latitude: latitude, longitude: longitude},responseJson.results[0].formatted_address);
 
                //  const self = this;
                //  const api = url()+'api/save_location';

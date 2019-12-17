@@ -51,11 +51,31 @@ class MapContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if(prevProps.set_destination_lat !== this.props.set_destination_lat) {
-            this.setState({set_destination_lat: this.props.set_destination_lat});
+            fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.props.set_destination_lat + ',' + this.props.set_destination_long + '&key=' + GOOGLE_MAPS_APIKEY)
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    this.setState({set_destination_lat: this.props.set_destination_lat,
+                        form_to_text: responseJson.results[0].formatted_address,
+                        form_to:'to',
+                        form_to_latlong:{
+                        latitude: this.props.set_destination_lat,
+                        longitude: this.props.set_destination_long
+                    }});
+               });
         }
 
         if(prevProps.set_destination_long !== this.props.set_destination_long) {
-            this.setState({set_destination_long: this.props.set_destination_long});
+            fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.props.set_destination_lat + ',' + this.props.set_destination_long + '&key=' + GOOGLE_MAPS_APIKEY)
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    this.setState({set_destination_long: this.props.set_destination_long,
+                        form_to_text: responseJson.results[0].formatted_address,
+                        form_to:'to',
+                        form_to_latlong:{
+                        latitude: this.props.set_destination_lat,
+                        longitude: this.props.set_destination_long
+                    }});
+               });
         }
     }
 
@@ -320,7 +340,6 @@ class MapContainer extends React.Component {
        console.log(responseJson);
         if(responseJson.num_of_active_booking > 0){
           // msg = responseJson.msg;
-          // Alert.alert(msg);
 
           this.setState({
             can_book:false,
@@ -329,7 +348,7 @@ class MapContainer extends React.Component {
           });
 // this.state.user.user_type_id
           console.log('LOEDDEDDDD2');
-          this.ref.onSnapshot(this.driverLocationListener);
+          // this.ref.onSnapshot(this.driverLocationListener);
 
         }else{
           this.setState({
@@ -605,7 +624,7 @@ class MapContainer extends React.Component {
               form_from={this.state.form_from_latlong}
               form_to={set_destination_latlong}
               selectedLatLong={this.state.selectedLatLong}
-              onRegionChange={reg => this.onMapRegionChange(reg)}
+              // onRegionChange={reg => this.onMapRegionChange(reg)}
               getData={params => this.getDataFromMap(params)}
               geocode_name={this.state.geocode_name}
               geocode_lat={this.state.geocode_lat}
@@ -619,7 +638,7 @@ class MapContainer extends React.Component {
 
             {
             this.state.is_user_type_ready == false || !this.state.booking_details ? null
-            : (!can_book && this.state.booking_details != [] ) ?(
+            : (can_book && this.state.booking_details != [] ) ?(    //!can_book
               <>
               {
                 // <Left>
@@ -695,10 +714,9 @@ class MapContainer extends React.Component {
                       padding:5,
                       textAlign: 'center',
                     }}>
-                    {
-                      this.state.user.user_type_id == 3 ? null: !can_book || !this.state.can_book ?(
+                    {this.state.user.user_type_id == 3 ? null: !can_book || !this.state.can_book ?(
                           <Thumbnail
-                            source={{uri: `data:image/gif;base64,${this.state.driver_details.photo}`}} />
+                            source={{uri: `data:image/gif;base64,${this.state.driver_details.photo}` }} />
                           ):(
                           <Thumbnail
                             source={require('../assets/images/avatar.png')} />
