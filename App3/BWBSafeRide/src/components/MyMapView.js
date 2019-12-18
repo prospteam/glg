@@ -13,6 +13,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 // this.mapView = null;
 
 const MyMapView = (props) => {
+    // Alert.alert('hello');
   console.log('MyMapView Rendering-start');
   console.log(props);
   console.log('MyMapView Rendering-end');
@@ -33,17 +34,24 @@ const MyMapView = (props) => {
         // }}
 
         region={{
+<<<<<<< HEAD
             latitude: (props.pinned_lat !== 0) ? parseFloat(props.pinned_lat) : props.region.latitude,
             longitude: (props.pinned_stat !== 0) ? parseFloat(props.pinned_long) : props.region.longitude,
             // latitude: (props.pinned_lat !== 0) ? parseFloat(props.pinned_lat) : props.region.region,
             // longitude: (props.pinned_stat !== 0) ? parseFloat(props.pinned_long) : props.region.region,
+=======
+            // latitude: (props.pinned_stat == true) ? parseFloat(props.pinned_lat) : props.region.latitude,
+            // longitude: (props.pinned_stat == true) ? parseFloat(props.pinned_long) : props.region.longitude,
+            latitude: (props.pinned_lat != 0) ? parseFloat(props.pinned_lat) : props.region.latitude,
+            longitude: (props.pinned_long != 0) ? parseFloat(props.pinned_long) : props.region.longitude,
+>>>>>>> 422c6ee40e044dd03bd8296a3a6a1eba631ad1d6
             latitudeDelta: props.region.latitudeDelta,
             longitudeDelta: props.region.longitudeDelta,
         }}
 
         showsUserLocation={true}
         // ref={c => this.mapView = c}
-        onRegionChangeComplete={(reg) => props.onRegionChange(reg)}
+        // onRegionChangeComplete={(reg) => props.onRegionChange(reg)}
         // initialRegion={{
         //   // latitude: props.my_latitude_as_rider,
         //   // latitude: props.marker1 ? props.marker1.latitude:37.78825,
@@ -113,7 +121,6 @@ const MyMapView = (props) => {
             {props.form_to && <MapView.Marker
                  coordinate={props.form_to}
                  title={"Drop-off Location"}
-                 description={props.geocode_name}
               />}
 
             {props.marker1 && <MapView.Marker

@@ -257,9 +257,6 @@ export default class Dashboard extends Component {
     render() {
         const { navigation } = this.props;
 
-        const set_destination_lat = navigation.getParam('latitude', 0);
-        const set_destination_long = navigation.getParam('longitude', 0);
-
         let params = false;
       if (this.props.navigation.getParam('params',false)) {
         params = this.props.navigation.getParam('params',false);
@@ -305,7 +302,7 @@ export default class Dashboard extends Component {
           <Content Styles={{position:'relative'}}>
             <View style={styles.container}>
             {
-                <MapContainer navigation={this.props.navigation} {...params} pinned_latitude={navigation.getParam('pinned_loc_lat', 0)} pinned_longitude={navigation.getParam('pinned_loc_long', 0)} pinned_stat={navigation.getParam('pinned_stat', true)} window_height={height} set_destination_lat={set_destination_lat} set_destination_long={set_destination_long} />
+                <MapContainer navigation={this.props.navigation} {...params} pinned_latitude={navigation.getParam('pinned_loc_lat', 0)} pinned_longitude={navigation.getParam('pinned_loc_long', 0)} pinned_stat={navigation.getParam('pinned_stat', true)} window_height={height} set_destination_lat={navigation.getParam('latitude', 0)} set_destination_long={navigation.getParam('longitude', 0)} />
               }
             </View>
           </Content>

@@ -10,8 +10,9 @@ import BottomDrawer from 'rn-bottom-drawer';
 import styles from '.././assets/my_styles.js';
 import Helpers from '../../Helpers';
 import AsyncStorage from '@react-native-community/async-storage';
-import firebase from './common/Firebase';
-import Geolocation from "@react-native-community/geolocation";
+import Geolocation from 'react-native-geolocation-service';
+import firebase from './common/firebase';
+// import Geolocation from "@react-native-community/geolocation";
 
 const sample_img_link = 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/assets/images/sample.png';
 
@@ -24,6 +25,63 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyCsCARtyDaiIeDtGY0r3jz4pT4YwiR41Fw';
 
 // const DRAWER_HEIGHT_SMALL = 80;
 class MapContainer extends React.Component {
+  // state = {
+  //   testlocation:null,
+  //   is_finish_check_booking_status:false,
+  //   is_user_type_ready:false,
+  //   user:null,
+  //   driver_details:[],
+  //   my_latitude:0,
+  //   my_longitude:0,
+  //   can_book:false,
+  //   isDateTimePickerVisible: false,
+  //   region: {
+  //     latitude: 43.7984299,
+  //     longitude: -84.7310113,
+  //     latitudeDelta: 3,
+  //     longitudeDelta: 3,
+  //   },
+  //   geocode_name: null,
+  //   geocode_lat: null,
+  //   geocode_long: null,
+  //   login_id: null,
+  //   pinned_stat: false,
+  //   set_destination_lat: this.props.set_destination_lat,
+  //   set_destination_long: this.props.set_destination_long
+  // };
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.set_destination_lat !== this.props.set_destination_lat) {
+            fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.props.set_destination_lat + ',' + this.props.set_destination_long + '&key=' + GOOGLE_MAPS_APIKEY)
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    this.setState({set_destination_lat: this.props.set_destination_lat,
+                        form_to_text: responseJson.results[0].formatted_address,
+                        form_to:'to',
+                        form_to_latlong:{
+                        latitude: this.props.set_destination_lat,
+                        longitude: this.props.set_destination_long
+                    }});
+               });
+        }
+
+        if(prevProps.set_destination_long !== this.props.set_destination_long) {
+            fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.props.set_destination_lat + ',' + this.props.set_destination_long + '&key=' + GOOGLE_MAPS_APIKEY)
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    this.setState({set_destination_long: this.props.set_destination_long,
+                        form_to_text: responseJson.results[0].formatted_address,
+                        form_to:'to',
+                        form_to_latlong:{
+                        latitude: this.props.set_destination_lat,
+                        longitude: this.props.set_destination_long
+                    }});
+               });
+        }
+    }
+
+  watchID: ?number = null;
+
   constructor(props) {
     super(props);
 
@@ -59,7 +117,25 @@ class MapContainer extends React.Component {
 
     this.ref = firebase.firestore().collection('driver_location_logs');
 
-      console.log('LOEDDEDDDD1');
+      // console.log('LOEDDEDDDD1');
+
+    // Alert.alert("Watch Position");
+
+    this.watchID = Geolocation.watchPosition((position) => {
+      //const lastPosition = JSON.stringify(position);
+      //this.setState({lastPosition});
+
+        this.setState({
+            region: {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              latitudeDelta:  0.015,
+              longitudeDelta: 0.0121
+            }
+        });
+      },
+      (error) => Alert.alert(JSON.stringify(error))
+      );
   }
 
 
@@ -311,7 +387,6 @@ class MapContainer extends React.Component {
        // console.log(responseJson);
         if(responseJson.num_of_active_booking > 0){
           // msg = responseJson.msg;
-          // Alert.alert(msg);
 
           this.setState({
             can_book:false,
@@ -320,7 +395,7 @@ class MapContainer extends React.Component {
           });
 // this.state.user.user_type_id
           console.log('LOEDDEDDDD2');
-          this.ref.onSnapshot(this.driverLocationListener);
+          // this.ref.onSnapshot(this.driverLocationListener);
 
         }else{
           this.setState({
@@ -410,10 +485,11 @@ class MapContainer extends React.Component {
   getCoordsFromName(loc,inputField, inputText) {
     this.setState({pinned_stat: false});
     // alert(this.state.pinned_stat);
-    // this.updateState({
-    //   latitude: loc.lat,
-    //   longitude: loc.lng,
-    // });
+
+    this.updateState({
+      latitude: loc.lat || this.state.set_destination_lat,
+      longitude: loc.lng || this.state.set_destination_long,
+    });
     // this.updateSelectedLatLong({
     //   latitude: loc.lat,
     //   longitude: loc.lng,
@@ -436,6 +512,8 @@ class MapContainer extends React.Component {
           latitude: loc.lat,
           longitude: loc.lng,
         },
+        set_destination_lat: loc.lat,
+        set_destination_long: loc.lng
       });
     }
   }
@@ -467,30 +545,35 @@ class MapContainer extends React.Component {
 
     let payByDistance = baseFare*(state.distance+1);
 
-    const formData = {
-      chosenDate:state.chosenDate.toString().substr(4, 12),
-      chosenTime:state.chosenTime.toString().substr(15, 24),
-      distance:state.distance,
-      duration:state.duration,
-      form_from_latlong:state.form_from_latlong,
-      form_from_text:state.form_from_text,
-      form_to_latlong:state.form_to_latlong,
-      form_to_text:state.form_to_text,
-      payByDistance:payByDistance,
-    };
+    if(typeof(state.chosenDate) === 'undefined'){
+        Alert.alert('Please select date of pickup.');
+    }else if(typeof(state.chosenTime) === 'undefined'){
+            Alert.alert('Please select time of pickup.');
+    }else{
+        const formData = {
+          chosenDate:state.chosenDate.toString().substr(4, 12),
+          chosenTime:state.chosenTime,
+          distance:state.distance,
+          duration:state.duration,
+          form_from_latlong:state.form_from_latlong,
+          form_from_text:state.form_from_text,
+          form_to_latlong:state.form_to_latlong,
+          form_to_text:state.form_to_text,
+          payByDistance:payByDistance,
+        };
 
-    // Actions.payment();
+        // Actions.payment();
 
-    // NOTE:
-    this.props.navigation.navigate('Payment',{params:formData});
-
-    // this.props.navigate('Payment');
-    // console.log('Booknow');
-    // console.log(formData);
-    // console.log('state');
-    // console.log(state);
-    // console.log(state.form_from_latlong);
-    // console.log(state.form_from_latlong);
+        // NOTE:
+        this.props.navigation.navigate('Payment',{params:formData});
+        // this.props.navigate('Payment');
+        // console.log('Booknow');
+        // console.log(formData);
+        // console.log('state');
+        // console.log(state);
+        // console.log(state.form_from_latlong);
+        // console.log(state.form_from_latlong);
+    }
   }
 
   // testfunction(){
@@ -562,13 +645,13 @@ class MapContainer extends React.Component {
     // console.log(this.state);
     // console.log(this.props);
     // console.log("getting NEW PROPS");
-    const { window_height, can_book, pinned_latitude, pinned_longitude, navigation, set_destination_lat, set_destination_long } = this.props;
+    const { window_height, can_book, pinned_latitude, pinned_longitude, navigation } = this.props;
     // console.log('MapContainer Rendered');
     const { distance, duration } = this.state;
 
     const set_destination_latlong = {
-        latitude: set_destination_lat,
-        longitude: set_destination_long
+        latitude: this.state.set_destination_lat,
+        longitude: this.state.set_destination_long
     }
 
     // console.log(distance);
@@ -593,9 +676,9 @@ class MapContainer extends React.Component {
               region={this.state.region}
               viewed_region={this.state.viewed_region}
               form_from={this.state.form_from_latlong}
-              form_to={this.state.form_to_latlong || set_destination_latlong}
+              form_to={set_destination_latlong}
               selectedLatLong={this.state.selectedLatLong}
-              onRegionChange={reg => this.onMapRegionChange(reg)}
+              // onRegionChange={reg => this.onMapRegionChange(reg)}
               getData={params => this.getDataFromMap(params)}
               geocode_name={this.state.geocode_name}
               geocode_lat={this.state.geocode_lat}
@@ -808,10 +891,9 @@ class MapContainer extends React.Component {
                       padding:5,
                       textAlign: 'center',
                     }}>
-                    {
-                      this.state.user.user_type_id == 3 ? null: !can_book || !this.state.can_book ?(
+                    {this.state.user.user_type_id == 3 ? null: !can_book || !this.state.can_book ?(
                           <Thumbnail
-                            source={{uri: `data:image/gif;base64,${this.state.driver_details.photo}`}} />
+                            source={{uri: `data:image/gif;base64,${this.state.driver_details.photo}` }} />
                           ):(
                           <Thumbnail
                             source={require('../assets/images/avatar.png')} />
@@ -875,7 +957,134 @@ class MapContainer extends React.Component {
                 </View>
               </BottomDrawer>
               </>
-            )
+            ):(
+              <>
+              {
+
+              (this.state.user.user_type_id == 3 && (can_book || this.state.can_book) && this.state.is_finish_check_booking_status) ? (this.props.navigate('Bookings')):(
+              <BottomDrawer
+                containerHeight={ window_height - 15 }
+                offset={0}
+                startUp={false}
+                // downDisplay={0.5}
+                backgroundColor='rgba(255, 0, 0, 0)'
+              >
+                <View style={{
+                  zIndex:1,
+                  position: 'absolute',
+                  top:0,
+                  flex: 0.4,
+                  textAlign:'center',
+                  width:'100%',
+                  paddingVertical: 10,
+                  paddingHorizontal: 30,
+                }}>
+                    <View style={{
+                      padding:20,
+                      borderRadius:10,
+                      shadowColor: "#000",
+                      shadowOffset: {
+                      	width: 0,
+                      	height: 5,
+                      },
+                      shadowOpacity: 0.34,
+                      shadowRadius: 6.27,
+                      elevation: 10,
+                      backgroundColor:'white',
+                    }}>
+
+                    <Text
+                      style={{
+                        width:'100%',
+                        height:3,
+                        textAlign:'center',
+                        position:'relative',
+                        bottom:10,
+                      }}>
+                      <Text style={{
+                        width:100,
+                        backgroundColor:'black',
+                      }}>____
+                      </Text>
+                    </Text>
+                    <Text style={{
+                      width:'100%',
+                      textAlign: 'left',
+                      fontWeight:'bold',
+                      fontSize:20,
+                      marginBottom:15
+                    }}>
+                      {this.state.is_user_type_ready?('Where are you going?'):('__')}
+                    </Text>
+                  <Label>Pickup</Label>
+                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'from',loc_text)} latlong={this.state.form_from_latlong} placeholder='Enter pickup location.'/>
+                  <View
+                    style={{
+                      borderBottomColor: '#d9d9d9',
+                      borderBottomWidth: 2,
+                    }}
+                  />
+                  <Label>Drop-Off</Label>
+                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'to',loc_text)} latlong={set_destination_latlong} placeholder='Enter drop-off location' />
+                  {distance ?(
+                    <Form>
+                      <View
+                        style={{
+                          borderBottomColor: '#d9d9d9',
+                          borderBottomWidth: 2,
+                          marginTop: 20,
+                          marginLeft: -20,
+                          marginRight: -20,
+                        }}
+                      />
+                      <View style={{display:'flex',flexDirection:'row',marginTop: 20}}>
+                          <View style={{width:'55%'}}>
+                            <Label style={{marginTop: 0}}>Pickup Date</Label>
+                            <DatePicker
+                              defaultDate={new Date()}
+                              minimumDate={new Date(2018, 1, 1)}
+                              locale={"en"}
+                              modalTransparent={false}
+                              animationType={"fade"}
+                              androidMode={"default"}
+                              placeHolderText="Select date"
+                              textStyle={{ color: "black", border: 1 , fontSize: 18}}
+                              placeHolderTextStyle={{ color: "#d3d3d3" }}
+                              onDateChange={(e) => this.setDate(e)}
+                              disabled={false}
+                              />
+                            </View>
+                            <View style={{width:'45%'}}>
+                              <Label>Pickup Time</Label>
+                              <Text onPress={this.showDateTimePicker} style={{
+                                marginLeft: 10,
+                                marginTop: 10,
+                                textAlign: 'left',
+                              }}>{this.state.chosenTime?this.state.chosenTime:'00:00 AM'}</Text>
+                              <DateTimePicker
+                                mode='time'
+                                isVisible={this.state.isDateTimePickerVisible}
+                                onConfirm={this.handleDatePicked}
+                                onCancel={this.hideDateTimePicker}
+                              />
+                              </View>
+                        </View>
+                      <Button style={{marginTop: 30}} onPress={(e) => this.bookNow(e)}>
+                        <Text style={{
+                          width:'100%',
+                          textAlign: 'center',
+                        }}>Book Now</Text>
+                      </Button>
+                    </Form>
+                    ) : null}
+                  </View>
+                </View>
+              </BottomDrawer>
+                )
+              }
+                </>
+              )
+>>>>>>> 422c6ee40e044dd03bd8296a3a6a1eba631ad1d6
             }
           </View>
         ) : null}

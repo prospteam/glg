@@ -8,20 +8,38 @@ class MapInput extends React.Component {
 //#1c1b22 BLACK BWB
 
     state = {
-        set_destination_name: null
+        set_destination_name: null,
+        set_destination_lat: null,
+        set_destination_long: null
+    }
+
+    constructor(props){
+        super(props);
     }
 
     componentDidMount(){
 
-        for(var key in this.props.latlong) {
-            if(this.props.latlong.hasOwnProperty(key)) {
-                var latitude = this.props.latlong['latitude'];
-                var longitude = this.props.latlong['longitude'];
-            }
-        }
+        // for(var key in this.props.latlong) {
+        //     if(this.props.latlong.hasOwnProperty(key)) {
+        //         var latitude = this.props.latlong['latitude'];
+        //         var longitude = this.props.latlong['longitude'];
+        //     }
+        // }
+        //
+        // this.setState({set_destination_lat: latitude, set_destination_long: longitude});
+        // this.props.notifyChange({latitude: latitude, longitude: longitude});
+        // this.reverseGeocode(this.state.set_destination_lat, this.state.set_destination_long);
 
-        this.reverseGeocode(latitude, longitude);
+        // if(typeof(this.props.latlong) !== 'undefined')
+        // this.locationRef.setAddressText(this.props.latlong);
+        // console.log('hellllllllllloooooooooooooo');
+        // console.log(this.props.latlong);
+        // console.log('hellllllllllloooooooooooooo');
     }
+
+    // setLocation(loc){
+    //     this.locationRef.setAddressText(loc);
+    // }
 
     reverseGeocode(latitude, longitude){
         fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + latitude + ',' + longitude + '&key=' + GOOGLE_MAPS_APIKEY)
@@ -34,9 +52,15 @@ class MapInput extends React.Component {
                 //     location_name: responseJson.results[0].formatted_address
                 // }
 
-                this.setState({ set_destination_name: responseJson.results[0].formatted_address });
+                // this.setState({ set_destination_name: responseJson.results[0].formatted_address },
+                //     function(){
+                //         console.log(this.state.set_destination_name);
+                //     }
+                // );
 
-                this.locationRef.setAddressText(this.state.set_destination_name);
+                // this.setState({set_destination_name: responseJson.results[0].formatted_address});
+                this.locationRef.setAddressText(responseJson.results[0].formatted_address);
+                // this.props.notifyChange({latitude: latitude, longitude: longitude},responseJson.results[0].formatted_address);
 
                //  const self = this;
                //  const api = url()+'api/save_location';
@@ -60,12 +84,25 @@ class MapInput extends React.Component {
     }
 
     render() {
+
+        for(var key in this.props.latlong) {
+            if(this.props.latlong.hasOwnProperty(key)) {
+                var latitude = this.props.latlong['latitude'];
+                var longitude = this.props.latlong['longitude'];
+            }
+        }
+
+        this.reverseGeocode(latitude, longitude);
+
         return (
           <KeyboardAvoidingView
           behavior="padding"
         >
             <GooglePlacesAutocomplete
-                ref={(instance) => { this.locationRef = instance}}
+                // textInputProps={{
+                //     onChangeText: (loc) => this.setState({set_destination_name: loc})
+                // }}
+                ref={(instance) => this.locationRef = instance }
                 placeholder={this.props.placeholder}
                 minLength={2}
                 autoFocus={false}
