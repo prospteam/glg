@@ -34,19 +34,12 @@ const MyMapView = (props) => {
         // }}
 
         region={{
-<<<<<<< HEAD
-            latitude: (props.pinned_lat !== 0) ? parseFloat(props.pinned_lat) : props.region.latitude,
-            longitude: (props.pinned_stat !== 0) ? parseFloat(props.pinned_long) : props.region.longitude,
-            // latitude: (props.pinned_lat !== 0) ? parseFloat(props.pinned_lat) : props.region.region,
-            // longitude: (props.pinned_stat !== 0) ? parseFloat(props.pinned_long) : props.region.region,
-=======
-            // latitude: (props.pinned_stat == true) ? parseFloat(props.pinned_lat) : props.region.latitude,
-            // longitude: (props.pinned_stat == true) ? parseFloat(props.pinned_long) : props.region.longitude,
-            latitude: (props.pinned_lat != 0) ? parseFloat(props.pinned_lat) : props.region.latitude,
-            longitude: (props.pinned_long != 0) ? parseFloat(props.pinned_long) : props.region.longitude,
->>>>>>> 422c6ee40e044dd03bd8296a3a6a1eba631ad1d6
-            latitudeDelta: props.region.latitudeDelta,
-            longitudeDelta: props.region.longitudeDelta,
+          latitude: (props.pinned_lat !== 0) ? parseFloat(props.pinned_lat) : props.region.latitude,
+          longitude: (props.pinned_stat !== 0) ? parseFloat(props.pinned_long) : props.region.longitude,
+          // latitude: (props.pinned_lat !== 0) ? parseFloat(props.pinned_lat) : props.region.region,
+          // longitude: (props.pinned_stat !== 0) ? parseFloat(props.pinned_long) : props.region.region,
+          latitudeDelta: props.region.latitudeDelta,
+          longitudeDelta: props.region.longitudeDelta,
         }}
 
         showsUserLocation={true}

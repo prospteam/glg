@@ -11,7 +11,7 @@ import styles from '.././assets/my_styles.js';
 import Helpers from '../../Helpers';
 import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from 'react-native-geolocation-service';
-import firebase from './common/firebase';
+import firebase from './common/Firebase';
 // import Geolocation from "@react-native-community/geolocation";
 
 const sample_img_link = 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/assets/images/sample.png';
@@ -111,6 +111,9 @@ class MapContainer extends React.Component {
       pinned_stat: false,
       my_latitude_as_rider: 0,
       my_longitude_as_rider: 0,
+      form_from_latlong: null,
+      set_destination_lat:0,
+      set_destination_long:0,
       // pinned_latitude: 0,
       // pinned_longitude: 0
     }
@@ -694,7 +697,7 @@ class MapContainer extends React.Component {
             : (can_book || this.state.can_book) ?(
               <>
               {
-              (this.state.user.user_type_id == 3 && (can_book || this.state.can_book) && this.state.is_finish_check_booking_status) ? (this.props.navigate('Bookings')):(
+              (this.state.user.user_type_id == 3 && (can_book || this.state.can_book) && this.state.is_finish_check_booking_status) ? (this.props.navigation.navigate('Bookings')):(
               <BottomDrawer
                 containerHeight={ window_height - 15 }
                 offset={0}
@@ -957,134 +960,7 @@ class MapContainer extends React.Component {
                 </View>
               </BottomDrawer>
               </>
-            ):(
-              <>
-              {
-
-              (this.state.user.user_type_id == 3 && (can_book || this.state.can_book) && this.state.is_finish_check_booking_status) ? (this.props.navigate('Bookings')):(
-              <BottomDrawer
-                containerHeight={ window_height - 15 }
-                offset={0}
-                startUp={false}
-                // downDisplay={0.5}
-                backgroundColor='rgba(255, 0, 0, 0)'
-              >
-                <View style={{
-                  zIndex:1,
-                  position: 'absolute',
-                  top:0,
-                  flex: 0.4,
-                  textAlign:'center',
-                  width:'100%',
-                  paddingVertical: 10,
-                  paddingHorizontal: 30,
-                }}>
-                    <View style={{
-                      padding:20,
-                      borderRadius:10,
-                      shadowColor: "#000",
-                      shadowOffset: {
-                      	width: 0,
-                      	height: 5,
-                      },
-                      shadowOpacity: 0.34,
-                      shadowRadius: 6.27,
-                      elevation: 10,
-                      backgroundColor:'white',
-                    }}>
-
-                    <Text
-                      style={{
-                        width:'100%',
-                        height:3,
-                        textAlign:'center',
-                        position:'relative',
-                        bottom:10,
-                      }}>
-                      <Text style={{
-                        width:100,
-                        backgroundColor:'black',
-                      }}>____
-                      </Text>
-                    </Text>
-                    <Text style={{
-                      width:'100%',
-                      textAlign: 'left',
-                      fontWeight:'bold',
-                      fontSize:20,
-                      marginBottom:15
-                    }}>
-                      {this.state.is_user_type_ready?('Where are you going?'):('__')}
-                    </Text>
-                  <Label>Pickup</Label>
-                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'from',loc_text)} latlong={this.state.form_from_latlong} placeholder='Enter pickup location.'/>
-                  <View
-                    style={{
-                      borderBottomColor: '#d9d9d9',
-                      borderBottomWidth: 2,
-                    }}
-                  />
-                  <Label>Drop-Off</Label>
-                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'to',loc_text)} latlong={set_destination_latlong} placeholder='Enter drop-off location' />
-                  {distance ?(
-                    <Form>
-                      <View
-                        style={{
-                          borderBottomColor: '#d9d9d9',
-                          borderBottomWidth: 2,
-                          marginTop: 20,
-                          marginLeft: -20,
-                          marginRight: -20,
-                        }}
-                      />
-                      <View style={{display:'flex',flexDirection:'row',marginTop: 20}}>
-                          <View style={{width:'55%'}}>
-                            <Label style={{marginTop: 0}}>Pickup Date</Label>
-                            <DatePicker
-                              defaultDate={new Date()}
-                              minimumDate={new Date(2018, 1, 1)}
-                              locale={"en"}
-                              modalTransparent={false}
-                              animationType={"fade"}
-                              androidMode={"default"}
-                              placeHolderText="Select date"
-                              textStyle={{ color: "black", border: 1 , fontSize: 18}}
-                              placeHolderTextStyle={{ color: "#d3d3d3" }}
-                              onDateChange={(e) => this.setDate(e)}
-                              disabled={false}
-                              />
-                            </View>
-                            <View style={{width:'45%'}}>
-                              <Label>Pickup Time</Label>
-                              <Text onPress={this.showDateTimePicker} style={{
-                                marginLeft: 10,
-                                marginTop: 10,
-                                textAlign: 'left',
-                              }}>{this.state.chosenTime?this.state.chosenTime:'00:00 AM'}</Text>
-                              <DateTimePicker
-                                mode='time'
-                                isVisible={this.state.isDateTimePickerVisible}
-                                onConfirm={this.handleDatePicked}
-                                onCancel={this.hideDateTimePicker}
-                              />
-                              </View>
-                        </View>
-                      <Button style={{marginTop: 30}} onPress={(e) => this.bookNow(e)}>
-                        <Text style={{
-                          width:'100%',
-                          textAlign: 'center',
-                        }}>Book Now</Text>
-                      </Button>
-                    </Form>
-                    ) : null}
-                  </View>
-                </View>
-              </BottomDrawer>
-                )
-              }
-                </>
-              )
->>>>>>> 422c6ee40e044dd03bd8296a3a6a1eba631ad1d6
+            )
             }
           </View>
         ) : null}
