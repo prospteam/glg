@@ -116,9 +116,6 @@ export default class Dashboard extends Component {
 
   componentDidMount() {
 
-      // const {latitude} = this.props;
-      // navigation.getParam('latitude', 0)
-
       this.getDriverStatus();
 
     var that = this;
@@ -126,23 +123,23 @@ export default class Dashboard extends Component {
       // if(Platform.OS === 'ios'){
       //   this.callLocation(that);
       // }else{
-        async function requestLocationPermission() {
-          try {
-            const granted = await PermissionsAndroid.request(
-              PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,{
-                'title': 'Location Access Required',
-                'message': 'This App needs to Access your location'
-              }
-            )
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-              // that.callLocation(that);
-            }
-          } catch (err) {
-            alert("Something went wrong.");
-            console.warn("err",err);
-          }
-        }
-        requestLocationPermission();
+        // async function requestLocationPermission() {
+        //   try {
+        //     const granted = await PermissionsAndroid.request(
+        //       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,{
+        //         'title': 'Location Access Required',
+        //         'message': 'This App needs to Access your location'
+        //       }
+        //     )
+        //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        //       // that.callLocation(that);
+        //     }
+        //   } catch (err) {
+        //     alert("Something went wrong.");
+        //     console.warn("err",err);
+        //   }
+        // }
+        // requestLocationPermission();
       // }
   }
   callLocation(that){
@@ -255,6 +252,10 @@ export default class Dashboard extends Component {
 
     render() {
         const { navigation } = this.props;
+
+        console.log('boooooooooooking');
+        console.log(navigation.getParam('booking_data', null));
+        console.log('boooooooooooking');
 
         let params = false;
       if (this.props.navigation.getParam('params',false)) {
