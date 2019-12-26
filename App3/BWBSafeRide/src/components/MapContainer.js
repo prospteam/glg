@@ -11,7 +11,7 @@ import styles from '.././assets/my_styles.js';
 import Helpers from '../../Helpers';
 import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from 'react-native-geolocation-service';
-import firebase from './common/firebase';
+import firebase from './common/Firebase';
 // import Geolocation from "@react-native-community/geolocation";
 
 const sample_img_link = 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/assets/images/sample.png';
@@ -19,37 +19,36 @@ const sample_img_link = 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web
 const TAB_BAR_HEIGHT = 80;
 const DRAWER_HEIGHT_SMALL = 300;
 const DRAWER_HEIGHT_BIG = 500;
-const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
+// const GOOGLE_MAPS_APIKEY = 'AIzaSyDNiQ_vrw3zB6pM_s2nNC-0mohwlWi6wGo';
+const GOOGLE_MAPS_APIKEY = 'AIzaSyCsCARtyDaiIeDtGY0r3jz4pT4YwiR41Fw';
+// const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 
 // const DRAWER_HEIGHT_SMALL = 80;
-
 class MapContainer extends React.Component {
-  state = {
-    testlocation:null,
-    is_finish_check_booking_status:false,
-    is_user_type_ready:false,
-    user:null,
-    driver_details:[],
-    my_latitude:0,
-    my_longitude:0,
-    can_book:false,
-    isDateTimePickerVisible: false,
-    region: {
-      latitude: 43.7984299,
-      longitude: -84.7310113,
-      latitudeDelta: 3,
-      longitudeDelta: 3,
-    },
-    geocode_name: null,
-    geocode_lat: null,
-    geocode_long: null,
-    login_id: null,
-    pinned_stat: false,
-    set_destination_lat: this.props.set_destination_lat,
-    set_destination_long: this.props.set_destination_long,
-    form_from_text: null,
-    form_to_text: null
-  };
+  // state = {
+  //   testlocation:null,
+  //   is_finish_check_booking_status:false,
+  //   is_user_type_ready:false,
+  //   user:null,
+  //   driver_details:[],
+  //   my_latitude:0,
+  //   my_longitude:0,
+  //   can_book:false,
+  //   isDateTimePickerVisible: false,
+  //   region: {
+  //     latitude: 43.7984299,
+  //     longitude: -84.7310113,
+  //     latitudeDelta: 3,
+  //     longitudeDelta: 3,
+  //   },
+  //   geocode_name: null,
+  //   geocode_lat: null,
+  //   geocode_long: null,
+  //   login_id: null,
+  //   pinned_stat: false,
+  //   set_destination_lat: this.props.set_destination_lat,
+  //   set_destination_long: this.props.set_destination_long
+  // };
 
     componentDidUpdate(prevProps) {
         if(prevProps.set_destination_lat !== this.props.set_destination_lat) {
@@ -85,6 +84,41 @@ class MapContainer extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      testlocation:null,
+      is_finish_check_booking_status:false,
+      is_user_type_ready:false,
+      user:null,
+      driver_details:[],
+      distance:0,
+      duration:0,
+      my_latitude:0,
+      my_longitude:0,
+      can_book:false,
+      isDateTimePickerVisible: false,
+      region: {
+        latitude: 44.3148, // Michigan Lat
+        longitude: -84.506836, // Michigan Long
+        latitudeDelta: 3,
+        longitudeDelta: 3,
+      },
+      geocode_name: null,
+      geocode_lat: null,
+      geocode_long: null,
+      login_id: null,
+      booking_details:[],
+      pinned_stat: false,
+      my_latitude_as_rider: 0,
+      my_longitude_as_rider: 0,
+      form_from_latlong: null,
+      set_destination_lat:0,
+      set_destination_long:0,
+      form_from_text: null,
+      form_to_text: null
+      // pinned_latitude: 0,
+      // pinned_longitude: 0
+    }
 
     this.ref = firebase.firestore().collection('driver_location_logs');
 
@@ -145,7 +179,7 @@ class MapContainer extends React.Component {
     //   longitude: parseFloat(pinned_long),
     // });
 
-    this.getInitialState();
+    this.initMyLocation();
     this.checkBookingStatus();
   }
 
@@ -180,6 +214,22 @@ class MapContainer extends React.Component {
     }, err => {
       console.log(`Encountered error: ${err}`);
     });
+  }
+
+  riderGetCurrentLocation(){
+    // geolocation.getCurrentPosition(geo_success, [geo_error], [geo_options]); // FUNCTION PARAMETER
+
+      const watchId = Geolocation.getCurrentPosition(
+        pos => {
+          console.log("Get initial location");
+          this.setState({
+            my_latitude_as_rider: pos.coords.latitude,
+            my_longitude_as_rider: pos.coords.longitude,
+          });
+        },
+        e => setError(e.message+"ERRRORR NOOOOO")
+      );
+
   }
 
   driverSendLocation(){
@@ -342,7 +392,7 @@ class MapContainer extends React.Component {
    }).then((response) => response.json())
      .then((responseJson) => {
        console.log('getting API');
-       console.log(responseJson);
+       // console.log(responseJson);
         if(responseJson.num_of_active_booking > 0){
           // msg = responseJson.msg;
 
@@ -381,7 +431,7 @@ class MapContainer extends React.Component {
       // console.log(this.state);
   }
 
-  getInitialState() {
+  initMyLocation() {
     getLocation().then(data => {
       console.log('GET LOCATION');
       // this.updateState({
@@ -480,9 +530,9 @@ class MapContainer extends React.Component {
   }
 
   onMapRegionChange(region) {
-    this.setState({ region });
-    // console.log(region);
-    // console.log('got');
+    // this.setState({ region });
+    // console.log('GETTING NEW REGION');
+    // console.log(this.state);
   }
 
   getDataFromMap(params) {
@@ -605,9 +655,9 @@ class MapContainer extends React.Component {
   };
 
   render() {
-
     // console.log("MY STATUS");
     // console.log(this.state);
+    // console.log(this.props);
     // console.log("getting NEW PROPS");
     const { window_height, can_book, pinned_latitude, pinned_longitude, navigation } = this.props;
     // console.log('MapContainer Rendered');
@@ -621,9 +671,13 @@ class MapContainer extends React.Component {
         latitude: this.state.set_destination_lat,
         longitude: this.state.set_destination_long
     }
+
     // console.log(distance);
     // console.log("distance Calculating");
+
     console.log('YYYYYYYYYYYYYY');
+    console.log(this.state.can_book);
+    // console.log(this.state.booking_details);
     const marker1 = this.state.is_user_type_ready ? this.state.user != 3 ? this.state.testlocation ? this.state.testlocation : null :null:null;
     // console.log(this.props);
 
@@ -634,8 +688,11 @@ class MapContainer extends React.Component {
             <MyMapView
               my_latitude={this.state.my_latitude}
               my_longitude={this.state.my_longitude}
+              my_latitude_as_rider={this.state.my_latitude_as_rider}
+              my_longitude_as_rider={this.state.my_longitude_as_rider}
               marker1={marker1}
               region={this.state.region}
+              viewed_region={this.state.viewed_region}
               form_from={navigation.getParam('booking_data_from_latlong', this.state.form_from_latlong)}
               form_to={navigation.getParam('booking_data_to_latlong', set_destination_latlong)}
               selectedLatLong={this.state.selectedLatLong}
@@ -650,152 +707,9 @@ class MapContainer extends React.Component {
               pinned_stat={this.state.pinned_stat}
               navigation={this.props.navigation}
             />
-
             {
             this.state.is_user_type_ready == false || !this.state.booking_details ? null
-            : (can_book && this.state.booking_details != [] ) ?(    //!can_book
-              <>
-              {
-                // <Left>
-                // <Thumbnail source={{uri: sample_img_link}} />
-                //   <Body>
-                //     <Text>NativeBase</Text>
-                //     <Text note>April 15, 2016</Text>
-                //   </Body>
-                // </Left>
-              }
-              <BottomDrawer
-                containerHeight={300}
-                offset={100}
-                startUp={false}
-                // downDisplay={0.5}
-                backgroundColor='rgba(255, 0, 0, 0)'
-              >
-
-                <View style={{
-                  zIndex:1,
-                  position: 'absolute',
-                  top:0,
-                  flex: 0.4,
-                  textAlign:'center',
-                  width:'100%',
-                  paddingVertical: 10,
-                  paddingHorizontal: 30,
-                }}>
-
-                <View style={{
-                  padding:20,
-                  borderRadius:10,
-                  shadowColor: "#000",
-                  shadowOffset: {
-                    width: 0,
-                    height: 5,
-                  },
-                  shadowOpacity: 0.34,
-                  shadowRadius: 6.27,
-                  elevation: 10,
-                  backgroundColor:'white',
-                }}>
-                {
-                  // <Button onPress={this.testfunction} >
-                  //   <Text>Click Me!</Text>
-                  // </Button>
-                  }
-                  <Text
-                    style={{
-                      width:'100%',
-                      height:3,
-                      textAlign:'center',
-                      position:'relative',
-                      bottom:8,
-                    }}>
-                    <Text style={{
-                      width:100,
-                      // backgroundColor:'black',
-                    }}>____
-                    </Text>
-                  </Text>
-                  <View style={{
-                    flex:1,
-                    flexDirection: 'row',
-                    // backgroundColor:'blue',
-                    textAlign: 'center',
-                    padding: 10,
-                  }}>
-                    <View style={{
-                      // alignItems: 'center',
-                      // justifyContent: 'center',
-                      // backgroundColor:'red',
-                      padding:5,
-                      textAlign: 'center',
-                    }}>
-                    {this.state.user.user_type_id == 3 ? null: !can_book || !this.state.can_book ?(
-                          <Thumbnail
-                            source={{uri: `data:image/gif;base64,${this.state.driver_details.photo}` }} />
-                          ):(
-                          <Thumbnail
-                            source={require('../assets/images/avatar.png')} />
-                          )
-                       }
-                    </View>
-                    <View style={{
-                      // backgroundColor:'green',
-                      textAlign: 'center',
-                      // width:'100%',
-                      // margin: 10,
-                      padding:5,
-                      flex:1,
-                      alignItems: this.state.user.user_type_id==3?'center':'stretch',
-                    }}>
-
-                    {
-                      // can_book || this.state.can_book ?(
-                        <>
-                          <Text note>
-                          {this.state.user.user_type_id == 3 ? "Your rider":"Your driver"
-                          // {this.state.is_user_type_ready?('Where are you goingxxx?'):('asd')}
-                          }
-                          </Text>
-                          <Text>{this.state.driver_details.first_name} {this.state.driver_details.last_name}</Text>
-                          <Text>{this.state.driver_details.email}</Text>
-                        </>
-                      // ):(
-                      //   <>
-                      //     <Text>Driver Name</Text>
-                      //     <Text note>Other information</Text>
-                      //   </>
-                      // )
-                    }
-                    </View>
-                  </View>
-                  <View
-                    style={styles.hr}
-                  />
-                  <Text style={styles.label1}>
-                   Pickup
-                  </Text>
-                  <Text>
-                  {this.state.booking_details.pickup_location}
-                    {"\n"}
-                  </Text>
-                  <View
-                    style={{
-                      borderBottomColor: '#d9d9d9',
-                      borderBottomWidth: 2,
-                    }}
-                  />
-                    <Text style={styles.label1}>
-                     {"\n"}
-                     Drop-Off
-                    </Text>
-                    <Text>
-                    {this.state.booking_details.dropoff_location}
-                    </Text>
-                  </View>
-                </View>
-              </BottomDrawer>
-              </>
-            ):(
+            : (can_book || this.state.can_book) ?(
               <>
               {
 
@@ -921,7 +835,148 @@ class MapContainer extends React.Component {
                 )
               }
                 </>
-              )
+              ):(
+            // : (!(can_book || this.state.can_book) && this.state.booking_details != [] ) ?(
+            <>
+              {
+                // <Left>
+                // <Thumbnail source={{uri: sample_img_link}} />
+                //   <Body>
+                //     <Text>NativeBase</Text>
+                //     <Text note>April 15, 2016</Text>
+                //   </Body>
+                // </Left>
+              }
+              <BottomDrawer
+                containerHeight={300}
+                offset={100}
+                startUp={false}
+                // downDisplay={0.5}
+                backgroundColor='rgba(255, 0, 0, 0)'
+              >
+                <View style={{
+                  zIndex:1,
+                  position: 'absolute',
+                  top:0,
+                  flex: 0.4,
+                  textAlign:'center',
+                  width:'100%',
+                  paddingVertical: 10,
+                  paddingHorizontal: 30,
+                }}>
+                <View style={{
+                  padding:20,
+                  borderRadius:10,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 5,
+                  },
+                  shadowOpacity: 0.34,
+                  shadowRadius: 6.27,
+                  elevation: 10,
+                  backgroundColor:'white',
+                }}>
+                {
+                  // <Button onPress={this.testfunction} >
+                  //   <Text>Click Me!</Text>
+                  // </Button>
+                  }
+                  <Text
+                    style={{
+                      width:'100%',
+                      height:3,
+                      textAlign:'center',
+                      position:'relative',
+                      bottom:8,
+                    }}>
+                    <Text style={{
+                      width:100,
+                      // backgroundColor:'black',
+                    }}>____
+                    </Text>
+                  </Text>
+                  <View style={{
+                    flex:1,
+                    flexDirection: 'row',
+                    // backgroundColor:'blue',
+                    textAlign: 'center',
+                    padding: 10,
+                  }}>
+                    <View style={{
+                      // alignItems: 'center',
+                      // justifyContent: 'center',
+                      // backgroundColor:'red',
+                      padding:5,
+                      textAlign: 'center',
+                    }}>
+                    {this.state.user.user_type_id == 3 ? null: !can_book || !this.state.can_book ?(
+                          <Thumbnail
+                            source={{uri: `data:image/gif;base64,${this.state.driver_details.photo}` }} />
+                          ):(
+                          <Thumbnail
+                            source={require('../assets/images/avatar.png')} />
+                          )
+                       }
+                    </View>
+                    <View style={{
+                      // backgroundColor:'green',
+                      textAlign: 'center',
+                      // width:'100%',
+                      // margin: 10,
+                      padding:5,
+                      flex:1,
+                      alignItems: this.state.user.user_type_id==3?'center':'stretch',
+                    }}>
+
+                    {
+                      // can_book || this.state.can_book ?(
+                        <>
+                          <Text note>
+                          {this.state.user.user_type_id == 3 ? "Your rider":"Your driver"
+                            // {this.state.is_user_type_ready?('Where are you goingxxx?'):('asd')}
+                          }
+                          </Text>
+                          <Text>{this.state.driver_details.first_name} {this.state.driver_details.last_name}</Text>
+                          <Text>{this.state.driver_details.email}</Text>
+                        </>
+                      // ):(
+                      //   <>
+                      //     <Text>Driver Name</Text>
+                      //     <Text note>Other information</Text>
+                      //   </>
+                      // )
+                    }
+                    </View>
+                  </View>
+                  <View
+                    style={styles.hr}
+                  />
+                  <Text style={styles.label1}>
+                   Pickup
+                  </Text>
+                  <Text>
+                  {this.state.booking_details.pickup_location}
+                    {"\n"}
+                  </Text>
+                  <View
+                    style={{
+                      borderBottomColor: '#d9d9d9',
+                      borderBottomWidth: 2,
+                    }}
+                  />
+                    <Text style={styles.label1}>
+                     {"\n"}
+                     Drop-Off
+                    </Text>
+                    <Text>
+                    {this.state.booking_details.dropoff_location}
+                    </Text>
+                  </View>
+                </View>
+              </BottomDrawer>
+              </>
+            )
             }
           </View>
         ) : null}

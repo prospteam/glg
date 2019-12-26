@@ -34,21 +34,24 @@ const MyMapView = (props) => {
         // }}
 
         region={{
-            // latitude: (props.pinned_stat == true) ? parseFloat(props.pinned_lat) : props.region.latitude,
-            // longitude: (props.pinned_stat == true) ? parseFloat(props.pinned_long) : props.region.longitude,
-            latitude: (props.pinned_lat != 0) ? parseFloat(props.pinned_lat) : props.region.latitude,
-            longitude: (props.pinned_long != 0) ? parseFloat(props.pinned_long) : props.region.longitude,
-            latitudeDelta: props.region.latitudeDelta,
-            longitudeDelta: props.region.longitudeDelta,
+          latitude: (props.pinned_lat !== 0) ? parseFloat(props.pinned_lat) : props.region.latitude,
+          longitude: (props.pinned_stat !== 0) ? parseFloat(props.pinned_long) : props.region.longitude,
+          // latitude: (props.pinned_lat !== 0) ? parseFloat(props.pinned_lat) : props.region.region,
+          // longitude: (props.pinned_stat !== 0) ? parseFloat(props.pinned_long) : props.region.region,
+          latitudeDelta: props.region.latitudeDelta,
+          longitudeDelta: props.region.longitudeDelta,
         }}
+
         showsUserLocation={true}
         // ref={c => this.mapView = c}
         // onRegionChangeComplete={(reg) => props.onRegionChange(reg)}
         // initialRegion={{
-        //   latitude: props.marker1 ? props.marker1.latitude:37.78825,
-        //   // latitude: 37.78825,
-        //   longitude: props.marker1 ? props.marker1.longitude:-122.4324,
-        //   // longitude: -122.4324,
+        //   // latitude: props.my_latitude_as_rider,
+        //   // latitude: props.marker1 ? props.marker1.latitude:37.78825,
+        //   latitude: 37.78825,
+        //   // longitude: props.my_longitude_as_rider,
+        //   // longitude: props.marker1 ? props.marker1.longitude:-122.4324,
+        //   longitude: -122.4324,
         //   latitudeDelta: 0.0,
         //   longitudeDelta: 0.0,
         // }}

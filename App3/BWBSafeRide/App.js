@@ -30,8 +30,8 @@ import { createDrawerNavigator, createAppContainer, DrawerItems, DrawerNavigatio
 
 var Spinner = require('react-native-spinkit');
 
-// var PushNotification = require("react-native-push-notification");
-
+// var PushNotification = require("react-native-push-notification"); // PUSH NOTIFICATION TEMPLATE
+//
 // PushNotification.localNotification({
 //       foreground: false, // BOOLEAN: If the notification was received in foreground or not
 //       userInteraction: false, // BOOLEAN: If the notification was opened by the user from the notification area or not
@@ -123,9 +123,9 @@ const MyDrawerNavigatorDriver = createDrawerNavigator(
     Dashboard:{
       screen: Dashboard,
     },
-    DriverDashboard:{
-      screen: DriverDashboard,
-    },
+    // DriverDashboard:{
+    //   screen: DriverDashboard,
+    // },
     DriverProfile: {
       screen: DriverProfile,
     },
