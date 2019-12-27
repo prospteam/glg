@@ -135,6 +135,8 @@ class MapContainer extends React.Component {
       form_from_latlong: null,
       set_destination_lat:0,
       set_destination_long:0,
+      form_from_text: null,
+      form_to_text: null
       // pinned_latitude: 0,
       // pinned_longitude: 0
     }
@@ -175,7 +177,7 @@ class MapContainer extends React.Component {
 
     // }
 
-    const {pinned_stat} = this.props;
+    const {pinned_stat, navigation} = this.props;
 
     this.setState({pinned_stat: pinned_stat});
 
@@ -183,6 +185,9 @@ class MapContainer extends React.Component {
       user: JSON.parse(await AsyncStorage.getItem('userData')),
       is_user_type_ready:true,
     });
+
+    // this.setState({form_from_text: navigation.getParam('booking_data_from_text', this.state.state.form_from_text)});
+    // this.setState({form_to_text: navigation.getParam('booking_data_to_text', this.state.state.form_to_text)});
 
     // console.log('MapContainer-start');
     // console.log(this.props);
@@ -507,6 +512,9 @@ class MapContainer extends React.Component {
   }
 
   getCoordsFromName(loc,inputField, inputText) {
+
+      // Alert.alert(inputText);
+
     this.setState({pinned_stat: false});
     // alert(this.state.pinned_stat);
 
@@ -560,8 +568,9 @@ class MapContainer extends React.Component {
       // console.log(this.state);
   }
 
-  bookNow(e){
+  bookNow(e, from, to){
     const { state } = this;
+    // const { navigation } = this.props;
 
     // Base fare $2.75 to start $2.25 a mile during regular hours, peek hours and high volume Horus it goes to $3.50 Pick up $3.00 a mile. Traffic congestion rate is $1.00  a minute
     let baseFare = 2.75;
@@ -572,17 +581,18 @@ class MapContainer extends React.Component {
     if(typeof(state.chosenDate) === 'undefined'){
         Alert.alert('Please select date of pickup.');
     }else if(typeof(state.chosenTime) === 'undefined'){
-            Alert.alert('Please select time of pickup.');
+        Alert.alert('Please select time of pickup.');
     }else{
         const formData = {
-          chosenDate:state.chosenDate.toString().substr(4, 12),
+          // chosenDate:state.chosenDate.toString().substr(4, 12),
+          chosenDate:state.chosenDate,
           chosenTime:state.chosenTime,
           distance:state.distance,
           duration:state.duration,
           form_from_latlong:state.form_from_latlong,
-          form_from_text:state.form_from_text,
+          form_from_text:state.form_from_text ? state.form_from_text: from,
           form_to_latlong:state.form_to_latlong,
-          form_to_text:state.form_to_text,
+          form_to_text:state.form_to_text ? state.form_to_text: to,
           payByDistance:payByDistance,
         };
 
@@ -592,7 +602,7 @@ class MapContainer extends React.Component {
         this.props.navigation.navigate('Payment',{params:formData});
         // this.props.navigate('Payment');
         // console.log('Booknow');
-        // console.log(formData);
+        console.log(formData);
         // console.log('state');
         // console.log(state);
         // console.log(state.form_from_latlong);
@@ -608,7 +618,8 @@ class MapContainer extends React.Component {
 
   setDate(newDate) {
     // console.log('setting');
-    this.setState({ chosenDate: newDate });
+    const newDate2 = JSON.stringify(newDate);
+    this.setState({ chosenDate: newDate2.split('T')[0].substr(1) });
     // console.log(this.state);
     // console.log(newDate);
     //   console.log('settted');
@@ -673,6 +684,10 @@ class MapContainer extends React.Component {
     // console.log('MapContainer Rendered');
     const { distance, duration } = this.state;
 
+    console.log('boooooooooooking container');
+    console.log(navigation.getParam('booking_data_from_latlong', null));
+    console.log('boooooooooooking container');
+
     const set_destination_latlong = {
         latitude: this.state.set_destination_lat,
         longitude: this.state.set_destination_long
@@ -689,7 +704,8 @@ class MapContainer extends React.Component {
     return (
       !this.state.user ? <CommonProgressBar /> :  // NOTE: if user not ready Show Null
       <View style={{ flex: 1 ,  backgroundColor:'red'}}>
-        {this.state.region.latitude ? (
+        {this.state.region['latitude'] ? (
+        // {this.state.region.latitude ? (
           <View style={{ flex: 1, backgroundColor:'blue' }}>
             <MyMapView
               my_latitude={this.state.my_latitude}
@@ -699,8 +715,8 @@ class MapContainer extends React.Component {
               marker1={marker1}
               region={this.state.region}
               viewed_region={this.state.viewed_region}
-              form_from={this.state.form_from_latlong}
-              form_to={set_destination_latlong}
+              form_from={navigation.getParam('booking_data_from_latlong', this.state.form_from_latlong)}
+              form_to={navigation.getParam('booking_data_to_latlong', set_destination_latlong)}
               selectedLatLong={this.state.selectedLatLong}
               // onRegionChange={reg => this.onMapRegionChange(reg)}
               getData={params => this.getDataFromMap(params)}
@@ -718,7 +734,8 @@ class MapContainer extends React.Component {
             (can_book || this.state.can_book) ?( //Check if there is no pending bookings
               <>
               {
-              (this.state.user.user_type_id == 3 && (can_book || this.state.can_book) && this.state.is_finish_check_booking_status) ? (this.props.navigation.navigate('Bookings')):(
+
+              (this.state.user.user_type_id == 3 && (can_book || this.state.can_book) && this.state.is_finish_check_booking_status) ? (this.props.navigate('Bookings')):(
               <BottomDrawer
                 containerHeight={ window_height - 15 }
                 offset={0}
@@ -774,7 +791,7 @@ class MapContainer extends React.Component {
                       {this.state.is_user_type_ready?('Where are you going?'):('__')}
                     </Text>
                   <Label>Pickup</Label>
-                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'from',loc_text)} placeholder='Enter pickup location.'/>
+                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'from',loc_text)} latlong={navigation.getParam('booking_data_from_latlong', this.state.form_from_latlong) } loc_from_text={this.state.form_from_text} placeholder='Enter pickup location.'/>
                   <View
                     style={{
                       borderBottomColor: '#d9d9d9',
@@ -782,7 +799,7 @@ class MapContainer extends React.Component {
                     }}
                   />
                   <Label>Drop-Off</Label>
-                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'to',loc_text)} latlong={set_destination_latlong} placeholder='Enter drop-off location' />
+                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'to',loc_text)} latlong={navigation.getParam('booking_data_to_latlong', set_destination_latlong)} loc_to_text={this.state.form_to_text} placeholder='Enter drop-off location' />
                   {distance ?(
                     <Form>
                       <View
@@ -798,7 +815,7 @@ class MapContainer extends React.Component {
                           <View style={{width:'55%'}}>
                             <Label style={{marginTop: 0}}>Pickup Date</Label>
                             <DatePicker
-                              defaultDate={new Date()}
+                              defaultDate={new Date().getFullYear()}
                               minimumDate={new Date(2018, 1, 1)}
                               locale={"en"}
                               modalTransparent={false}
@@ -826,7 +843,7 @@ class MapContainer extends React.Component {
                               />
                               </View>
                         </View>
-                      <Button style={{marginTop: 30}} onPress={(e) => this.bookNow(e)}>
+                      <Button style={{marginTop: 30}} onPress={(e) => this.bookNow(e, navigation.getParam('booking_data_from_text', null), navigation.getParam('booking_data_to_text', null))}>
                         <Text style={{
                           width:'100%',
                           textAlign: 'center',

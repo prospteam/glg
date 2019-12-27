@@ -92,7 +92,24 @@ class MapInput extends React.Component {
             }
         }
 
-        this.reverseGeocode(latitude, longitude);
+        // Alert.alert("From:"+this.props.loc_from_text);
+        // Alert.alert("To:"+this.props.loc_to_text);
+
+        if(this.props.latlong){
+            this.reverseGeocode(latitude, longitude);
+        }
+
+        if(typeof(this.props.loc_from_text) == 'undefined' || this.props.loc_from_text == null){
+            if(typeof(this.props.loc_to_text) == 'undefined' || this.props.loc_to_text == null){
+                this.reverseGeocode(latitude, longitude);
+            } else {
+                this.locationRef.setAddressText(this.props.loc_to_text);
+            }
+        }else{
+            this.locationRef.setAddressText(this.props.loc_from_text);
+        }
+
+
 
         return (
           <KeyboardAvoidingView

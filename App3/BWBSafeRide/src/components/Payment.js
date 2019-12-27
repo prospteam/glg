@@ -63,10 +63,10 @@ export default class Payment extends Component {
 
         confirmjson = JSON.parse(JSON.stringify(confirm));
         if(confirmjson.response.state === 'approved'){
+            console.log('accessing api');
           console.log(param);
           console.log('accessing api');
-          Alert.alert('accessing api');
-
+          // Alert.alert('accessing api');
           fetch(Helpers.rest_api_url+'common/app_customer_bookings', {
               method: 'POST',
               headers: {
@@ -81,13 +81,10 @@ export default class Payment extends Component {
                   dropoff_location: param.form_to_text,
                   pickup_time: param.chosenTime,
                   travel_date: param.chosenDate,
-                  booking_status: "",
-                  login_id: 1,
-                  pickup_latlong: 1,
-                  dropoff_latlong: 1,
-                  // login_id: userData.login_id,
-                  // pickup_latlong: param.pickup_latlong,
-                  // dropoff_latlong: param.dropoff_latlong,
+                  booking_status: "pending",
+                  login_id: userData.login_id,
+                  pickup_latlong: param.form_from_latlong.latitude+":"+param.form_from_latlong.longitude,
+                  dropoff_latlong: param.form_to_latlong.latitude+":"+param.form_to_latlong.longitude
                 },
               })
             // }).then((responseJson) => {

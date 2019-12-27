@@ -90,8 +90,9 @@ export default class PinnedLocations extends Component {
         return (
             <Container>
             <Header>
-             <Left style={{ flexDirection: 'row' }}>
+             <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={{ color: '#d3a04c', marginRight: 15 }} />
+              <Text style={{width: 300, color: '#d3a04c'}}>Pinned Locations</Text>
              </Left>
              <Right>
              </Right>
