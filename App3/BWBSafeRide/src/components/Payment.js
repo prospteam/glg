@@ -66,6 +66,7 @@ export default class Payment extends Component {
           console.log(param);
           console.log('accessing api');
           Alert.alert('accessing api');
+
           fetch(Helpers.rest_api_url+'common/app_customer_bookings', {
               method: 'POST',
               headers: {
@@ -81,7 +82,12 @@ export default class Payment extends Component {
                   pickup_time: param.chosenTime,
                   travel_date: param.chosenDate,
                   booking_status: "",
-                  login_id: userData.login_id,
+                  login_id: 1,
+                  pickup_latlong: 1,
+                  dropoff_latlong: 1,
+                  // login_id: userData.login_id,
+                  // pickup_latlong: param.pickup_latlong,
+                  // dropoff_latlong: param.dropoff_latlong,
                 },
               })
             // }).then((responseJson) => {

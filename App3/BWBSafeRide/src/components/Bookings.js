@@ -239,12 +239,12 @@ export default class Bookings extends Component {
 			const { isLoading } = this.state;
 
 			if(isLoading){
-	          return (
-	              <View style={styles.container2}>
-	               <Spinner type="9CubeGrid" color="#d3a04c" />
-	              </View>
-	            );
-	        }
+        return (
+            <View style={styles.container2}>
+	            <Spinner type="9CubeGrid" color="#d3a04c" />
+            </View>
+          );
+      }
 
 			const data = this.state.details;
 
