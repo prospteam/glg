@@ -71,6 +71,7 @@ export default class SavedRoutes extends Component {
             booking_data: val,
             booking_data_from_latlong: {latitude: JSON.parse(val.pickup_latlong.split(":")[0]), longitude: JSON.parse(val.pickup_latlong.split(":")[1])},
             booking_data_to_latlong: {latitude: JSON.parse(val.dropoff_latlong.split(":")[0]), longitude: JSON.parse(val.dropoff_latlong.split(":")[1])},
+            booking_data_region: {latitude: JSON.parse(val.pickup_latlong.split(":")[0]), longitude: JSON.parse(val.pickup_latlong.split(":")[1]), latitudeDelta:  0.015, longitudeDelta: 0.0121},
             booking_data_from_text: val.pickup_location,
             booking_data_to_text: val.dropoff_location
         });

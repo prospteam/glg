@@ -11,6 +11,7 @@ import styles from '.././assets/my_styles.js';
 import Helpers from '../../Helpers';
 import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from 'react-native-geolocation-service';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import firebase from './common/Firebase';
 // import Geolocation from "@react-native-community/geolocation";
 
@@ -20,8 +21,8 @@ const TAB_BAR_HEIGHT = 80;
 const DRAWER_HEIGHT_SMALL = 300;
 const DRAWER_HEIGHT_BIG = 500;
 // const GOOGLE_MAPS_APIKEY = 'AIzaSyDNiQ_vrw3zB6pM_s2nNC-0mohwlWi6wGo';
-const GOOGLE_MAPS_APIKEY = 'AIzaSyCsCARtyDaiIeDtGY0r3jz4pT4YwiR41Fw';
-// const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
+// const GOOGLE_MAPS_APIKEY = 'AIzaSyCsCARtyDaiIeDtGY0r3jz4pT4YwiR41Fw';
+const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 
 // const DRAWER_HEIGHT_SMALL = 80;
 class MapContainer extends React.Component {
@@ -49,6 +50,41 @@ class MapContainer extends React.Component {
   //   set_destination_lat: this.props.set_destination_lat,
   //   set_destination_long: this.props.set_destination_long
   // };
+
+      state = {
+        testlocation:null,
+        is_finish_check_booking_status:false,
+        is_user_type_ready:false,
+        user:null,
+        driver_details:[],
+        distance:0,
+        duration:0,
+        my_latitude:0,
+        my_longitude:0,
+        can_book:false,
+        isDateTimePickerVisible: false,
+        region: {
+          latitude: 44.3148, // Michigan Lat
+          longitude: -84.506836, // Michigan Long
+          latitudeDelta: 3,
+          longitudeDelta: 3,
+        },
+        geocode_name: null,
+        geocode_lat: null,
+        geocode_long: null,
+        login_id: null,
+        booking_details:[],
+        pinned_stat: false,
+        my_latitude_as_rider: 0,
+        my_longitude_as_rider: 0,
+        // form_from_latlong: null,
+        set_destination_lat: this.props.set_destination_lat,
+        set_destination_long: this.props.set_destination_long,
+        form_from_text: null,
+        form_to_text: null
+        // pinned_latitude: 0,
+        // pinned_longitude: 0
+    };
 
     componentDidUpdate(prevProps) {
         if(prevProps.set_destination_lat !== this.props.set_destination_lat) {
@@ -78,47 +114,28 @@ class MapContainer extends React.Component {
                     }});
                });
         }
+
+        // if(prevProps.loc_to_text !== this.props.loc_to_text) {
+        //     this.locationDestRef.setAddressText(this.props.loc_to_text);
+        // }
+
+        if(prevProps.latlong !== this.props.latlong) {
+
+            for(var key in this.props.latlong) {
+                if(this.props.latlong.hasOwnProperty(key)) {
+                    var latitude = this.props.latlong['latitude'];
+                    var longitude = this.props.latlong['longitude'];
+                }
+            }
+
+            // this.reverseGeocode(latitude, longitude);
+        }
     }
 
   watchID: ?number = null;
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      testlocation:null,
-      is_finish_check_booking_status:false,
-      is_user_type_ready:false,
-      user:null,
-      driver_details:[],
-      distance:0,
-      duration:0,
-      my_latitude:0,
-      my_longitude:0,
-      can_book:false,
-      isDateTimePickerVisible: false,
-      region: {
-        latitude: 44.3148, // Michigan Lat
-        longitude: -84.506836, // Michigan Long
-        latitudeDelta: 3,
-        longitudeDelta: 3,
-      },
-      geocode_name: null,
-      geocode_lat: null,
-      geocode_long: null,
-      login_id: null,
-      booking_details:[],
-      pinned_stat: false,
-      my_latitude_as_rider: 0,
-      my_longitude_as_rider: 0,
-      form_from_latlong: null,
-      set_destination_lat:0,
-      set_destination_long:0,
-      form_from_text: null,
-      form_to_text: null
-      // pinned_latitude: 0,
-      // pinned_longitude: 0
-    }
 
     this.ref = firebase.firestore().collection('driver_location_logs');
 
@@ -147,6 +164,18 @@ class MapContainer extends React.Component {
 
   async componentDidMount() {
 
+      // Alert.alert(this.state.form_from_text);
+
+
+      // if(this.props.navigation.getParam('booking_data_from_text', null) || this.state.form_from_text){
+      //     Alert.alert(this.props.navigation.getParam('booking_data_from_text', this.state.form_from_text));
+      // this.locationOrigRef.setAddressText(this.props.navigation.getParam('booking_data_from_text', this.state.form_from_text));
+
+      // }
+
+      // if(this.props.navigation.getParam('booking_data_to_text', null) || this.state.form_to_text){
+      //     this.locationDestRef.setAddressText(this.props.navigation.getParam('booking_data_to_text', this.state.form_to_text));
+      // }
 
           // this.driverSendLocation();
 
@@ -164,6 +193,15 @@ class MapContainer extends React.Component {
       user: JSON.parse(await AsyncStorage.getItem('userData')),
       is_user_type_ready:true,
     });
+
+    // this.setState({
+    //     region: {
+    //       latitude: this.props.booking_data_to_latlong.latitude,
+    //       longitude: this.props.booking_data_to_latlong.longitude,
+    //       latitudeDelta:  0.015,
+    //       longitudeDelta: 0.0121
+    //     }
+    // });
 
     // this.setState({form_from_text: navigation.getParam('booking_data_from_text', this.state.state.form_from_text)});
     // this.setState({form_to_text: navigation.getParam('booking_data_to_text', this.state.state.form_to_text)});
@@ -492,21 +530,29 @@ class MapContainer extends React.Component {
 
   getCoordsFromName(loc,inputField, inputText) {
 
-      // Alert.alert(inputText);
+      // Alert.alert(JSON.stringify(loc));
+
+      this.props.navigation.setParams({booking_data_region: null});
+
+      console.log('heeeeeeeeeeeeeeeeelllllooooooooo');
+      console.log(loc);
+      console.log('heeeeeeeeeeeeeeeeelllllooooooooo');
 
     this.setState({pinned_stat: false});
     // alert(this.state.pinned_stat);
 
-    this.updateState({
-      latitude: loc.lat || this.state.set_destination_lat,
-      longitude: loc.lng || this.state.set_destination_long,
-    });
+    // this.updateState({
+    //   latitude: loc.lat || this.state.set_destination_lat,
+    //   longitude: loc.lng || this.state.set_destination_long,
+    // });
     // this.updateSelectedLatLong({
     //   latitude: loc.lat,
     //   longitude: loc.lng,
     // });
 
     if (inputField==='from') {
+        this.props.navigation.setParams({booking_data_from_latlong: null});
+        this.props.navigation.setParams({booking_data_from_text: null});
       this.setState({
         form_from_text:inputText,
         form_from:'from',
@@ -515,7 +561,17 @@ class MapContainer extends React.Component {
           longitude: loc.lng,
         },
       });
+
+      this.setState({region: {
+          latitude: loc.lat,
+          longitude: loc.lng,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.015
+      }});
+
     }else{
+         this.props.navigation.setParams({booking_data_to_latlong: null});
+         this.props.navigation.setParams({booking_data_to_text: null});
       this.setState({
         form_to_text:inputText,
         form_to:'to',
@@ -526,11 +582,12 @@ class MapContainer extends React.Component {
         set_destination_lat: loc.lat,
         set_destination_long: loc.lng
       });
+
     }
   }
 
   onMapRegionChange(region) {
-    // this.setState({ region });
+    this.setState({ region });
     // console.log('GETTING NEW REGION');
     // console.log(this.state);
   }
@@ -672,9 +729,22 @@ class MapContainer extends React.Component {
         longitude: this.state.set_destination_long
     }
 
-    // console.log(distance);
-    // console.log("distance Calculating");
 
+    // Alert.alert(navigation.getParam('booking_data_from_text', null));
+
+    if(navigation.getParam('booking_data_from_text', null) !== null)
+          this.locationOrigRef.setAddressText(navigation.getParam('booking_data_from_text', null));
+    else{
+        if(this.state.form_from_text !== null)
+            this.locationOrigRef.setAddressText(this.state.form_from_text);
+    }
+
+    if(navigation.getParam('booking_data_to_text', null) !== null)
+        this.locationDestRef.setAddressText(navigation.getParam('booking_data_to_text', null));
+    else{
+        if(this.state.form_to_text !== null)
+            this.locationDestRef.setAddressText(this.state.form_to_text);
+    }
     console.log('YYYYYYYYYYYYYY');
     console.log(this.state.can_book);
     // console.log(this.state.booking_details);
@@ -683,7 +753,7 @@ class MapContainer extends React.Component {
 
     return (
       <View style={{ flex: 1,  backgroundColor:'red'}}>
-        {this.state.region['latitude'] ? (
+        {this.state.region.latitude ? (
           <View style={{ flex: 1, backgroundColor:'blue' }}>
             <MyMapView
               my_latitude={this.state.my_latitude}
@@ -691,10 +761,10 @@ class MapContainer extends React.Component {
               my_latitude_as_rider={this.state.my_latitude_as_rider}
               my_longitude_as_rider={this.state.my_longitude_as_rider}
               marker1={marker1}
-              region={this.state.region}
-              viewed_region={this.state.viewed_region}
-              form_from={navigation.getParam('booking_data_from_latlong', this.state.form_from_latlong)}
-              form_to={navigation.getParam('booking_data_to_latlong', set_destination_latlong)}
+              region={navigation.getParam('booking_data_region', null) !== null ? navigation.getParam('booking_data_region', null) : this.state.region}
+              // viewed_region={this.state.viewed_region}
+              form_from={navigation.getParam('booking_data_from_latlong', null) !== null ? navigation.getParam('booking_data_from_latlong', null) : this.state.form_from_latlong}
+              form_to={navigation.getParam('booking_data_to_latlong', null) !== null ? navigation.getParam('booking_data_to_latlong', null) : set_destination_latlong}
               selectedLatLong={this.state.selectedLatLong}
               // onRegionChange={reg => this.onMapRegionChange(reg)}
               getData={params => this.getDataFromMap(params)}
@@ -769,7 +839,69 @@ class MapContainer extends React.Component {
                       {this.state.is_user_type_ready?('Where are you going?'):('__')}
                     </Text>
                   <Label>Pickup</Label>
-                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'from',loc_text)} latlong={navigation.getParam('booking_data_from_latlong', this.state.form_from_latlong) } loc_from_text={this.state.form_from_text} placeholder='Enter pickup location.'/>
+                  <KeyboardAvoidingView
+                  behavior="padding"
+                >
+                    <GooglePlacesAutocomplete
+                        // textInputProps={{
+                        //     onChangeText: (loc) => this.setState({set_destination_name: loc})
+                        // }}
+                        ref={(instance) => this.locationOrigRef = instance }
+                        placeholder={'Enter pickup location'}
+                        minLength={2}
+                        autoFocus={false}
+                        returnKeyType={'search'}
+                        listViewDisplayed={false}
+                        fetchDetails={true}
+                        onPress={(data, details = null) => {
+                            //'details' is provided when fetchDetails = true
+                            this.getCoordsFromName(details.geometry.location,'from',data.description);
+                            // this.props.notifyChange(details.geometry.location,data.description);
+                            // console.log(data);
+                            // console.log(details);
+                            // console.log('what a life');
+                            // Alert.alert('input');
+                          }
+                        }
+                        query={{
+                            key: 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4',
+                            language: 'en'
+                        }}
+                        nearbyPlacesAPI='GooglePlacesSearch'
+                        debounce={200}
+                        styles={{
+                          textInputContainer: {
+                            backgroundColor: 'white',
+                            borderTopWidth: 0,
+                            borderBottomWidth:0,
+                            position: 'relative',
+                          },
+                          padding: {
+                            padding: 20
+                          },
+                          textInput: {
+                            borderRadius: 0,
+                            paddingLeft:10,
+                          },
+                          description: {
+                            fontWeight: 'bold'
+                          },
+                          predefinedPlacesDescription: {
+                            color: 'red'
+                          },
+                          listView: {
+                            // backgroundColor: 'white',
+                            // position: 'absolute',
+                            // bottom: 30,
+                            // border:1,
+                            // padding:3,
+                            // zIndex:9999,
+                          }
+                        }}
+                    />
+
+                 </KeyboardAvoidingView>
+                  {/*<MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'from',loc_text)} latlong={navigation.getParam('booking_data_from_latlong', this.state.form_from_latlong)} loc_to_text={false} loc_from_text={this.state.form_from_text} placeholder='Enter pickup location.'/>*/}
                   <View
                     style={{
                       borderBottomColor: '#d9d9d9',
@@ -777,7 +909,69 @@ class MapContainer extends React.Component {
                     }}
                   />
                   <Label>Drop-Off</Label>
-                  <MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'to',loc_text)} latlong={navigation.getParam('booking_data_to_latlong', set_destination_latlong)} loc_to_text={this.state.form_to_text} placeholder='Enter drop-off location' />
+                  <KeyboardAvoidingView
+                  behavior="padding"
+                >
+                    <GooglePlacesAutocomplete
+                        // textInputProps={{
+                        //     onChangeText: (loc) => this.setState({set_destination_name: loc})
+                        // }}
+                        ref={(instance2) => this.locationDestRef = instance2 }
+                        placeholder={'Enter drop-off location'}
+                        minLength={2}
+                        autoFocus={false}
+                        returnKeyType={'search'}
+                        listViewDisplayed={false}
+                        fetchDetails={true}
+                        onPress={(data, details = null) => {
+                            //'details' is provided when fetchDetails = true
+                            this.getCoordsFromName(details.geometry.location,'to',data.description);
+                            // this.props.notifyChange(details.geometry.location,data.description);
+                            // console.log(data);
+                            // console.log(details);
+                            // console.log('what a life');
+                            // Alert.alert('input');
+                          }
+                        }
+                        query={{
+                            key: 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4',
+                            language: 'en'
+                        }}
+                        nearbyPlacesAPI='GooglePlacesSearch'
+                        debounce={200}
+                        styles={{
+                          textInputContainer: {
+                            backgroundColor: 'white',
+                            borderTopWidth: 0,
+                            borderBottomWidth:0,
+                            position: 'relative',
+                          },
+                          padding: {
+                            padding: 20
+                          },
+                          textInput: {
+                            borderRadius: 0,
+                            paddingLeft:10,
+                          },
+                          description: {
+                            fontWeight: 'bold'
+                          },
+                          predefinedPlacesDescription: {
+                            color: 'red'
+                          },
+                          listView: {
+                            // backgroundColor: 'white',
+                            // position: 'absolute',
+                            // bottom: 30,
+                            // border:1,
+                            // padding:3,
+                            // zIndex:9999,
+                          }
+                        }}
+                    />
+
+                 </KeyboardAvoidingView>
+                  {/*<MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'to',loc_text)} latlong={navigation.getParam('booking_data_to_latlong', set_destination_latlong)} loc_from_text={false} loc_to_text={this.state.form_to_text} placeholder='Enter drop-off location' />*/}
                   {distance ?(
                     <Form>
                       <View
@@ -821,7 +1015,7 @@ class MapContainer extends React.Component {
                               />
                               </View>
                         </View>
-                      <Button style={{marginTop: 30}} onPress={(e) => this.bookNow(e, navigation.getParam('booking_data_from_text', null), navigation.getParam('booking_data_to_text', null))}>
+                      <Button style={{marginTop: 30}} onPress={(e) => this.bookNow(e, navigation.getParam('booking_data_from_text', null) !== null ? navigation.getParam('booking_data_from_text', null) : this.state.form_from_text, navigation.getParam('booking_data_to_text', null) ? navigation.getParam('booking_data_to_text', null) : this.state.form_to_text)}>
                         <Text style={{
                           width:'100%',
                           textAlign: 'center',
@@ -848,7 +1042,7 @@ class MapContainer extends React.Component {
                 // </Left>
               }
               <BottomDrawer
-                containerHeight={300}
+                containerHeight={500}
                 offset={100}
                 startUp={false}
                 // downDisplay={0.5}
@@ -910,14 +1104,14 @@ class MapContainer extends React.Component {
                       padding:5,
                       textAlign: 'center',
                     }}>
-                    {this.state.user.user_type_id == 3 ? null: !can_book || !this.state.can_book ?(
+                    {/*this.state.user.user_type_id == 3 ? null: !can_book || !this.state.can_book ?(
                           <Thumbnail
                             source={{uri: `data:image/gif;base64,${this.state.driver_details.photo}` }} />
                           ):(
                           <Thumbnail
                             source={require('../assets/images/avatar.png')} />
                           )
-                       }
+                       */}
                     </View>
                     <View style={{
                       // backgroundColor:'green',
@@ -929,7 +1123,7 @@ class MapContainer extends React.Component {
                       alignItems: this.state.user.user_type_id==3?'center':'stretch',
                     }}>
 
-                    {
+                    {/*
                       // can_book || this.state.can_book ?(
                         <>
                           <Text note>
@@ -946,7 +1140,7 @@ class MapContainer extends React.Component {
                       //     <Text note>Other information</Text>
                       //   </>
                       // )
-                    }
+                    */}
                     </View>
                   </View>
                   <View

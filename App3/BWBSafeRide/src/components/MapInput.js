@@ -17,24 +17,27 @@ class MapInput extends React.Component {
         super(props);
     }
 
+    componentDidUpdate(prevProps) {
+        if(prevProps.loc_to_text !== this.props.loc_to_text) {
+            this.locationRef.setAddressText(this.props.loc_to_text);
+        }
+
+        if(prevProps.latlong !== this.props.latlong) {
+
+            for(var key in this.props.latlong) {
+                if(this.props.latlong.hasOwnProperty(key)) {
+                    var latitude = this.props.latlong['latitude'];
+                    var longitude = this.props.latlong['longitude'];
+                }
+            }
+
+            this.reverseGeocode(latitude, longitude);
+        }
+    }
+
     componentDidMount(){
 
-        // for(var key in this.props.latlong) {
-        //     if(this.props.latlong.hasOwnProperty(key)) {
-        //         var latitude = this.props.latlong['latitude'];
-        //         var longitude = this.props.latlong['longitude'];
-        //     }
-        // }
-        //
-        // this.setState({set_destination_lat: latitude, set_destination_long: longitude});
-        // this.props.notifyChange({latitude: latitude, longitude: longitude});
-        // this.reverseGeocode(this.state.set_destination_lat, this.state.set_destination_long);
 
-        // if(typeof(this.props.latlong) !== 'undefined')
-        // this.locationRef.setAddressText(this.props.latlong);
-        // console.log('hellllllllllloooooooooooooo');
-        // console.log(this.props.latlong);
-        // console.log('hellllllllllloooooooooooooo');
     }
 
     // setLocation(loc){
@@ -59,7 +62,20 @@ class MapInput extends React.Component {
                 // );
 
                 // this.setState({set_destination_name: responseJson.results[0].formatted_address});
-                this.locationRef.setAddressText(responseJson.results[0].formatted_address);
+
+                if(this.props.loc_from_text != false){
+                    this.locationRef.setAddressText(this.props.loc_from_text);
+                }else{
+                    this.locationRef.setAddressText(responseJson.results[0].formatted_address);
+                }
+
+                if(this.props.loc_to_text != false){
+                    this.locationRef.setAddressText(this.props.loc_to_text);
+                }else{
+                    this.locationRef.setAddressText(responseJson.results[0].formatted_address);
+                }
+
+
                 // this.props.notifyChange({latitude: latitude, longitude: longitude},responseJson.results[0].formatted_address);
 
                //  const self = this;
@@ -95,19 +111,19 @@ class MapInput extends React.Component {
         // Alert.alert("From:"+this.props.loc_from_text);
         // Alert.alert("To:"+this.props.loc_to_text);
 
-        if(this.props.latlong){
-            this.reverseGeocode(latitude, longitude);
-        }
+        // if(this.props.latlong){
+        this.reverseGeocode(latitude, longitude);
+        // }
 
-        if(typeof(this.props.loc_from_text) == 'undefined' || this.props.loc_from_text == null){
-            if(typeof(this.props.loc_to_text) == 'undefined' || this.props.loc_to_text == null){
-                this.reverseGeocode(latitude, longitude);
-            } else {
-                this.locationRef.setAddressText(this.props.loc_to_text);
-            }
-        }else{
-            this.locationRef.setAddressText(this.props.loc_from_text);
-        }
+        // if(typeof(this.props.loc_from_text) == 'undefined' || this.props.loc_from_text == null){
+        //     if(typeof(this.props.loc_to_text) == 'undefined' || this.props.loc_to_text == null){
+        //         this.reverseGeocode(latitude, longitude);
+        //     } else {
+        //         this.locationRef.setAddressText(this.props.loc_to_text);
+        //     }
+        // }else{
+        //     this.locationRef.setAddressText(this.props.loc_from_text);
+        // }
 
 
 
@@ -132,6 +148,7 @@ class MapInput extends React.Component {
                     // console.log(data);
                     // console.log(details);
                     // console.log('what a life');
+                    // Alert.alert('input');
                   }
                 }
                 query={{

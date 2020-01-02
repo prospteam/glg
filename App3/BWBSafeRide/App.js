@@ -30,6 +30,9 @@ import { createDrawerNavigator, createAppContainer, DrawerItems, DrawerNavigatio
 
 var Spinner = require('react-native-spinkit');
 
+console.disableYellowBox = true;
+console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
+
 // var PushNotification = require("react-native-push-notification"); // PUSH NOTIFICATION TEMPLATE
 //
 // PushNotification.localNotification({
