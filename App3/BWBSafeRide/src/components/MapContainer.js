@@ -1,6 +1,5 @@
 import React from 'react';
-import { Image, View, KeyboardAvoidingView, Alert, Modal, ActivityIndicator } from 'react-native';
-// import { Modal, Text, ActivityIndicator, Button } from 'react-native';
+import { Image, View, KeyboardAvoidingView, Alert } from 'react-native';
 import { Button, Text, Input, Form, Item, Label, DatePicker,Thumbnail, Left, Body } from 'native-base';
 import MapInput from './MapInput';
 import MyMapView from './MyMapView';
@@ -14,12 +13,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from 'react-native-geolocation-service';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import firebase from './common/Firebase';
-import CommonProgressBar from './common/CommonProgressBar';
-
-
-// var Spinner = require('react-native-spinkit');
-// import Button from './Button'; // Import a component from another file
-
 // import Geolocation from "@react-native-community/geolocation";
 
 const sample_img_link = 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/assets/images/sample.png';
@@ -30,17 +23,6 @@ const DRAWER_HEIGHT_BIG = 500;
 // const GOOGLE_MAPS_APIKEY = 'AIzaSyDNiQ_vrw3zB6pM_s2nNC-0mohwlWi6wGo';
 // const GOOGLE_MAPS_APIKEY = 'AIzaSyCsCARtyDaiIeDtGY0r3jz4pT4YwiR41Fw';
 const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
-
-// const CommonProgressBar2 = ({ visible }) => (
-//   <Modal onRequestClose={() => null} visible={visible}>
-//     <View style={{ flex: 1, backgroundColor: '#dcdcdc', alignItems: 'center', justifyContent: 'center' }}>
-//       <View style={{ borderRadius: 10, backgroundColor: 'white', padding: 25 }}>
-//         <Text style={{ fontSize: 20, fontWeight: '200' }}>Loading</Text>
-//         <ActivityIndicator size="large" />
-//       </View>
-//     </View>
-//   </Modal>
-// );
 
 // const DRAWER_HEIGHT_SMALL = 80;
 class MapContainer extends React.Component {
@@ -154,9 +136,8 @@ class MapContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    // console.log('ASLKDJASKLJDKLASJDLKASJD');
-    // console.log(CommonProgressBar2);
-    // console.log(CommonProgressBar);
+
+    // console.error(JSON.parse(AsyncStorage.getItem('userData')));
 
     this.ref = firebase.firestore().collection('driver_location_logs');
 
@@ -183,7 +164,7 @@ class MapContainer extends React.Component {
 
 
 
-  async componentDidMount() {
+  componentDidMount() {
 
       // Alert.alert(this.state.form_from_text);
 
@@ -210,10 +191,27 @@ class MapContainer extends React.Component {
 
     this.setState({pinned_stat: pinned_stat});
 
-    this.setState({
-      user: JSON.parse(await AsyncStorage.getItem('userData')),
-      is_user_type_ready:true,
-    });
+    AsyncStorage.getItem("userData", (errs,result) => {
+       if (!errs) {
+           if (result !== null) {
+               // this.setState({activeID:result});
+               let res = JSON.parse(result);
+               // console.error(res.userid)
+
+               this.setState({
+                 user: res,
+                 is_user_type_ready:true,
+               });
+
+               // Alert.alert('asdsf');
+           }
+        }
+   });
+
+    // this.setState({
+    //   user: JSON.parse(await AsyncStorage.getItem('userData')),
+    //   is_user_type_ready:true,
+    // });
 
     // this.setState({
     //     region: {
@@ -365,10 +363,10 @@ class MapContainer extends React.Component {
         .then((response) => response.json())
         .then((responseJson) => {
             const data = {
-              // user_id: this.state.userid,
-              latitude: latitude,
-              longitude: longitude,
-              location_name: responseJson.results[0].formatted_address
+                // user_id: this.state.userid,
+                latitude: latitude,
+                longitude: longitude,
+                location_name: responseJson.results[0].formatted_address
             }
             this.setState({geocode_name: responseJson.results[0].formatted_address});
             this.setState({geocode_lat: latitude});
@@ -451,7 +449,7 @@ class MapContainer extends React.Component {
    }).then((response) => response.json())
      .then((responseJson) => {
        console.log('getting API');
-       console.log(responseJson);
+       // console.log(responseJson);
         if(responseJson.num_of_active_booking > 0){
           // msg = responseJson.msg;
 
@@ -769,7 +767,8 @@ class MapContainer extends React.Component {
     console.log('YYYYYYYYYYYYYY');
     console.log(this.state.can_book);
     // console.log(this.state.booking_details);
-    const marker1 = this.state.is_user_type_ready ? this.state.is_user_type_ready != 3 ? this.state.testlocation ? this.state.testlocation : null :null:null;
+    const marker1 = this.state.is_user_type_ready ? this.state.user != 3 ? this.state.testlocation ? this.state.testlocation : null :null:null;
+    // console.log(this.props);
 
     return (
       <View style={{ flex: 1,  backgroundColor:'red'}}>
@@ -798,8 +797,8 @@ class MapContainer extends React.Component {
               navigation={this.props.navigation}
             />
             {
-            // !this.state.user ? <CommonProgressBar /> :  // NOTE: if user not ready Show Null
-            (can_book || this.state.can_book) ?( //Check if there is no pending bookings
+            this.state.is_user_type_ready == false || !this.state.booking_details ? null
+            : (can_book || this.state.can_book) ?(
               <>
               {
 
