@@ -968,6 +968,7 @@ class MapContainer extends React.Component {
                       //   </>
                       // )
                     }
+                    
                     </View>
                   </View>
                   <View
