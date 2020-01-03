@@ -6,7 +6,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import Helpers from '../../Helpers';
 
 let { width, height } = Dimensions.get('window');
-const origin = {latitude: 10.3157, longitude: 123.886};
+// const origin = {latitude: 10.3157, longitude: 123.886};
 const destination = {latitude: 37.771707, longitude: 123.4053769};
 const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 
@@ -18,6 +18,13 @@ const MyMapView = (props) => {
   console.log(props);
   console.log('MyMapView Rendering-end');
   // height = (props.height)?props.height+300:height;
+
+
+  // const origin = {
+  //     latitude: props.region.latitude,
+  //     longitude: props.region.longitude
+  // }
+
   return (
     <MapView
         style={{ flex: 1,  height: height-100,  width: width }}
@@ -35,7 +42,7 @@ const MyMapView = (props) => {
 
         region={{
           latitude: (props.pinned_lat !== 0) ? parseFloat(props.pinned_lat) : props.region.latitude,
-          longitude: (props.pinned_stat !== 0) ? parseFloat(props.pinned_long) : props.region.longitude,
+          longitude: (props.pinned_long !== 0) ? parseFloat(props.pinned_long) : props.region.longitude,
           // latitude: (props.pinned_lat !== 0) ? parseFloat(props.pinned_lat) : props.region.region,
           // longitude: (props.pinned_stat !== 0) ? parseFloat(props.pinned_long) : props.region.region,
           latitudeDelta: props.region.latitudeDelta,
@@ -56,7 +63,7 @@ const MyMapView = (props) => {
         //   longitudeDelta: 0.0,
         // }}
         >
-          {props.form_from && <MapView.Marker
+          {(props.form_from) && <MapView.Marker
                coordinate={props.form_from}
                title={"Pickup Location"}
                description={props.geocode_name}
@@ -111,7 +118,7 @@ const MyMapView = (props) => {
             </MapView.Callout>
             </MapView.Marker>
         }
-            {props.form_to && <MapView.Marker
+            {(props.form_to) && <MapView.Marker
                  coordinate={props.form_to}
                  title={"Drop-off Location"}
               />}
