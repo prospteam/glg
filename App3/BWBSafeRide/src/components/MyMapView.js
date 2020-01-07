@@ -78,6 +78,8 @@ const MyMapView = (props) => {
                               longitude: props.geocode_long,
                               login_id: props.login_id
                           }
+
+                          // Alert.alert(props.geocode_name+":"+props.geocode_lat);
                             // Alert.alert(data.location_name);
                             fetch(Helpers.api_url+'save_location', {
                                  method: 'POST',

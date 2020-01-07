@@ -132,9 +132,6 @@ const MyDrawerNavigatorDriver = createDrawerNavigator(
     DriverProfile: {
       screen: DriverProfile,
     },
-    Profile: {
-      screen: Profile,
-    },
     TripHistory: {
       screen: TripHistory,
     },
