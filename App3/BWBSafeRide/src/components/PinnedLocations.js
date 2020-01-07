@@ -25,6 +25,12 @@ export default class PinnedLocations extends Component {
         this.getSavedLoc();
     }
 
+    componentDidUpdate(prevProps, prevState){
+        if(prevState.locations_list != this.state.locations_list){
+            this.getSavedLoc();
+        }
+    }
+
     async getSavedLoc(){
 
         const data = JSON.parse(await AsyncStorage.getItem('userData'));
@@ -78,7 +84,7 @@ export default class PinnedLocations extends Component {
             // Alert.alert(res.response);
             if(res.response === 'success'){
                 Alert.alert('Location has been deleted.')
-                this.getSavedLoc();
+                // this.getSavedLoc();
             }
 
         }).catch((error) => {

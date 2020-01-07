@@ -5,6 +5,7 @@
  * @format
  * @flow
  */
+
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, ImageBackground, Image, Alert} from 'react-native';
 import { Container, Content, StyleProvider } from 'native-base';
@@ -132,9 +133,9 @@ const MyDrawerNavigatorDriver = createDrawerNavigator(
     DriverProfile: {
       screen: DriverProfile,
     },
-    Profile: {
-      screen: Profile,
-    },
+    // Profile: {
+    //   screen: Profile,
+    // },
     TripHistory: {
       screen: TripHistory,
     },
