@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Dimensions, Alert, PermissionsAndroid, TextInput, View, StyleSheet } from 'react-native';
+import { Dimensions, Alert, PermissionsAndroid, TextInput, View, StyleSheet, BackHandler, DeviceEventEmitter } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Switch } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import MapView from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import MapContainer from './MapContainer';
 import Helpers from '../../Helpers';
+import LocationServicesDialogBox from "react-native-android-location-services-dialog-box";
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -17,6 +18,54 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const origin = {latitude: 37.3318456, longitude: 123.0296002};
 const destination = {latitude: 37.771707, longitude: 123.4053769};
 const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
+
+export async function requestLocationPermission()
+{
+  try {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      // {
+      //   'title': 'Example App',
+      //   'message': 'Example App access to your location '
+      // }
+    )
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      console.log("You can use the location")
+      // alert("You can use the location");
+    } else {
+      console.log("location permission denied")
+      // alert("Location permission denied");
+    }
+  } catch (err) {
+    console.warn(err)
+  }
+}
+
+
+LocationServicesDialogBox.checkLocationServicesIsEnabled({
+    message: "<h2 style='color: #0af13e'>Use Location?</h2>This app wants to change your device settings:<br/><br/>Use GPS, Wi-Fi, and cell network for location<br/><br/><a href='#'>Learn more</a>",
+    ok: "YES",
+    cancel: "NO",
+    enableHighAccuracy: false, // true => GPS AND NETWORK PROVIDER, false => GPS OR NETWORK PROVIDER
+    showDialog: true, // false => Opens the Location access page directly
+    openLocationServices: true, // false => Directly catch method is called if location services are turned off
+    preventOutSideTouch: false, // true => To prevent the location services window from closing when it is clicked outside
+    preventBackClick: false, // true => To prevent the location services popup from closing when it is clicked back button
+    providerListener: true // true ==> Trigger locationProviderStatusChange listener when the location state changes
+}).then(function(success) {
+    console.log(success); // success => {alreadyEnabled: false, enabled: true, status: "enabled"}
+}).catch((error) => {
+    console.log(error.message); // error.message => "disabled"
+});
+
+BackHandler.addEventListener('hardwareBackPress', () => { //(optional) you can use it if you need it
+   //do not use this method if you are using navigation."preventBackClick: false" is already doing the same thing.
+   LocationServicesDialogBox.forceCloseDialog();
+});
+
+DeviceEventEmitter.addListener('locationProviderStatusChange', function(status) { // only trigger when "providerListener" is enabled
+    console.log(status); //  status => {enabled: false, status: "disabled"} or {enabled: true, status: "enabled"}
+});
 
 // const getCurrentLocation = () => { // TO REMOVE NA
   // alert('3');
@@ -39,9 +88,11 @@ export default class Dashboard extends Component {
   // state = {
   // }
 
-  // componentWillUnmount() {
-  //   navigator.geolocation.clearWatch(this.watchID);
-  // }
+  async componentWillMount() {
+    // navigator.geolocation.clearWatch(this.watchID);
+
+    await requestLocationPermission();
+  }
 
   constructor(props){
       super(props);
