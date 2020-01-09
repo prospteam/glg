@@ -86,17 +86,17 @@ class MapContainer extends React.Component {
         // pinned_longitude: 0
     };
 
-    componentWillReceiveProps(nextProps, nextState){
-        const {navigation} = this.props;
-
-        if(navigation.getParam('booking_data_from_latlong', null) !== null){
-              this.updateState({
-                latitude: navigation.getParam('booking_data_from_latlong', null).latitude,
-                longitude: navigation.getParam('booking_data_from_latlong', null).longitude,
-              });
-              // this.reverseGeocode(navigation.getParam('booking_data_from_latlong', null).latitude, navigation.getParam('booking_data_from_latlong', null).longitude);
-        }
-    }
+    // componentWillReceiveProps(nextProps, nextState){
+    //     const {navigation} = this.props;
+    //
+    //     if(navigation.getParam('booking_data_from_latlong', null) !== null){
+    //           this.updateState({
+    //             latitude: navigation.getParam('booking_data_from_latlong', null).latitude,
+    //             longitude: navigation.getParam('booking_data_from_latlong', null).longitude,
+    //           });
+    //           // this.reverseGeocode(navigation.getParam('booking_data_from_latlong', null).latitude, navigation.getParam('booking_data_from_latlong', null).longitude);
+    //     }
+    // }
 
     componentDidUpdate(prevProps, prevState) {
         const {navigation} = this.props;
