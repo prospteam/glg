@@ -86,30 +86,7 @@ class MapContainer extends React.Component {
         // pinned_longitude: 0
     };
 
-    // componentWillReceiveProps(nextProps, nextState){
-    //     const {navigation} = this.props;
-    //
-    //     if(navigation.getParam('booking_data_from_latlong', null) !== null){
-    //           this.updateState({
-    //             latitude: navigation.getParam('booking_data_from_latlong', null).latitude,
-    //             longitude: navigation.getParam('booking_data_from_latlong', null).longitude,
-    //           });
-    //           // this.reverseGeocode(navigation.getParam('booking_data_from_latlong', null).latitude, navigation.getParam('booking_data_from_latlong', null).longitude);
-    //     }
-    // }
-
-    componentDidUpdate(prevProps, prevState) {
-        const {navigation} = this.props;
-
-        if(this.state.geocode_lat !== prevState.geocode_lat){
-            if(navigation.getParam('booking_data_from_text', null) !== null){
-                  this.setState({geocode_name: navigation.getParam('booking_data_from_text', null)});
-                  this.setState({geocode_lat: navigation.getParam('booking_data_from_latlong', null).latitude});
-                  this.setState({geocode_long: navigation.getParam('booking_data_from_latlong', null).longitude});
-            }
-        }
-
-
+    componentDidUpdate(prevProps) {
         if(prevProps.set_destination_lat !== this.props.set_destination_lat) {
             fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.props.set_destination_lat + ',' + this.props.set_destination_long + '&key=' + GOOGLE_MAPS_APIKEY)
                 .then((response) => response.json())
@@ -150,6 +127,8 @@ class MapContainer extends React.Component {
                     var longitude = this.props.latlong['longitude'];
                 }
             }
+
+            // this.reverseGeocode(latitude, longitude);
         }
     }
 
@@ -166,16 +145,6 @@ class MapContainer extends React.Component {
 
     // Alert.alert("Watch Position");
 
-    Geolocation.getCurrentPosition(
-      position => {
-        const initialPosition = JSON.stringify(position);
-        // this.setState({initialPosition});
-        console.log(initialPosition);
-      },
-      error => console.log('Error', JSON.stringify(error)),
-      {enableHighAccuracy: true, timeout: 20000},
-    );
-
     this.watchID = Geolocation.watchPosition((position) => {
       //const lastPosition = JSON.stringify(position);
       //this.setState({lastPosition});
@@ -189,7 +158,7 @@ class MapContainer extends React.Component {
             }
         });
       },
-      (error) => console.log(JSON.stringify(error))
+      (error) => Alert.alert(JSON.stringify(error)+"asd")
       );
   }
 
@@ -220,14 +189,6 @@ class MapContainer extends React.Component {
 
     const {pinned_stat, navigation} = this.props;
 
-    // if(navigation.getParam('booking_data_from_latlong', null) !== null){
-    //       this.updateState({
-    //         latitude: navigation.getParam('booking_data_from_latlong', null).latitude,
-    //         longitude: navigation.getParam('booking_data_from_latlong', null).longitude,
-    //       });
-    //       // this.reverseGeocode(navigation.getParam('booking_data_from_latlong', null).latitude, navigation.getParam('booking_data_from_latlong', null).longitude);
-    // }
-
     this.setState({pinned_stat: pinned_stat});
 
     AsyncStorage.getItem("userData", (errs,result) => {
@@ -246,12 +207,6 @@ class MapContainer extends React.Component {
            }
         }
    });
-
-   // if(navigation.getParam('booking_data_from_text', null) !== null){
-   //       this.setState({geocode_name: navigation.getParam('booking_data_from_text', null)});
-   //       this.setState({geocode_lat: navigation.getParam('booking_data_from_latlong', null).latitude});
-   //       this.setState({geocode_long: navigation.getParam('booking_data_from_latlong', null).longitude});
-   // }
 
     // this.setState({
     //   user: JSON.parse(await AsyncStorage.getItem('userData')),
@@ -548,10 +503,6 @@ class MapContainer extends React.Component {
         my_latitude: data.latitude,
         my_longitude: data.longitude,
       });
-
-        this.setState({ geocode_lat: data.latitude });
-        this.setState({ geocode_long: data.longitude });
-
       // return data;
     })
     .catch(err => {
@@ -571,16 +522,16 @@ class MapContainer extends React.Component {
       //   longitude: parseFloat(pinned_long),
       // });
 
-      // let latDelta = (location.latitudeDelta) ? location.latitudeDelta:0.003;
-      // let longDelta = (location.longitudeDelta) ? location.longitudeDelta:0.003;
-      // this.setState({
-      //   region: {
-      //     latitude: location.latitude,
-      //     longitude: location.longitude,
-      //     latitudeDelta: latDelta,
-      //     longitudeDelta: longDelta,
-      //   },
-      // });
+      let latDelta = (location.latitudeDelta) ? location.latitudeDelta:0.003;
+      let longDelta = (location.longitudeDelta) ? location.longitudeDelta:0.003;
+      this.setState({
+        region: {
+          latitude: location.latitude,
+          longitude: location.longitude,
+          latitudeDelta: latDelta,
+          longitudeDelta: longDelta,
+        },
+      });
 
       this.reverseGeocode(location.latitude, location.longitude);
   }
@@ -609,6 +560,10 @@ class MapContainer extends React.Component {
     this.setState({pinned_stat: false});
     // alert(this.state.pinned_stat);
 
+    // this.updateState({
+    //   latitude: loc.lat || this.state.set_destination_lat,
+    //   longitude: loc.lng || this.state.set_destination_long,
+    // });
     // this.updateSelectedLatLong({
     //   latitude: loc.lat,
     //   longitude: loc.lng,
@@ -617,12 +572,6 @@ class MapContainer extends React.Component {
     if (inputField==='from') {
         this.props.navigation.setParams({booking_data_from_latlong: null});
         this.props.navigation.setParams({booking_data_from_text: null});
-
-        this.updateState({
-          latitude: loc.lat || this.state.set_destination_lat,
-          longitude: loc.lng || this.state.set_destination_long,
-        });
-
       this.setState({
         form_from_text:inputText,
         form_from:'from',
@@ -802,14 +751,9 @@ class MapContainer extends React.Component {
 
     // Alert.alert(navigation.getParam('booking_data_from_text', null));
 
-    if(navigation.getParam('booking_data_from_text', null) !== null){
+    if(navigation.getParam('booking_data_from_text', null) !== null)
           this.locationOrigRef.setAddressText(navigation.getParam('booking_data_from_text', null));
-          console.log("latttttttttttttttttttttttttttttttttiiiiiiiiiiiiiiiiiiii");
-          console.log(navigation.getParam('booking_data_from_latlong', null).latitude);
-          console.log("latttttttttttttttttttttttttttttttttiiiiiiiiiiiiiiiiiiii");
-
-          // this.reverseGeocode(navigation.getParam('booking_data_from_latlong', null).latitude, navigation.getParam('booking_data_from_latlong', null).longitude);
-    }else{
+    else{
         if(this.state.form_from_text !== null)
             this.locationOrigRef.setAddressText(this.state.form_from_text);
     }
