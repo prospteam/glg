@@ -101,7 +101,9 @@ export default class Dashboard extends Component {
           longitude: 37.771707,
           latitude: -122.4053769,
           switchValue: false,
-          user_type: null
+          user_type: null,
+          userData: null,
+          login_success: this.props.navigation.getParam('login_success', false)
       }
   }
 
@@ -168,6 +170,7 @@ export default class Dashboard extends Component {
   componentDidMount() {
 
       this.getDriverStatus();
+      this.checkSession();
 
     var that = this;
       //Checking for the permission just after component loaded
@@ -283,24 +286,53 @@ export default class Dashboard extends Component {
       )
     };
 
-    checkSession = async () => {
-      // console.log('here');
-      if(await AsyncStorage.getItem('userData')) {
-        // this.setState({
-        //   isLogged: true,
-        //   });
-        // console.log('naa');
-        // console.log(await AsyncStorage.getItem('userData'));
-      }else {
-          this.props.actions.navigate('Logout');
-      }
-
-      // setTimeout(() => {
-      //   this.setState({
-      //     isLoading: false,
-      //     });
-      //   }, 1000);
+    componentDidUpdate(prevProps, prevState){
+        if(prevState.login_success !== this.state.login_success){
+            this.checkSession();
+            this.getDriverStatus();
+        }
     }
+
+    checkSession(){
+        AsyncStorage.getItem("userData", (errs,result) => {
+           if (!errs) {
+               if (result === null) {
+                   // console.error(result);
+                   this.props.navigation.navigate('Logout');
+               }else{
+                   this.setState({userData: result});
+                   this.setState({ user_type: result.user_type_id });
+               }
+            }
+       });
+
+        setTimeout(() => {
+            this.setState({
+                isLoading: false,
+            });
+        }, 1000);
+    }
+
+    // checkSession = async () => {
+    //   // console.log('here');
+    //
+    //   if(await AsyncStorage.getItem('userData')) {
+    //     // this.setState({
+    //     //   isLogged: true,
+    //     //   });
+    //     // console.log('naa');
+    //     // console.log(await AsyncStorage.getItem('userData'));
+    //           Alert.alert('hello');
+    //   }else {
+    //       this.props.actions.navigate('Logout');
+    //   }
+    //
+    //   // setTimeout(() => {
+    //   //   this.setState({
+    //   //     isLoading: false,
+    //   //     });
+    //   //   }, 1000);
+    // }
 
     render() {
         const { navigation } = this.props;
@@ -335,7 +367,7 @@ export default class Dashboard extends Component {
 
       // console.log("render");
       // console.log(this.state);
-      this.checkSession();
+
     console.log("XDXDXXDXDXD");
 
       console.log(this.props);

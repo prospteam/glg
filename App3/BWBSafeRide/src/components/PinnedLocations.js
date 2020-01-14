@@ -128,14 +128,6 @@ export default class PinnedLocations extends Component {
                             <Icon name="apps" />
                             <Text>Dashboard</Text>
                         </Button>
-                        <Button vertical>
-                            <Icon name="map" />
-                            <Text>Book Now</Text>
-                        </Button>
-                        <Button vertical>
-                            <Icon name="navigate" />
-                            <Text>Navigate</Text>
-                        </Button>
                     </FooterTab>
                 </Footer>
         </Container>
