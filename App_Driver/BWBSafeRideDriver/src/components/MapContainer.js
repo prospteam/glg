@@ -86,17 +86,17 @@ class MapContainer extends React.Component {
         // pinned_longitude: 0
     };
 
-    // componentWillReceiveProps(nextProps, nextState){
-    //     const {navigation} = this.props;
-    //
-    //     if(navigation.getParam('booking_data_from_latlong', null) !== null){
-    //           this.updateState({
-    //             latitude: navigation.getParam('booking_data_from_latlong', null).latitude,
-    //             longitude: navigation.getParam('booking_data_from_latlong', null).longitude,
-    //           });
-    //           // this.reverseGeocode(navigation.getParam('booking_data_from_latlong', null).latitude, navigation.getParam('booking_data_from_latlong', null).longitude);
-    //     }
-    // }
+    componentWillReceiveProps(nextProps, nextState){
+        const {navigation} = this.props;
+
+        if(navigation.getParam('booking_data_from_latlong', null) !== null){
+              this.updateState({
+                latitude: navigation.getParam('booking_data_from_latlong', null).latitude,
+                longitude: navigation.getParam('booking_data_from_latlong', null).longitude,
+              });
+              // this.reverseGeocode(navigation.getParam('booking_data_from_latlong', null).latitude, navigation.getParam('booking_data_from_latlong', null).longitude);
+        }
+    }
 
     componentDidUpdate(prevProps, prevState) {
         const {navigation} = this.props;
@@ -854,7 +854,7 @@ class MapContainer extends React.Component {
             />
             {
             this.state.is_user_type_ready == false || !this.state.booking_details ? null
-            : (false) ?(
+            : (true) ?(
             // : (can_book || this.state.can_book) ?(
               <>
               {
@@ -1184,9 +1184,6 @@ class MapContainer extends React.Component {
                       textAlign: 'center',
                     }}>
                     {
-                        (<Thumbnail
-                          source={require('../assets/images/avatar.png')} />
-                        )
                       /*this.state.user.user_type_id == 3 ? null: !can_book || !this.state.can_book ?(
                           <Thumbnail
                             source={{uri: `data:image/gif;base64,${this.state.driver_details.photo}` }} />
@@ -1199,12 +1196,12 @@ class MapContainer extends React.Component {
                     </View>
                     <View style={{
                       // backgroundColor:'green',
-                      textAlign: 'left',
+                      textAlign: 'center',
                       // width:'100%',
                       // margin: 10,
                       padding:5,
                       flex:1,
-                      justifyContent: 'flex-start'
+                      alignItems: this.state.user.user_type_id==3?'center':'stretch',
                     }}>
 
                   {
