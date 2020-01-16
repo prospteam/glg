@@ -231,11 +231,12 @@ class MapContainer extends React.Component {
     this.setState({pinned_stat: pinned_stat});
 
     AsyncStorage.getItem("userData", (errs,result) => {
+
        if (!errs) {
            if (result !== null) {
                // this.setState({activeID:result});
                let res = JSON.parse(result);
-               // console.error(res.userid)
+               console.error(res.userid)
 
                this.setState({
                  user: res,
@@ -820,8 +821,8 @@ class MapContainer extends React.Component {
         if(this.state.form_to_text !== null)
             this.locationDestRef.setAddressText(this.state.form_to_text);
     }
-    console.log('YYYYYYYYYYYYYY');
-    console.log(this.state.can_book);
+    console.log('xxxxxxxxxxxxxxxxx');
+    console.log(this.state);
     // console.log(this.state.booking_details);
     const marker1 = this.state.is_user_type_ready ? this.state.user != 3 ? this.state.testlocation ? this.state.testlocation : null :null:null;
     // console.log(this.props);
@@ -853,11 +854,13 @@ class MapContainer extends React.Component {
               navigation={this.props.navigation}
             />
             {
-            this.state.is_user_type_ready == false || !this.state.booking_details ? null
-            : (true) ?(
-            // : (can_book || this.state.can_book) ?(
+            true ? null
+            // this.state.is_user_type_ready == false || !this.state.booking_details ? null
+            // : (false) ?(
+            : (can_book || this.state.can_book) ?(
               <>
               {
+              // (false) ? (
               (this.state.user.user_type_id == 3 && (can_book || this.state.can_book) && this.state.is_finish_check_booking_status) ? (
                 // this.props.navigation.navigate('Bookings')
                 null
@@ -1201,7 +1204,7 @@ class MapContainer extends React.Component {
                       // margin: 10,
                       padding:5,
                       flex:1,
-                      alignItems: this.state.user.user_type_id==3?'center':'stretch',
+                      alignItems: this.state.user.user_type_id==3?'center':'null',
                     }}>
 
                   {

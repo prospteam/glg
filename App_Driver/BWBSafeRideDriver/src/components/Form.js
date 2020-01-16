@@ -125,20 +125,22 @@ export default class Form extends ValidationComponent {
         return(
             <View style={styles.container}>
                 <View style={styles.radioBox}>
-                    <SegmentedControls
-                    tint={'#d3a04c'}
-                    selectedTint= {'white'}
-                    backTint= {'#1e2126'}
-                    options={ options }
-                    allowFontScaling={ false } // default: true
-                    onSelection={ setSelectedOption.bind(this) }
-                    selectedOption={this.state.selectedOption }
-                    optionStyle={{fontFamily: 'AvenirNext-Medium'}}
-                    optionContainerStyle={{flex: 1}}
-                  />
-                  <Text style={styles.textStyle}>You are a {this.state.selectedOption || 'none'}</Text>
+                {
+                  //   <SegmentedControls
+                  //   tint={'#d3a04c'}
+                  //   selectedTint= {'white'}
+                  //   backTint= {'#1e2126'}
+                  //   options={ options }
+                  //   allowFontScaling={ false } // default: true
+                  //   onSelection={ setSelectedOption.bind(this) }
+                  //   selectedOption={this.state.selectedOption }
+                  //   optionStyle={{fontFamily: 'AvenirNext-Medium'}}
+                  //   optionContainerStyle={{flex: 1}}
+                  // />
+                  // <Text style={styles.textStyle}>You are a {this.state.selectedOption || 'none'}</Text>
+                  }
+                  <Text style={styles.textStyle}>You are a Driver</Text>
               </View>
-
                 <View style={styles.inputWrap}>
                     <TextInput style={styles.inputBox2} placeholder="First Name" onChangeText={(firstname) => this.setState({firstname})} />
                     <TextInput style={styles.inputBox2} placeholder="Last Name" onChangeText={(lastname) => this.setState({lastname})} />
