@@ -854,7 +854,7 @@ class MapContainer extends React.Component {
             />
             {
             this.state.is_user_type_ready == false || !this.state.booking_details ? null
-            : (true) ?(
+            : (false) ?(
             // : (can_book || this.state.can_book) ?(
               <>
               {
@@ -1184,6 +1184,9 @@ class MapContainer extends React.Component {
                       textAlign: 'center',
                     }}>
                     {
+                        (<Thumbnail
+                          source={require('../assets/images/avatar.png')} />
+                        )
                       /*this.state.user.user_type_id == 3 ? null: !can_book || !this.state.can_book ?(
                           <Thumbnail
                             source={{uri: `data:image/gif;base64,${this.state.driver_details.photo}` }} />
@@ -1196,12 +1199,12 @@ class MapContainer extends React.Component {
                     </View>
                     <View style={{
                       // backgroundColor:'green',
-                      textAlign: 'center',
+                      textAlign: 'left',
                       // width:'100%',
                       // margin: 10,
                       padding:5,
                       flex:1,
-                      alignItems: this.state.user.user_type_id==3?'center':'stretch',
+                      justifyContent: 'flex-start'
                     }}>
 
                   {
