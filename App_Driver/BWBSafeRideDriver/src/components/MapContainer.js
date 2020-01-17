@@ -26,36 +26,36 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 
 // const DRAWER_HEIGHT_SMALL = 80;
 class MapContainer extends React.Component {
-  // state = {
-  //   testlocation:null,
-  //   is_finish_check_booking_status:false,
-  //   is_user_type_ready:false,
-  //   user:null,
-  //   driver_details:[],
-  //   my_latitude:0,
-  //   my_longitude:0,
-  //   can_book:false,
-  //   isDateTimePickerVisible: false,
-  //   region: {
-  //     latitude: 43.7984299,
-  //     longitude: -84.7310113,
-  //     latitudeDelta: 3,
-  //     longitudeDelta: 3,
-  //   },
-  //   geocode_name: null,
-  //   geocode_lat: null,
-  //   geocode_long: null,
-  //   login_id: null,
-  //   pinned_stat: false,
-  //   set_destination_lat: this.props.set_destination_lat,
-  //   set_destination_long: this.props.set_destination_long
-  // };
+    // state = {
+    //   testlocation:null,
+    //   is_finish_check_booking_status:false,
+    //   is_user_type_ready:false,
+    //   user:null,
+    //   driver_details:[],
+    //   my_latitude:0,
+    //   my_longitude:0,
+    //   can_book:false,
+    //   isDateTimePickerVisible: false,
+    //   region: {
+    //     latitude: 43.7984299,
+    //     longitude: -84.7310113,
+    //     latitudeDelta: 3,
+    //     longitudeDelta: 3,
+    //   },
+    //   geocode_name: null,
+    //   geocode_lat: null,
+    //   geocode_long: null,
+    //   login_id: null,
+    //   pinned_stat: false,
+    //   set_destination_lat: this.props.set_destination_lat,
+    //   set_destination_long: this.props.set_destination_long
+    // };
 
       state = {
         testlocation:null,
         is_finish_check_booking_status:false,
         is_user_type_ready:false,
-        user:null,
+        user_data:null,
         driver_details:[],
         distance:0,
         duration:0,
@@ -81,6 +81,7 @@ class MapContainer extends React.Component {
         set_destination_lat: this.props.set_destination_lat,
         set_destination_long: this.props.set_destination_long,
         form_from_text: null,
+        booking_details_ready:null,
         form_to_text: null
         // pinned_latitude: 0,
         // pinned_longitude: 0
@@ -231,20 +232,19 @@ class MapContainer extends React.Component {
     this.setState({pinned_stat: pinned_stat});
 
     AsyncStorage.getItem("userData", (errs,result) => {
-
        if (!errs) {
            if (result !== null) {
                // this.setState({activeID:result});
                let res = JSON.parse(result);
-               console.error(res.userid)
-
                this.setState({
-                 user: res,
+                 user_data: res,
                  is_user_type_ready:true,
                });
+               // console.error(res);
 
-               // Alert.alert('asdsf');
+               // Alert.alert('USER READY');
            }
+
         }
    });
 
@@ -484,6 +484,7 @@ class MapContainer extends React.Component {
     //   //   });
     this.setState({login_id: data.login_id});
     console.log(Helpers.ci_url+'booking/user_boonotifyChangeking_status/'+data.login_id);
+    console.log(Helpers.ci_url+'booking/user_booking_status/'+data.login_id);
     // console.log('XDXDXDXD');
 
   fetch(Helpers.ci_url+'booking/user_booking_status/'+data.login_id, {
@@ -509,12 +510,18 @@ class MapContainer extends React.Component {
           // this.ref.onSnapshot(this.driverLocationListener);
 
         }else{
+          console.log('LOEDDEDDDD444444444');
           this.setState({
             can_book:true,
             driver_details:[],
             booking_details:[],
           });
         }
+
+        this.setState({
+          booking_details_ready:true,
+        });
+
      }).catch((error) => {
        console.log('NOT getting API');
        // console.error(error);
@@ -819,12 +826,12 @@ class MapContainer extends React.Component {
         this.locationDestRef.setAddressText(navigation.getParam('booking_data_to_text', null));
     else{
         if(this.state.form_to_text !== null)
-            this.locationDestRef.setAddressText(this.state.form_to_text);
+          this.locationDestRef.setAddressText(this.state.form_to_text);
     }
     console.log('xxxxxxxxxxxxxxxxx');
     console.log(this.state);
     // console.log(this.state.booking_details);
-    const marker1 = this.state.is_user_type_ready ? this.state.user != 3 ? this.state.testlocation ? this.state.testlocation : null :null:null;
+    const marker1 = this.state.is_user_type_ready ? this.state.user_data != 3 ? this.state.testlocation ? this.state.testlocation : null :null:null;
     // console.log(this.props);
 
     return (
@@ -854,264 +861,12 @@ class MapContainer extends React.Component {
               navigation={this.props.navigation}
             />
             {
-            true ? null
-            // this.state.is_user_type_ready == false || !this.state.booking_details ? null
+            // true ? null
+            !this.state.user_data || !this.state.booking_details_ready? null
+            // this.state.user_data == false || this.state.booking_details != []? null
             // : (false) ?(
-            : (can_book || this.state.can_book) ?(
-              <>
-              {
-              // (false) ? (
-              (this.state.user.user_type_id == 3 && (can_book || this.state.can_book) && this.state.is_finish_check_booking_status) ? (
-                // this.props.navigation.navigate('Bookings')
-                null
-              ):(
-              <BottomDrawer
-                containerHeight={ window_height - 15 }
-                offset={0}
-                startUp={false}
-                // downDisplay={0.5}
-                backgroundColor='rgba(255, 0, 0, 0)'
-              >
-                <View style={{
-                  zIndex:1,
-                  position: 'absolute',
-                  top:0,
-                  flex: 0.4,
-                  textAlign:'center',
-                  width:'100%',
-                  paddingVertical: 10,
-                  paddingHorizontal: 30,
-                }}>
-                    <View style={{
-                      padding:20,
-                      borderRadius:10,
-                      shadowColor: "#000",
-                      shadowOffset: {
-                      	width: 0,
-                      	height: 5,
-                      },
-                      shadowOpacity: 0.34,
-                      shadowRadius: 6.27,
-                      elevation: 10,
-                      backgroundColor:'white',
-                    }}>
-
-                    <Text
-                      style={{
-                        width:'100%',
-                        height:3,
-                        textAlign:'center',
-                        position:'relative',
-                        bottom:10,
-                      }}>
-                      <Text style={{
-                        width:100,
-                        backgroundColor:'black',
-                      }}>____
-                      </Text>
-                    </Text>
-                    <Text style={{
-                      width:'100%',
-                      textAlign: 'left',
-                      fontWeight:'bold',
-                      fontSize:20,
-                      marginBottom:15
-                    }}>
-                      {this.state.is_user_type_ready?('Where are you going?'):('__')}
-                    </Text>
-                  <Label>Pickup</Label>
-                  <KeyboardAvoidingView
-                  behavior="padding"
-                >
-                    <GooglePlacesAutocomplete
-                        // textInputProps={{
-                        //     onChangeText: (loc) => this.setState({set_destination_name: loc})
-                        // }}
-                        ref={(instance) => this.locationOrigRef = instance }
-                        placeholder={'Enter pickup location'}
-                        minLength={2}
-                        autoFocus={false}
-                        returnKeyType={'search'}
-                        listViewDisplayed={false}
-                        fetchDetails={true}
-                        onPress={(data, details = null) => {
-                            //'details' is provided when fetchDetails = true
-                            this.getCoordsFromName(details.geometry.location,'from',data.description);
-                            // this.props.notifyChange(details.geometry.location,data.description);
-                            // console.log(data);
-                            // console.log(details);
-                            // console.log('what a life');
-                            // Alert.alert('input');
-                          }
-                        }
-                        query={{
-                            key: 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4',
-                            language: 'en'
-                        }}
-                        nearbyPlacesAPI='GooglePlacesSearch'
-                        debounce={200}
-                        styles={{
-                          textInputContainer: {
-                            backgroundColor: 'white',
-                            borderTopWidth: 0,
-                            borderBottomWidth:0,
-                            position: 'relative',
-                          },
-                          padding: {
-                            padding: 20
-                          },
-                          textInput: {
-                            borderRadius: 0,
-                            paddingLeft:10,
-                          },
-                          description: {
-                            fontWeight: 'bold'
-                          },
-                          predefinedPlacesDescription: {
-                            color: 'red'
-                          },
-                          listView: {
-                            // backgroundColor: 'white',
-                            // position: 'absolute',
-                            // bottom: 30,
-                            // border:1,
-                            // padding:3,
-                            // zIndex:9999,
-                          }
-                        }}
-                    />
-
-                 </KeyboardAvoidingView>
-                  {/*<MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'from',loc_text)} latlong={navigation.getParam('booking_data_from_latlong', this.state.form_from_latlong)} loc_to_text={false} loc_from_text={this.state.form_from_text} placeholder='Enter pickup location.'/>*/}
-                  <View
-                    style={{
-                      borderBottomColor: '#d9d9d9',
-                      borderBottomWidth: 2,
-                    }}
-                  />
-                  <Label>Drop-Off</Label>
-                  <KeyboardAvoidingView
-                  behavior="padding"
-                >
-                    <GooglePlacesAutocomplete
-                        // textInputProps={{
-                        //     onChangeText: (loc) => this.setState({set_destination_name: loc})
-                        // }}
-                        ref={(instance2) => this.locationDestRef = instance2 }
-                        placeholder={'Enter drop-off location'}
-                        minLength={2}
-                        autoFocus={false}
-                        returnKeyType={'search'}
-                        listViewDisplayed={false}
-                        fetchDetails={true}
-                        onPress={(data, details = null) => {
-                            //'details' is provided when fetchDetails = true
-                            this.getCoordsFromName(details.geometry.location,'to',data.description);
-                            // this.props.notifyChange(details.geometry.location,data.description);
-                            // console.log(data);
-                            // console.log(details);
-                            // console.log('what a life');
-                            // Alert.alert('input');
-                          }
-                        }
-                        query={{
-                            key: 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4',
-                            language: 'en'
-                        }}
-                        nearbyPlacesAPI='GooglePlacesSearch'
-                        debounce={200}
-                        styles={{
-                          textInputContainer: {
-                            backgroundColor: 'white',
-                            borderTopWidth: 0,
-                            borderBottomWidth:0,
-                            position: 'relative',
-                          },
-                          padding: {
-                            padding: 20
-                          },
-                          textInput: {
-                            borderRadius: 0,
-                            paddingLeft:10,
-                          },
-                          description: {
-                            fontWeight: 'bold'
-                          },
-                          predefinedPlacesDescription: {
-                            color: 'red'
-                          },
-                          listView: {
-                            // backgroundColor: 'white',
-                            // position: 'absolute',
-                            // bottom: 30,
-                            // border:1,
-                            // padding:3,
-                            // zIndex:9999,
-                          }
-                        }}
-                    />
-
-                 </KeyboardAvoidingView>
-                  {/*<MapInput notifyChange={(loc,loc_text) => this.getCoordsFromName(loc,'to',loc_text)} latlong={navigation.getParam('booking_data_to_latlong', set_destination_latlong)} loc_from_text={false} loc_to_text={this.state.form_to_text} placeholder='Enter drop-off location' />*/}
-                  {distance ?(
-                    <Form>
-                      <View
-                        style={{
-                          borderBottomColor: '#d9d9d9',
-                          borderBottomWidth: 2,
-                          marginTop: 20,
-                          marginLeft: -20,
-                          marginRight: -20,
-                        }}
-                      />
-                      <View style={{display:'flex',flexDirection:'row',marginTop: 20}}>
-                          <View style={{width:'55%'}}>
-                            <Label style={{marginTop: 0}}>Pickup Date</Label>
-                            <DatePicker
-                              defaultDate={new Date().getFullYear()}
-                              minimumDate={new Date(2018, 1, 1)}
-                              locale={"en"}
-                              modalTransparent={false}
-                              animationType={"fade"}
-                              androidMode={"default"}
-                              placeHolderText="Select date"
-                              textStyle={{ color: "black", border: 1 , fontSize: 18}}
-                              placeHolderTextStyle={{ color: "#d3d3d3" }}
-                              onDateChange={(e) => this.setDate(e)}
-                              disabled={false}
-                              minimumDate = {new Date()}
-                              />
-                            </View>
-                            <View style={{width:'45%'}}>
-                              <Label>Pickup Time</Label>
-                              <Text onPress={this.showDateTimePicker} style={{
-                                marginLeft: 10,
-                                marginTop: 10,
-                                textAlign: 'left',
-                              }}>{this.state.chosenTime?this.state.chosenTime:'00:00 AM'}</Text>
-                              <DateTimePicker
-                                mode='time'
-                                isVisible={this.state.isDateTimePickerVisible}
-                                onConfirm={this.handleDatePicked}
-                                onCancel={this.hideDateTimePicker}
-                              />
-                              </View>
-                        </View>
-                      <Button style={{marginTop: 30}} onPress={(e) => this.bookNow(e, navigation.getParam('booking_data_from_text', null) !== null ? navigation.getParam('booking_data_from_text', null) : this.state.form_from_text, navigation.getParam('booking_data_to_text', null) ? navigation.getParam('booking_data_to_text', null) : this.state.form_to_text)}>
-                        <Text style={{
-                          width:'100%',
-                          textAlign: 'center',
-                        }}>Book Now</Text>
-                      </Button>
-                    </Form>
-                    ) : null}
-                  </View>
-                </View>
-              </BottomDrawer>
-                )
-              }
-                </>
-              ):(
+            // : (true) ?this.props.navigation.navigate('Bookings'):(
+            : (can_book || this.state.can_book) ?this.props.navigation.navigate('Bookings'):(
             // : (!(can_book || this.state.can_book) && this.state.booking_details != [] ) ?(
             <>
               {
@@ -1204,14 +959,14 @@ class MapContainer extends React.Component {
                       // margin: 10,
                       padding:5,
                       flex:1,
-                      alignItems: this.state.user.user_type_id==3?'center':'null',
+                      alignItems: this.state.user_data.user_type_id==3?'center':'null',
                     }}>
 
                   {
                     // can_book || this.state.can_book ?(
                       <>
                         <Text note>
-                        {this.state.user.user_type_id == 3 ? "Your rider":"Your driver"
+                        {this.state.user_data.user_type_id == 3 ? "Your rider":"Your driver"
                           // {this.state.is_user_type_ready?('Where are you goingxxx?'):('asd')}
                         }
                         </Text>
