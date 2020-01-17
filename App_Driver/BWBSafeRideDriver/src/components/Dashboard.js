@@ -103,6 +103,7 @@ export default class Dashboard extends Component {
           switchValue: false,
           user_type: null
       }
+
   }
 
   toggleSwitch = async () => {
@@ -170,6 +171,8 @@ export default class Dashboard extends Component {
       this.getDriverStatus();
 
     var that = this;
+
+
       //Checking for the permission just after component loaded
       // if(Platform.OS === 'ios'){
       //   this.callLocation(that);
@@ -289,10 +292,13 @@ export default class Dashboard extends Component {
         // this.setState({
         //   isLogged: true,
         //   });
-        // console.log('naa');
-        // console.log(await AsyncStorage.getItem('userData'));
+        console.log('NAKA LOGIN');
+        console.log(await AsyncStorage.getItem('userData'));
       }else {
-          this.props.actions.navigate('Logout');
+          // this.props.actions.navigate('Logout');
+          this.props.navigation.navigate('Logout');
+          // console.log('WALA NAKA LOGIN pomise');
+               // Actions.dashboard();
       }
 
       // setTimeout(() => {

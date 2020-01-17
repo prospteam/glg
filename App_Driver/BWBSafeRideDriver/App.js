@@ -122,6 +122,8 @@ const MyDrawerNavigator = createDrawerNavigator(
   }
 );
 
+
+
 const MyDrawerNavigatorDriver = createDrawerNavigator(
   {
     Dashboard:{
@@ -310,15 +312,19 @@ export default class App extends Component<Props> {
   }
 
   checkSession = async () => {
+
+
+
     let varUserType ="";
 
     if(await AsyncStorage.getItem('userData')){
         this.setState({
           isLogged: true,
         });
-        console.log('LOGGED USER');
+        console.log('LOGGED SESSION');
         console.log(await AsyncStorage.getItem('userData'));
-        console.log('LOGGED USER');
+    }else{
+      // this.props.navigation.navigate('Logout');
     }
 
     // if(await AsyncStorage.getItem('userData')){
