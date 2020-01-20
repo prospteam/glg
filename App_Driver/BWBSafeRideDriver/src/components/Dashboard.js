@@ -196,6 +196,7 @@ export default class Dashboard extends Component {
         // requestLocationPermission();
       // }
   }
+  
   callLocation(that){
     console.log('getting Location');
     console.log(navigator);
@@ -287,7 +288,6 @@ export default class Dashboard extends Component {
     };
 
     checkSession = async () => {
-      // console.log('here');
       if(await AsyncStorage.getItem('userData')) {
         // this.setState({
         //   isLogged: true,
@@ -301,6 +301,7 @@ export default class Dashboard extends Component {
                // Actions.dashboard();
       }
 
+      console.log('SESSION CHECKED');
       // setTimeout(() => {
       //   this.setState({
       //     isLoading: false,
