@@ -53,15 +53,15 @@ class MapContainer extends React.Component {
 
       state = {
         testlocation:null,
-        is_finish_check_booking_status:false,
-        is_user_type_ready:false,
+        is_finish_check_booking_status:true,
+        is_user_type_ready:true,
         user:null,
         driver_details:[],
         distance:0,
         duration:0,
         my_latitude:0,
         my_longitude:0,
-        can_book:false,
+        can_book:true,
         isDateTimePickerVisible: false,
         region: {
           latitude: 44.3148, // Michigan Lat
@@ -101,13 +101,24 @@ class MapContainer extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         const {navigation} = this.props;
 
-        if(this.state.geocode_lat !== prevState.geocode_lat){
-            if(navigation.getParam('booking_data_from_text', null) !== null){
-                  this.setState({geocode_name: navigation.getParam('booking_data_from_text', null)});
-                  this.setState({geocode_lat: navigation.getParam('booking_data_from_latlong', null).latitude});
-                  this.setState({geocode_long: navigation.getParam('booking_data_from_latlong', null).longitude});
-            }
+        // if(prevState.user !== this.state.user){
+        //     Alert.alert("user update");
+        // }
+
+        // console.error(navigation.getParam('booking_data_from_latlong', null).latitude);
+
+        if(prevState.user !== this.state.user){
+            this.setState({can_book: true});
+            this.setState({is_finish_check_booking_status: true});
         }
+
+        // if(this.state.geocode_lat !== prevState.geocode_lat){
+        //     if(navigation.getParam('booking_data_from_text', null) !== null){
+        //           this.setState({geocode_name: navigation.getParam('booking_data_from_text', null)});
+        //           this.setState({geocode_lat: navigation.getParam('booking_data_from_latlong', null).latitude});
+        //           this.setState({geocode_long: navigation.getParam('booking_data_from_latlong', null).longitude});
+        //     }
+        // }
 
 
         if(prevProps.set_destination_lat !== this.props.set_destination_lat) {
@@ -437,100 +448,65 @@ class MapContainer extends React.Component {
         })
   }
 
-  async checkBookingStatus() {
+  checkBookingStatus() {
 
-    const data = JSON.parse(await AsyncStorage.getItem('userData'));
+      // Alert.alert('hello');
 
-    // console.log(data);
-    // console.log('DATA');
+    // const data = JSON.parse(await AsyncStorage.getItem('userData'));
 
-    // // user_type
+    AsyncStorage.getItem("userData", (errs,result) => {
+       if (!errs) {
+           if (result !== null) {
+               // this.setState({activeID:result});
+               let data = JSON.parse(result);
 
-    // fetch(Helpers.ci_url+'booking/user_booking_status/'+data.login_id, {
-    // method: 'GET',
-    // headers: {
-    //   'Accept': 'application/json',
-    //   'Content-Type': 'application/json',
-    // }
-    // }).then((response) => response.json())
-    // .then((responseJson) => {
-    //   console.log('getting API');
-    //   console.log(responseJson);
-    //   if(responseJson.num_of_active_booking > 0){
-    //     this.setState({
-    //       can_book:true,
-    //       driver_details:responseJson.driver_details,
-    //       booking_details:responseJson.booking_details,
-    //     });
-    //   }else{
-    //     this.setState({
-    //       can_book:false,
-    //       driver_details:[],
-    //       booking_details:[],
-    //     });
-    //   }
-    // }).catch((error) => {
-    //   console.log('NOT getting API');
-    //   // console.error(error);
-    // });
-    //   // this.setState({ region });
-    //   // console.log('GETTING DSISTSATNCEEEEEEEE');
-    //   // console.log(params);
-    //   //   this.setState({
-    //   //     distance:params.distance,
-    //   //     duration:params.duration,
-    //   //     height:500
-    //   //   });
-    this.setState({login_id: data.login_id});
-    console.log(Helpers.ci_url+'booking/user_boonotifyChangeking_status/'+data.login_id);
-    // console.log('XDXDXDXD');
+               // console.error(data);
 
-  fetch(Helpers.ci_url+'booking/user_booking_status/'+data.login_id, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-   }).then((response) => response.json())
-     .then((responseJson) => {
-       console.log('getting API');
-       console.log(responseJson);
-        if(responseJson.num_of_active_booking > 0){
-          // msg = responseJson.msg;
+               this.setState({login_id: data.login_id});
+               console.log(Helpers.ci_url+'booking/user_boonotifyChangeking_status/'+data.login_id);
+               // console.log('XDXDXDXD');
 
-          this.setState({
-            can_book:false,
-            driver_details:responseJson.driver_details,
-            booking_details:responseJson.booking_details,
-          });
-// this.state.user.user_type_id
-          console.log('LOEDDEDDDD2');
-          // this.ref.onSnapshot(this.driverLocationListener);
+             fetch(Helpers.ci_url+'booking/rider_booking_status/'+data.login_id, {
+               method: 'GET',
+               headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json',
+               }
+              }).then((response) => response.json())
+                .then((responseJson) => {
+                  console.log('getting API');
+                  // console.error(responseJson);
 
-        }else{
-          this.setState({
-            can_book:true,
-            driver_details:[],
-            booking_details:[],
-          });
+                   // console.error(responseJson.num_of_active_booking);
+                   if(responseJson.num_of_active_booking > 0){
+                     // msg = responseJson.msg;
+
+                     this.setState({
+                       can_book:false,
+                       driver_details:responseJson.driver_details,
+                       booking_details:responseJson.booking_details,
+                     });
+                     console.log('LOEDDEDDDD2');
+
+                   }else{
+                     this.setState({
+                       can_book:true,
+                       driver_details:[],
+                       booking_details:[],
+                     });
+                   }
+                }).catch((error) => {
+                  console.log('NOT getting API');
+                  // console.error(error);
+                });
+
+                this.setState({
+                 is_finish_check_booking_status:true,
+               });
+           }
         }
-     }).catch((error) => {
-       console.log('NOT getting API');
-       // console.error(error);
-     });
-
-     this.setState({
-      is_finish_check_booking_status:true,
     });
-    // this.setState({ region });
-    // console.log('GETTING DSISTSATNCEEEEEEEE');
-    // console.log(params);
-    //   this.setState({
-    //     distance:params.distance,
-    //     duration:params.duration,
-    //     height:500
-    //   });
-      // console.log(this.state);
+
   }
 
   initMyLocation() {
@@ -615,8 +591,13 @@ class MapContainer extends React.Component {
     // });
 
     if (inputField==='from') {
-        this.props.navigation.setParams({booking_data_from_latlong: null});
-        this.props.navigation.setParams({booking_data_from_text: null});
+
+        if(this.props.navigation.getParam('booking_data_from_latlong', null) !== null){
+            this.props.navigation.setParams({booking_data_from_latlong: null});
+            this.props.navigation.setParams({booking_data_from_lat: null});
+            this.props.navigation.setParams({booking_data_from_long: null});
+            this.props.navigation.setParams({booking_data_from_text: null});
+        }
 
         this.updateState({
           latitude: loc.lat || this.state.set_destination_lat,
@@ -799,13 +780,15 @@ class MapContainer extends React.Component {
         longitude: this.state.set_destination_long
     }
 
+    // this.checkBookingStatus();
+
 
     // Alert.alert(navigation.getParam('booking_data_from_text', null));
 
     if(navigation.getParam('booking_data_from_text', null) !== null){
           this.locationOrigRef.setAddressText(navigation.getParam('booking_data_from_text', null));
           console.log("latttttttttttttttttttttttttttttttttiiiiiiiiiiiiiiiiiiii");
-          console.log(navigation.getParam('booking_data_from_latlong', null).latitude);
+          console.log(navigation.getParam('booking_data_from_latlong', null));
           console.log("latttttttttttttttttttttttttttttttttiiiiiiiiiiiiiiiiiiii");
 
           // this.reverseGeocode(navigation.getParam('booking_data_from_latlong', null).latitude, navigation.getParam('booking_data_from_latlong', null).longitude);
@@ -843,25 +826,17 @@ class MapContainer extends React.Component {
               selectedLatLong={this.state.selectedLatLong}
               // onRegionChange={reg => this.onMapRegionChange(reg)}
               getData={params => this.getDataFromMap(params)}
-              geocode_name={this.state.geocode_name}
-              geocode_lat={this.state.geocode_lat}
-              geocode_long={this.state.geocode_long}
+              geocode_name={navigation.getParam('booking_data_from_text', null) !== null ? navigation.getParam('booking_data_from_text', null) : this.state.geocode_name}
+              geocode_lat={navigation.getParam('booking_data_from_lat', null) !== null ? navigation.getParam('booking_data_from_lat', null) : this.state.geocode_lat}
+              geocode_long={navigation.getParam('booking_data_from_long', null) !== null ? navigation.getParam('booking_data_from_long', null) : this.state.geocode_long}
               login_id={this.state.login_id}
               pinned_lat={this.props.pinned_latitude}
               pinned_long={this.props.pinned_longitude}
               pinned_stat={this.state.pinned_stat}
               navigation={this.props.navigation}
             />
-            {
-            this.state.is_user_type_ready == false || !this.state.booking_details ? null
-            // : (true) ?(
-            : (can_book || this.state.can_book) ?(
-              <>
-              {
-              (this.state.user.user_type_id == 3 && (can_book || this.state.can_book) && this.state.is_finish_check_booking_status) ? (
-                // this.props.navigation.navigate('Bookings')
-                null
-              ):(
+            { this.state.can_book == true && this.state.is_finish_check_booking_status == true &&
+
               <BottomDrawer
                 containerHeight={ window_height - 15 }
                 offset={0}
@@ -1105,21 +1080,10 @@ class MapContainer extends React.Component {
                   </View>
                 </View>
               </BottomDrawer>
-                )
+                // )
               }
-                </>
-              ):(
-            // : (!(can_book || this.state.can_book) && this.state.booking_details != [] ) ?(
-            <>
-              {
-                // <Left>
-                // <Thumbnail source={{uri: sample_img_link}} />
-                //   <Body>
-                //     <Text>NativeBase</Text>
-                //     <Text note>April 15, 2016</Text>
-                //   </Body>
-                // </Left>
-              }
+
+              { this.state.can_book == false && this.state.is_finish_check_booking_status == true &&
               <BottomDrawer
                 containerHeight={500}
                 offset={100}
@@ -1211,9 +1175,7 @@ class MapContainer extends React.Component {
                     // can_book || this.state.can_book ?(
                       <>
                         <Text note>
-                        {this.state.user.user_type_id == 3 ? "Your rider":"Your driver"
-                          // {this.state.is_user_type_ready?('Where are you goingxxx?'):('asd')}
-                        }
+                        {"Your driver"}
                         </Text>
                         <Text>{this.state.driver_details.first_name} {this.state.driver_details.last_name}</Text>
                         <Text>{this.state.driver_details.email}</Text>
@@ -1253,8 +1215,6 @@ class MapContainer extends React.Component {
                   </View>
                 </View>
               </BottomDrawer>
-              </>
-            )
             }
           </View>
         ) : null}
