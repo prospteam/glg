@@ -14,7 +14,6 @@ import Form from './Form';
 import backgroundImg from '../assets/images/mobile-bg.jpg';
 
 export default class RegisterView extends Component {
-
     goBack() {
         Actions.pop()
     }
