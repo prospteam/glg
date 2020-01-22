@@ -51,9 +51,9 @@ export default class Bookings extends Component {
 		   details: [],
 		   user: [],
 		   reserve_button: 'Start',
-		   listViewData_p: '[]',
-		   listViewData_r: '[]',
-		   listViewData_c: '[]',
+		   listViewData_p: [],
+		   listViewData_r: [],
+		   listViewData_c: [],
 		   sectionListData: Array(5).fill('').map((_,i) => ({title: `title${i + 1}`, data: [...Array(5).fill('').map((_, j) => ({key: `${i}.${j}`, text: `item #${j}`}))]})),
 	   };
 
@@ -91,11 +91,16 @@ export default class Bookings extends Component {
 		// console.error(responseJson.data.map(Object.values).map((_,i) => ({key: `${i}`, text: `${_}`})));
 		// const val = ["Booking 1", "Booking 2", "Booking 3", "Booking 4"];
 		// console.error(val.map((_,i) => ({key: `${i}`, text: `${_}`})));
-
-		if(responseJson.response === 'success'){
-			this.setState({listViewData_p: responseJson.data.data_pending.map(Object.values).map((_,i) => ({key: `${i}`, id: `${_[0]}`, user: `${_[1]}`, text: `Booking Date: ${_[2]}`})),
-							listViewData_r: responseJson.data.data_reserved.map(Object.values).map((_,i) => ({key: `${i}`, id: `${_[0]}`, user: `${_[1]}`, text: `Booking Date: ${_[2]}`})),
-							listViewData_c: responseJson.data.data_completed.map(Object.values).map((_,i) => ({key: `${i}`, id: `${_[0]}`, user: `${_[1]}`, text: `Booking Date: ${_[2]}`}))
+		console.log("responseJson");
+		console.log(responseJson);
+		console.log("responseJson Pending");
+		console.log(responseJson.data.data_pending);
+		//console.log(responseJson.data.data_pending[0].booking_id);
+		// if(true){
+		if(responseJson.data.response == 'success'){
+			this.setState({listViewData_p: responseJson.data.data_pending.map(Object.values).map((_,i) => ({key: `${i}`, id: `${_[0]}`, user: `${_[1]}`, text: `Booking Date: ${_[3]}`})),
+							listViewData_r: responseJson.data.data_reserved.map(Object.values).map((_,i) => ({key: `${i}`, id: `${_[0]}`, user: `${_[1]}`, text: `Booking Date: ${_[3]}`})),
+							listViewData_c: responseJson.data.data_completed.map(Object.values).map((_,i) => ({key: `${i}`, id: `${_[0]}`, user: `${_[1]}`, text: `Booking Date: ${_[3]}`}))
 			});
 		}else{
 			if (responseJson.response === 'error') {
@@ -105,8 +110,9 @@ export default class Bookings extends Component {
 			}
 			Alert.alert(responseJson.response+"1");
 		}
-
 		// console.error(this.state.listViewData);
+		console.log('Pengding state');
+		console.log(this.state.listViewData_p);
 
       }).catch((error) => {
         console.error(error);
@@ -114,6 +120,8 @@ export default class Bookings extends Component {
 	}
 
 	displayBookDetails(id){
+
+		console.log('asdf', id);
 
 		fetch(Helpers.api_url+'get_booking_detail', {
 		 method: 'POST',
@@ -125,12 +133,13 @@ export default class Bookings extends Component {
    			booking_id: id
 		 })
 	   }).then((response) => response.json())
-		 .then((responseJson) => {
-
+	   // }).then((response) => response)
+         .then((responseJson) => {
+			 console.log("responseJson");
+			 console.log(responseJson);
 			 if(responseJson.response === 'success')
 	          {
 
-							console.log(responseJson);
 				  const details = responseJson.data;
 				  // let string = '';
 				  //
@@ -234,8 +243,6 @@ export default class Bookings extends Component {
 
 	render() {
 
-
-
 			const { isLoading } = this.state;
 
 			if(isLoading){
@@ -257,7 +264,8 @@ export default class Bookings extends Component {
 			}
 
 			const details = string;
-
+			console.log(this.state.listViewData_p);
+			console.log("this.state.listViewData_p");
 		return (
 			<View style={styles.container}>
                 <Header>
@@ -321,80 +329,130 @@ export default class Bookings extends Component {
 					}
 				</View>
 
-				{
+				{// {
+				// 	// if(true){
+				// 	// true &&
+				// 	this.state.listType === 'Pending' &&
+				//
+				// 	<SwipeListView
+				// 		data={this.state.listViewData_p}
+				// 		renderItem={ (data, rowMap) => (
+				// 			<View style={styles.rowBack}>
+				// 			{console.log('datass')}
+				// 			{console.log(data)}
+				// 				<TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnView]} onPress={ () => this.displayBookDetails(data.item.id) }>
+				// 					<Animated.View
+				// 						style={[
+				// 							styles.trash,
+				// 							{
+				// 								transform: [
+				// 									{
+				// 										scale: this.rowSwipeAnimatedValues[data.item.key].interpolate({
+				// 											inputRange: [45, 90],
+				// 											outputRange: [0, 1],
+				// 											extrapolate: 'clamp',
+				// 										}),
+				// 									}
+				// 								],
+				// 							}
+				// 						]}
+				// 					>
+				// 						<Icon type="FontAwesome" name="eye" style={{ fontSize: 19, color: 'white' }} />
+				// 					</Animated.View>
+				// 				</TouchableOpacity>
+				// 				<TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnReserve]} onPress={ () => this.updateBooking(data.item.id) }>
+				// 					<Text style={styles.backTextWhite}>Reserve</Text>
+				// 				</TouchableOpacity>
+				// 				{
+				// 				/*}<TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnRight]} onPress={ _ => this.deleteRow(rowMap, data.item.key) }>
+				// 					<Animated.View
+				// 						style={[
+				// 							styles.trash,
+				// 							{
+				// 								transform: [
+				// 									{
+				// 										scale: this.rowSwipeAnimatedValues[data.item.key].interpolate({
+				// 											inputRange: [45, 90],
+				// 											outputRange: [0, 1],
+				// 											extrapolate: 'clamp',
+				// 										}),
+				// 									}
+				// 								],
+				// 							}
+				// 						]}
+				// 					>
+				// 						<Icon type="FontAwesome" name="trash" style={{ fontSize: 19, color: 'white' }} />
+				// 					</Animated.View>
+				// 				</TouchableOpacity>*/
+				// 				}
+				//
+				// 			</View>
+				// 		)}
+				// 		leftOpenValue={75}
+				// 		rightOpenValue={-75}
+				// 		previewRowKey={'0'}
+				// 		previewOpenValue={-40}
+				// 		previewOpenDelay={3000}
+				// 		onRowDidOpen={this.onRowDidOpen}
+				// 		onSwipeValueChange={this.onSwipeValueChange}
+				// 	/>
+				// }
+			}
 
-					this.state.listType === 'Pending' &&
+			{
+				// if(true){
+				// true &&
+				this.state.listType === 'Pending' &&
 
-					<SwipeListView
-						data={this.state.listViewData_p}
-						renderItem={ (data, rowMap) => (
-							<TouchableHighlight
-								style={styles.rowFront}
-								underlayColor={'#AAA'}
-								onPress={ () => this.displayBookings() }
-							>
-								<View>
-									<Text>{data.item.text}</Text>
-								</View>
-							</TouchableHighlight>
-						)}
-						renderHiddenItem={ (data, rowMap) => (
-
-							<View style={styles.rowBack}>
-							<TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnView]} onPress={ () => this.displayBookDetails(data.item.id) }>
-								<Animated.View
-									style={[
-										styles.trash,
-										{
-											transform: [
-												{
-													scale: this.rowSwipeAnimatedValues[data.item.key].interpolate({
-														inputRange: [45, 90],
-														outputRange: [0, 1],
-														extrapolate: 'clamp',
-													}),
-												}
-											],
-										}
-									]}
-								>
-									<Icon type="FontAwesome" name="eye" style={{ fontSize: 19, color: 'white' }} />
-								</Animated.View>
-							</TouchableOpacity>
-								<TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnReserve]} onPress={ () => this.updateBooking(data.item.id) }>
-									<Text style={styles.backTextWhite}>Reserve</Text>
-								</TouchableOpacity>
-								{/*}<TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnRight]} onPress={ _ => this.deleteRow(rowMap, data.item.key) }>
-									<Animated.View
-										style={[
-											styles.trash,
-											{
-												transform: [
-													{
-														scale: this.rowSwipeAnimatedValues[data.item.key].interpolate({
-															inputRange: [45, 90],
-															outputRange: [0, 1],
-															extrapolate: 'clamp',
-														}),
-													}
-												],
-											}
-										]}
-									>
-										<Icon type="FontAwesome" name="trash" style={{ fontSize: 19, color: 'white' }} />
-									</Animated.View>
-								</TouchableOpacity>*/}
+				<SwipeListView
+					data={this.state.listViewData_p}
+					renderItem={ (data, rowMap) => (
+						<TouchableHighlight
+							style={styles.rowFront}
+							underlayColor={'#AAA'}
+						>
+							<View>
+								<Text>{data.item.text}</Text>
 							</View>
-						)}
-						leftOpenValue={75}
-						rightOpenValue={-75}
-						previewRowKey={'0'}
-						previewOpenValue={-40}
-						previewOpenDelay={3000}
-						onRowDidOpen={this.onRowDidOpen}
-						onSwipeValueChange={this.onSwipeValueChange}
-					/>
-				}
+						</TouchableHighlight>
+					)}
+					renderHiddenItem={ (data, rowMap) => (
+						<View style={styles.rowBack}>
+						<TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnView]} onPress={ () => this.displayBookDetails(data.item.id) }>
+							<Animated.View
+								style={[
+									styles.trash,
+									{
+
+										transform: [
+											{
+												scale: this.rowSwipeAnimatedValues[data.item.key].interpolate({
+													inputRange: [45, 90],
+													outputRange: [0, 1],
+													extrapolate: 'clamp',
+												}),
+											}
+										],
+									}
+								]}
+							>
+								<Icon type="FontAwesome" name="eye" style={{ fontSize: 19, color: 'white' }} />
+							</Animated.View>
+						</TouchableOpacity>
+							<TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnReserve]} onPress={ () => this.updateBooking(data.item.id) }>
+								<Text style={styles.backTextWhite}>Reserve</Text>
+							</TouchableOpacity>
+						</View>
+					)}
+					leftOpenValue={75}
+					rightOpenValue={-75}
+					previewRowKey={'0'}
+					previewOpenValue={-40}
+					previewOpenDelay={3000}
+					onRowDidOpen={this.onRowDidOpen}
+					onSwipeValueChange={this.onSwipeValueChange}
+				/>
+			}
 
 				{
 					this.state.listType === 'Reserved' &&
