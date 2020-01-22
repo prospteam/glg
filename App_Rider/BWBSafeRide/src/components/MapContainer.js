@@ -26,6 +26,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4';
 
 // const DRAWER_HEIGHT_SMALL = 80;
 class MapContainer extends React.Component {
+
   // state = {
   //   testlocation:null,
   //   is_finish_check_booking_status:false,
@@ -1083,7 +1084,9 @@ class MapContainer extends React.Component {
                 // )
               }
 
-              { this.state.can_book == false && this.state.is_finish_check_booking_status == true &&
+              { false &&
+              // { this.state.can_book == false && this.state.is_finish_check_booking_status == true &&
+
               <BottomDrawer
                 containerHeight={500}
                 offset={100}

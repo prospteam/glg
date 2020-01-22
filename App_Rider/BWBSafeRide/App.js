@@ -28,20 +28,25 @@ import AsyncStorage, { useAsyncStorage } from '@react-native-community/async-sto
 import companyLogosm from './src/assets/images/main_logo-sm.png';
 import { createDrawerNavigator, createAppContainer, DrawerItems, DrawerNavigation } from 'react-navigation';
 // import firebase from './src/components/common/Firebase';
+import AutoStart from 'react-native-autostart';
+
+if(AutoStart.isCustomAndroid()) {
+    AutoStart.startAutostartSettings();
+}
 
 var Spinner = require('react-native-spinkit');
 
 console.disableYellowBox = true;
 console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
 
-// var PushNotification = require("react-native-push-notification"); // PUSH NOTIFICATION TEMPLATE
-//
-// PushNotification.localNotification({
-//       foreground: false, // BOOLEAN: If the notification was received in foreground or not
-//       userInteraction: false, // BOOLEAN: If the notification was opened by the user from the notification area or not
-//       message: 'My Notification Message', // STRING: The notification message
-//       data: {}, // OBJECT: The push data
-// });
+var PushNotification = require("react-native-push-notification"); // PUSH NOTIFICATION TEMPLATE
+
+PushNotification.localNotification({
+      foreground: false, // BOOLEAN: If the notification was received in foreground or not
+      userInteraction: false, // BOOLEAN: If the notification was opened by the user from the notification area or not
+      message: 'My Notification Message', // STRING: The notification message
+      data: {}, // OBJECT: The push data
+});
 
 
 const instructions = Platform.select({
