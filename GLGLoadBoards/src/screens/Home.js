@@ -7,6 +7,8 @@ class Home extends React.Component {
   render() {
 	  console.log("this.props");
 	  console.log(this.props);
+	  console.log("this.state");
+	  console.log(this.state);
     return (
       <View style={styles.fill}>
         <View style={styles.header}>
@@ -68,7 +70,7 @@ const action = (type,payload) => ({
 });
 
 //const mapStateToProps = ({ reducer }) => ({ logToggle } = reducer);
-const mapStateToProps = ({ reducer }) => ({ data } = reducer);
+const mapStateToProps = ({ userSessionReducer }) => ({ data } = userSessionReducer);
 
 export default connect(
   mapStateToProps,

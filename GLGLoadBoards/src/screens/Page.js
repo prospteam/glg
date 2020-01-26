@@ -67,7 +67,7 @@ const action = (type,payload) => ({
   payload: payload,
 });
 
-const mapStateToProps = ({ reducer }) => ({ data } = reducer);
+const mapStateToProps = ({ userSessionReducer }) => ({ data } = userSessionReducer);
 
 export default connect(
   mapStateToProps,

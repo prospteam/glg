@@ -14,7 +14,8 @@ import Home from './screens/Home';
 import Page from './screens/Page';
 
 //Reducer
-import reducer from './reducers/a-reducer';
+import userSessionReducer from './reducers/userSessionReducer.js';
+//import other_reducer from './reducers/other_reducer.js';
 
 
 const mapStateToProps = state => ({
@@ -43,7 +44,8 @@ const navReducer = (state = initialState, action) => {
 // COMBINE REDUCERES
 const appReducer = combineReducers({
   nav: navReducer,
-  reducer,
+  userSessionReducer,
+  //other_reducer,
 });
 
 //Middleware: Redux Persist Config
@@ -53,9 +55,9 @@ const persistConfig = {
     // Storage Method (React Native)
     storage: AsyncStorage,
     // Whitelist (Save Specific Reducers)
-    whitelist: [
-        'reducer',
-    ],
+    //whitelist: [
+    //    'user_session_reducer',
+    //],
     // Blacklist (Don't Save Specific Reducers)
     //blacklist: [
     //    'counterReducer',
