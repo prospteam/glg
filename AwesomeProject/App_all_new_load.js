@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, Linking, ScrollView  } from 'react-native';
 import bg_image from './assets/images/bg_image.png';
 import profile from './assets/images/profile.png';
-import loadmap from './assets/images/load_map.png';
 
 export default class App extends Component {
 
@@ -37,7 +36,7 @@ export default class App extends Component {
                    <Text style={styles.btn3login}>Load Maps</Text>
                 </TouchableOpacity>
                 <View>
-                <Text style={{color:"black", zIndex:14, marginLeft:20,fontSize:18, marginTop:8}}>Load Map</Text>
+                <Text style={{color:"black", zIndex:14, marginLeft:20,fontSize:18, marginTop:8}}>Load Search</Text>
                 </View>
             </View>
                <View style={styles.whiteBG}>
@@ -45,19 +44,18 @@ export default class App extends Component {
                      <View style={{justifyContent: "center", alignItems: "center"}}>
                         <TextInput style={styles.fieldsInput1} placeholderTextColor="#000" placeholder="Origin" onChangeText={text => this.onChangeText(text)}/>
                         <TextInput style={styles.fieldsInput1} placeholderTextColor="#000" placeholder="Destination" onChangeText={text => this.onChangeText(text)}/>
+                        <TextInput style={styles.fieldsInput1} placeholderTextColor="#000" placeholder="Length" onChangeText={text => this.onChangeText(text)}/>
+                        <TextInput style={styles.fieldsInput1} placeholderTextColor="#000" placeholder="Width" onChangeText={text => this.onChangeText(text)}/>
+                        <TextInput style={styles.fieldsInput1} placeholderTextColor="#000" placeholder="Height" onChangeText={text => this.onChangeText(text)}/>
+                        <TextInput style={styles.fieldsInput1} placeholderTextColor="#000" placeholder="Weight" onChangeText={text => this.onChangeText(text)}/>
+                        <TextInput style={styles.fieldsInput1} placeholderTextColor="#000" placeholder="Date" onChangeText={text => this.onChangeText(text)}/>
+                        <TextInput style={styles.fieldsInput1} placeholderTextColor="#000" placeholder="Comments" onChangeText={text => this.onChangeText(text)}/>
                         <TouchableOpacity>
-                           <Text style={styles.addLoadbtn}>View Loads</Text>
+                           <Text style={styles.addLoadbtn}>Add Load</Text>
                         </TouchableOpacity>
                      </View>
                 </View>
              </View>
-             <View style={styles.whiteBG}>
-                <View style={styles.mapBottom}>
-                   <View style={{justifyContent: "center", alignItems: "center", marginTop:10}}>
-                        <Image source={loadmap}/>
-                   </View>
-             </View>
-          </View>
       </View>
       );
    }
@@ -65,9 +63,6 @@ export default class App extends Component {
 }
 const styles = StyleSheet.create({
 
-mapBottom:{
-
-},
 InputRegister:{
 backgroundColor:'#03365c',
 height: 300,
@@ -84,7 +79,7 @@ tableName:{
 },
 
 whiteBG:{
-   marginTop:60,
+   marginTop:100,
    marginLeft:20,
    marginRight:20,
    backgroundColor:"white",
@@ -110,8 +105,8 @@ bottomBg:{
    marginTop:110,
 },
 btnlogin:{
-  backgroundColor:'#fff',
-  color:'#000',
+  backgroundColor:'#01508b',
+  color:'#fff',
   marginTop:-15,
   marginLeft:30,
   fontSize: 12,
@@ -142,8 +137,8 @@ btn2login:{
   zIndex:3,
 },
 btn3login:{
-  backgroundColor:'#01508b',
-  color:'#fff',
+  backgroundColor:'#fff',
+  color:'#000',
   marginTop:-40,
   marginLeft:280,
   fontSize: 12,
