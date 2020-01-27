@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as countActions from './actions/counts';
+import * as countActions from './src/actions/counts';
 
 class App extends Component {
   decrementCount() {
@@ -65,6 +65,7 @@ const ActionCreators = Object.assign(
   {},
   countActions,
 );
+
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(ActionCreators, dispatch),
 });
