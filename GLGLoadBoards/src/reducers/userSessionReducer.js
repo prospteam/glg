@@ -14,4 +14,4 @@ export default (state = INITIAL_STATE, { type, payload, routeName }) => {
     default:
       return state;
   }
-};	
+};
