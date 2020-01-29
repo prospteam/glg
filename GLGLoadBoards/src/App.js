@@ -1,96 +1,55 @@
-// Dependencies
-import React from 'react';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { View, Text } from 'react-native';
-import { Provider, connect } from 'react-redux';
-import { Scene, Actions, Router } from 'react-native-router-flux';
-import { reduxifyNavigator,createReduxContainer, createReactNavigationReduxMiddleware, createNavigationReducer } from 'react-navigation-redux-helpers';
+import React, { Component } from 'react';
+import { YellowBox, Text, View, StyleSheet, BackHandler, ActivityIndicator, Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
+import Routes from './Routes';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+import allReducers from './reducers/index.js';
+import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import { PersistGate } from 'redux-persist/es/integration/react'
+import { PersistGate } from 'redux-persist/integration/react';
+var Spinner = require('react-native-spinkit');
+YellowBox.ignoreWarnings([
+	'Warning: componentWillUpdate is deprecated',
+	'Warning: componentWillMount is deprecated',
+	'Warning: componentWillReceiveProps is deprecated',
+	'Warning: isMounted(...) is deprecated',
+	'Warning: ...',
+	'Warning: MapViewDirections',
+	'Setting a timer'
+]);
 
-//Screens
-import Home from './screens/Home';
-import Page from './screens/Page';
-
-//Reducer
-import userSessionReducer from './reducers/userSessionReducer.js';
-//import other_reducer from './reducers/other_reducer.js';
-
-
-const mapStateToProps = state => ({
-  state: state.nav,
-});
-
-// Navigation
-const AppNavigator = Actions.create(
-		<Scene key="root" hideNavBar>
-			<Scene key="home" component={Home} />
-			<Scene key="page" component={Page} />
-		</Scene>,
-);
-
-// Preparing Navigator
-const ReduxNavigator = createReduxContainer(AppNavigator, 'root');
-
-// default nav reducer
-const initialState = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams('home'));
-const navReducer = (state = initialState, action) => {
-  const nextState = AppNavigator.router.getStateForAction(action, state);
-  // Simply return the original `state` if `nextState` is null or undefined.
-  return nextState || state;
-};
-
-// COMBINE REDUCERES
-const appReducer = combineReducers({
-  nav: navReducer,
-  userSessionReducer,
-  //other_reducer,
-});
-
-//Middleware: Redux Persist Config
 const persistConfig = {
-    // Root?
-    key: 'root',
-    // Storage Method (React Native)
-    storage: AsyncStorage,
-    // Whitelist (Save Specific Reducers)
-    //whitelist: [
-    //    'user_session_reducer',
-    //],
-    // Blacklist (Don't Save Specific Reducers)
-    //blacklist: [
-    //    'counterReducer',
-    //],
-};
+	key: 'root',
+	storage: AsyncStorage,
+	whitelist: ['RiderReducer'],
+	timeout: null
+}
 
-// Middleware redux persist persited reducer
-const persistedReducer = persistReducer(persistConfig, appReducer);
+const persistedReducer = persistReducer(persistConfig, allReducers);
+const store = createStore(persistedReducer, applyMiddleware(thunk));
+const persistor = persistStore(store);
 
+const loader = <View style={{
+	flex: 1,
+	justifyContent: 'center',
+	alignItems: 'center',
+	width: undefined,
+	height: undefined
+}}>
+	<Spinner type="WanderingCubes" color="#c1191c" size={80} /></View>
 
-// 
-const middleware = createReactNavigationReduxMiddleware(state => state.nav);
-
-// Prepare STORE
-const store = createStore(persistedReducer, applyMiddleware(middleware));
-
-// Prepare for Persist Gate
-let persistor = persistStore(store);
-
-// XD
-const ReduxRouter = connect(mapStateToProps)(Router);
-
-export default class App extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
-		<PersistGate 
-		loading={null} 
-		persistor={persistor}
-		>
-			<ReduxRouter navigator={ReduxNavigator} />
-		</PersistGate>
-      </Provider>
-    );
-  }
+export default class App extends Component {
+	constructor(props) {
+		super(props);
+	}
+	render() {
+		return (
+			<Provider store={store}>
+				<PersistGate loading={loader} persistor={persistor}>
+					<Routes />
+				</PersistGate>
+			</Provider>
+		)
+	}
 }
