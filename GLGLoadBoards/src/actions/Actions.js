@@ -126,7 +126,6 @@ export function setData(type, data) {
         payload: data
     }
 }
-
 export function settruefalse(type_, data_) {
     return {
         type: type_,
