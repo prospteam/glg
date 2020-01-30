@@ -48,6 +48,7 @@ export function call_Firestore(type, collection, collection_id, status) {
             return null;
     }
 }
+
 export function get_data_FIRESTORE(parameter) {
     const snapshot = firebase.firestore().collection('driver_location');
     let markers = snapshot.docs.map(doc => {
