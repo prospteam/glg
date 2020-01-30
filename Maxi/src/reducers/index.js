@@ -11,7 +11,6 @@ const allReducers = combineReducers({
     ApiData      : ApiData_,
     RiderReducer: RiderReducers,
     RegionReducer: RegionReducer
-
 });
 
 export default allReducers;

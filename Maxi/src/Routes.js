@@ -38,7 +38,6 @@ class Routes extends Component {
                             <Scene key="PayNow" component={PayNow} title="PayNow" hideNavBar />
                             <Scene key="MapRiderViewsMarker" component={MapRiderViewsMarker} title="MapRiderViewsMarker" hideNavBar />
                             <Scene key="MapDriverLocationMarker" component={MapDriverLocationMarker} title="MapDriverLocationMarker" hideNavBar />
-                       
                         </Drawer>
                         <Scene key="Login" component={Login} initial={(this.props.RiderReducer.isLoggedIn === false) ? true : false} title="" hideNavBar />
                         <Scene key="Register" component={Register} title="" hideNavBar />

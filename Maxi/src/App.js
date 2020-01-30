@@ -29,6 +29,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, allReducers);
 const store = createStore(persistedReducer, applyMiddleware(thunk));
 const persistor = persistStore(store);
+
 const loader = <View style={{
 	flex: 1,
 	justifyContent: 'center',
@@ -52,4 +53,3 @@ export default class App extends Component {
 		)
 	}
 }
-
