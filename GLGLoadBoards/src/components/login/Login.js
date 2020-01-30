@@ -41,6 +41,9 @@ export default class App extends Component {
 
 }
 
+
+
+
 const styles = StyleSheet.create({
 
     btnlogin: {
@@ -57,3 +60,4 @@ const styles = StyleSheet.create({
     }
 
 });
+

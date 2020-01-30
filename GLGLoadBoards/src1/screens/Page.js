@@ -22,6 +22,7 @@ class Page extends React.Component {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
+            // Actions.aboutus();
             Actions.home();
           }}
         >

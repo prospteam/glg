@@ -6,10 +6,6 @@ import loadmap from './assets/images/load_map.png';
 
 export default class App extends Component {
 
-   state = {
-      color: 'white',
-   }
-
    onChangeText = (text) => {
       this.setState({
          color: text
