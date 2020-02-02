@@ -22,6 +22,11 @@ export default function (state =initState, action ){
                 ...state,
                 pinned_location:action.payload
             }
+        case 'asd':
+            return{
+                ...state,
+                pinned_location:action.payload
+            }
         case 'DIRECTIONS':
             return{
                 ...state,
@@ -29,6 +34,5 @@ export default function (state =initState, action ){
             }
         default:
         return state;
-
     }
 }

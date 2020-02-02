@@ -17,6 +17,5 @@ export default function (state =initState_, action ){
             }
         default:
         return state;
-
     }
 }
