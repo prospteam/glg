@@ -29,6 +29,7 @@ class Routes extends Component {
                     <Scene key="root">
                         <Drawer hideNavBar key="drawer" drawer contentComponent={SideBar} drawerWidth={280}>
                             <Scene key="Login" component={Login} initial={(this.props.RiderReducer.isLoggedIn === false) ? true : false} title="" hideNavBar />
+                            <Scene key="Test" component={Test} hideNavBar title="Test" hideNavBar />
                         {    
                             // <Scene key="Test" component={Test} hideNavBar title="Test" hideNavBar />
                             // <Scene key="Dash" component={Dash} title="Dash" initial={(this.props.RiderReducer.isLoggedIn === true) ? true : false} hideNavBar />
@@ -45,8 +46,8 @@ class Routes extends Component {
                         }
                         </Drawer>
                         <Scene key="Login" component={Login} initial={(this.props.RiderReducer.isLoggedIn === false) ? true : false} title="" hideNavBar />
+                        <Scene key="Test" component={Test} hideNavBar title="Test" hideNavBar />
                         {
-                        // <Scene key="Test" component={Test} hideNavBar title="Test" hideNavBar />
                         // <Scene key="Register" component={Register} title="" hideNavBar />
                         // <Scene key="ForgotPassword" component={ForgotPassword} title="" hideNavBar />
                         // <Scene key="ResetPasswordValidation" component={ResetPasswordValidation} title="" hideNavBar />

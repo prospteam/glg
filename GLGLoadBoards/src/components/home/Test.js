@@ -22,6 +22,7 @@ export default class Test extends Component {
         // }
     }
 
+     
     //   async componentDidMount(){
     //      let bodyFormData , usertype, userid, he_he;
     //      let userData = await AsyncStorage.getItem("userData");
@@ -61,10 +62,9 @@ export default class Test extends Component {
         // console.log(this.state.Profile);
         return (
           <View>
-            <Text>
-              XD
-            </Text>
-          </View>
+          <Text>Hello World!</Text>
+        </View>
+
         );
     }
 }
