@@ -29,7 +29,6 @@ export default class Register extends Component {
             spinner              :false
         }
         this.onSubmit           = this.onSubmit.bind(this);
-
         this.handleSubmit       = this.handleSubmit.bind(this);
         this.onVerify           = this.onVerify.bind(this);
         this.Verified           = this.Verified.bind(this);
