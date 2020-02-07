@@ -5,7 +5,9 @@ import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 // import Routes from './Routes.js';
 import Login from './components/login/Login.js';
 import Register from './components/login/Register.js';
-import Test from './components/home/Test.js';
+import Dashboard from './components/login/Dashboard.js/';
+import shipperDashboard from './components/login/shipperDashboard.js/';
+import carrierDashboard from './components/login/carrierDashboard.js/';
 // import ForgotPassword from './components/login/ForgotPassword.js';
 // import ResetPasswordValidation from './components/login/ResetPasswordValidation.js';
 // import ResetPassword from './components/login/ResetPassword.js';
@@ -30,24 +32,28 @@ class Routes extends Component {
     render() {
         return (
             <Router>
+                
                     <Scene key="root">
-					
+
                         <Scene key="Login" component={Login} initial={(this.props.MyGlobalReducer.isLoggedIn === false) ? false : false} title="" hideNavBar />
-                        <Scene key="Test" component={Test} title="" hideNavBar />
+                        <Scene key="carrierDashboard" component={carrierDashboard} title="" hideNavBar/>
+                        <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
+                        <Scene key="Dashboard" component={Dashboard} title="" hideNavBar/>
                         <Scene key="Register" component={Register} title="" hideNavBar />
                         {
-                        // <Scene key="Routes" component={Routes} title="Test" hideNavBar />
                         // <Scene key="Test" component={Test} hideNavBar title="Test" hideNavBar />
+                        // <Scene key="Routes" component={Routes} title="Test" hideNavBar />
                         // <Scene key="ForgotPassword" component={ForgotPassword} title="" hideNavBar />
                         // <Scene key="ResetPasswordValidation" component={ResetPasswordValidation} title="" hideNavBar />
                         // <Scene key="ResetPassword" component={ResetPassword} title="" />
                         }
 
-                        {
-                            // <Drawer hideNavBar key="drawer" drawer contentComponent={SideBar} drawerWidth={280}>
-                            //     <Scene key="Register" component={Register} title="" hideNavBar />
-                            // <Scene key="Test" component={Test} title="Test" hideNavBar initial={true} />
-                            //    <Scene key="Login" component={Login} initial={(this.props.RiderReducer.isLoggedIn === false) ? true : false} title="" hideNavBar />
+                             {
+                        // <Drawer hideNavBar key="drawer" drawer contentComponent={SideBar} drawerWidth={280}>
+                        // <Scene key="Register" component={Register} title="" hideNavBar />
+                        // <Scene key="Test" component={Test} title="Test" hideNavBar initial={true} />
+                        								 
+                        //    <Scene key="Login" component={Login} initial={(this.props.RiderReducer.isLoggedIn === false) ? true : false} title="" hideNavBar />
                             // <Scene key="Dash" component={Dash} title="Dash" initial={(this.props.RiderReducer.isLoggedIn === true) ? true : false} hideNavBar />
                             // <Scene key="BookingDetails" component={BookingDetails}  title="Booking Details" hideNavBar />
                             // <Scene key="DriverRating" component={DriverRating} title="DriverRating" hideNavBar />
@@ -59,8 +65,17 @@ class Routes extends Component {
                             // <Scene key="PayNow" component={PayNow} title="PayNow" hideNavBar />
                             // <Scene key="MapRiderViewsMarker" component={MapRiderViewsMarker} title="MapRiderViewsMarker" hideNavBar />
                             // <Scene key="MapDriverLocationMarker" component={MapDriverLocationMarker} title="MapDriverLocationMarker" hideNavBar />
-                            //     </Drawer>
+                        // </Drawer>
+                        //  <Scene key="Register" component={Register} title="" hideNavBar />
                         }
+                        {
+                        //  <Scene key="Login" component={Login} initial={(this.props.RiderReducer.isLoggedIn === false) ? true : false} title="" hideNavBar />
+                        //  <Scene key="Test" component={Test} hideNavBar title="Test" hideNavBar />
+                        // <Scene key="ForgotPassword" component={ForgotPassword} title="" hideNavBar />
+                        // <Scene key="ResetPasswordValidation" component={ResetPasswordValidation} title="" hideNavBar />
+                        // <Scene key="ResetPassword" component={ResetPassword} title="" />
+                        }
+
                     </Scene>
                 </Router>
             );  

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { Container, Text, Left, Right, View, Grid, Row, Header, ListItem, Content, Body, Footer, Title, Button, Icon} from 'native-base';
+import { Alert, View, StyleSheet, Switch, TouchableOpacity, Image,YellowBox ,ImageBackground  } from 'react-native';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, ListItem, Separator ,List, Thumbnail} from 'native-base';
+import { Actions } from 'react-native-router-flux';
 // import {url} from '../helpers/Helper';
-// import axios from 'axios';
+import axios from 'axios';
 // import AsyncStorage from '@react-native-community/async-storage';
-// import { Actions } from 'react-native-router-flux';
 
 export default class Test extends Component {
   
@@ -21,6 +21,8 @@ export default class Test extends Component {
         //     ]
         // }
     }
+
+     
     //   async componentDidMount(){
     //      let bodyFormData , usertype, userid, he_he;
     //      let userData = await AsyncStorage.getItem("userData");
@@ -60,57 +62,9 @@ export default class Test extends Component {
         // console.log(this.state.Profile);
         // console.log(this.state.Profile);
         return (
-
-          <Container >
-            <Header>
-              <Left>
-                <Button transparent>
-                  <Icon name='menu' />
-                </Button>
-              </Left>
-              <Body>
-                <Title>Header</Title>
-              </Body>
-              <Right />
-            </Header>
-            <View style={styles.container}>
-              <Grid>
-                <ScrollView>
-                  <Row style={styles.profile_details}>
-                    <Content>
-                      <ListItem>
-                        <Body>
-                          <Text>Dummy Name</Text>
-                        </Body>
-                      </ListItem>
-                      <ListItem>
-                        <Body>
-                          <Text>Dummy Name</Text>
-                        </Body>
-                      </ListItem>
-                      <ListItem>
-                        <Body>
-                          <Text>Dummy Name</Text>
-                        </Body>
-                      </ListItem>
-                    </Content>
-                  </Row>
-                </ScrollView>
-              </Grid>
-            </View>
-            <Footer>
-
-              <Title>Footer</Title>
-
-              <Button transparent >
-              </Button>
-            </Footer>
-          { 
-          //  <Navigation />
-          }
-          </Container>
-
-          
+          <View>
+          <Text>Hello World!</Text>
+        </View>
 
         );
     }

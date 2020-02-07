@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, Linking } from 'react-native';
+import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Container, Content, Picker } from 'native-base';
 
 // MY IMPORTS
@@ -82,6 +82,7 @@ class Register extends Component {
 
     render() {
         return (
+         <ScrollView >
             <View>
                 <ImageBackground source={bg_image} style={{ width: '100%', height: '100%' }}>
                     <View style={{ marginTop: "8%", justifyContent: "center", alignItems: "center" }}>
@@ -145,6 +146,7 @@ class Register extends Component {
                     </View>
                 </ImageBackground>
             </View>
+        </ScrollView>
         );
     }
 

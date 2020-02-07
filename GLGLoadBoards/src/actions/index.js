@@ -31,6 +31,13 @@ export function sampleFunction(type_,data){
 		payload:data,
 	}
 }
+export function sampleFunction2(type_,data){
+   
+	return {
+		type:type_,
+		payload:data,
+	}
+}
 
 export function setData(type_, data) {
     return  {
