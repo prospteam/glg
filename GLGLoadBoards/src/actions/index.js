@@ -16,7 +16,7 @@ export function sampleFunction(type_,data){
     const api_call = axios.post(MyConfigs.api_link +'/login/register/yes',data)
 		.then(res => {
 			console.log(res.data);
-            if (res.data.status = "success") {
+            if (res.data.status == "success") {
                 alert('Success: ' + res.data.message);
             }else{
                 alert('Error: ' + res.data.message);
