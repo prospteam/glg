@@ -38,13 +38,11 @@ export default class Headers extends Component {
                         </Button>
                       </Left>
                   <Right>
-
-                          <Button transparent  style={(this.state.active) ? styles.active : styles.inactive} onPress={this.toggle} >
-                                <Text style={{color:'#fff'}} > </Text>
-                                <Icon name="bulb" style={{color:'#fff'}} />
-                                <Badge><Text>2</Text></Badge>
-                          </Button>
-
+                    <Button transparent  style={(this.state.active) ? styles.active : styles.inactive} onPress={this.toggle} >
+                        <Text style={{color:'#fff'}} > </Text>
+                        <Icon name="bulb" style={{color:'#fff'}} />
+                        <Badge><Text>2</Text></Badge>
+                    </Button>
                   </Right>
                  </Header>
             );

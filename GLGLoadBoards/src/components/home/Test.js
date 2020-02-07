@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Alert, View, StyleSheet, Switch, TouchableOpacity, Image,YellowBox ,ImageBackground  } from 'react-native';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, ListItem, Separator ,List, Thumbnail} from 'native-base';
+import { ScrollView, StyleSheet } from 'react-native';
+import { Container, Text, Left, Right, View, Grid, Row, Header, ListItem, Content, Body, Footer, Title, Button, Icon} from 'native-base';
 // import {url} from '../helpers/Helper';
 // import axios from 'axios';
 // import AsyncStorage from '@react-native-community/async-storage';
 // import { Actions } from 'react-native-router-flux';
 
 export default class Test extends Component {
-    
+  
     constructor(props){
         super(props);
         // this.state = {
@@ -21,7 +21,6 @@ export default class Test extends Component {
         //     ]
         // }
     }
-
     //   async componentDidMount(){
     //      let bodyFormData , usertype, userid, he_he;
     //      let userData = await AsyncStorage.getItem("userData");
@@ -56,15 +55,63 @@ export default class Test extends Component {
     //         <Icon type="FontAwesome" name="user" style={{ fontSize: 19 }} />
     //     )
     // };
+    
     render() {
         // console.log(this.state.Profile);
         // console.log(this.state.Profile);
         return (
-          <View>
-            <Text>
-              XD
-            </Text>
-          </View>
+
+          <Container >
+            <Header>
+              <Left>
+                <Button transparent>
+                  <Icon name='menu' />
+                </Button>
+              </Left>
+              <Body>
+                <Title>Header</Title>
+              </Body>
+              <Right />
+            </Header>
+            <View style={styles.container}>
+              <Grid>
+                <ScrollView>
+                  <Row style={styles.profile_details}>
+                    <Content>
+                      <ListItem>
+                        <Body>
+                          <Text>Dummy Name</Text>
+                        </Body>
+                      </ListItem>
+                      <ListItem>
+                        <Body>
+                          <Text>Dummy Name</Text>
+                        </Body>
+                      </ListItem>
+                      <ListItem>
+                        <Body>
+                          <Text>Dummy Name</Text>
+                        </Body>
+                      </ListItem>
+                    </Content>
+                  </Row>
+                </ScrollView>
+              </Grid>
+            </View>
+            <Footer>
+
+              <Title>Footer</Title>
+
+              <Button transparent >
+              </Button>
+            </Footer>
+          { 
+          //  <Navigation />
+          }
+          </Container>
+
+          
+
         );
     }
 }
@@ -87,3 +134,23 @@ export default class Test extends Component {
 //         textAlign: 'center'
 //     },
 // });
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  profile: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0057a0',
+    height: 250,
+  },
+  profile_details: {
+    backgroundColor: '#fff',
+  },
+  logo: {
+    width: 150, height: 150, borderRadius: 150 / 2
+  }
+});
