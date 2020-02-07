@@ -1,302 +1,201 @@
 import React, { Component } from 'react';
-import { StyleSheet , Image, ScrollView , TouchableOpacity ,Alert} from 'react-native';
-import { Container, Header, Content, Item, Input, Icon , Form ,Button ,Text, View, Thumbnail ,Spinner } from 'native-base';
-import {url} from '../helpers/Helper';
-import logo from  '../../assets/images/logo.png';
-import axios from 'axios';
+import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { Container, Content, Picker } from 'native-base';
 
-import { Actions } from 'react-native-router-flux';
+// MY IMPORTS
+import bg_image from '../../assets/images/bg_image.png';
+import logo from '../../assets/images/logo.png';
 
+// Redux Imports
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { sampleFunction } from '../../actions/index.js';// I included ang "index.js" para di malibog
 
-export default class Register extends Component {
-    constructor(props){
+const Item = Picker.Item;
+
+class Register extends Component {
+    constructor(props) {
         super(props);
         this.state = {
-            Name           : '',
-            Mobile         : '',
-            Email          : '',
-            Password       : '',
-            Username       : '',
-            RepeatPassword : '',
-            Verification   : '',
-            response       : {},
-            showAlert            :false,
-            email_exist          :false,
-            user_exist           :false,
-            mobile_exist         :false,
-            input_error          :false,
-            email_error          :false,
-            reg_form             :true,
-            spinner              :false
+            fname: "",
+            username: "",
+            lname: "",
+            password: "",
+            address: "",
+            emailadd: "",
+            cnumber: "",
+            usertype: "",
+            mc_number: "",
+            tax_id: "",
+            company: "",
+            register: "",
         }
-        this.onSubmit           = this.onSubmit.bind(this);
-
-        this.handleSubmit       = this.handleSubmit.bind(this);
-        this.onVerify           = this.onVerify.bind(this);
-        this.Verified           = this.Verified.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    componentDidMount(){
-        console.log('isMounted register');
+    componentDidMount() {
+        console.log('rgister mounted');
+        console.log(this.state);
     }
-
-  Verified (){
-      this.setState({
-          reg_form : true
-      });
-  }
-
     handleSubmit(e) {
         e.preventDefault();
-            const inputs = {
-                Name            :  this.state.Name,
-                Mobile          :  this.state.Mobile,
-                Email           :  this.state.Email,
-                Password        :  this.state.Password,
-                Username        :  this.state.Username,
-                RepeatPassword  :  this.state.RepeatPassword
-            }
-         this.onSubmit(inputs);
+
+        //Alert.alert('hi'+this.state.first_name);
+        //console.log('hi');
+        //console.log(this.state);
+
+        // 		Array
+        // 			(
+        // 				[fname] => John
+        // 				[username] => tcarrier2
+        // 				[lname] => Test Smith
+        // 				[password] => password
+        // 				[address] => Test
+        // 				[emailadd] => asd@asd.asd
+        // 				[cnumber] => 0945609
+        // 				[usertype] => carrier
+        // 				[mc_number] => 123
+        // 				[tax_id] => 123
+        // 				[company] => Test
+        // 				[register] => 
+        // )
+
+        const inputs = {
+            fname: this.state.fname,
+            lname: this.state.username,
+            username: this.state.lname,
+            password: this.state.password,
+            address: this.state.address,
+            emailadd: this.state.emailadd,
+            cnumber: this.state.cnumber,
+            usertype: this.state.usertype,
+            mc_number: this.state.mc_number,
+            tax_id: this.state.tax_id,
+            company: this.state.company,
+            register: "any_value",
+        }
+
+        // alert('getting action');
+        // console.log("this.prop");
+        console.log(this);
+        this.props.sampleFunction('', inputs);
     }
 
-        onSubmit (data){
-                this.setState({spinner:true});
-                const api       = url()+'login/register';
-                const bodyFormData  =  new FormData();
-                const self = this;
-                for(var i  = 0; i  < Object.keys(data).length; i++){
-                        bodyFormData.append(Object.keys(data)[i],this.state[Object.keys(data)[i]]);
-                }
-                        bodyFormData.append('POST_TYPE','add');
-                        bodyFormData.append('user_type','2');
-                axios({
-                            method  : 'post',
-                            url     : api,
-                            data    : bodyFormData,
-                            config  : { headers: {'Content-Type': 'multipart/form-data' }}
-                    })
-                    .then(function(result){
-                        console.log(result);
-                        self.setState({response:result.data});
-                        let res_stats , msg, resp;
-                        const res = result.data.response_status;
-                        if (res===false) {
-                            resp      = result.data.return;
-                                if (resp.input_error) {
-                                    msg  =  result.data.message;
-                                }
-                                if (resp.email_error) {
-                                    msg  =  result.data.message;
-                                }
-
-                                if (result.data.check_user===true) {
-                                    msg  =  resp.msg[0];
-                                }
-
-                                if (resp.pass_error) {
-                                    msg  =  result.data.message;
-                                }
-
-
-                                Alert.alert(
-                                  'Error!',
-                                  msg,
-                                  [
-                                    {text: 'OK', onPress: () => self.setState({spinner:false}) },
-                                  ],
-                                  { cancelable: false }
-                                )
-                        }else {
-                            msg = result.data.message;
-                            self.setState(
-                                {
-                                    Name         : '',
-                                    Mobile       : '',
-                                    Email        : '',
-                                    Password     : '',
-                                    Username     : '',
-                                    RepeatPassword: '',
-                                    spinner:false
-                                });
-                                Alert.alert(
-                                  'Success!',
-                                  msg,
-                                  [
-                                    {text: 'OK', onPress: () => self.setState({reg_form:false,spinner:false}) },
-                                  ],
-                                  { cancelable: false }
-                                )
+    render() {
+        return (
+         <ScrollView >
+            <View>
+                <ImageBackground source={bg_image} style={{ width: '100%', height: '100%' }}>
+                    <View style={{ marginTop: "8%", justifyContent: "center", alignItems: "center" }}>
+                        <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100 }} />
+                    </View>
+                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                        <Text style={{ fontSize: 20, color: "#fff" }}>Register</Text>
+                        <TextInput 
+                            style={styles.InputRegister} 
+                            placeholderTextColor="#fff" 
+                            placeholder="First Name" 
+                            onChangeText={fname => this.setState({ fname})} 
+                            value={this.state.fname}
+                        />
+                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Last Name"
+                            onChangeText={lname => this.setState({ lname })}
+                            value={this.state.lname}
+                        />
+                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="User Name"
+                            onChangeText={username => this.setState({ username })}
+                            value={this.state.username}
+                        />
+                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Password"
+                            onChangeText={password => this.setState({ password })}
+                            value={this.state.password}
+                        />
+                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Address"
+                            onChangeText={address => this.setState({ address })}
+                            value={this.state.address}
+                        />
+                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Contact Number"
+                            onChangeText={cnumber => this.setState({ cnumber })}
+                            value={this.state.cnumber}
+                        />
+                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Email Address"
+                            onChangeText={emailadd => this.setState({ emailadd })}
+                            value={this.state.emailadd}
+                        />
+                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="shipper/carrier"
+                            onChangeText={usertype => this.setState({ usertype })}
+                            value={this.state.usertype}
+                        />
+{
+                        // <Picker
+                        //     mode='dropdown'
+                        //     selectedValue={this.state.usertype}
+                        //     onValueChange={fname => this.setState({ fname })}>
+                        //     <Item label='Cats' value='key0' />
+                        //     <Item label='Dogs' value='key1' />
+                        //     <Item label='Birds' value='key2' />
+                        //     <Item label='Elephants' value='key3' />
+                        // </Picker>
                         }
-                })
-        }
+                        <TouchableOpacity onPress={this.handleSubmit}>
+                            <Text style={styles.btnlogin}>Register</Text>
+                        </TouchableOpacity>
 
-        onVerify (){
-            console.log( this.state.Verification);
-                const api_V       = url()+'Login/verify_Registrants';
-                const bodyFormData2  =  new FormData();
-                const self = this;
-                        bodyFormData2.append('verCode', this.state.Verification);
-                axios({
-                            method  : 'post',
-                            url     : api_V,
-                            data    : bodyFormData2,
-                            config  : { headers: {'Content-Type': 'multipart/form-data' }}
-                    })
-                    .then(function(result){
-                        const res = result.data.response_status;
-                        console.log(result);
-                        if (res===false) {
-                                Alert.alert(
-                                  'Error!',
-                                  result.data.message,
-                                  [
-                                    {text: 'OK', onPress: () => console.log('hehe') },
-                                  ],
-                                  { cancelable: false }
-                                )
-                        }else {
-                            self.setState(
-                                {
-                                    Verification:''
-                                });
-                                Alert.alert(
-                                  'Success!',
-                                  result.data.msg,
-                                  [
-                                    {text: 'OK', onPress: () => self.Verified()},
-                                  ],
-                                  { cancelable: false }
-                                )
-                        }
-                        self.setState({response_Verify:result.data});
-                })
-        }
-  render() {
-           if (this.state.reg_form===true) {
-               return (
-                   <ScrollView  >
-                         <View style={styles.container}>
-                                 <View style={{height:50}}>
-                                 </View>
-                               <View style  ={styles.image}>
-                                   <Image
-                                       source ={logo}
-                                   />
-                               </View>
-                                    <View style ={styles.form}>
+                        <View style={{ justifyContent: "center", alignItems: "center" }}>
+                            <TouchableOpacity><Text style={{ color: "#fff" }}>Already a Member? Login Here</Text></TouchableOpacity>
+                        </View>
+                    </View>
+                </ImageBackground>
+            </View>
+        </ScrollView>
+        );
+    }
 
-                                                     <Item id="Name"  style={[styles.inputs]} >
-                                                       <Icon  name='person' />
-                                                       <Input placeholder='Name' value={this.state.Name} onClick={this.textClick}  onChangeText={(Name) => this.setState({Name})} />
-                                                 </Item>
-                                                 <Item  id="Username" ref="Username"  style={styles.inputs}>
-                                                       <Icon  name='person' />
-                                                       <Input  placeholder='Username' value={this.state.Username}  onChangeText={(Username) => this.setState({Username})} />
-                                                 </Item>
-                                                  <Item  id="Mobile" ref="Mobile" style={styles.inputs}>
-                                                     <Icon type="FontAwesome" name='mobile' style={{ fontSize: 30 }} />
-                                                     <Input placeholder='Phone Number' value={this.state.Mobile} keyboardType="phone-pad"   onChangeText={(Mobile) => this.setState({Mobile})}/>
-                                                 </Item>
-                                                  <Item   ref="Email" id="Email" style={[styles.inputs]}>
-                                                     <Icon   name='mail' />
-                                                     <Input placeholder='Email Address' value={this.state.Email}   keyboardType="email-address"  onChangeText={(Email) => this.setState({Email})}/>
-                                                 </Item>
-                                                  <Item   ref="Password" id="Password"  style={styles.inputs}>
-                                                     <Icon  name='lock' />
-                                                     <Input placeholder='Password' value={this.state.Password} secureTextEntry={true}  onChangeText={(Password) => this.setState({Password})}/>
-                                                 </Item>
-                                                  <Item style={styles.inputs}>
-                                                     <Icon  name='lock' />
-                                                     <Input placeholder='Repeat Password' value={this.state.RepeatPassword} secureTextEntry={true}  onChangeText={(RepeatPassword) => this.setState({RepeatPassword})}/>
-                                                 </Item>
-                                                    {this.state.spinner===true &&
-                                                        <Spinner color='red' />
-                                                    }
-                                                    {this.state.spinner===false &&
-                                                        <TouchableOpacity  >
-                                                            <Button block ref="buton"  onPress={this.handleSubmit}  type="submit" value="sas" style={styles.btnregister}>
-                                                              <Text style={styles.register_text}>Register</Text>
-                                                           </Button>
-                                                       </TouchableOpacity>
-                                                    }
+}
+const styles = StyleSheet.create({
+    InputRegister: {
+        borderWidth: 2,
+        width: '70%',
+        height: 40,
+        margin: 2,
+        color: "#fff",
+        borderColor: "#009688",
+        textAlign: 'center',
+        borderRadius: 5,
+        backgroundColor: "#164367"
+    },
+    btnlogin: {
+        backgroundColor: '#fff',
+        color: '#000',
+        margin: 10,
+        fontSize: 15,
+        borderRadius: 20,
+        height: 30,
+        width: 100,
+        textAlign: 'center',
+        padding: 4,
+        fontWeight: 'bold',
+    }
+});
 
-                                               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                                                   <Text style={{marginLeft:'20%'}}>Already a user?</Text>
-                                                   <Text style={{color:'#3885B6', marginRight:'20%'}}onPress= {() =>{ Actions.Login();}}>Login Here</Text>
-                                               </View>
-                                      </View>
-                         </View>
-                 </ScrollView>
-               );
-           }else {
-               return (
 
-                         <View style={styles.container}>
 
-                               <View style  ={styles.image}>
-                                   <Image
-                                       source ={require('../../assets/images/logo.png')}
-
-                                   />
-                               </View>
-                                    <View style ={styles.form}>
-                                                     <Item id="Name" ref="Name" style={[styles.inputs]} >
-                                                       <Icon  name='lock' />
-                                                       <Input  placeholder='Enter Verification Code' value={this.state.Verification} onChangeText={(Verification) => this.setState({Verification})} />
-                                                 </Item>
-
-                                                 <TouchableOpacity  >
-                                                     <Button block ref="buton"  onPress={this.onVerify}    type="submit" value="sas" style={styles.btnregister}>
-                                                       <Text style={styles.register_text}>Submit Verication Code</Text>
-                                                    </Button>
-                                                </TouchableOpacity>
-                                      </View>
-                         </View>
-
-               );
-
-           }
-          }
+function mapStateToProps(state) {
+    // const reduxState = (state) => {
+    console.log('redaux stae from lgin ', state)
+    return {
+        // Reducer: state.Reducer
+    }
 }
 
-const styles = StyleSheet.create({
-      image: {
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-    },
-    form:{
-        marginTop:'10%'
-    },
-        container: {
-        paddingHorizontal: 15,
-        paddingVertical: 15,
-        flex: 1,
-        justifyContent: 'center',
+// const mapActionsToDispatch = dispatch => {
+// return {
+// sampleFunction	: () => dispatch(sampleFunction('','')),
+// }
+// }
 
-    },
-    inputs:{
-         borderLeftWidth:0.5 ,
-         borderRightWidth:0.5 ,
-         borderBottomWidth:0.5 ,
-         borderTopWidth:0.5 ,
-         paddingHorizontal: 10,
-         marginVertical : 4,
-         borderRadius:3,
-
-    },
-    inputs2:{
-    borderColor:'red'
-
-    },
-    btnregister:{
-        marginTop:'10%',
-        marginBottom:'5%',
-        backgroundColor: '#910506',
-         borderRadius:3,
-    },
-    register_text :{
-        paddingBottom:'10%'
-    }
-
-});
+function mapActionsToDispatch(dispatch) {
+    return bindActionCreators({
+        sampleFunction: sampleFunction,
+    }, dispatch)
+}
+export default connect(mapStateToProps, mapActionsToDispatch)(Register);

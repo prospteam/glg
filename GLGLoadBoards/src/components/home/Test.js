@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Alert, View, StyleSheet, Switch, TouchableOpacity, Image,YellowBox ,ImageBackground  } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, ListItem, Separator ,List, Thumbnail} from 'native-base';
+import { Actions } from 'react-native-router-flux';
 // import {url} from '../helpers/Helper';
-// import axios from 'axios';
+import axios from 'axios';
 // import AsyncStorage from '@react-native-community/async-storage';
-// import { Actions } from 'react-native-router-flux';
 
 export default class Test extends Component {
     

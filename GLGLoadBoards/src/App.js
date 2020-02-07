@@ -22,7 +22,7 @@ YellowBox.ignoreWarnings([
 const persistConfig = {
 	key: 'root',
 	storage: AsyncStorage,
-	whitelist: ['RiderReducer'],
+	whitelist: ['RiderReducer','MyGlobalReducer'],
 	timeout: null
 }
 

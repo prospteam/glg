@@ -4,8 +4,10 @@ import Fetch_Single_Data_Reducer from './SingleReducer.js';
 import RiderReducers from './Rider_Reducer.js';
 import RegionReducer from './RegionReducer.js';
 import ApiData_ from './ActionReducer.js';
+import MyGlobalReducer from './MyGlobalReducer.js';
 
 const allReducers = combineReducers({
+    MyGlobalReducer    : MyGlobalReducer,
     fetchData    : Fetch_Data_Reducer,
     singleData   : Fetch_Single_Data_Reducer,
     ApiData      : ApiData_,

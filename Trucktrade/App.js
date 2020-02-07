@@ -3,13 +3,14 @@ import { createStore, applyMiddleware } from 'redux';
 import firebase from './firebase/firebase';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk'
-import reducer from './reducers/reducer';
 import { YellowBox, Text, View, StyleSheet, Image} from 'react-native';
-import Routes from './Routes';
 import { composeWithDevTools } from 'remote-redux-devtools';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer } from 'redux-persist'
-import { PersistGate } from 'redux-persist/integration/react'
+import { PersistGate } from 'redux-persist/integration/react
+
+import reducer from './reducers/reducer';
+import Routes from './Routes';'
 
 YellowBox.ignoreWarnings(['Warning: ...']);
 console.disableYellowBox = true;
@@ -42,7 +43,6 @@ const styles = StyleSheet.create({
 const loader = <View style={styles.container}><View><Image source={require('./assets/logo.png')} style={styles.logo} resizeMode="contain" /></View></View>
 
 class App extends React.Component{
-
 	render(){		
 		return (
 			<Provider store={store}>
@@ -53,4 +53,5 @@ class App extends React.Component{
 		);
 	}
 }
+
 export default App;

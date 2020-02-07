@@ -21,6 +21,7 @@ export default class Loader extends Component {
     componentWillReceiveProps(){
         Actions.Dashboard();
     }
+	
     async getData(responseJson) {
         try {
             console.log('isMounted');
@@ -36,7 +37,6 @@ export default class Loader extends Component {
     }
 
     render() {
-
           return (
             <View style={styles.container}>
               <Spinner type="WanderingCubes" color="#c1191c" size={50} />
