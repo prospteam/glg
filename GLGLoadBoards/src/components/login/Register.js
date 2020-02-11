@@ -194,8 +194,10 @@ function mapStateToProps(state) {
 // }
 
 function mapActionsToDispatch(dispatch) {
+
     return bindActionCreators({
         sampleFunction: sampleFunction,
     }, dispatch)
+    
 }
 export default connect(mapStateToProps, mapActionsToDispatch)(Register);

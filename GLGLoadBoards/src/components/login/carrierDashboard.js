@@ -12,7 +12,6 @@ export default class shipperDashboard extends Component {
 
    render() {
       return (
-      
       	<View style={{backgroundColor:"red",color:'white'}}>
             <View style={styles.InputRegister}>
             </View>

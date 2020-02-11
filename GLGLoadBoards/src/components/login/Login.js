@@ -1,18 +1,27 @@
 // Dependencies di ka kaya kung wala siya
 import React, { Component } from 'react';
 import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+// import { Icon } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import bg_image from '../../assets/images/bg_image.png';
 import logo from '../../assets/images/logo.png';
 import axios from 'axios';
+import {SCLAlert,SCLAlertButton} from 'react-native-scl-alert';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import { sampleFunction2 } from '../../actions/index.js';// I included ang "index.js" para di malibog
 
 class Login extends Component {
 
+    
     state = {
         color: 'white',
+        show: false,
+        msg: "",
+        theme:"warning",
+        title:"Warning"
     }
+
     constructor(props){
         super(props)
         
@@ -20,45 +29,75 @@ class Login extends Component {
             username: '',
             password: '',
         }
+
     }
     
-    
+    handleClose = () => {
+        this.setState({ 
+            show: false
+         })
+    }
   
-    _simpleAlertHandler = () => {
-        
+    handleOpen = () => {
+
+        // this.setState({ 
+        //     show: true,
+        //     theme: true,
+        //     title: true,
+        //     msg: "HI"
+
+        //  })
         this.props.sampleFunction2('', '');
 
         // console.log(this.state.username);
         // console.log(this.state.password);
         
+       
 
         if (this.state.username != '') {
             if (this.state.password != '') {
             } else {
-              alert('Please Enter Password');
+            this.setState({ show: true,
+                 msg: "Please Enter Password",
+                 theme: "warning",
+                 title: "Warning!"})
               return;
             }
           } else {
-            alert('Please Enter Username');
+            this.setState({ 
+                show: true, 
+                msg: "Please Enter Username", 
+                theme:"warning", 
+                title: "Warning!" })
               return;
           }
 
-        
-        
         console.log("GETTING");
-     
+          
+        const that = this;
+
         axios.post('http://glgfreight.com/loadboard/login/index/yes', {
             username:this.state.username ,
             password: this.state.password,
             login:'login'
-          })
-        .then(function (response) {
+          }).then(function (response) {
             console.log(response.data);
-            
+          
             if( response.data.status == "success"){
+                that.setState({ 
+                    show: true, 
+                    msg: "Successfully Login",
+                    theme:"success", 
+                    title: "Success!" 
+                });
                 Actions.Dashboard()
             }else{
-                alert("Incorrect Username and Password!");
+                that.setState({ 
+                    show: true, 
+                    msg: "Incorrect Username and Password", 
+                    theme:"warning", 
+                    title: "Warning!" 
+                });
             }
           })
           .catch(function (error) {
@@ -80,10 +119,20 @@ class Login extends Component {
                         <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100 }} />
                     </View>
                     <View style={{ justifyContent: "center", alignItems: "center" }}>
-                        <Text style={{ fontSize: 20, color: "#fff" }}>Login</Text>
+                        <SCLAlert
+                        show={this.state.show}
+                        onRequestClose={this.handleOpen}
+                        theme={this.state.theme}
+                        title={this.state.title}
+                        subtitle={this.state.msg}
+                        >
+                        <SCLAlertButton theme="default" onPress={this.handleClose}>OK</SCLAlertButton>
+                        </SCLAlert>
+                    
+                        <Text style={{ fontSize: 20, color: "#fff" }}>Login</Text> 
                         <TextInput style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }} placeholderTextColor="#fff" placeholder="Enter Name" returnKeyLabel = {"next"} onChangeText={text => this.setState({username : text})} />
-                        <TextInput style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }} placeholderTextColor="#fff" placeholder="Enter Password" returnKeyLabel = {"next"} onChangeText={text => this.setState({password : text})} />
-                        <TouchableOpacity  onPress={() => this._simpleAlertHandler()}>
+                        <TextInput secureTextEntry={true} style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }} placeholderTextColor="#fff" placeholder="Enter Password" returnKeyLabel = {"next"} onChangeText={text => this.setState({password : text})} />
+                        <TouchableOpacity  onPress={() => this.handleOpen()}>
                             <Text style={styles.btnlogin}>Login</Text>
                         </TouchableOpacity>
                         <View style={{ marginTop: "5%", justifyContent: "center", alignItems: "center" }}>
@@ -93,7 +142,7 @@ class Login extends Component {
                     </View>
                 </ImageBackground>
             </View>
-        
+            
         );
     }
 }
