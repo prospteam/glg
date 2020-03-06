@@ -32,8 +32,8 @@ class Routes extends Component {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="Register" component={Register} title="" hideNavBar />
                     <Scene key="Dashboard" component={Dashboard} title="" hideNavBar/>
+                    <Scene key="Register" component={Register} title="" hideNavBar />
                     <Scene key="Login" component={Login} initial={(this.props.MyGlobalReducer.isLoggedIn === false) ? false : false} title="" hideNavBar />
                     <Scene key="carrierDashboard" component={carrierDashboard} title="" hideNavBar/>
                     <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
