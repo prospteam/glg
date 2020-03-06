@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet , Image, ScrollView } from 'react-native';
-import { Item, Input, Button ,Text, View } from 'native-base';
+import { Item, Input, Button ,Text, View, } from 'native-base';
 import logo from '../../assets/images/logo.png';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
