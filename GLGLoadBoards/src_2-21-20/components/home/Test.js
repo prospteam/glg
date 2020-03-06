@@ -7,7 +7,7 @@ import axios from 'axios';
 // import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Test extends Component {
-    
+  
     constructor(props){
         super(props);
         // this.state = {
@@ -57,6 +57,7 @@ export default class Test extends Component {
     //         <Icon type="FontAwesome" name="user" style={{ fontSize: 19 }} />
     //     )
     // };
+    
     render() {
         // console.log(this.state.Profile);
         // console.log(this.state.Profile);
@@ -87,3 +88,23 @@ export default class Test extends Component {
 //         textAlign: 'center'
 //     },
 // });
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  profile: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0057a0',
+    height: 250,
+  },
+  profile_details: {
+    backgroundColor: '#fff',
+  },
+  logo: {
+    width: 150, height: 150, borderRadius: 150 / 2
+  }
+});

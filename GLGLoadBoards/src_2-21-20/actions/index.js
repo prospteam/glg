@@ -13,8 +13,6 @@ import firebase from "../firestore.js";
 // alert('action loaded');
 
 export function sampleFunction(type_,data){
-	// alert(MyConfigs.api_link +'/login/register/yes');
-	console.log('Start');
     const api_call = axios.post(MyConfigs.api_link +'/login/register/yes',data)
 		.then(res => {
 			console.log(res.data);
@@ -22,16 +20,12 @@ export function sampleFunction(type_,data){
                 alert('Success: ' + res.data.message);
             }else{
                 alert('Error: ' + res.data.message);
-			}
-			console.log('End2');
+            }
 		})
 		.catch(err => {
 			console.log({status_:'error',err});
 			alert('Error in API connection');
-			console.log('End2');
 		});
-	console.log('End');
-
 	return {
 		type:type_,
 		payload:data,
