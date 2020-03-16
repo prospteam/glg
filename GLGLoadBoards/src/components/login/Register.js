@@ -56,7 +56,7 @@ class Register extends Component {
         // 				[mc_number] => 123
         // 				[tax_id] => 123
         // 				[company] => Test
-        // 				[register] => 
+        // 				[register] =>
         // )
 
         const inputs = {
@@ -90,11 +90,11 @@ class Register extends Component {
                     </View>
                     <View style={{ justifyContent: "center", alignItems: "center" }}>
                         <Text style={{ fontSize: 20, color: "#fff" }}>Register</Text>
-                        <TextInput 
-                            style={styles.InputRegister} 
-                            placeholderTextColor="#fff" 
-                            placeholder="First Name" 
-                            onChangeText={fname => this.setState({ fname})} 
+                        <TextInput
+                            style={styles.InputRegister}
+                            placeholderTextColor="#fff"
+                            placeholder="First Name"
+                            onChangeText={fname => this.setState({ fname})}
                             value={this.state.fname}
                         />
                         <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Last Name"
@@ -198,6 +198,7 @@ function mapActionsToDispatch(dispatch) {
     return bindActionCreators({
         sampleFunction: sampleFunction,
     }, dispatch)
-    
+
 }
+
 export default connect(mapStateToProps, mapActionsToDispatch)(Register);

@@ -8,12 +8,12 @@ import logo from '../../assets/images/logo.png';
 import axios from 'axios';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
-import { sampleFunction2 } from '../../actions/index.js';// I included ang "index.js" para di malibog
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { login_true_false } from '../../actions/index.js';// I included ang "index.js" para di malibog
+// import { sampleFunction2 } from '../../actions/index.js';// I included ang "index.js" para di malibog
 
 class Login extends Component {
-
-
     state = {
         color: 'white',
         show: false,
@@ -39,22 +39,8 @@ class Login extends Component {
     }
 
     handleOpen = () => {
-
-        // this.setState({ 
-        //     show: true,
-        //     theme: true,
-        //     title: true,
-        //     msg: "HI"
-
-        //  })
-        this.props.sampleFunction2('', '');
-
-        // console.log(this.state.username);
-        // console.log(this.state.password);
         if (this.state.usertype == 'carrier') {
-
         }
-
 
         if (this.state.username != '') {
             if (this.state.password != '') {
@@ -86,18 +72,18 @@ class Login extends Component {
             password: this.state.password,
             login: 'login'
         }).then(function (response) {
-
+            let data = {
+                state:'isLoggedIn'
+            }
             if (response.data.userdata.user_type == "shipper") {
+                that.props.login_true_false('SET_TRUE_FALSE', data);
                 Actions.Dashboard();
+
             } else if (response.data.userdata.user_type == "carrier") {
                 Actions.carrierDashboard();
             } else {
                 Actions.Dashboard();
             }
-
-            console.log("response.data");
-            console.log(response.data.userdata.user_type);
-
             if (response.data.status == "success") {
                 that.setState({
                     show: true,
@@ -141,9 +127,8 @@ class Login extends Component {
                             title={this.state.title}
                             subtitle={this.state.msg}
                         >
-                            <SCLAlertButton theme="default" onPress={this.handleClose}>OK</SCLAlertButton>
+                        <SCLAlertButton theme="default" onPress={this.handleClose}>OK</SCLAlertButton>
                         </SCLAlert>
-
                         <Text style={{ fontSize: 20, color: "#fff" }}>Login</Text>
                         <TextInput style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }} placeholderTextColor="#fff" placeholder="Enter Name" returnKeyLabel={"next"} onChangeText={text => this.setState({ username: text })} />
                         <TextInput secureTextEntry={true} style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }} placeholderTextColor="#fff" placeholder="Enter Password" returnKeyLabel={"next"} onChangeText={text => this.setState({ password: text })} />
@@ -176,25 +161,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }
 });
-
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { setData, set_TRUE_FALSE } from '../../actions/index.js';// I included ang "index.js" para di malibog
-
-
-
-function reduxState(state) {
-    console.log('redaux stae from lgin ', state)
-    return {
-        RiderReducer: state.RiderReducer
-    }
-}
-
-function dispatchState(dispatch) {
+ function login_true_false_dispachcer(dispatch){
     return bindActionCreators({
-        sampleFunction2: sampleFunction2,
-    }, dispatch);
-}
-export default connect(reduxState, dispatchState)(Login);
+        login_true_false : login_true_false
+    },dispatch);
+ }
 
+export default connect(null,login_true_false_dispachcer)(Login);

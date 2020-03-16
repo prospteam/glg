@@ -1,6 +1,6 @@
 import axios from 'axios';
-//import Geolocation from '@react-native-community/geolocation';
-import Geolocation from 'react-native-geolocation-service';
+import Geolocation from '@react-native-community/geolocation';
+// import Geolocation from 'react-native-geolocation-service';
 import firebase from "../firestore.js";
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -149,4 +149,3 @@ export function geocode(type_, position) {
             });
     }
 }
-

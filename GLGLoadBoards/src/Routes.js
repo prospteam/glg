@@ -36,14 +36,13 @@ class Routes extends Component {
         return (
             <Router>
                     <Scene key="root">
-                        <Scene key="truck_map" component={Truck_map} title="" hideNavBar />
+                        <Scene key="Login" component={Login} initial={(this.props.MyGlobalReducer.isLoggedIn === false) ? true : false} title="" hideNavBar />
                         <Scene key="LoadSearch" component={LoadSearch} title="" hideNavBar />
-                        <Scene key="Login" component={Login} initial={(this.props.MyGlobalReducer.isLoggedIn === false) ? false : false} title="" hideNavBar />
-                        <Scene key="truck_map" component={Truck_map} title="" hideNavBar />
-                        {/* <Scene key="All_loads" component={All_loads} title="" hideNavBar /> */}
-                        <Scene key="Dashboard" component={Dashboard} title="" hideNavBar/>
-                        <Scene key="carrierDashboard" component={CarrierDashboard} title="" hideNavBar/>
-                        <Scene key="shipperDashboard" component={ShipperDashboard} title="" hideNavBar/>
+                        <Scene key="Dashboard" component={Dashboard} initial={(this.props.MyGlobalReducer.isLoggedIn== true) ? true : false } title="Dashboard" hideNavBar />
+                        <Scene key="truck_map" component={truck_map} title="" hideNavBar />
+                        <Scene key="All_loads" component={All_loads} title="" hideNavBar />
+                        <Scene key="carrierDashboard" component={carrierDashboard} title="" hideNavBar/>
+                        <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
                         <Scene key="Register" component={Register} title="" hideNavBar />
                         {
                         // <Scene key="Test" component={Test} hideNavBar title="Test" hideNavBar />
@@ -56,7 +55,7 @@ class Routes extends Component {
                     // <Drawer hideNavBar key="drawer" drawer contentComponent={SideBar} drawerWidth={280}>
                     // <Scene key="Register" component={Register} title="" hideNavBar />
                     // <Scene key="Test" component={Test} title="Test" hideNavBar initial={true} />
-                                                        
+
                     //    <Scene key="Login" component={Login} initial={(this.props.RiderReducer.isLoggedIn === false) ? true : false} title="" hideNavBar />
                         // <Scene key="Dash" component={Dash} title="Dash" initial={(this.props.RiderReducer.isLoggedIn === true) ? true : false} hideNavBar />
                         // <Scene key="BookingDetails" component={BookingDetails}  title="Booking Details" hideNavBar />
@@ -81,7 +80,7 @@ class Routes extends Component {
                     }
                     </Scene>
                 </Router>
-            );  
+            );
     }
 }
 

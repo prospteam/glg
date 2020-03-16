@@ -4,7 +4,7 @@ const initstate = {
 
 export default function (state = initstate, action) {
     switch (action.type) {
-        case "SET_TRUE_FALSE":
+        case "SET_TRUE_FALSE__":
             return {
                 ...state,
                 [action.payload.state]: !state[action.payload.state]
