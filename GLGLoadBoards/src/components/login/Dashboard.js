@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, Linking, ScrollView } from 'react-native';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+// import FontAwesome, { SolidIcons, RegularIcons, BrandIcons } from 'react-native-fontawesome';
+import {Icon} from 'native-base';
 
-export default class Dashboard extends Component {
+
+class Dashboard extends Component {
 
    onChangeText = (text) => {
       this.setState({
@@ -10,11 +15,16 @@ export default class Dashboard extends Component {
    }
 
    render() {
+       console.log('this.props.RiderReducer.loggedinData', this.props.RiderReducer.loggedinData);
       return (
          <>
+
             <View style={{ position: 'relative', height: 150, width: '100%' }}>
                <View style={{ backgroundColor: '#03365c', height: 250, position: 'absolute', width: '100%' }}>
                   <Text style={styles.TextInput}>Proweaver</Text>
+                    <TouchableOpacity>
+                        <Text style={styles.Logout}>Logout  <Icon reverse name='ios-log-out' type="ionicons" color='orange'/></Text>
+                     </TouchableOpacity>
                   <Text style={styles.tableName}>Dashboard</Text>
                </View>
             </View>
@@ -26,17 +36,14 @@ export default class Dashboard extends Component {
                      <Text style={styles.activeUserbtn}>Total Active Shipper</Text>
                      <Text style={styles.activeCount}>1</Text>
                   </View>
-
                   <View style={styles.Navigation}>
                      <Text style={styles.activeUserbtn}>Total Posted Loads</Text>
                      <Text style={styles.activeCount}>51</Text>
                   </View>
-
                   <View style={styles.Navigation}>
                      <Text style={styles.activeUserbtn}>Total Active Carriers</Text>
                      <Text style={styles.activeCount}>1</Text>
                   </View>
-
                   <View style={styles.Navigation}>
                      <Text style={styles.activeUserbtn}>Total Posted Trucks</Text>
                      <Text style={styles.activeCount}>51</Text>
@@ -51,6 +58,7 @@ export default class Dashboard extends Component {
                }}>
                   <Text>Total Loads per Month</Text>
                </View>
+
                <View style={{
                   ...styles.topStates,
                   top: -100
@@ -134,8 +142,26 @@ const styles = StyleSheet.create({
       zIndex: 4,
       marginTop: 25,
       marginLeft: 60
-   }
+  },
 
+  Logout:{
+      alignSelf: 'flex-end',
+      flexDirection: 'row',
+      marginRight:'10%',
+      marginTop: '-8%',
+      color:'#fff'
 
+      // justifyContent: 'flex-end'
+
+  }
 
 });
+function reduxState(state) {
+    console.log('redaux stae from lgin ', state.MyGlobalReducer)
+    return {
+        RiderReducer: state.RiderReducer,
+        MyGlobalReducer: state.MyGlobalReducer
+    }
+}
+
+ export default connect(reduxState, null)(Dashboard);

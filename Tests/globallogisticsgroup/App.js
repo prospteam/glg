@@ -6,37 +6,41 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import {
+  SafeAreaView,
   StyleSheet,
   View,
   Button,
   Text
 } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as countActions from './src/actions/counts';
+
 
 class App extends Component {
+  state = { count: 0 };
   decrementCount() {
-    let { count, actions } = this.props;
-    count--;
-    actions.changeCount(count);
+    let { count } = this.state;
+    count++;
+    this.setState({
+      count
+    })
   }
   incrementCount() {
-    let { count, actions } = this.props;
+    let { count } = this.state;
     count++;
-    actions.changeCount(count);
+    this.setState({
+      count
+    })
   }
   render() {
-    const { count } = this.props;
+    const { count } = this.state;
     return (
       <View styles={styles.container}>
         <Button
           title="increment"
           onPress={() => this.incrementCount()}
         />
-        <Text style={styles.textCenter}>{count}</Text>
+        <Text>{count}</Text>
         <Button
           title="decrement"
           onPress={() => this.decrementCount()}
@@ -51,23 +55,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  textCenter:{
-    textAlign :'center'
   }
 });
 
 const mapStateToProps = state => ({
-  count: state.count.count,
+  count: state.count,
 });
 
 const ActionCreators = Object.assign(
   {},
-  countActions,
+  changeCount,
 );
-
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(ActionCreators, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+
+export default connect(mapStateToProps, mapDispatchToProps) (App);

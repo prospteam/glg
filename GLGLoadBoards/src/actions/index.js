@@ -38,7 +38,7 @@ export function sampleFunction(type_,data){
 	}
 }
 export function sampleFunction2(type_,data){
-   
+
 	return {
 		type:type_,
 		payload:data,
@@ -47,14 +47,22 @@ export function sampleFunction2(type_,data){
 
 export function setData(type_, data) {
     return  {
-        type: type_, 
-        payload: data 
+        type: type_,
+        payload: data
     }
 }
 
 export function set_TRUE_FALSE(type_, data) {
     return {
         type: type_,
-        payload: data 
+        payload: data
     }
+
+}
+export function login_true_false(type, true_or_false){
+	console.log('true_or_false',true_or_false);
+	return{
+		type: type,
+		payload: true_or_false
+	}
 }
