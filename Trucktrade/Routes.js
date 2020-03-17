@@ -15,16 +15,23 @@ class Routes extends React.Component{
 
     render(){
         return (
-            <Router>
-                <Stack key="root">                                      
-                    <Scene key="login" component={Login} title="Login" hideNavBar={true} initial={(this.props.isLoggedIn == false && this.props.current_route == 'login_form_screen') ? true : false}/> 
-                    <Scene key="home" component={Home} title="Home" hideNavBar={true} /> 
-                    <Scene key="register" component={Register} title="Register" hideNavBar={true} />                       
-                    <Scene key="loadingorder" component={Loadingorder} title="Loading Order" hideNavBar={true} />
-                    <Scene key="profile" component={Profile} title="Profile" hideNavBar={true} />
-                    <Scene key="track" component={Track} title="Track" hideNavBar={true} />
-                </Stack>
-            </Router>
+            <>
+                <View style={{ backgroundColor: 'blue' }}>
+                    <Text>
+                        xxxxx
+                    </Text>
+                </View>
+                <Router>
+                    <Stack key="root">                                      
+                        <Scene key="login" component={Login} title="Login" hideNavBar={true} initial={(this.props.isLoggedIn == false && this.props.current_route == 'login_form_screen') ? true : false}/> 
+                        <Scene key="home" component={Home} title="Home" hideNavBar={true} /> 
+                        <Scene key="register" component={Register} title="Register" hideNavBar={true} />                       
+                        <Scene key="loadingorder" component={Loadingorder} title="Loading Order" hideNavBar={true} />
+                        <Scene key="profile" component={Profile} title="Profile" hideNavBar={true} />
+                        <Scene key="track" component={Track} title="Track" hideNavBar={true} />
+                    </Stack>
+                </Router>
+            </>
         )
     }
 }

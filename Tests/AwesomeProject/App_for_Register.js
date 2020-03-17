@@ -48,29 +48,27 @@ export default class App extends Component {
 
 }
 const styles = StyleSheet.create({
-
-InputRegister:{
- borderWidth:2,
- width:'70%',
- height:40,
- margin:2,
- color:"#fff",
- borderColor:"#009688",
- textAlign:'center',
- borderRadius:5,
- backgroundColor: "#164367"
-},
-btnlogin:{
-  backgroundColor:'#fff',
-  color:'#000',
-  margin:10,
-  fontSize: 15,
-  borderRadius:20,
-  height: 30,
-  width: 100,
-  textAlign:'center',
-  padding: 4,
-  fontWeight: 'bold',
-}
-
+   InputRegister:{
+      borderWidth:2,
+      width:'70%',
+      height:40,
+      margin:2,
+      color:"#fff",
+      borderColor:"#009688",
+      textAlign:'center',
+      borderRadius:5,
+      backgroundColor: "#164367"
+   },
+   btnlogin:{
+      backgroundColor:'#fff',
+      color:'#000',
+      margin:10,
+      fontSize: 15,
+      borderRadius:20,
+      height: 30,
+      width: 100,
+      textAlign:'center',
+      padding: 4,
+      fontWeight: 'bold',
+   }
 });
