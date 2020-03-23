@@ -7,11 +7,11 @@ import Login from './components/login/Login.js';
 import Temp from './components/Temp.js';
 import Register from './components/login/Register.js';
 import Dashboard from './components/login/Dashboard.js/';
-import ShipperDashboard from './components/login/shipperDashboard.js/';
-import CarrierDashboard from './components/login/carrierDashboard.js/';
+// import ShipperDashboard from './components/login/shipperDashboard.js/';
+// import CarrierDashboard from './components/login/carrierDashboard.js/';
 // import All_loads from './components/allLoads/All_loads.js';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
-import Truck_map from './components/truck_maps/truck_map.js';
+// import Truck_map from './components/truck_maps/truck_map.js';
 // import truck_map from './components/truckMap_search/truck_map.js.js';
 // import ForgotPassword from './components/login/ForgotPassword.js';
 // import ResetPasswordValidation from './components/login/ResetPasswordValidation.js';
@@ -36,15 +36,20 @@ class Routes extends Component {
         return (
             <Router>
                     <Scene key="root">
-                        <Scene key="Login" component={Login} initial={(this.props.MyGlobalReducer.isLoggedIn === false) ? true : false} title="" hideNavBar />
+                        <Scene key="Temp" component={Temp} initial={true} title="" hideNavBar />
                         <Scene key="LoadSearch" component={LoadSearch} title="" hideNavBar />
                         <Scene key="Dashboard" component={Dashboard} initial={(this.props.MyGlobalReducer.isLoggedIn== true) ? true : false } title="Dashboard" hideNavBar />
-                        <Scene key="truck_map" component={truck_map} title="" hideNavBar />
-                        <Scene key="All_loads" component={All_loads} title="" hideNavBar />
-                        <Scene key="carrierDashboard" component={carrierDashboard} title="" hideNavBar/>
-                        <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
                         <Scene key="Register" component={Register} title="" hideNavBar />
                         {
+							
+                        // <Scene key="Login" component={Login} initial={(this.props.MyGlobalReducer.isLoggedIn === false) ? true : false} title="" hideNavBar />
+                        // <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
+                        // <Scene key="carrierDashboard" component={CarrierDashboard} title="" hideNavBar/>
+                        // <Scene key="All_loads" component={All_loads} title="" hideNavBar />
+                        // <Scene key="truck_map" component={truck_map} title="" hideNavBar />
+						// tangtangko above para maka proceed ko. 3/19/20
+						
+						
                         // <Scene key="Test" component={Test} hideNavBar title="Test" hideNavBar />
                         // <Scene key="Routes" component={Routes} title="Test" hideNavBar />
                         // <Scene key="ForgotPassword" component={ForgotPassword} title="" hideNavBar />

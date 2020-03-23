@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, Linking, ScrollView } from 'react-native';
 
-export default class Dashboard extends Component {
+export default class CarrierDashboard extends Component {
 
    onChangeText = (text) => {
       this.setState({
