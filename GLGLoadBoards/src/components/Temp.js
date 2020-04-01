@@ -3,25 +3,24 @@ import { Container, Header, Content, Card, Body, CardItem, Footer, FooterTab, Bu
 
 import getTheme from '../../native-base-theme/components';
 import material from '../../native-base-theme/variables/material';
-import { StyleSheet } from 'react-native';
+import styles from '../assets/styles/CommonStyles';
+// import { StyleSheet } from 'react-native';
 
 export default class Temp extends Component {
     render() {
         return (
 			  <StyleProvider style={getTheme(material)}>
-					<Container>
+					<Container >
 						{/* <Header  style={{toolbarHeight:50}} /> */}
-						<Content>
+						<Content contentContainerStyle={{flex:1}}>
 							<View style={{
-								backgroundColor: 'red',
+								backgroundColor: '#03365c',
 								flex: 1,
-								height: 200,
-								// flexDirection: 'column', // DEFAULT
+								// height: '100%',
+								flexDirection: 'column', // DEFAULT
 								// width: '100%'
-
 							}}>
 								<View style={{
-									backgroundColor: '#03365c',
 									paddingTop:10,
 								}}>
 									<View style={{
@@ -45,7 +44,6 @@ export default class Temp extends Component {
 								</View>
 								
 								<View style={{
-									backgroundColor: '#03365c',
 									paddingTop:10,
 								}}>
 									<Card>
@@ -68,24 +66,18 @@ export default class Temp extends Component {
 						</Content>
 						<Footer>
 							<FooterTab style={{backgroundColor: '#fff'}}>
-								<Button active >
+								<Button style={styles.footertab_button}>
 									<Icon type="FontAwesome" name="line-chart" /> 
 								</Button>
-								<Button	>
-									<Icon type="FontAwesome5" name="dolly" /> 
-									{/* <Icon name="camera" /> */}
+								<Button style={styles.footertab_button}>
+									<View style={styles.footertab_active_indicator} />
+									<Icon style={styles.footertab_icon_active} type="FontAwesome5" name="dolly" /> 
 								</Button>
-								<Button style={{backgroundColor: '#fff'}}>
+								<Button style={styles.footertab_button}>
 									<Icon type="FontAwesome" name="truck" /> 
-									{/* 
-									<Title style={{color: 'silver'}}>truc</Title>
-									*/}
 								</Button>
-								<Button>
-									<Icon name="person" />
-									{/* 
-									<Title>quot</Title>
-									*/}
+								<Button style={styles.footertab_button}>
+									<Icon name="person"/>
 								</Button>
 							</FooterTab>
 						</Footer>
@@ -94,21 +86,3 @@ export default class Temp extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-  ligtFont: {
-    color: '#fff',
-	marginRight:10,
-	marginLeft:10,
-    // fontWeight: 'bold',
-    // fontSize: 30,
-  },
-  headerBigger: {
-    fontSize: 25,
-    // fontWeight: 'bold',
-    // fontSize: 30,
-  },
-  red: {
-    color: 'red',
-  },
-});
