@@ -7,6 +7,25 @@ export default StyleSheet.create({
         paddingHorizontal: 14,
         paddingVertical: 20,
     },
+    contentContainer:{
+        backgroundColor: '#03365c',
+        flex: 1,
+        // height: '100%',
+        flexDirection: 'column', // DEFAULT
+        // width: '100%'
+    },
+    contentHeader:{
+        paddingTop:10,
+    },
+    contentBody:{
+        paddingTop:10,
+        flex:1,
+        backgroundColor: '#e1f8ff',
+        borderTopLeftRadius:10,
+        borderTopRightRadius:10,
+        paddingLeft:15,
+        paddingRight:15,
+    },
     contentCenter:{
         marginTop: 15,
         flex: 1,
@@ -16,17 +35,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     activeCustom: {
-        // 'NativeBase.Text': {
-        //   color: variables.tabBarActiveTextColor,
-        //   fontSize: variables.tabBarTextSize,
-        //   lineHeight: 16
-        // },
-        // 'NativeBase.Icon': {
-        //   color: variables.tabBarActiveTextColor
-        // },
-        // 'NativeBase.IconNB': {
-        //   color: variables.tabBarActiveTextColor
-        // },
         borderRadius: 0,
         borderTopColor: '#ff9c00',
         borderTopWidth: 10,

@@ -13,22 +13,14 @@ export default class Temp extends Component {
 					<Container >
 						{/* <Header  style={{toolbarHeight:50}} /> */}
 						<Content contentContainerStyle={{flex:1}}>
-							<View style={{
-								backgroundColor: '#03365c',
-								flex: 1,
-								// height: '100%',
-								flexDirection: 'column', // DEFAULT
-								// width: '100%'
-							}}>
-								<View style={{
-									paddingTop:10,
-								}}>
+							<View style={styles.contentContainer}>
+								<View style={styles.contentHeader}>
 									<View style={{
 										flexDirection:'row',
 										padding:10,
 									}}>
 										<Icon style={styles.ligtFont} name='image' />
-										<Text style={styles.ligtFont}>I am head unta</Text>
+										<Text style={styles.ligtFont}>Rosendo Hernandez</Text>
 										<View style={{alignItems: 'flex-end',flex:1,flexDirection:'row-reverse'}}>
 											<Icon style={{...styles.ligtFont}} name='exit' />
 											<Icon style={{...styles.ligtFont}} name='person' />
@@ -42,10 +34,7 @@ export default class Temp extends Component {
 
 									</View>
 								</View>
-								
-								<View style={{
-									paddingTop:10,
-								}}>
+								<View style={styles.contentBody}>
 									<Card>
 										<CardItem header>
 											<Text>NativeBase</Text>
