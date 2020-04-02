@@ -15,4 +15,9 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+row: {
+    flex: 1,
+    flexDirection: "row"
+  },
+
 });

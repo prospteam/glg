@@ -13,17 +13,26 @@ class Dashboard extends Component {
          color: text
       })
    }
-
-   render() {
+  //  componentWillMount(){
+  //   AsyncStorage.getItem('userdata').then((user_data_json) => {
+  //     let userdata = JSON.parse(user_data_json);
+  //     this.setState({
+  //       user: userdata,
+  //       loaded: true
+  //     });
+  //   });
+  // }
+  //
+   render() { 
        console.log('this.props.RiderReducer.loggedinData', this.props.RiderReducer.loggedinData);
       return (
          <>
-
             <View style={{ position: 'relative', height: 150, width: '100%' }}>
                <View style={{ backgroundColor: '#03365c', height: 250, position: 'absolute', width: '100%' }}>
                   <Text style={styles.TextInput}>Proweaver</Text>
                     <TouchableOpacity>
-                        <Text style={styles.Logout}>Logout  <Icon reverse name='ios-log-out' type="ionicons" color='orange'/></Text>
+                        <Text style={styles.Logout}>Logout</Text>
+                        <Icon reverse name='ios-log-out' type="ionicons" color='orange'/>
                      </TouchableOpacity>
                   <Text style={styles.tableName}>Dashboard</Text>
                </View>
@@ -80,6 +89,17 @@ class Dashboard extends Component {
    }
 
 }
+// logout(){
+//
+//   AsyncStorage.removeItem('userdata').then(() => {
+//     app.unauth();
+//     this.props.navigator.push({
+//       component: Login
+//     });
+//   });
+//
+// }
+
 const styles = StyleSheet.create({
 
    Graphs: {
@@ -147,13 +167,19 @@ const styles = StyleSheet.create({
   Logout:{
       alignSelf: 'flex-end',
       flexDirection: 'row',
-      marginRight:'10%',
+      marginRight:'5%',
       marginTop: '-8%',
-      color:'#fff'
-
-      // justifyContent: 'flex-end'
-
-  }
+      color:'#fff',
+  },
+  primary_button: {
+    margin: 10,
+    padding: 15,
+    backgroundColor: '#529ecc'
+  },
+  primary_button_text: {
+    color: '#FFF',
+    fontSize: 18
+  },
 
 });
 function reduxState(state) {

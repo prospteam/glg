@@ -37,7 +37,7 @@ export default class Temp extends Component {
 								<View style={styles.contentBody}>
 									<Card>
 										<CardItem header>
-											<Text>NativeBase</Text>
+											<Text>NativeBaseed</Text>
 										</CardItem>
 										<CardItem>
 											<Body>
@@ -56,14 +56,14 @@ export default class Temp extends Component {
 						<Footer>
 							<FooterTab style={{backgroundColor: '#fff'}}>
 								<Button style={styles.footertab_button}>
-									<Icon type="FontAwesome" name="line-chart" /> 
+									<Icon type="FontAwesome" name="line-chart" />
 								</Button>
 								<Button style={styles.footertab_button}>
 									<View style={styles.footertab_active_indicator} />
-									<Icon style={styles.footertab_icon_active} type="FontAwesome5" name="dolly" /> 
+									<Icon style={styles.footertab_icon_active} type="FontAwesome5" name="dolly" />
 								</Button>
 								<Button style={styles.footertab_button}>
-									<Icon type="FontAwesome" name="truck" /> 
+									<Icon type="FontAwesome" name="truck" />
 								</Button>
 								<Button style={styles.footertab_button}>
 									<Icon name="person"/>

@@ -102,7 +102,7 @@ export default class Dashboard extends Component {
          <ScrollView style={{ flex: 1, backgroundColor: '#e1f8ff' }}>
             <View style={{ flex: 1, position: 'relative', height: 150, width: '100%' }}>
                <View style={{ backgroundColor: '#03365c', height: 250, position: 'absolute', width: '100%' }}>
-                  <Text style={styles.TextInput}>Proweaver</Text>
+                  <Text style={styles.TextInput}>Proweaverss</Text>
                   <Text style={styles.tableName}>Loads</Text>
                </View>
             </View>
@@ -110,7 +110,7 @@ export default class Dashboard extends Component {
                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent', marginTop: -75, zIndex: 4 }}>
                   <View style={styles.btnlogin}>
                      <TouchableOpacity>
-                        <Text>Add New Load</Text>
+                        <Text>Add New Loads</Text>
                      </TouchableOpacity>
                   </View>
                   <View style={styles.btnlogin}>
@@ -120,7 +120,7 @@ export default class Dashboard extends Component {
                   </View>
                   <View style={styles.btnlogin}>
                      <TouchableOpacity>
-                        <Text>Load Maps</Text>
+                        <Text>Load Mapses</Text>
                      </TouchableOpacity>
                   </View>
                </View>
@@ -158,7 +158,7 @@ export default class Dashboard extends Component {
                         onDateChange={(text) => this.setState({ date: text })}
                      />
                      <TextInput style={styles.fieldsInput1} placeholderTextColor="#000" placeholder="Commodity" onChangeText={(text) => this.setState({ commodity: text })} />
-                     <TextInput style={styles.fieldsInput1} placeholderTextColor="#000" keyboardType='numeric' placeholder="Reference Number" onChangeText={(text) => this.setState({ reference: text })} />
+                     <TextInput style={styles.fieldsInput1} placeholderTextColor="#000" keyboardType='numeric' placeholder="Reference Numbers" onChangeText={(text) => this.setState({ reference: text })} />
                      {/* <TextInput style={styles.fieldsInput1} placeholderTextColor="#000" placeholder="Trailer Type" onChangeText={(text) => this.setState({ trailertype: text })} /> */}
                      <View
                         style={styles.fieldsInput1}
