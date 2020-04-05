@@ -57,11 +57,42 @@ export default StyleSheet.create({
     footertab_icon_active: {
         color:'#086f87'
     },
+    vehicle_type:{
+        color:'orange'
+    },
     footertab_active_indicator: {
         width:'75%',
         height:10,
         backgroundColor: '#ff9c00',
         position:'absolute',
         top:0
-        }
+    },
+    middle: {
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 10
+    },
+    text_input:{
+        borderWidth: 0.5,
+        borderColor: '#009688',
+        borderRadius: 5,width:'70%',
+        height: 35
+    },
+    middle_text:{
+        fontWeight: 'bold',
+        fontSize:12,
+        marginTop:10
+    },
+    search_button:{
+        backgroundColor: 'orange',
+        color: 'white',
+        justifyContent: 'center',
+        borderRadius: 50,
+        width: 120,
+        textAlign: 'center',
+        padding: 8,
+        fontSize: 15,
+        marginTop: 20,
+        marginBottom:20
+    }
 });

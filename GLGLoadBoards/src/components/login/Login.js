@@ -78,12 +78,14 @@ class Login extends Component {
             }
             if (response.data.userdata.user_type == "shipper") {
                 that.props.login_true_false('SET_TRUE_FALSE', data);
-                Actions.Dashboard();
+                Actions.Loads();
+                // Actions.Dashboard();
 
             } else if (response.data.userdata.user_type == "carrier") {
                 Actions.carrierDashboard();
             } else {
-                Actions.Dashboard();
+                Actions.Loads();
+                // Actions.Dashboard();
             }
             if (response.data.status == "success") {
                 that.setState({
@@ -92,7 +94,8 @@ class Login extends Component {
                     theme: "success",
                     title: "Success!"
                 });
-                Actions.Dashboard()
+                Actions.Loads()
+                // Actions.Dashboard()
             } else {
                 that.setState({
                     show: true,

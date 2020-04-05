@@ -23,7 +23,7 @@ class Dashboard extends Component {
   //   });
   // }
   //
-   render() { 
+   render() {
        console.log('this.props.RiderReducer.loggedinData', this.props.RiderReducer.loggedinData);
       return (
          <>
@@ -182,12 +182,3 @@ const styles = StyleSheet.create({
   },
 
 });
-function reduxState(state) {
-    console.log('redaux stae from lgin ', state.MyGlobalReducer)
-    return {
-        RiderReducer: state.RiderReducer,
-        MyGlobalReducer: state.MyGlobalReducer
-    }
-}
-
- export default connect(reduxState, null)(Dashboard);

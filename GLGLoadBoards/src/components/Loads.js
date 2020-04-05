@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import {ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { Container, Header, Content, Card, Body, CardItem, Footer, FooterTab, Button, Icon, Title, Text, View,StyleProvider } from 'native-base';
-
+import {connect} from 'react-redux';
 import getTheme from '../../native-base-theme/components';
 import material from '../../native-base-theme/variables/material';
 import styles from '../assets/styles/CommonStyles';
 // import { StyleSheet } from 'react-native';
 
-export default class Loads extends Component {
+class Loads extends Component{
     render() {
+           console.log('this.props.RiderReducer.loggedinData', this.props.RiderReducer.loggedinData);
         return (
 			  <StyleProvider style={getTheme(material)}>
 					<Container >
@@ -20,7 +21,7 @@ export default class Loads extends Component {
 										flexDirection:'row',
 										padding:10,
 									}}>
-										<Icon style={styles.ligtFont} name='image' />
+										<Icon style={styles.ligtFont} name='image'/>
 										<Text style={styles.ligtFont}>Rosendo Hernandez</Text>
 										<View style={{alignItems: 'flex-end',flex:1,flexDirection:'row-reverse'}}>
 											<Icon style={{...styles.ligtFont}} name='exit' />
@@ -37,26 +38,17 @@ export default class Loads extends Component {
                                 <ScrollView>
                                 <View style={styles.contentBody}>
                                     <Text style={{fontSize:18,marginBottom: 8}}>Load Search</Text>
-                                    <View style={{alignItems: 'center', backgroundColor: 'white', borderRadius: 10}}>
-                                        <Text style={{fontWeight: 'bold',fontSize:12, marginTop:10}}>Origin</Text>
-                                        <TextInput style={{borderWidth: 0.5,borderColor: '#009688', borderRadius: 5,width:'70%',height: 35,}} placeholderTextColor="#000"/>
-                                        <Text style={{fontWeight: 'bold',fontSize:12}}>Destination </Text>
-                                        <TextInput style={{borderWidth: 0.5,borderColor: '#009688', borderRadius: 5,width:'70%', height: 35,}} placeholderTextColor="#000"/>
-                                        <Text style={{fontWeight: 'bold',fontSize:12}}>Date Available </Text>
-                                        <TextInput style={{borderWidth: 0.5,borderColor: '#009688', borderRadius: 5,width:'70%', height: 35,}} placeholderTextColor="#000"/>
-                                        <Text style={{fontWeight: 'bold',fontSize:12}}>Trailer Type  </Text>
-                                        <TextInput style={{borderWidth: 0.5,borderColor: '#009688', borderRadius: 5,width:'70%', height: 35,}} placeholderTextColor="#000"/>
+                                    <View style={styles.middle}>
+                                        <Text style={styles.middle_text}>Origin</Text>
+                                        <TextInput style={styles.text_input} placeholderTextColor="#000"/>
+                                        <Text style={styles.middle_text}>Destination</Text>
+                                        <TextInput style={styles.text_input} placeholderTextColor="#000"/>
+                                        <Text style={styles.middle_text}>Trailer Type</Text>
+                                        <TextInput style={styles.text_input} placeholderTextColor="#000"/>
+                                        <Text style={styles.middle_text}>Commodity</Text>
+                                        <TextInput style={styles.text_input} placeholderTextColor="#000"/>
                                         <TouchableOpacity>
-                                          <Text style={{ backgroundColor: 'orange',
-                                           color: 'white',
-                                           justifyContent: 'center',
-                                           borderRadius: 50,
-                                           width: 120,
-                                           textAlign: 'center',
-                                           padding: 8,
-                                           fontSize: 15,
-                                           marginTop: 20,
-                                           marginBottom:20}}>Search</Text>
+                                          <Text style={styles.search_button}>Search</Text>
                                        </TouchableOpacity>
                                     </View>
 									<Card>
@@ -78,7 +70,7 @@ export default class Loads extends Component {
                                                             <Text style={{fontSize:20, marginLeft: 20, fontWeight: 'bold'}}>$35.5</Text>
                                                         </View>
                                                     </View>
-                                                    <View style={{borderBottomColor: '#e1f8ff',borderBottomWidth: 1, width:'70%'}} />
+                                                    <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
                                                 <View style={{flex: 1, flexDirection: 'row',marginTop:2}}>
                                                     <View>
                                                         <Text>Destination</Text>
@@ -88,7 +80,7 @@ export default class Loads extends Component {
                                                         <Text style={{fontSize:10, marginLeft: 20}}>4821, Ayala Center Cebu Park</Text>
                                                     </View>
                                                     <View style={{textAlign:'right', marginLeft:20, }}>
-                                                            <Icon type="FontAwesome5" name="truck" color="#A6A6A6"/>
+                                                            <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
                                                             <Text style={{fontSize:10}}>ZXC123</Text>
                                                     </View>
                                                 </View>
@@ -114,7 +106,7 @@ export default class Loads extends Component {
                                                             <Text style={{fontSize:20, marginLeft: 20, fontWeight: 'bold'}}>$35.5</Text>
                                                         </View>
                                                     </View>
-                                                    <View style={{borderBottomColor: '#e1f8ff',borderBottomWidth: 1, width:'70%'}} />
+                                                    <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
                                                 <View style={{flex: 1, flexDirection: 'row',marginTop:2}}>
                                                     <View>
                                                         <Text>Destination</Text>
@@ -124,7 +116,7 @@ export default class Loads extends Component {
                                                         <Text style={{fontSize:10, marginLeft: 20}}>4821, Ayala Center Cebu Park</Text>
                                                     </View>
                                                     <View style={{textAlign:'right', marginLeft:20, }}>
-                                                            <Icon type="FontAwesome5" name="truck" color='orange'/>
+                                                            <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck" color='orange'/>
                                                             <Text style={{fontSize:10}}>ZXC123</Text>
                                                     </View>
                                                 </View>
@@ -158,3 +150,13 @@ export default class Loads extends Component {
         );
     }
 }
+
+function reduxState(state) {
+    console.log('redaux stae from lgin ', state.MyGlobalReducer)
+    return {
+        RiderReducer: state.RiderReducer,
+        MyGlobalReducer: state.MyGlobalReducer
+    }
+}
+
+ export default connect(reduxState, null)(Loads);
