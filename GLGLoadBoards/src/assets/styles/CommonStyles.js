@@ -19,12 +19,14 @@ export default StyleSheet.create({
     },
     contentBody:{
         paddingTop:10,
-        flex:1,
         backgroundColor: '#e1f8ff',
+        flex:1,
         borderTopLeftRadius:10,
         borderTopRightRadius:10,
-        paddingLeft:15,
-        paddingRight:15,
+        padding:15,
+    },
+    contentItem:{
+        margin:10,
     },
     contentCenter:{
         marginTop: 15,
