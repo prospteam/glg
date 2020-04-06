@@ -10,8 +10,8 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { login_true_false } from '../../actions/index.js';
-// import { login_true_false } from '../../actions/Actions.js';
+// import { login_true_false } from '../../actions/index.js';
+import { login_true_false } from '../../actions/Actions.js';
 // I included ang "index.js" para di malibog
 // import { sampleFunction2 } from '../../actions/index.js';// I included ang "index.js" para di malibog
 
@@ -64,11 +64,9 @@ class Login extends Component {
             })
             return;
         }
-
         console.log("GETTING");
 
         const that = this;
-
         axios.post('http://glgfreight.com/loadboard/login/index/yes', {
             username: this.state.username,
             password: this.state.password,

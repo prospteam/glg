@@ -7,7 +7,9 @@ import material from '../../native-base-theme/variables/material';
 import styles from '../assets/styles/CommonStyles';
 // import { StyleSheet } from 'react-native';
 
+
 class Loads extends Component{
+    
     render() {
            console.log('this.props.RiderReducer.loggedinData', this.props.RiderReducer.loggedinData);
         return (
