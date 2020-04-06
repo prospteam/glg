@@ -1,6 +1,6 @@
 // RNRF logic here
 import React, { Component } from 'react';
-import SideBar from './components/template/Sidebar.js';
+// import SideBar from './components/template/Sidebar.js';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 // import Routes from './Routes.js';
 import Login from './components/login/Login.js';

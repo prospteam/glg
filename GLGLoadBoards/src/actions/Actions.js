@@ -12,6 +12,20 @@ import firebase from "../firestore.js";
 
 // alert('action loaded');
 
+export function set_SAMPLEBOLEAN(type, payload){
+	// console.log('true_or_false',payload);
+	return{
+		type: type,
+		payload: payload
+	}
+}
+export function set_sampleString(type, payload){
+	// console.log('true_or_false',payload);
+	return{
+		type: type,
+		payload: payload
+	}
+}
 export function sampleFunction(type_,data){
 	// alert(MyConfigs.api_link +'/login/register/yes');
 	console.log('Start');
