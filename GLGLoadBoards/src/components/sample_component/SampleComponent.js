@@ -83,7 +83,8 @@ function reduxStateToProps(state) {
     // const reduxState = (state) => {
     console.log('redaux stae  ', state)
     return {
-		reduxState: state.MyGlobalReducer
+		reduxState: state.MyGlobalReducer 
+		// si MyGlobalReducer kay makit an sa reducers folder
     }
 }
 
@@ -91,6 +92,7 @@ function reduxStateToProps(state) {
 function reduxActionFunctions(dispatch){
     return bindActionCreators({
         set_sampleString : set_sampleString
+		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
  }
 
