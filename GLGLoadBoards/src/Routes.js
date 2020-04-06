@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 // import Routes from './Routes.js';
 import Login from './components/login/Login.js';
+import Loads from './components/Loads.js';
 import Temp from './components/Temp.js';
 import Loads from './components/Loads.js';
 import SampleComponent from './components/sample_component/SampleComponent.js';
@@ -45,5 +46,4 @@ function reduxStateToProps (state){
         MyGlobalReducer: state.MyGlobalReducer
     }
 }
-
 export default connect(reduxStateToProps,null)(Routes);

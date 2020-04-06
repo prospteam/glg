@@ -156,9 +156,7 @@ class Loads extends Component{
 function reduxState(state) {
     console.log('redaux stae from lgin ', state.MyGlobalReducer)
     return {
-        RiderReducer: state.RiderReducer,
         MyGlobalReducer: state.MyGlobalReducer
     }
 }
-
  export default connect(reduxState, null)(Loads);
