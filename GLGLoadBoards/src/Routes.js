@@ -19,16 +19,13 @@ class Routes extends Component {
         return (
             <Router>
                     <Scene key="root">
+                        <Scene key="Loads" component={Loads} title="Loads" hideNavBar />
                         <Scene key="SampleComponent" component={SampleComponent}  title="" hideNavBar />
-                        <Scene key="Loads" component={Loads} initial={(this.props.MyGlobalReducer.isLoggedIn== true) ? true : false } title="Loads" hideNavBar />
-                        <Scene key="Temp" component={Temp} title="" hideNavBar />
                         <Scene key="LoadSearch" component={LoadSearch} title="" hideNavBar />
                         <Scene key="Register" component={Register} title="" hideNavBar />
                         <Scene key="SampleComponent2" component={SampleComponent2}  title="" hideNavBar />
-                        <Scene key="Temp" component={Temp}  title="" hideNavBar />
                         {
                         // <Scene key="Login" component={Login} initial={(this.props.MyGlobalReducer.isLoggedIn === false) ? true : false} title="" hideNavBar />
-
                         // <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
                         // <Scene key="carrierDashboard" component={CarrierDashboard} title="" hideNavBar/>
                         // <Scene key="All_loads" component={All_loads} title="" hideNavBar />

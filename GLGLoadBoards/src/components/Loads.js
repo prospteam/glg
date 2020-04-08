@@ -5,11 +5,81 @@ import {connect} from 'react-redux';
 import getTheme from '../../native-base-theme/components';
 import material from '../../native-base-theme/variables/material';
 import styles from '../assets/styles/CommonStyles';
+import axios from 'axios';
 // import { StyleSheet } from 'react-native';
 
+
 class Loads extends Component{
+    constructor(props){
+        super(props)
+            this.state = {
+                load_id: '',
+                origin:'',
+                destination:'',
+                trailer_type:'',
+                rate:'',
+                length:'',
+                width:'',
+                height:'',
+                weight:'',
+                date_available:'',
+                comments:'',
+                category:'',
+                carrier_id:'',
+                shipper_id:'',
+                deleted_status:'',
+                origin_state:'',
+                destination_state:'',
+                delivery_date:'',
+                date_added:'',
+                commodity:'',
+                reference_number:'',
+            }
+    }
+    handleInput = () =>{
+        this.setState({
+            show:false
+        })
+    }
+
+    handleSearch = () => {
+
+        console.log('Get all Loads');
+
+    axios.post('http://glgfreight.com/loadboard/api_mobile/loads/all_loads',{
+        load_id: this.state.load_id,
+        origin: this.state.origin,
+        destination: this.state.destination,
+        trailer_type: this.state.trailer_type,
+        rate: this.state.rate,
+        length: this.state.length,
+        width: this.state.width,
+        height: this.state.height,
+        weight: this.state.weight,
+        date_available: this.state.date_available,
+        comments: this.state.comments,
+        category: this.state.category,
+        carrier_id: this.state.carrier_id,
+        shipper_id: this.state.shipper_id,
+        deleted_status:  this.state.deleted_status,
+        origin_state: this.state.origin_state,
+        destination_state: this.state.destination_state,
+        delivery_date: this.state.delivery_date,
+        date_added: this.state.date_added,
+        commodity: this.state.commodity,
+        reference_number: this.state.reference_number
+    })
+    .then(function (response){
+        console.log(response);
+    })
+    .catch( function(error){
+        console.log(error);
+    });
+}
+
+
     render() {
-           console.log('this.props.RiderReducer.loggedinData', this.props.RiderReducer.loggedinData);
+           // console.log('this.props.RiderReducer.loggedinData', this.props.RiderReducer.loggedinData);
         return (
 			  <StyleProvider style={getTheme(material)}>
 					<Container >
@@ -39,15 +109,15 @@ class Loads extends Component{
                                 <View style={styles.contentBody}>
                                     <Text style={{fontSize:18,marginBottom: 8}}>Load Search</Text>
                                     <View style={styles.middle}>
-                                        <Text style={styles.middle_text}>Origin</Text>
-                                        <TextInput style={styles.text_input} placeholderTextColor="#000"/>
+                                        <Text style={styles.middle_text}>Originses</Text>
+                                        <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ origin: text })}/>
                                         <Text style={styles.middle_text}>Destination</Text>
-                                        <TextInput style={styles.text_input} placeholderTextColor="#000"/>
+                                        <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ destination: text })}/>
                                         <Text style={styles.middle_text}>Trailer Type</Text>
-                                        <TextInput style={styles.text_input} placeholderTextColor="#000"/>
+                                        <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ trailer_type: text })}/>
                                         <Text style={styles.middle_text}>Commodity</Text>
-                                        <TextInput style={styles.text_input} placeholderTextColor="#000"/>
-                                        <TouchableOpacity>
+                                        <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ commodity: text })}/>
+                                        <TouchableOpacity onPress = {() => this.handleSearch()}>
                                           <Text style={styles.search_button}>Search</Text>
                                        </TouchableOpacity>
                                     </View>

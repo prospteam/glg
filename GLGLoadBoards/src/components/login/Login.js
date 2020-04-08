@@ -10,9 +10,10 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { login_true_false } from '../../actions/Actions';
-// import { login_true_false } from '../../actions/Actions.js';
+
 // I included ang "index.js" para di malibog
+
+import { login_true_false } from '../../actions/Actions.js';// I included ang "index.js" para di malibo
 // import { sampleFunction2 } from '../../actions/index.js';// I included ang "index.js" para di malibog
 
 class Login extends Component {
@@ -33,13 +34,11 @@ class Login extends Component {
         }
 
     }
-
     handleClose = () => {
         this.setState({
             show: false
         })
     }
-
     handleOpen = () => {
         if (this.state.usertype == 'carrier') {
         }
