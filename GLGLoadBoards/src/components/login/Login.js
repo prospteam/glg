@@ -107,6 +107,7 @@ class Login extends Component {
         })
         .catch(function (error) {
             console.log(error);
+            console.log("LAGI ERROR NA LAGI ALAM KO");
         });
     }
 
