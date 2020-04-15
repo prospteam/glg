@@ -1,3 +1,5 @@
+
+
 import React, { Component } from 'react';
 import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, Linking, ScrollView } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
@@ -7,8 +9,7 @@ import { Actions } from 'react-native-router-flux';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import { OutlinedTextField } from 'react-native-material-textfield';
 
-
-export default class Dashboard extends Component {
+export default class TruckMapSearch extends Component {
 
     state = {
         color: 'white',

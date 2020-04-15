@@ -9,7 +9,7 @@ import axios from 'axios';
 // import { StyleSheet } from 'react-native';
 
 
-class Loads extends Component{
+class Load_map extends Component{
     constructor(props){
         super(props)
             this.state = {
@@ -100,45 +100,26 @@ class Loads extends Component{
                                        </TouchableOpacity>
                                     </View>
 
-                                    <Card>
-										<CardItem header style={{backgroundColor:'#05426e' }} key={this.state.load_id}>
-											<Text style={{color:'#fff'}}>45</Text>
-											<Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
-										</CardItem>
-										<CardItem>
-											<Body>
-                                                <View style={{flex: 1, flexDirection: 'row'}}>
-                                                    <View>
-                                                        <Text>Origin</Text>
-                                                    </View>
-                                                    <View style={{marginBottom:5}}>
-                                                    {this.state.response.map((y) => {
-                                                        return(<Text style={{fontSize:10, marginLeft: 60}}>{y.prnt_origin}</Text>);
-                                                    })
-                                                }
-                                                        <Text style={{fontSize:10, marginLeft: 60}}>Hillsboro</Text>
-                                                    </View>
-                                                        <View style={{textAlign:'right'}}>
-                                                            <Text style={{fontSize:20, marginLeft: 60, fontWeight: 'bold'}}>$0.00</Text>
-                                                        </View>
-                                                    </View>
-                                                    <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
-                                                        <View style={{flex: 1, flexDirection: 'row',marginTop:2}}>
-                                                    <View>
-                                                        <Text>Destination</Text>
-                                                    </View>
-                                                    <View style={{marginBottom:5}}>
-                                                        <Text style={{fontSize:10, marginLeft: 20}}> {this.state.origin}</Text>
-                                                        <Text style={{fontSize:10, marginLeft: 20}}>Phoenix, AZ</Text>
-                                                    </View>
-                                                    <View style={{textAlign:'right', marginLeft:100 }}>
-                                                            <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
-                                                            <Text style={{fontSize:10}}>CA</Text>
-                                                    </View>
-                                                </View>
-											</Body>
-										</CardItem>
-									</Card>
+                                    <Card style={styles.contentItem}>
+                                        <CardItem header style={{backgroundColor:'#05426e', borderRadius: 10 }} key={this.state.load_id}>
+                                            <Text style={{color:'#fff',marginLeft: 80}}>Lapu-Lapu  - Mandaue</Text>
+                                            <Text style={{color:'#4caf50', fontSize:12}}> ..</Text>
+                                        </CardItem>
+                                        <CardItem>
+                                            <Body>
+                                                <Text> Trailer Type</Text>
+                                                <Text> Ship Date</Text>
+                                                <Text> Commodity</Text>
+                                                <Text> Length</Text>
+                                                <Text> Width</Text>
+                                                <Text> Height</Text>
+                                            </Body>
+                                        </CardItem>
+                                        <CardItem footer style={{backgroundColor:'#05426e', borderRadius: 10  }}>
+                                            <Text style={{color:'#fff'}}>45</Text>
+                                        </CardItem>
+                                    </Card>
+
 
                             	</View>
                                 </ScrollView>
@@ -173,4 +154,4 @@ function reduxState(state) {
         MyGlobalReducer: state.MyGlobalReducer
     }
 }
- export default connect(reduxState, null)(Loads);
+ export default connect(reduxState, null)(Load_map);

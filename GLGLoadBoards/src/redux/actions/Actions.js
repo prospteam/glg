@@ -3,16 +3,23 @@ import axios from 'axios';
 import Geolocation from '@react-native-community/geolocation';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import MyConfigs from '../MyConfigs.js';
+import api_link from '../../libraries/MyConfigs.js';
 
 const geolib = require('geolib');
 
 // My Imports
-import firebase from "../firestore.js";
+import firebase from "../../libraries/firestore.js";
 
 // alert('action loaded');
 
 export function set_SAMPLEBOLEAN(type, payload){
+	// console.log('true_or_false',payload);
+	return{
+		type: type,
+		payload: payload
+	}
+}
+export function set_is_logged(type, payload){
 	// console.log('true_or_false',payload);
 	return{
 		type: type,

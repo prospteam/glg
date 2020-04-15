@@ -5,6 +5,12 @@ import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 // import Routes from './Routes.js';
 import Login from './components/login/Login.js';
 import Loads from './components/Loads.js';
+<<<<<<< HEAD
+import Load_map from './components/Load_map.js';
+=======
+import TruckMapSearch from './components/truck_map_search/TruckMapSearch';
+import Asd from './components/truck_map_search/Asd';
+>>>>>>> 36fcbd9522ce953c7cb8dd6cf6bcadeb3add2852
 import Temp from './components/Temp.js';
 import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
@@ -15,10 +21,12 @@ import {connect} from 'react-redux';
 
 // Dont just exist, live.
 class Routes extends Component {
+<<<<<<< HEAD
     render() {
         return (
             <Router>
                     <Scene key="root">
+                        <Scene key="Load_map" component={Load_map} title="Load_map" hideNavBar />
                         <Scene key="Loads" component={Loads} title="Loads" hideNavBar />
                         <Scene key="SampleComponent" component={SampleComponent}  title="" hideNavBar />
                         <Scene key="LoadSearch" component={LoadSearch} title="" hideNavBar />
@@ -36,13 +44,70 @@ class Routes extends Component {
                 </Router>
             );
     }
+=======
+    render() {return (<Router>
+        <Scene key="root">
+            {/* <Scene 
+                key="Asd" 
+                component={Asd} 
+                initial={
+                    (this.props.redux_session.is_logged === false)? true : false
+                }
+                title="" 
+                hideNavBar 
+            /> */}
+            <Scene 
+                key="SampleComponent" 
+                component={SampleComponent}  
+                title="" 
+                hideNavBar 
+            />
+            <Scene 
+                key="Login" 
+                component={Login} 
+                initial={!this.props.redux_session.is_logged}
+                title="" 
+                hideNavBar 
+            />
+            <Scene 
+                key="Loads" 
+                component={Loads} 
+                title="Loads" 
+                hideNavBar 
+            />
+            <Scene 
+                key="LoadSearch" 
+                component={LoadSearch} 
+                title="" hideNavBar 
+            />
+            <Scene 
+                key="Register" 
+                component={Register} 
+                title="" 
+                hideNavBar 
+            />
+            <Scene 
+                key="SampleComponent2" 
+                component={SampleComponent2}  
+                title="" hideNavBar 
+            />
+            {
+            // <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
+            // <Scene key="carrierDashboard" component={CarrierDashboard} title="" hideNavBar/>
+            // <Scene key="All_loads" component={All_loads} title="" hideNavBar />
+            // <Scene key="truck_map" component={truck_map} title="" hideNavBar />
+            // tangtangko above para maka proceed ko. 3/19/20
+            }
+        </Scene>
+    </Router>);}
+>>>>>>> 36fcbd9522ce953c7cb8dd6cf6bcadeb3add2852
 }
 
-// Push yourself a little more, everytime.
-
-function reduxStateToProps (state){
+// Push yourself a little more, every day.
+function redux_state_to_Props (state){
+    console.log(' Router.js redux_session  ', state.redux_session)
     return {
-        MyGlobalReducer: state.MyGlobalReducer
+        redux_session: state.redux_session
     }
 }
-export default connect(reduxStateToProps,null)(Routes);
+export default connect(redux_state_to_Props,null)(Routes);
