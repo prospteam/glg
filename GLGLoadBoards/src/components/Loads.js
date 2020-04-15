@@ -52,10 +52,15 @@ class Loads extends Component{
     //mao nii
 }
 
+// _renderOptions = (options) =>{
+//     return options.map((option,index) =>(
+//
+//     ))
+// }
+
 
 
     render() {
-        console.log(this.state.response);
         // const loads = this.state.loads.map(loads)
            // console.log('this.props.RiderReducer.loggedinData', this.props.RiderReducer.loggedinData);
         return (
