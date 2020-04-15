@@ -6,10 +6,19 @@ import { Actions } from 'react-native-router-flux';
 import getTheme from '../../../native-base-theme/components';
 import material from '../../../native-base-theme/variables/material';
 import styles from '../../assets/styles/CommonStyles';
+import { bindActionCreators } from 'redux';
+import {connect} from 'react-redux';
+import {set_is_logged} from '../../redux/actions/Actions';;
 // import { StyleSheet } from 'react-native';
 
-export default class Screen extends Component {
+ class Screen extends Component {
+
+    end_session() {
+        this.props.set_is_logged('set_is_logged',false);
+    }
+
     render() {
+        console.log(this.props.logout);
         return (
 			  <StyleProvider style={getTheme(material)}>
 					<Container >
@@ -22,9 +31,11 @@ export default class Screen extends Component {
 											padding:10,
 										}}>
 											<Icon style={styles.ligtFont} name='image' />
-											<Text style={styles.ligtFont}>Rosendo Hernandez</Text>
+											<Text style={styles.ligtFont}>Rosendo Hernandezss</Text>
 											<View style={{alignItems: 'flex-end',flex:1,flexDirection:'row-reverse'}}>
-												<Icon style={{...styles.ligtFont}} name='exit' />
+                                            <Button onPress={ () => this.end_session()}>
+                                                <Icon style={{...styles.ligtFont}}  name='exit' />
+                                            </Button>
 												<Icon style={{...styles.ligtFont}} name='person' />
 											</View>
 										</View>
@@ -43,20 +54,20 @@ export default class Screen extends Component {
 						</Content>
 						<Footer>
 							<FooterTab style={{backgroundColor: '#fff'}}>
-								<Button 
+								<Button
 								style={styles.footertab_button}
 								onPress= {() => Actions.SampleComponent()}
 								>
-									<Icon type="FontAwesome" name="line-chart" /> 
+									<Icon type="FontAwesome" name="line-chart" />
 								</Button>
 								<Button style={styles.footertab_button}
 								onPress= {() => Actions.SampleComponent2()}
 								>
 									<View style={styles.footertab_active_indicator} />
-									<Icon style={styles.footertab_icon_active} type="FontAwesome5" name="dolly" /> 
+									<Icon style={styles.footertab_icon_active} type="FontAwesome5" name="dolly" />
 								</Button>
 								<Button style={styles.footertab_button}>
-									<Icon type="FontAwesome" name="truck" /> 
+									<Icon type="FontAwesome" name="truck" />
 								</Button>
 								<Button style={styles.footertab_button}>
 									<Icon name="person"/>
@@ -68,3 +79,22 @@ export default class Screen extends Component {
         );
     }
 }
+
+
+// Push yourself a little more, every day.
+
+function redux_state_to_Props (state){
+    console.log(' Router.js redux_session  ', state.redux_session)
+    return {
+        redux_session: state.redux_session
+    }
+}
+
+function reduxActionFunctions(dispatch){
+    return bindActionCreators({
+        set_is_logged : set_is_logged
+    },dispatch);
+ }
+
+
+export default connect(redux_state_to_Props,reduxActionFunctions)(Screen);
