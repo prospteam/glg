@@ -9,7 +9,7 @@ import logo from '../../assets/images/logo.png';
 // Redux Imports
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { sampleFunction } from '../../actions/Actions.js';// I included ang "index.js" para di malibog
+import { sampleFunction } from '../../redux/actions/Actions.js';// I included ang "index.js" para di malibog
 
 const Item = Picker.Item;
 

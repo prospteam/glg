@@ -3,18 +3,19 @@ import React, { Component } from 'react';
 import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 // import { Icon } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-import bg_image from '../../assets/images/bg_image.png';
-import logo from '../../assets/images/logo.png';
 import axios from 'axios';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+
+import bg_image from '../../assets/images/bg_image.png';
+import logo from '../../assets/images/logo.png';
+import {api_link} from '../../libraries/MyConfigs.js';
+
+// REDUX imports
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { set_is_logged } from '../../redux/actions/Actions';
 
-// I included ang "index.js" para di malibog
-
-import { login_true_false } from '../../actions/Actions.js';// I included ang "index.js" para di malibo
-// import { sampleFunction2 } from '../../actions/index.js';// I included ang "index.js" para di malibog
 
 class Login extends Component {
     state = {
@@ -22,12 +23,18 @@ class Login extends Component {
         show: false,
         msg: "",
         theme: "warning",
-        title: "Warning"
+        title: "Warning",
+        success_login:false
     }
 
     constructor(props) {
         super(props)
-
+        // if(this.props.redux_session.is_logged){
+        //     this.props.set_is_logged('set_is_logged', false);
+        // }
+        
+        // console.log("api_link");
+        // console.log(api_link);
         this.state = {
             username: '',
             password: '',
@@ -38,6 +45,11 @@ class Login extends Component {
         this.setState({
             show: false
         })
+        if (this.state.success_login) {
+            if(!this.props.redux_session.is_logged){
+                this.props.set_is_logged('set_is_logged', true);
+            }
+        }
     }
     handleOpen = () => {
         if (this.state.usertype == 'carrier') {
@@ -64,37 +76,54 @@ class Login extends Component {
             return;
         }
 
+        // console.log(this.state);
         console.log("GETTING");
-
+        // .toLowerCase();
         const that = this;
+        // http://glgfreight.com/loadboard/api_mobile/common/get
 
-        axios.post('http://glgfreight.com/loadboard/login/index/yes', {
-            username: this.state.username,
-            password: this.state.password,
-            login: 'login'
-        }).then(function (response) {
-            let data = {
-                state:'isLoggedIn'
+        axios({
+            method: 'post',
+            url: api_link+'KROD/query_builder',
+            data: {
+                "select": "*",
+                "from": "glg_users",
+                "where": {
+                    "username": "admin",
+                    // "username": this.state.username.toLowerCase(),
+                    // "password": this.state.password.toLowerCase()
+                }
             }
-            if (response.data.userdata.user_type == "shipper") {
-                that.props.login_true_false('SET_TRUE_FALSE', data);
-                Actions.Loads();
-                // Actions.Dashboard();
+          }).then(function (response) {
+            // let data = {
+            //     state:'isLoggedIn'
+            // }
+            // if (response.data.userdata.user_type == "shipper") {
+            //     that.props.login_true_false('SET_TRUE_FALSE', data);
+            //     Actions.Loads();
+            //     // Actions.Dashboard();
 
-            } else if (response.data.userdata.user_type == "carrier") {
-                Actions.carrierDashboard();
-            } else {
-                Actions.Loads();
-                // Actions.Dashboard();
-            }
-            if (response.data.status == "success") {
+            // } else if (response.data.userdata.user_type == "carrier") {
+            //     Actions.carrierDashboard();
+            // } else {
+            //     Actions.Loads();
+            //     // Actions.Dashboard();
+            // }
+
+            if (response.data.length>0) {
+
+                console.log("responseXd");
+                // console.log(response.data[0].user_id);
+                // console.log(response.data.length);
+
                 that.setState({
                     show: true,
                     msg: "Successfully Login",
                     theme: "success",
-                    title: "Success!"
+                    title: "Success!",
+                    success_login: true
                 });
-                Actions.Loads()
+                // Actions.Loads()
                 // Actions.Dashboard()
             } else {
                 that.setState({
@@ -118,6 +147,8 @@ class Login extends Component {
     }
 
     render() {
+        // console.log('redux_session');
+        // console.log(this.props.redux_session);
         return (
             <View>
                 <ImageBackground source={bg_image} style={{ width: '100%', height: '100%' }}>
@@ -168,10 +199,17 @@ const styles = StyleSheet.create({
 });
 
 
- function login_true_false_dispachcer(dispatch){
+ function redux_states_to_props(state){
+    // console.log('redux_session  ', state.redux_session)
+    return {
+		redux_session: state.redux_session
+		// si MyGlobalReducer kay makit an sa reducers folder
+    }
+ }
+ function redux_action_function_to_props(dispatch){
     return bindActionCreators({
-        login_true_false : login_true_false
+        set_is_logged : set_is_logged
     },dispatch);
  }
 
-export default connect(null,login_true_false_dispachcer)(Login);
+export default connect(redux_states_to_props,redux_action_function_to_props)(Login);

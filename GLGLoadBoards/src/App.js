@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Routes from './Routes';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
-import allReducers from './reducers/index.js';
+import allReducers from './redux/reducers/index.js';
 import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -22,7 +22,7 @@ YellowBox.ignoreWarnings([
 const persistConfig = {
 	key: 'root',
 	storage: AsyncStorage,
-	whitelist: ['RiderReducer','MyGlobalReducer'],
+	whitelist: ['redux_session'],
 	timeout: null
 }
 
