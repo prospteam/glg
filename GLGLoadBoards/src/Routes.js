@@ -63,15 +63,12 @@ class Routes extends Component {
                 hideNavBar
             />
             <Scene
-<<<<<<< HEAD
-=======
                 key="SampleComponent"
                 component={SampleComponent}
                 title=""
                 hideNavBar
             />
             <Scene
->>>>>>> 58dfff37f326cfe63e40694978d5d9cb8d139740
                 key="LoadSearch"
                 component={LoadSearch}
                 title="" hideNavBar
