@@ -43,7 +43,7 @@ import {set_is_logged} from '../../redux/actions/Actions';;
 											flexDirection:'row',
 											padding:10,
 										}}>
-											<Text style={[styles.ligtFont,styles.headerBigger]}>I am title</Text>
+											<Text style={[styles.ligtFont,styles.headerBigger]}>Loads</Text>
 										</View>
 									</View>
 									<View style={styles.contentBody}>
