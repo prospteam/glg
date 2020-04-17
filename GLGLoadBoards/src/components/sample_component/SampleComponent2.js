@@ -11,7 +11,7 @@ export default class SampleComponent2 extends Component {
 					Sub Title
 				</Text>
 				<Text style={styles.contentItem}>
-					contents
+					contentssss
 				</Text>
 			</Screen>
 		)

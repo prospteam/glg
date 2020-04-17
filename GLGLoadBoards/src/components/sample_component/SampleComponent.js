@@ -6,7 +6,8 @@ import styles from '../../assets/styles/CommonStyles';
 //REDUX
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';// I included ang "index.js" 
+import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';// I included ang "index.js"
+
  class SampleComponent extends Component {
 	constructor(props){
 		super(props);
@@ -30,7 +31,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 				<Text style={styles.contentItem}>
 					Sub Title
 				</Text>
-				
+
 				<Card style={styles.contentItem}>
 					<CardItem header>
 						<Text>Sample Redux State Call</Text>
@@ -52,7 +53,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 							<Item regular>
 								<Icon active name='home' />
 								<Input
-									placeholder="Input text..." 
+									placeholder="Input text..."
 									onChangeText={
 										(text) => this.setState(
 											{input_sampleString:text}
@@ -81,7 +82,7 @@ function reduxStateToProps(state) {
     // const reduxState = (state) => {
     // console.log('redaux stae  ', state)
     return {
-		redux_state: state.redux_state 
+		redux_state: state.redux_state
 		// si MyGlobalReducer kay makit an sa reducers folder
     }
 }
@@ -96,4 +97,3 @@ function reduxActionFunctions(dispatch){
  }
 
 export default connect(reduxStateToProps,reduxActionFunctions)(SampleComponent);
-

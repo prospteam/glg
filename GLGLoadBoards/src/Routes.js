@@ -14,11 +14,9 @@ import SampleComponent2 from './components/sample_component/SampleComponent2.js'
 import Register from './components/login/Register.js';
 import Dashboard from './components/login/Dashboard.js/';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
-
-
-//Redux
-import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {connect} from 'react-redux';
+import {set_is_logged} from './redux/actions/Actions';
 
 // Dont just exist, live.
 class Routes extends Component {
@@ -89,6 +87,8 @@ class Routes extends Component {
         </Scene>
     </Router>);}
 }
+
+
 // Push yourself a little more, every day.
 function redux_state_to_Props (state){
     console.log(' Router.js redux_session  ', state.redux_session)

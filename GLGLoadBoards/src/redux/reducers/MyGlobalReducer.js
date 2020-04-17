@@ -2,6 +2,7 @@ const initstate = {
 	isLoggedIn:false,
 	isLoading: false,
 	sampleBolean: false,
+	isLogout: true,
 	sampleString: "xd",
 }
 
@@ -37,6 +38,13 @@ export default function (state = initstate, action) {
                 ...state,
                 isLoading: false
             }
+			case "set_is_logged":
+			return {
+				...state,
+				isLoggedIn: false
+			}
+
+				break;
         default:
             return state;
     }
