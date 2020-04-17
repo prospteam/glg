@@ -49,24 +49,11 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
     // });
 
     axios({
-        method: 'post',
-        // method: 'get',
+        method: 'get',
         url: 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/loads.txt',
-        // data: {
-        //     "select": "*",
-        //     "from": "glg_users",
-        //     "where": {
-        //         "username": "admin",
-        //         // "username": this.state.username.toLowerCase(),
-        //         // "password": this.state.password.toLowerCase()
-        //     }
-        // }
       }).then(function (response) {
         console.log("responseXd");
         console.log(response.data);
-        // console.log(response.data[0].date_added);
-        // console.log(response.data[0].date_added);
-
     })
     .catch(function (error) {
         console.log(error);
