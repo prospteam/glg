@@ -19,6 +19,13 @@ export function set_SAMPLEBOLEAN(type, payload){
 		payload: payload
 	}
 }
+export function set_user_data(type, payload){
+	// console.log('true_or_false',payload);
+	return{
+		type: type,
+		payload: payload
+	}
+}
 export function set_is_logged(type, payload){
 	// console.log('true_or_false',payload);
 	return{

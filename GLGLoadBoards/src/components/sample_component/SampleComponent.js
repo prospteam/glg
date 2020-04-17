@@ -16,12 +16,10 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 			input_sampleString: "",
 		}
 	}
-
 	submit_sampleString(){
 		alert();
 		this.props.set_sampleString('set_sampleString',this.state.input_sampleString);
 	}
-
     render() {
 		console.log("input_sampleString")
 		console.log(this.state)

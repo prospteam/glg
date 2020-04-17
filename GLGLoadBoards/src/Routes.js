@@ -7,6 +7,7 @@ import Login from './components/login/Login.js';
 
 import TruckMapSearch from './components/truck_map_search/TruckMapSearch';
 import Asd from './components/truck_map_search/Asd';
+import AppPreloader from './components/AppPreloader';
 import Temp from './components/Temp.js';
 import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
@@ -20,9 +21,20 @@ import {set_is_logged} from './redux/actions/Actions';
 
 // Dont just exist, live.
 class Routes extends Component {
-    render() {return (<Router>
+    render() {
+        // this.props.set_is_logged('set_is_logged',false);
+        return (<Router>
         <Scene key="root">
             {/* <Scene
+                key="AppPreloader"
+                component={AppPreloader}
+                initial={
+                    (this.props.redux_session.is_logged === false)? true : false
+                }
+                title=""
+                hideNavBar
+            /> */}
+            <Scene
                 key="Asd"
                 component={Asd}
                 initial={
@@ -30,7 +42,7 @@ class Routes extends Component {
                 }
                 title=""
                 hideNavBar
-            /> */}
+            />
             <Scene
                 key="Loads"
                 component={Loads}
@@ -86,4 +98,12 @@ function redux_state_to_Props (state){
     }
 }
 
-export default connect(redux_state_to_Props)(Routes);
+// KUNG GUSTO MONG GAMITIN ANG REDUX FUNCTIONS(YUNG NASA ACTIONS)
+function reduxActionFunctions(dispatch){
+    return bindActionCreators({
+        // set_is_logged : set_is_logged
+		// si set_sampleString function kay makit an sa actions folder
+    },dispatch);
+ }
+
+export default connect(redux_state_to_Props,reduxActionFunctions)(Routes);
