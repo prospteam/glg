@@ -4,13 +4,14 @@ import React, { Component } from 'react';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 // import Routes from './Routes.js';
 import Login from './components/login/Login.js';
-import Loads from './components/Loads.js';
+
 import TruckMapSearch from './components/truck_map_search/TruckMapSearch';
 import Asd from './components/truck_map_search/Asd';
 import AppPreloader from './components/AppPreloader';
 import Temp from './components/Temp.js';
 import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
+import Loads from './components/allLoads/Loads.js';
 import Register from './components/login/Register.js';
 import Dashboard from './components/login/Dashboard.js/';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
@@ -49,9 +50,9 @@ class Routes extends Component {
                 hideNavBar
             />
             <Scene
-                key="SampleComponent"
-                component={SampleComponent}
-                title=""
+                key="Loads"
+                component={Loads}
+                title="Loads"
                 hideNavBar
             />
             <Scene
@@ -62,6 +63,15 @@ class Routes extends Component {
                 hideNavBar
             />
             <Scene
+<<<<<<< HEAD
+=======
+                key="SampleComponent"
+                component={SampleComponent}
+                title=""
+                hideNavBar
+            />
+            <Scene
+>>>>>>> 58dfff37f326cfe63e40694978d5d9cb8d139740
                 key="LoadSearch"
                 component={LoadSearch}
                 title="" hideNavBar
