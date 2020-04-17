@@ -66,8 +66,9 @@ class Loads extends Component{
         // }
       }).then(function (response) {
         console.log("responseXd");
-        // console.log(response.data);
-        console.log(response.data[0].date_added);
+        console.log(response.data);
+        // console.log(response.data[0].date_added);
+        // console.log(response.data[0].date_added);
 
     })
     .catch(function (error) {
@@ -81,8 +82,6 @@ class Loads extends Component{
 //
 //     ))
 // }
-
-
 
     render() {
         // const loads = this.state.loads.map(loads)

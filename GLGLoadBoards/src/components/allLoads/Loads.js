@@ -41,13 +41,37 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
     componentDidMount() {
         var self = this;
 
-    axios.get('http://glgfreight.com/loadboard/api_mobile/loads/all_loads')
+    // axios.get('http://glgfreight.com/loadboard/api_mobile/loads/all_loads')
 
-    .then((response)=>{
-        console.log(response);
-        self.setstate({response:response.data});
+    // .then((response)=>{
+    //     console.log(response);
+    //     self.setstate({response:response.data});
+    // });
+
+    axios({
+        method: 'post',
+        // method: 'get',
+        url: 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/loads.txt',
+        // data: {
+        //     "select": "*",
+        //     "from": "glg_users",
+        //     "where": {
+        //         "username": "admin",
+        //         // "username": this.state.username.toLowerCase(),
+        //         // "password": this.state.password.toLowerCase()
+        //     }
+        // }
+      }).then(function (response) {
+        console.log("responseXd");
+        console.log(response.data);
+        // console.log(response.data[0].date_added);
+        // console.log(response.data[0].date_added);
+
+    })
+    .catch(function (error) {
+        console.log(error);
+        console.log("LAGI ERROR NA LAGI ALAM KO");
     });
-
 }
 
     render() {
