@@ -25,6 +25,12 @@ class Routes extends Component {
         // this.props.set_is_logged('set_is_logged',false);
         return (<Router>
         <Scene key="root">
+            <Scene
+                key="Loads"
+                component={Loads}
+                title="Loads"
+                hideNavBar
+            />
             {/* <Scene
                 key="AppPreloader"
                 component={AppPreloader}
