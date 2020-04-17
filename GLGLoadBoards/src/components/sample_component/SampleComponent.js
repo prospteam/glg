@@ -7,7 +7,6 @@ import styles from '../../assets/styles/CommonStyles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';// I included ang "index.js" 
-
  class SampleComponent extends Component {
 	constructor(props){
 		super(props);
@@ -16,12 +15,10 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 			input_sampleString: "",
 		}
 	}
-
 	submit_sampleString(){
 		alert();
 		this.props.set_sampleString('set_sampleString',this.state.input_sampleString);
 	}
-
     render() {
 		console.log("input_sampleString")
 		console.log(this.state)

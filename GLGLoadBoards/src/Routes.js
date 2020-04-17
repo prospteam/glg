@@ -7,19 +7,35 @@ import Login from './components/login/Login.js';
 import Loads from './components/Loads.js';
 import TruckMapSearch from './components/truck_map_search/TruckMapSearch';
 import Asd from './components/truck_map_search/Asd';
+import AppPreloader from './components/AppPreloader';
 import Temp from './components/Temp.js';
 import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
 import Register from './components/login/Register.js';
 import Dashboard from './components/login/Dashboard.js/';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
+
+
+//Redux
 import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 // Dont just exist, live.
 class Routes extends Component {
-    render() {return (<Router>
+    render() {
+        // this.props.set_is_logged('set_is_logged',false);
+        return (<Router>
         <Scene key="root">
             {/* <Scene
+                key="AppPreloader"
+                component={AppPreloader}
+                initial={
+                    (this.props.redux_session.is_logged === false)? true : false
+                }
+                title=""
+                hideNavBar
+            /> */}
+            <Scene
                 key="Asd"
                 component={Asd}
                 initial={
@@ -27,7 +43,7 @@ class Routes extends Component {
                 }
                 title=""
                 hideNavBar
-            /> */}
+            />
             <Scene
                 key="SampleComponent"
                 component={SampleComponent}
@@ -72,8 +88,7 @@ class Routes extends Component {
             }
         </Scene>
     </Router>);}
-
-
+}
 // Push yourself a little more, every day.
 function redux_state_to_Props (state){
     console.log(' Router.js redux_session  ', state.redux_session)
@@ -81,4 +96,13 @@ function redux_state_to_Props (state){
         redux_session: state.redux_session
     }
 }
-export default connect(redux_state_to_Props,null)(Routes);
+
+// KUNG GUSTO MONG GAMITIN ANG REDUX FUNCTIONS(YUNG NASA ACTIONS)
+function reduxActionFunctions(dispatch){
+    return bindActionCreators({
+        // set_is_logged : set_is_logged
+		// si set_sampleString function kay makit an sa actions folder
+    },dispatch);
+ }
+
+export default connect(redux_state_to_Props,reduxActionFunctions)(Routes);

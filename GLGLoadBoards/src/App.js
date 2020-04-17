@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { YellowBox, Text, View, StyleSheet, BackHandler, ActivityIndicator, Alert } from 'react-native'
+import { YellowBox, Text, View, StyleSheet, BackHandler, ActivityIndicator, Alert, Image } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import Routes from './Routes';
 import thunk from 'redux-thunk';
@@ -19,6 +19,9 @@ YellowBox.ignoreWarnings([
 	'Setting a timer'
 ]);
 
+var logo = require('./assets/images/logo_cropped.jpg');
+import AppPreloader from './components/AppPreloader';
+
 const persistConfig = {
 	key: 'root',
 	storage: AsyncStorage,
@@ -30,20 +33,52 @@ const persistedReducer = persistReducer(persistConfig, allReducers);
 const store = createStore(persistedReducer, applyMiddleware(thunk));
 const persistor = persistStore(store);
 
-const loader = <View style={{
-	flex: 1,
-	justifyContent: 'center',
-	alignItems: 'center',
-	width: undefined,
-	height: undefined
-}}>
-	<Spinner type="WanderingCubes" color="#c1191c" size={80} /></View>
+const loader = 
+		<View style={{
+			// padding:40,
+			flex:1,
+			// backgroundColor:'red',
+			justifyContent: 'center',
+			alignItems: 'center',
+		}}>
+			<Image 
+				style={{
+					margin:'auto',
+					// width:280,
+					maxWidth:'100%',
+					maxHeight:'100%',
+				}}
+				source={logo}
+			/>
+		</View>
+// const loader = <View style={{
+// 	flex: 1,
+// 	justifyContent: 'center',
+// 	alignItems: 'center',
+// 	width: undefined,
+// 	height: undefined
+// }}>
+// 	<Spinner type="WanderingCubes" color="#c1191c" size={80} /></View>
 
 export default class App extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			timePassed: false,
+		};
+	}
+	componentDidMount() {
+		setTimeout( () => {
+			this.setTimePassed();
+		},1000);
+	}
+	setTimePassed() {
+		this.setState({timePassed: true});
 	}
 	render() {
+		// if (!this.state.timePassed) {
+			return <AppPreloader/>;
+		// } 
 		return (
 			<Provider store={store}>
 				<PersistGate loading={loader} persistor={persistor}>

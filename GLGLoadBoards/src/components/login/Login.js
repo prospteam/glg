@@ -14,18 +14,21 @@ import {api_link} from '../../libraries/MyConfigs.js';
 // REDUX imports
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { set_is_logged } from '../../redux/actions/Actions';
+import { set_is_logged,set_user_data } from '../../redux/actions/Actions';
 
 
 class Login extends Component {
+
     state = {
         color: 'white',
         show: false,
         msg: "",
         theme: "warning",
         title: "Warning",
-        success_login:false
+        success_login:false,
     }
+
+    temp_user_data={};
 
     constructor(props) {
         super(props)
@@ -41,20 +44,27 @@ class Login extends Component {
         }
 
     }
+
     handleClose = () => {
         this.setState({
             show: false
-        })
+        });
+        console.log("this.temp_user_data");
+        console.log(this.temp_user_data);
         if (this.state.success_login) {
             if(!this.props.redux_session.is_logged){
                 this.props.set_is_logged('set_is_logged', true);
+                this.props.set_user_data(
+                    'set_user_data', 
+                    this.temp_user_data
+                );
             }
         }
     }
     handleOpen = () => {
         if (this.state.usertype == 'carrier') {
-        }
 
+        }
         if (this.state.username != '') {
             if (this.state.password != '') {
             } else {
@@ -95,6 +105,7 @@ class Login extends Component {
                 }
             }
           }).then(function (response) {
+
             // let data = {
             //     state:'isLoggedIn'
             // }
@@ -113,8 +124,8 @@ class Login extends Component {
             if (response.data.length>0) {
 
                 console.log("responseXd");
-                // console.log(response.data[0].user_id);
-                // console.log(response.data.length);
+                console.log(response.data[0].user_id);
+                console.log(response.data.length);
 
                 that.setState({
                     show: true,
@@ -123,6 +134,9 @@ class Login extends Component {
                     title: "Success!",
                     success_login: true
                 });
+                
+                that.temp_user_data = response.data[0];
+                
                 // Actions.Loads()
                 // Actions.Dashboard()
             } else {
@@ -147,8 +161,8 @@ class Login extends Component {
     }
 
     render() {
-        // console.log('redux_session');
-        // console.log(this.props.redux_session);
+        console.log('redux_session22');
+        console.log(this.props.redux_session);
         return (
             <View>
                 <ImageBackground source={bg_image} style={{ width: '100%', height: '100%' }}>
@@ -178,7 +192,6 @@ class Login extends Component {
                     </View>
                 </ImageBackground>
             </View>
-
         );
     }
 }
@@ -208,7 +221,8 @@ const styles = StyleSheet.create({
  }
  function redux_action_function_to_props(dispatch){
     return bindActionCreators({
-        set_is_logged : set_is_logged
+        set_is_logged : set_is_logged,
+        set_user_data : set_user_data
     },dispatch);
  }
 
