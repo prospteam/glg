@@ -42,7 +42,6 @@ class Login extends Component {
             username: '',
             password: '',
         }
-
     }
 
     handleClose = () => {
