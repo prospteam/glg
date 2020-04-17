@@ -76,9 +76,9 @@ export default class App extends Component {
 		this.setState({timePassed: true});
 	}
 	render() {
-		// if (!this.state.timePassed) {
+		if (!this.state.timePassed) {
 			return <AppPreloader/>;
-		// } 
+		} 
 		return (
 			<Provider store={store}>
 				<PersistGate loading={loader} persistor={persistor}>
