@@ -12,6 +12,7 @@ import Temp from './components/Temp.js';
 import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
 import Loads from './components/allLoads/Loads.js';
+import Orderdetails from './components/allLoads/Orderdetails.js';
 import Register from './components/login/Register.js';
 import Dashboard from './components/login/Dashboard.js/';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
@@ -41,9 +42,9 @@ class Routes extends Component {
                 hideNavBar
             /> */}
             <Scene
-                key="Loads"
-                component={Loads}
-                title="Loads"
+                key="Orderdetails"
+                component={Orderdetails}
+                title="Orderdetails"
                 hideNavBar
             />
             <Scene
@@ -60,6 +61,12 @@ class Routes extends Component {
                 component={Login}
                 initial={!this.props.redux_session.is_logged}
                 title=""
+                hideNavBar
+            />
+            <Scene
+                key="Loads"
+                component={Loads}
+                title="Loads"
                 hideNavBar
             />
             <Scene

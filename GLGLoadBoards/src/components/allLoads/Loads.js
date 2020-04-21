@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { Text, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body, View  } from 'native-base';
 import Screen from '../layout/Screen';
+import { Actions } from 'react-native-router-flux';
 import styles from '../../assets/styles/CommonStyles';
 import axios from 'axios';
 //REDUX
@@ -50,6 +51,9 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <CardItem header style={{backgroundColor:'#05426e' }}>
                     <Text style={{color:'#fff'}}>{data.load_id}</Text>
                     <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
+                    <Button onPress={ () => {Actions.Orderdetails(); }}>
+                        <Icon style={styles.order_detailes} type="FontAwesome5" name="bars"/>
+                    </Button>
                 </CardItem>
                 <CardItem>
                     <Body>
@@ -93,6 +97,20 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 				</Text>
                 <ScrollView>
                 <View style={styles.contentBody}>
+                        <Text style={{fontSize:18,marginBottom: 8}}>Load Search</Text>
+                            <View style={styles.middle}>
+                                <Text style={styles.middle_text}>Origin</Text>
+                                    <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ origin: text })}/>
+                                <Text style={styles.middle_text}>Destination</Text>
+                                    <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ destination: text })}/>
+                                <Text style={styles.middle_text}>Trailer Type</Text>
+                                    <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ trailer_type: text })}/>
+                                <Text style={styles.middle_text}>Commodity</Text>
+                                    <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ commodity: text })}/>
+                                <TouchableOpacity>
+                                    <Text style={styles.search_button}>Search</Text>
+                                </TouchableOpacity>
+                         </View>
                         {load_details}
                 </View>
                 </ScrollView>
