@@ -8,7 +8,8 @@ import allReducers from './redux/reducers/index.js';
 import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-var Spinner = require('react-native-spinkit');
+// var Spinner = require('react-native-spinkit');
+import Spinner from 'react-native-loading-spinner-overlay';
 YellowBox.ignoreWarnings([
 	'Warning: componentWillUpdate is deprecated',
 	'Warning: componentWillMount is deprecated',
@@ -82,6 +83,11 @@ export default class App extends Component {
 		return (
 			<Provider store={store}>
 				<PersistGate loading={loader} persistor={persistor}>
+					{/* <Spinner
+						visible={true}
+						textContent={'Loading...'}
+						textStyle={{color: '#FFF'}}
+					/> */}
 					<Routes />
 				</PersistGate>
 			</Provider>
