@@ -19,41 +19,20 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             destination:'',
             trailer_type:'',
             rate:'',
-            length:'',
-            width:'',
-            height:'',
-            weight:'',
-            date_available:'',
-            comments:'',
-            category:'',
-            carrier_id:'',
-            shipper_id:'',
-            deleted_status:'',
-            origin_state:'',
-            destination_state:'',
-            delivery_date:'',
-            date_added:'',
-            commodity:'',
-            reference_number:'',
+
         };
 	}
 
     componentDidMount() {
         var self = this;
 
-    // axios.get('http://glgfreight.com/loadboard/api_mobile/loads/all_loads')
-
-    // .then((response)=>{
-    //     console.log(response);
-    //     self.setstate({response:response.data});
-    // });
-
     axios({
         method: 'get',
         url: 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/loads.txt',
       }).then(function (response) {
-        console.log("responseXd");
+        console.log("this is a test");
         console.log(response.data);
+        self.setState({response: response.data});
     })
     .catch(function (error) {
         console.log(error);
@@ -63,8 +42,50 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 
     render() {
 
-		console.log("input_sampleString")
+        let load_details;
+        if (this.state.response.length!==0) {
+            load_details = this.state.response.map((data, index)=>{
+            return(
+            <Card key={index}>
+                <CardItem header style={{backgroundColor:'#05426e' }}>
+                    <Text style={{color:'#fff'}}>{data.load_id}</Text>
+                    <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
+                </CardItem>
+                <CardItem>
+                    <Body>
+                    <View style={{flex: 1, flexDirection: 'row'}}>
+                        <View>
+                            <Text>Origin</Text>
+                        </View>
+                        <View style={{marginBottom:5}}>
+                            <Text style={{fontSize:10, marginLeft: 60}}>Origin</Text>
+                            <Text style={{fontSize:10, marginLeft: 60}}>{data.origin}</Text>
+                        </View>
+                            <View style={{textAlign:'right'}}>
+                                <Text style={{fontSize:20, marginLeft: 60, fontWeight: 'bold'}}>{data.rate}</Text>
+                            </View>
+                        </View>
+                        <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
+                            <View style={{flex: 1, flexDirection: 'row',marginTop:2}}>
+                        <View>
+                            <Text>Destination</Text>
+                        </View>
+                        <View style={{marginBottom:5}}>
+                            <Text style={{fontSize:10, marginLeft: 20}}>Destination</Text>
+                            <Text style={{fontSize:10, marginLeft: 20}}>{data.destination}</Text>
+                        </View>
+                        <View style={{textAlign:'right', marginLeft:70 }}>
+                                <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
+                                <Text style={{fontSize:10}}>{data.trailer_type}</Text>
+                        </View>
+                    </View>
+                    </Body>
+                </CardItem>
+            </Card>
+        );
 
+        });
+    }
         return (
 			<Screen>
 				<Text style={styles.contentItem}>
@@ -72,62 +93,13 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 				</Text>
                 <ScrollView>
                 <View style={styles.contentBody}>
-                    <View style={styles.middle}>
-                        <Text style={styles.middle_text}>Origin</Text>
-                        <TextInput style={styles.text_input} placeholderTextColor="#000" />
-                        <Text style={styles.middle_text}>Destination</Text>
-                        <TextInput style={styles.text_input} placeholderTextColor="#000" />
-                        <Text style={styles.middle_text}>Trailer Type</Text>
-                        <TextInput style={styles.text_input} placeholderTextColor="#000" />
-                        <Text style={styles.middle_text}>Commodity</Text>
-                        <TextInput style={styles.text_input} placeholderTextColor="#000" />
-                        <TouchableOpacity>
-                          <Text style={styles.search_button}>Search</Text>
-                       </TouchableOpacity>
-                    </View>
-
-                    <Card>
-                        <CardItem header style={{backgroundColor:'#05426e' }}>
-                            <Text style={{color:'#fff'}}>45</Text>
-                            <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
-                        </CardItem>
-                        <CardItem>
-                            <Body>
-                                <View style={{flex: 1, flexDirection: 'row'}}>
-                                    <View>
-                                        <Text>Origin</Text>
-                                    </View>
-                                    <View style={{marginBottom:5}}>
-                                        <Text style={{fontSize:10, marginLeft: 60}}>Origin</Text>
-                                        <Text style={{fontSize:10, marginLeft: 60}}>Hillsboro</Text>
-                                    </View>
-                                        <View style={{textAlign:'right'}}>
-                                            <Text style={{fontSize:20, marginLeft: 60, fontWeight: 'bold'}}>$0.00</Text>
-                                        </View>
-                                    </View>
-                                    <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
-                                        <View style={{flex: 1, flexDirection: 'row',marginTop:2}}>
-                                    <View>
-                                        <Text>Destination</Text>
-                                    </View>
-                                    <View style={{marginBottom:5}}>
-                                        <Text style={{fontSize:10, marginLeft: 20}}>Destination</Text>
-                                        <Text style={{fontSize:10, marginLeft: 20}}>Phoenix, AZ</Text>
-                                    </View>
-                                    <View style={{textAlign:'right', marginLeft:70 }}>
-                                            <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
-                                            <Text style={{fontSize:10}}>CA</Text>
-                                    </View>
-                                </View>
-                            </Body>
-                        </CardItem>
-                    </Card>
-
+                        {load_details}
                 </View>
                 </ScrollView>
 
 			</Screen>
 		)
+        console.log(this.state.response);
     }
 }
 
