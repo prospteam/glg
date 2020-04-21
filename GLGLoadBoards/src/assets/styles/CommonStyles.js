@@ -100,7 +100,7 @@ export default StyleSheet.create({
         padding: 8,
         fontSize: 15,
         marginTop: 20,
-        marginBottom:20
+        marginLeft:60
     },
     fieldsInput1:{
         borderWidth : 1

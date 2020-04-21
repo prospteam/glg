@@ -40,29 +40,40 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                             </CardItem>
                             <CardItem>
                             <Body>
-                                  <View style={{flex: 1, flexDirection: 'row'}}>
+                                  <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Trailer Type</Text>
                                           <Text style={{fontSize:15,fontWeight: 'bold'}}>C</Text>
                                       </View>
-                                  </View>
-                                  <View style={{flex: 1, flexDirection: 'row'}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Ship Date</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>Dec 2, 2020</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>01/11/2020</Text>
                                       </View>
-                                  </View>
-                                  <View style={{flex: 1, flexDirection: 'row'}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Commodity</Text>
                                           <Text style={{fontSize:15,fontWeight: 'bold'}}>Lumber</Text>
+                                      </View>
+                                  </View>
+                                   <View style={{flex: 1, flexDirection: 'row', margin:15}}/>
+                                  <View style={{flex: 1, flexDirection: 'row', marginLeft:30}}>
+                                      <View style={{flex:1}}>
+                                          <Text style={{fontSize:10}}>Weight</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>20</Text>
+                                      </View>
+                                      <View style={{flex:1}}>
+                                          <Text style={{fontSize:10}}>Height</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>20</Text>
+                                      </View>
+                                      <View style={{flex:1}}>
+                                          <Text style={{fontSize:10}}>Width</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>10</Text>
                                       </View>
                                   </View>
                                     <TouchableOpacity>
                                         <Text style={styles.search_button}>Call Brooker</Text>
                                     </TouchableOpacity>
                                     <View>
-                                        <Text style={{fontSize:15, fontWeight: 'bold', marginBottom:10}}>(+96356612)</Text>
+                                        <Text style={{fontSize:15, fontWeight: 'bold',marginLeft:75}}>(+96356612)</Text>
                                     </View>
                                 </Body>
                             </CardItem>
