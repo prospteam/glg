@@ -26,6 +26,13 @@ export function set_user_data(type, payload){
 		payload: payload
 	}
 }
+export function set_show_mini_loader(payload){
+	// console.log('true_or_false',payload);
+	return{
+		type: "set_show_mini_loader",
+		payload: payload
+	}
+}
 export function set_is_logged(type, payload){
 	// console.log('true_or_false',payload);
 	return{

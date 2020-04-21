@@ -17,96 +17,111 @@ import Dashboard from './components/login/Dashboard.js/';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
-import {set_is_logged} from './redux/actions/Actions';
+import {
+    // set_show_mini_loader,
+    // set_is_logged
+} from './redux/actions/Actions';
 
+import Spinner from 'react-native-loading-spinner-overlay';
 // Dont just exist, live.
 class Routes extends Component {
     render() {
-        // this.props.set_is_logged('set_is_logged',false);
-        return (<Router>
-        <Scene key="root">
-            <Scene
-                key="Loads"
-                component={Loads}
-                title="Loads"
-                hideNavBar
-            />
-            {/* <Scene
-                key="AppPreloader"
-                component={AppPreloader}
-                initial={
-                    (this.props.redux_session.is_logged === false)? true : false
-                }
-                title=""
-                hideNavBar
-            /> */}
-            <Scene
-                key="Loads"
-                component={Loads}
-                title="Loads"
-                hideNavBar
-            />
-            <Scene
-                key="Asd"
-                component={Asd}
-                initial={
-                    (this.props.redux_session.is_logged === false)? true : false
-                }
-                title=""
-                hideNavBar
-            />
-            <Scene
-                key="Login"
-                component={Login}
-                initial={!this.props.redux_session.is_logged}
-                title=""
-                hideNavBar
-            />
-            <Scene
-                key="SampleComponent"
-                component={SampleComponent}
-                title=""
-                hideNavBar
-            />
-            <Scene
-                key="LoadSearch"
-                component={LoadSearch}
-                title="" hideNavBar
-            />
-            <Scene
-                key="Register"
-                component={Register}
-                title=""
-                hideNavBar
-            />
-            <Scene
-                key="SampleComponent2"
-                component={SampleComponent2}
-                title="" hideNavBar
-            />
-            {
-            // <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
-            // <Scene key="carrierDashboard" component={CarrierDashboard} title="" hideNavBar/>
-            // <Scene key="All_loads" component={All_loads} title="" hideNavBar />
-            // <Scene key="truck_map" component={truck_map} title="" hideNavBar />
-            // tangtangko above para maka proceed ko. 3/19/20
-            }
-        </Scene>
-    </Router>);}
-}
 
+        return (
+            <>
+                <Spinner
+                    visible={this.props.redux_state.show_mini_loader}
+                    textContent={'Loading...'}
+                    textStyle={{color: '#FFF'}}
+                />
+                <Router>
+                    <Scene key="root">
+                        <Scene
+                            key="Loads"
+                            component={Loads}
+                            title="Loads"
+                            hideNavBar
+                        />
+                        {/* <Scene
+                            key="AppPreloader"
+                            component={AppPreloader}
+                            initial={
+                                (this.props.redux_session.is_logged === false)? true : false
+                            }
+                            title=""
+                            hideNavBar
+                        /> */}
+                        <Scene
+                            key="Loads"
+                            component={Loads}
+                            title="Loads"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Asd"
+                            component={Asd}
+                            initial={
+                                (this.props.redux_session.is_logged === false)? true : false
+                            }
+                            title=""
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Login"
+                            component={Login}
+                            initial={!this.props.redux_session.is_logged}
+                            title=""
+                            hideNavBar
+                        />
+                        <Scene
+                            key="SampleComponent"
+                            component={SampleComponent}
+                            title=""
+                            hideNavBar
+                        />
+                        <Scene
+                            key="LoadSearch"
+                            component={LoadSearch}
+                            title="" hideNavBar
+                        />
+                        <Scene
+                            key="Register"
+                            component={Register}
+                            title=""
+                            hideNavBar
+                        />
+                        <Scene
+                            key="SampleComponent2"
+                            component={SampleComponent2}
+                            title="" hideNavBar
+                        />
+                        {
+                        // <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
+                        // <Scene key="carrierDashboard" component={CarrierDashboard} title="" hideNavBar/>
+                        // <Scene key="All_loads" component={All_loads} title="" hideNavBar />
+                        // <Scene key="truck_map" component={truck_map} title="" hideNavBar />
+                        // tangtangko above para maka proceed ko. 3/19/20
+                        }
+                    </Scene>
+                </Router>
+            </>
+        );
+    }
+}
 
 // Push yourself a little more, every day.
 function redux_state_to_Props (state){
     console.log(' Router.js redux_session  ', state.redux_session)
     return {
-        redux_session: state.redux_session
+        redux_session: state.redux_session,
+        redux_state: state.redux_state
     }
 }
 
 // KUNG GUSTO MONG GAMITIN ANG REDUX FUNCTIONS(YUNG NASA ACTIONS)
 function reduxActionFunctions(dispatch){
     return bindActionCreators({
+        // set_show_mini_loader : set_show_mini_loader
         // set_is_logged : set_is_logged
 		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
