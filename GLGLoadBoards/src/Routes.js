@@ -41,18 +41,18 @@ class Routes extends Component {
                 hideNavBar
             /> */}
             <Scene
+                key="Loads"
+                component={Loads}
+                title="Loads"
+                hideNavBar
+            />
+            <Scene
                 key="Asd"
                 component={Asd}
                 initial={
                     (this.props.redux_session.is_logged === false)? true : false
                 }
                 title=""
-                hideNavBar
-            />
-            <Scene
-                key="Loads"
-                component={Loads}
-                title="Loads"
                 hideNavBar
             />
             <Scene
