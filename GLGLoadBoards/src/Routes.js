@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 // import Routes from './Routes.js';
 import Login from './components/login/Login.js';
-
+import Spinner from 'react-native-loading-spinner-overlay';
 import TruckMapSearch from './components/truck_map_search/TruckMapSearch';
 import Asd from './components/truck_map_search/Asd';
 import AppPreloader from './components/AppPreloader';
