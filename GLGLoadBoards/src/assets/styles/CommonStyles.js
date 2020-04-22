@@ -64,6 +64,11 @@ export default StyleSheet.create({
     vehicle_type:{
         color:'orange'
     },
+    order_detailes:{
+        color:'white',
+        marginLeft:170,
+        fontSize: 15,
+    },
     footertab_active_indicator: {
         width:'75%',
         height:10,
@@ -97,7 +102,7 @@ export default StyleSheet.create({
         padding: 8,
         fontSize: 15,
         marginTop: 20,
-        marginBottom:20
+        marginLeft:60
     },
     fieldsInput1:{
         borderWidth : 1

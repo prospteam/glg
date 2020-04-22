@@ -12,18 +12,15 @@ import Temp from './components/Temp.js';
 import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
 import Loads from './components/allLoads/Loads.js';
+import Orderdetails from './components/allLoads/Orderdetails.js';
 import Register from './components/login/Register.js';
 import Dashboard from './components/dashboard/Dashboard.js/';
 import Trucks from './components/trucks/Trucks.js/';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
-import {
-    // set_show_mini_loader,
-    // set_is_logged
-} from './redux/actions/Actions';
+import {set_is_logged} from './redux/actions/Actions';
 
-import Spinner from 'react-native-loading-spinner-overlay';
 // Dont just exist, live.
 class Routes extends Component {
     render() {
@@ -55,15 +52,12 @@ class Routes extends Component {
                             title="Loads"
                             hideNavBar
                         />
-                        {/* <Scene
-                            key="AppPreloader"
-                            component={AppPreloader}
-                            initial={
-                                (this.props.redux_session.is_logged === false)? true : false
-                            }
-                            title=""
+                        <Scene
+                            key="Orderdetails"
+                            component={Orderdetails}
+                            title="Orderdetails"
                             hideNavBar
-                        /> */}
+                        />
                         <Scene
                             key="Loads"
                             component={Loads}
@@ -122,6 +116,7 @@ class Routes extends Component {
     }
 }
 
+
 // Push yourself a little more, every day.
 function redux_state_to_Props (state){
     console.log('_____________________________________');
@@ -136,15 +131,13 @@ function redux_state_to_Props (state){
     console.log('');
     console.log('_____________________________________');
     return {
-        redux_session: state.redux_session,
-        redux_state: state.redux_state
+        redux_session: state.redux_session
     }
 }
 
 // KUNG GUSTO MONG GAMITIN ANG REDUX FUNCTIONS(YUNG NASA ACTIONS)
 function reduxActionFunctions(dispatch){
     return bindActionCreators({
-        // set_show_mini_loader : set_show_mini_loader
         // set_is_logged : set_is_logged
 		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
