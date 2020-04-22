@@ -5,11 +5,10 @@ import Routes from './Routes';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import allReducers from './redux/reducers/index.js';
+import Truck_map from './components/truckMap_search/truck_map.js';
 import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-// var Spinner = require('react-native-spinkit');
-import Spinner from 'react-native-loading-spinner-overlay';
 YellowBox.ignoreWarnings([
 	'Warning: componentWillUpdate is deprecated',
 	'Warning: componentWillMount is deprecated',
@@ -59,7 +58,6 @@ const loader =
 // 	width: undefined,
 // 	height: undefined
 // }}>
-// 	<Spinner type="WanderingCubes" color="#c1191c" size={80} /></View>
 
 export default class App extends Component {
 	constructor(props) {
@@ -83,11 +81,7 @@ export default class App extends Component {
 		return (
 			<Provider store={store}>
 				<PersistGate loading={loader} persistor={persistor}>
-					{/* <Spinner
-						visible={true}
-						textContent={'Loading...'}
-						textStyle={{color: '#FFF'}}
-					/> */}
+					{/* <Truck_map /> */}
 					<Routes />
 				</PersistGate>
 			</Provider>

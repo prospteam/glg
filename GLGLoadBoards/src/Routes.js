@@ -20,6 +20,7 @@ import LoadSearch from './components/loadsSearch/LoadSearch.js';
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 import {set_is_logged} from './redux/actions/Actions';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 // Dont just exist, live.
 class Routes extends Component {
@@ -116,7 +117,6 @@ class Routes extends Component {
     }
 }
 
-
 // Push yourself a little more, every day.
 function redux_state_to_Props (state){
     console.log('_____________________________________');
@@ -131,6 +131,7 @@ function redux_state_to_Props (state){
     console.log('');
     console.log('_____________________________________');
     return {
+        redux_state: state.redux_state,
         redux_session: state.redux_session
     }
 }
