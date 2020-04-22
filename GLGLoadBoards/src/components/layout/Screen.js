@@ -22,7 +22,7 @@ import {set_is_logged} from '../../redux/actions/Actions';;
     end_session() {
         this.props.set_is_logged('set_is_logged',false);
 	}
-	
+	//TEst
     render() {
 		const { active_tab, title } = this.props;
         // console.log(this.props.logout);
