@@ -48,8 +48,8 @@ class Login extends Component {
         this.setState({
             show: false
         });
-        console.log("this.temp_user_data");
-        console.log(this.temp_user_data);
+        // console.log("this.temp_user_data");
+        // console.log(this.temp_user_data);
         if (this.state.success_login) {
             if(!this.props.redux_session.is_logged){
                 this.props.set_is_logged('set_is_logged', true);
@@ -86,7 +86,7 @@ class Login extends Component {
         }
 
         // console.log(this.state);
-        console.log("GETTING");
+        // console.log("GETTING");
         // .toLowerCase();
         const that = this;
         // http://glgfreight.com/loadboard/api_mobile/common/get
@@ -122,9 +122,9 @@ class Login extends Component {
 
             if (response.data.length>0) {
 
-                console.log("responseXd");
-                console.log(response.data[0].user_id);
-                console.log(response.data.length);
+                // console.log("responseXd");
+                // console.log(response.data[0].user_id);
+                // console.log(response.data.length);
 
                 that.setState({
                     show: true,
@@ -160,8 +160,8 @@ class Login extends Component {
     }
 
     render() {
-        console.log('redux_session22');
-        console.log(this.props.redux_session);
+        // console.log('redux_session22');
+        // console.log(this.props.redux_session);
         return (
             <View>
                 <ImageBackground source={bg_image} style={{ width: '100%', height: '100%' }}>

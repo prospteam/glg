@@ -13,7 +13,8 @@ import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
 import Loads from './components/allLoads/Loads.js';
 import Register from './components/login/Register.js';
-import Dashboard from './components/login/Dashboard.js/';
+import Dashboard from './components/dashboard/Dashboard.js/';
+import Trucks from './components/trucks/Trucks.js/';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
@@ -36,6 +37,18 @@ class Routes extends Component {
                 />
                 <Router>
                     <Scene key="root">
+                        <Scene
+                            key="Dashboard"
+                            component={Dashboard}
+                            title="Dashboard"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Trucks"
+                            component={Trucks}
+                            title="Trucks"
+                            hideNavBar
+                        />
                         <Scene
                             key="Loads"
                             component={Loads}
@@ -111,7 +124,17 @@ class Routes extends Component {
 
 // Push yourself a little more, every day.
 function redux_state_to_Props (state){
-    console.log(' Router.js redux_session  ', state.redux_session)
+    console.log('_____________________________________');
+    console.log('');
+    console.log('      Router.js redux_session  ');
+    console.log('');
+    console.log('is_logged');
+    console.log(state.redux_session.is_logged);
+    console.log('');
+    console.log('user_data');
+    console.log(state.redux_session.user_data);
+    console.log('');
+    console.log('_____________________________________');
     return {
         redux_session: state.redux_session,
         redux_state: state.redux_state
@@ -126,5 +149,4 @@ function reduxActionFunctions(dispatch){
 		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
  }
-
 export default connect(redux_state_to_Props,reduxActionFunctions)(Routes);

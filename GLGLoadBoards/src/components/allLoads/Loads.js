@@ -87,7 +87,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         });
     }
         return (
-			<Screen>
+			<Screen active_tab="Loads" title="Loads" >
 				<Text style={styles.contentItem}>
 					Load Search
 				</Text>

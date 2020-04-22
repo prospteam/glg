@@ -18,11 +18,13 @@ export default StyleSheet.create({
         paddingTop:10,
     },
     contentBody:{
+        // marginLeft:1,
+        // marginRight:1, container Edges unta
         paddingTop:10,
         backgroundColor: '#e1f8ff',
         flex:1,
-        borderTopLeftRadius:10,
-        borderTopRightRadius:10,
+        borderTopLeftRadius:30,
+        borderTopRightRadius:30,
         padding:15,
     },
     contentItem:{
