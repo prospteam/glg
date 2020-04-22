@@ -3,6 +3,7 @@ import {ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { Text, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body, View  } from 'native-base';
 import Screen from '../layout/Screen';
 import styles from '../../assets/styles/CommonStyles';
+import axios from 'axios';
 
 //REDUX
 import { connect } from 'react-redux';
@@ -12,21 +13,47 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
  class Orderdetails extends Component {
 	constructor(props){
 		super(props);
-		// this.props.set_is_logged('set_is_logged',false);
-		this.state = {
-			input_sampleString: "",
-		}
-	}
-	submit_sampleString(){
-		alert();
-		this.props.set_sampleString('set_sampleString',this.state.input_sampleString);
-	}
-    render() {
-		console.log("input_sampleString")
-		console.log(this.state)
-		// console.log("this.props")
-		// console.log(this.props.redux_state.sampleString)
+        this.state = {
+            response: [],
+            load_id: '',
+            origin:'',
+            destination:'',
+            trailer_type:'',
+            date_available:'',
+            commodity:'',
+            weight:'',
+            height:'',
+            width:'',
+            rate:'',
 
+        };
+	}
+
+    componentDidMount() {
+        var self = this;
+
+    axios({
+        method: 'get',
+        url: 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/load1.txt',
+      }).then(function (response) {
+        console.log("this is a test test");
+        self.setState({
+            trailer_type: response.trailer_type,
+            date_available:response.date_available,
+            commodity: response.commodity,
+            weight: response.weight,
+            height:response.height,
+            width:response.width,
+        });
+        console.log(response);
+    })
+    .catch(function (error) {
+        console.log(error);
+        console.log("LAGI ERROR NA LAGI ALAM KO test");
+    });
+}
+
+    render() {
         return (
             <Screen>
 				<Text style={styles.contentItem}>
@@ -43,30 +70,30 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Trailer Type</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>C</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.state.trailer_type}</Text>
                                       </View>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Ship Date</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>01/11/2020</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.state.date_available}</Text>
                                       </View>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Commodity</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>Lumber</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.state.commodity}</Text>
                                       </View>
                                   </View>
                                    <View style={{flex: 1, flexDirection: 'row', margin:15}}/>
                                   <View style={{flex: 1, flexDirection: 'row', marginLeft:30}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Weight</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>20</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.state.weight}</Text>
                                       </View>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Height</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>20</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.state.height}</Text>
                                       </View>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Width</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>10</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.state.width}</Text>
                                       </View>
                                   </View>
                                     <TouchableOpacity>

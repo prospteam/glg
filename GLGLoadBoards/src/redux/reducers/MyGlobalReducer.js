@@ -3,11 +3,18 @@ const initstate = {
 	isLoading: false,
 	sampleBolean: false,
 	isLogout: true,
-	sampleString: "xd",
+    sampleString: "xd",
+    // Jovylle used these
+	show_mini_loader:false,
 }
 
 export default function (state = initstate, action) {
     switch (action.type) {
+        case "set_show_mini_loader":
+            return {
+                ...state,
+                show_mini_loader: action.payload
+            }
         case "set_sampleBolean":
             return {
                 ...state,
