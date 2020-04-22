@@ -29,31 +29,8 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         };
 	}
 
-    componentDidMount() {
-        var self = this;
-
-    axios({
-        method: 'get',
-        url: 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/load1.txt',
-      }).then(function (response) {
-        console.log("this is a test test");
-        self.setState({
-            trailer_type: response.trailer_type,
-            date_available:response.date_available,
-            commodity: response.commodity,
-            weight: response.weight,
-            height:response.height,
-            width:response.width,
-        });
-        console.log(response);
-    })
-    .catch(function (error) {
-        console.log(error);
-        console.log("LAGI ERROR NA LAGI ALAM KO test");
-    });
-}
-
     render() {
+        console.log(this.props.commodity);
         return (
             <Screen>
 				<Text style={styles.contentItem}>
@@ -70,30 +47,30 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Trailer Type</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.state.trailer_type}</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.trailer_type}</Text>
                                       </View>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Ship Date</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.state.date_available}</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.date_available}</Text>
                                       </View>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Commodity</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.state.commodity}</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.commodity}</Text>
                                       </View>
                                   </View>
                                    <View style={{flex: 1, flexDirection: 'row', margin:15}}/>
                                   <View style={{flex: 1, flexDirection: 'row', marginLeft:30}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Weight</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.state.weight}</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.weight}</Text>
                                       </View>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Height</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.state.height}</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.height}</Text>
                                       </View>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Width</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.state.width}</Text>
+                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.width}</Text>
                                       </View>
                                   </View>
                                     <TouchableOpacity>

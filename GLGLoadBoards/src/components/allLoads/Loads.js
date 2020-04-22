@@ -51,7 +51,14 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <CardItem header style={{backgroundColor:'#05426e' }}>
                     <Text style={{color:'#fff'}}>{data.load_id}</Text>
                     <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
-                    <Button onPress={ () => {Actions.Orderdetails(); }}>
+                    <Button onPress={ () => {Actions.Orderdetails({
+                        trailer_type: data.trailer_type,
+                        date_available: data.date_available,
+                        commodity: data.commodity,
+                        weight: data.weight,
+                        height: data.height,
+                        width:data.width
+                    }); }}>
                         <Icon style={styles.order_detailes} type="FontAwesome5" name="bars"/>
                     </Button>
                 </CardItem>
@@ -87,7 +94,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 </CardItem>
             </Card>
         );
-
+        console.log(response.data);
         });
     }
         return (
