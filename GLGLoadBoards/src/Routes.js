@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
-import Spinner from 'react-native-loading-spinner-overlay';
-
-// MY IMPORTRS
+// import Routes from './Routes.js';
 import Login from './components/login/Login.js';
-// import AppPreloader from './components/AppPreloader';
+import TruckMapSearch from './components/truck_map_search/TruckMapSearch';
+import Asd from './components/truck_map_search/Asd';
+import AppPreloader from './components/AppPreloader';
 import Temp from './components/Temp.js';
 import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
