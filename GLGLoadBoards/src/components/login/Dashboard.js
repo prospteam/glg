@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 import {Icon} from 'native-base';
 
 
-class Dashboard extends Component {
+export default class Dashboard extends Component {
 
    onChangeText = (text) => {
       this.setState({
@@ -24,7 +24,7 @@ class Dashboard extends Component {
   // }
   //
    render() {
-       console.log('this.props.RiderReducer.loggedinData', this.props.RiderReducer.loggedinData);
+      //  console.log('this.props.RiderReducer.loggedinData', this.props.RiderReducer.loggedinData);
       return (
          <>
             <View style={{ position: 'relative', height: 150, width: '100%' }}>

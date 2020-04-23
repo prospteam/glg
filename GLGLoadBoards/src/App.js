@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import { YellowBox, Text, View, StyleSheet, BackHandler, ActivityIndicator, Alert, Image } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
+
+// MY IMPORT
+var logo = require('./assets/images/logo_cropped.jpg');
 import Routes from './Routes';
+import allReducers from './redux/reducers/index.js';
+import AppPreloader from './components/AppPreloader';
+import Dashboard from './components/login/Dashboard';
+
+//REDUX APP
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
-import allReducers from './redux/reducers/index.js';
-import Truck_map from './components/truckMap_search/truck_map.js';
 import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+
 YellowBox.ignoreWarnings([
 	'Warning: componentWillUpdate is deprecated',
 	'Warning: componentWillMount is deprecated',
@@ -18,9 +25,6 @@ YellowBox.ignoreWarnings([
 	'Warning: MapViewDirections',
 	'Setting a timer'
 ]);
-
-var logo = require('./assets/images/logo_cropped.jpg');
-import AppPreloader from './components/AppPreloader';
 
 const persistConfig = {
 	key: 'root',
@@ -81,7 +85,7 @@ export default class App extends Component {
 		return (
 			<Provider store={store}>
 				<PersistGate loading={loader} persistor={persistor}>
-					{/* <Truck_map /> */}
+					{/* <Dashboard /> */}
 					<Routes />
 				</PersistGate>
 			</Provider>

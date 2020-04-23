@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import {ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { Container, Header, Content, Card, Body, CardItem, Footer, FooterTab, Button, Icon, Title, Text, View,StyleProvider } from 'native-base';
 import {connect} from 'react-redux';
-import getTheme from '../../native-base-theme/components';
-import material from '../../native-base-theme/variables/material';
-import styles from '../assets/styles/CommonStyles';
+import getTheme from '../../../native-base-theme/components';
+import material from '../../../native-base-theme/variables/material';
+import styles from '../../assets/styles/CommonStyles';
 import axios from 'axios';
 // import { StyleSheet } from 'react-native';
 

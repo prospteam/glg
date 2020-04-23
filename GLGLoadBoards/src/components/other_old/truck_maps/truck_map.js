@@ -8,7 +8,6 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import { OutlinedTextField } from 'react-native-material-textfield';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 
-
 export default class Dashboard extends Component {
 
     state = {
@@ -32,7 +31,6 @@ export default class Dashboard extends Component {
     }
     constructor(props) {
         super(props)
-
         
         this.state = {
             origin: '',
@@ -58,8 +56,8 @@ export default class Dashboard extends Component {
         console.log(this.state.destination);
         console.log(this.state.trailertype);
         console.log(this.state.date);
-
     }
+
     render() {
         const state = this.state;
         const element = (data, index) => (
@@ -122,9 +120,7 @@ export default class Dashboard extends Component {
 
 }
 
-
 const styles = StyleSheet.create({
-
     btnlogin: {
         color: '#fff',
         borderColor: "#009688",
@@ -136,7 +132,6 @@ const styles = StyleSheet.create({
         width: '45%',
         height: '45%',
         borderRadius: 5,
-
     },
     btnlogin1: {
         color: 'white',
@@ -194,5 +189,4 @@ const styles = StyleSheet.create({
         textAlign: 'center',
          color: '#fff'
          }
-
 });

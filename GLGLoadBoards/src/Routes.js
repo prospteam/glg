@@ -1,13 +1,10 @@
-// RNRF logic here
 import React, { Component } from 'react';
-// import SideBar from './components/template/Sidebar.js';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
-// import Routes from './Routes.js';
-import Login from './components/login/Login.js';
+import Spinner from 'react-native-loading-spinner-overlay';
 
-import TruckMapSearch from './components/truck_map_search/TruckMapSearch';
-import Asd from './components/truck_map_search/Asd';
-import AppPreloader from './components/AppPreloader';
+// MY IMPORTRS
+import Login from './components/login/Login.js';
+// import AppPreloader from './components/AppPreloader';
 import Temp from './components/Temp.js';
 import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
@@ -17,10 +14,17 @@ import Register from './components/login/Register.js';
 import Dashboard from './components/dashboard/Dashboard.js/';
 import Trucks from './components/trucks/Trucks.js/';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
+
+// REDUX IMPORTS
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 import {set_is_logged} from './redux/actions/Actions';
-import Spinner from 'react-native-loading-spinner-overlay';
+
+// Other Screens
+import Truck_map from './components/other_old/truck_maps/truck_map.js';
+import Truckmapsv2 from './components/other_old/truck_maps/truckmapsv2.js';
+import TruckMapSearch from './components/other_old/truck_map_search/TruckMapSearch.js';
+import Load_map from './components/other_old/Load_map.js';
 
 // Dont just exist, live.
 class Routes extends Component {
@@ -66,15 +70,6 @@ class Routes extends Component {
                             hideNavBar
                         />
                         <Scene
-                            key="Asd"
-                            component={Asd}
-                            initial={
-                                (this.props.redux_session.is_logged === false)? true : false
-                            }
-                            title=""
-                            hideNavBar
-                        />
-                        <Scene
                             key="Login"
                             component={Login}
                             initial={!this.props.redux_session.is_logged}
@@ -103,6 +98,29 @@ class Routes extends Component {
                             component={SampleComponent2}
                             title="" hideNavBar
                         />
+
+                        {/*  OTHER COMPONENTS */}
+                        <Scene
+                            key="Truck_map"
+                            initial={true}
+                            component={Truck_map}
+                            title="Truck_map" hideNavBar
+                        />
+                        <Scene
+                            key="Truckmapsv2"
+                            component={Truckmapsv2}
+                            title="Truckmapsv2" hideNavBar
+                        />
+                        <Scene
+                            key="TruckMapSearch"
+                            component={TruckMapSearch}
+                            title="TruckMapSearch" hideNavBar
+                        />
+                        <Scene
+                            key="Load_map"
+                            component={Load_map}
+                            title="Load_map" hideNavBar
+                        />
                         {
                         // <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
                         // <Scene key="carrierDashboard" component={CarrierDashboard} title="" hideNavBar/>
@@ -110,6 +128,7 @@ class Routes extends Component {
                         // <Scene key="truck_map" component={truck_map} title="" hideNavBar />
                         // tangtangko above para maka proceed ko. 3/19/20
                         }
+                        
                     </Scene>
                 </Router>
             </>
