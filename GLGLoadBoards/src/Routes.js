@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 // import Routes from './Routes.js';
 import Login from './components/login/Login.js';
-import TruckMapSearch from './components/truck_map_search/TruckMapSearch';
-import Asd from './components/truck_map_search/Asd';
+// import TruckMapSearch from './components/truck_map_search/TruckMapSearch';
+// import Asd from './components/truck_map_search/Asd';
 import AppPreloader from './components/AppPreloader';
 import Temp from './components/Temp.js';
 import SampleComponent from './components/sample_component/SampleComponent.js';
@@ -17,6 +17,7 @@ import LoadSearch from './components/loadsSearch/LoadSearch.js';
 
 // REDUX IMPORTS
 import { bindActionCreators } from 'redux';
+import Spinner from 'react-native-loading-spinner-overlay';
 import {connect} from 'react-redux';
 import {set_is_logged} from './redux/actions/Actions';
 
@@ -102,7 +103,6 @@ class Routes extends Component {
                         {/*  OTHER COMPONENTS */}
                         <Scene
                             key="Truck_map"
-                            initial={true}
                             component={Truck_map}
                             title="Truck_map" hideNavBar
                         />
