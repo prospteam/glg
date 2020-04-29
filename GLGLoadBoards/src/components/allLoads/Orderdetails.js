@@ -30,7 +30,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 	}
 
     render() {
-        console.log(this.props.commodity);
+        console.log(this.props.trailer_type);
         return (
             <Screen>
 				<Text style={styles.contentItem}>
@@ -74,7 +74,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                       </View>
                                   </View>
                                     <TouchableOpacity>
-                                        <Text style={styles.search_button}>Call Brooker</Text>
+                                        <Text style={styles.call_button}>Call Brooker</Text>
                                     </TouchableOpacity>
                                     <View>
                                         <Text style={{fontSize:15, fontWeight: 'bold',marginLeft:75}}>(+96356612)</Text>

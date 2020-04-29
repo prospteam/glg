@@ -14,12 +14,14 @@ import Register from './components/login/Register.js';
 import Dashboard from './components/dashboard/Dashboard.js/';
 import Trucks from './components/trucks/Trucks.js/';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 
 // REDUX IMPORTS
 import { bindActionCreators } from 'redux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {connect} from 'react-redux';
 import {set_is_logged} from './redux/actions/Actions';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 // Other Screens
 import Truck_map from './components/other_old/truck_maps/truck_map.js';
@@ -37,6 +39,16 @@ class Routes extends Component {
                     visible={this.props.redux_state.show_mini_loader}
                     textContent={'Loading...'}
                     textStyle={{color: '#FFF'}}
+                />
+                <SCLAlert
+                    show={this.props.redux_state.show_alert}
+                    // onRequestClose={this.props.redux_state.show_}
+                    // theme={this.props.redux_state.show_theme}
+                    // title={this.props.redux_state.show_title}
+                    // subtitle={this.props.redux_state.show_msg}
+                    theme="info"
+                    title="Info"
+                    subtitle="You can setup the colors using the theme prop"
                 />
                 <Router>
                     <Scene key="root">
@@ -128,7 +140,7 @@ class Routes extends Component {
                         // <Scene key="truck_map" component={truck_map} title="" hideNavBar />
                         // tangtangko above para maka proceed ko. 3/19/20
                         }
-                        
+
                     </Scene>
                 </Router>
             </>
