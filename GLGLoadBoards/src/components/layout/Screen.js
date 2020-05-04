@@ -56,6 +56,13 @@ import {set_is_logged} from '../../redux/actions/Actions';;
 										<Text style={[styles.ligtFont,styles.headerBigger]}>
 											{(this.props.title)?this.props.title:"Page Title"}
 										</Text>
+										<Button onPress={()=>Actions.Mileage(
+											{origin:'TX,+USA',destination:'MI,+USA'}
+											)}>
+											<Text>
+											Test Mileage, TX -> MI
+											</Text>
+										</Button>
 									</View>
 								</View>
 								<View style={styles.contentBody}>
