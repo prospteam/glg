@@ -9,6 +9,7 @@ import Temp from './components/Temp.js';
 import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
 import Loads from './components/allLoads/Loads.js';
+import GoogleMapsPlacesInput from './components/allLoads/GoogleMapsPlacesInput.js';
 import Orderdetails from './components/allLoads/Orderdetails.js';
 import Register from './components/login/Register.js';
 import Dashboard from './components/dashboard/Dashboard.js/';
@@ -28,6 +29,9 @@ import Truck_map from './components/other_old/truck_maps/truck_map.js';
 import Truckmapsv2 from './components/other_old/truck_maps/truckmapsv2.js';
 import TruckMapSearch from './components/other_old/truck_map_search/TruckMapSearch.js';
 import Load_map from './components/other_old/Load_map.js';
+
+const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
+const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
 
 // Dont just exist, live.
 class Routes extends Component {
@@ -80,6 +84,12 @@ class Routes extends Component {
                             key="Loads"
                             component={Loads}
                             title="Loads"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="GoogleMapsPlacesInput"
+                            component={GoogleMapsPlacesInput}
+                            title="GoogleMapsPlacesInput"
                             hideNavBar
                         />
                         <Scene
