@@ -51,16 +51,14 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <CardItem header style={{backgroundColor:'#05426e' }}>
                     <Text style={{color:'#fff'}}>{data.load_id}</Text>
                     <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
-                    <Button onPress={ () => {Actions.Orderdetails({
-                        trailer_type: data.trailer_type,
-                        date_available: data.date_available,
-                        commodity: data.commodity,
-                        weight: data.weight,
-                        height: data.height,
-                        width:data.width
-                    }); }}>
-                        <Icon style={styles.order_detailes} type="FontAwesome5" name="bars"/>
-                    </Button>
+                        <Icon style={styles.order_detailes} onPress={ () => {Actions.Orderdetails({
+                            trailer_type: data.trailer_type,
+                            date_available: data.date_available,
+                            commodity: data.commodity,
+                            weight: data.weight,
+                            height: data.height,
+                            width:data.width
+                        }); }} type="FontAwesome5" name="bars"/>
                 </CardItem>
                 <CardItem>
                     <Body>
@@ -73,7 +71,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                             <Text style={{fontSize:10, marginLeft: 60}}>{data.origin}</Text>
                         </View>
                             <View style={{textAlign:'right'}}>
-                                <Text style={{fontSize:20, marginLeft: 60, fontWeight: 'bold'}}>{data.rate}</Text>
+                                <Text style={{fontSize:20, marginLeft: 80, fontWeight: 'bold'}}>${data.rate}</Text>
                             </View>
                         </View>
                         <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
@@ -94,7 +92,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 </CardItem>
             </Card>
         );
-        console.log(response.data);
+        console.log(response.data.trailer_type);
         });
     }
         return (
@@ -104,7 +102,6 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 				</Text>
                 <ScrollView>
                 <View style={styles.contentBody}>
-                        <Text style={{fontSize:18,marginBottom: 8}}>Load Search</Text>
                             <View style={styles.middle}>
                                 <Text style={styles.middle_text}>Origin</Text>
                                     <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ origin: text })}/>

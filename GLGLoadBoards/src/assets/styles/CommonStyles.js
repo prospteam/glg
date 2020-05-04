@@ -101,8 +101,19 @@ export default StyleSheet.create({
         textAlign: 'center',
         padding: 8,
         fontSize: 15,
+        marginTop: 10,
+        marginBottom:10
+    },
+    call_button:{
+        backgroundColor: 'orange',
+        color: 'white',
+        borderRadius: 50,
+        width: 120,
+        textAlign: 'center',
+        padding: 8,
+        fontSize: 15,
         marginTop: 20,
-        marginLeft:60
+        marginLeft:65,
     },
     fieldsInput1:{
         borderWidth : 1

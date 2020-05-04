@@ -23,6 +23,8 @@
     "react-native-floating-labels": "^1.1.9",
     "react-native-fontawesome": "^7.0.0",
     "react-native-gesture-handler": "^1.5.3",
+    "react-native-google-maps-places-autocomplete": "^1.0.2",
+    "react-native-google-places-autocomplete": "^1.4.1",
     "react-native-ionicons": "^4.6.4",
     "react-native-loading-spinner-overlay": "^1.1.0",
     "react-native-maps": "^0.27.1",
