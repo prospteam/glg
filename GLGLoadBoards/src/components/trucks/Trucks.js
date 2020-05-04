@@ -3,6 +3,9 @@ import { Text, View  } from 'native-base';
 import RNPickerSelect from 'react-native-picker-select';
 import DatePicker from 'react-native-datepicker'
 import { StyleSheet, TextInput, Button } from 'react-native';
+import { GoogleMapsPlacesAutocomplete } from 'react-native-google-maps-places-autocomplete';
+
+
 
 // MY Imports
 import Screen from '../layout/Screen';
@@ -45,7 +48,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                             >
                                 <SCLAlertButton theme="default" onPress={this.handleClose}>OK</SCLAlertButton>
                             </SCLAlert> */}
-                            <TextInput style={styles2.fieldsInput1} placeholderTextColor="#000" placeholder="Origin" onChangeText={(text) => this.setState({ origin: text })} />
+                            <TextInput style={styles2.fieldsInput1} placeholderTextColor="#000" placeholder="Origins" onChangeText={(text) => this.setState({ origin: text })} />
                             <TextInput style={styles2.fieldsInput1} placeholderTextColor="#000" placeholder="Destination" onChangeText={(text) => this.setState({ destination: text })} />
 
                             <View
