@@ -49,6 +49,13 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             return(
             <Card key={index}>
                 <CardItem header style={{backgroundColor:'#05426e' }}>
+                    
+                <TouchableOpacity onPress={()=>Actions.Mileage({
+                                        origin:data.origin+',+USA',
+                                        destination:data.destination+',+USA'
+                                    })}>
+                            <Icon style={styles.vehicle_type} type="FontAwesome5" name="map-marker"/>
+                        </TouchableOpacity>
                     <Text style={{color:'#fff'}}>{data.load_id}</Text>
                     <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
                         <Icon style={styles.order_detailes} onPress={ () => {Actions.Orderdetails({
