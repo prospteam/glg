@@ -66,8 +66,17 @@ export default StyleSheet.create({
     },
     order_detailes:{
         color:'white',
-        marginLeft:170,
         fontSize: 15,
+    },
+
+    editIcon:{
+        color:'white',
+        fontSize: 15,
+    },
+    deleteIcon:{
+        color:'white',
+        fontSize: 15,
+        marginLeft:120,
     },
     footertab_active_indicator: {
         width:'75%',
@@ -86,6 +95,21 @@ export default StyleSheet.create({
         borderColor: '#009688',
         borderRadius: 5,width:'70%',
         height: 35
+    },
+    text_input_edit:{
+        borderWidth: 0.5,
+        borderColor: '#009688',
+        borderRadius: 5,
+        width:'100%',
+        height: 35,
+        padding:10
+    },
+    textArea: {
+        height: 150,
+        justifyContent: "flex-start",
+        borderWidth: 0.5,
+        borderColor: '#009688',
+        borderRadius: 5,
     },
     middle_text:{
         fontWeight: 'bold',
@@ -112,7 +136,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         padding: 8,
         fontSize: 15,
-        marginTop: 20,
+        marginTop: 0,
         marginLeft:65,
     },
     fieldsInput1:{

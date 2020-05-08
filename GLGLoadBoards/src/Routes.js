@@ -9,7 +9,9 @@ import Mileage from './components/mileage/Mileage';
 import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
 import Loads from './components/allLoads/Loads.js';
+import GoogleMapsPlacesInput from './components/allLoads/GoogleMapsPlacesInput.js';
 import Orderdetails from './components/allLoads/Orderdetails.js';
+import Editloads from './components/allLoads/Editloads.js';
 import Register from './components/login/Register.js';
 import Dashboard from './components/dashboard/Dashboard.js/';
 import Trucks from './components/trucks/Trucks.js/';
@@ -28,6 +30,7 @@ import Truck_map from './components/other_old/truck_maps/truck_map.js';
 import Truckmapsv2 from './components/other_old/truck_maps/truckmapsv2.js';
 import TruckMapSearch from './components/other_old/truck_map_search/TruckMapSearch.js';
 import Load_map from './components/other_old/Load_map.js';
+
 
 // Dont just exist, live.
 class Routes extends Component {
@@ -82,9 +85,21 @@ class Routes extends Component {
                             hideNavBar
                         />
                         <Scene
+                            key="Editloads"
+                            component={Editloads}
+                            title="Editloads"
+                            hideNavBar
+                        />
+                        <Scene
                             key="Loads"
                             component={Loads}
                             title="Loads"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="GoogleMapsPlacesInput"
+                            component={GoogleMapsPlacesInput}
+                            title="GoogleMapsPlacesInput"
                             hideNavBar
                         />
                         <Scene

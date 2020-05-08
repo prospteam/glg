@@ -7,16 +7,11 @@ import material from '../../../native-base-theme/variables/material';
 import styles from '../../assets/styles/CommonStyles';
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
-import {set_is_logged} from '../../redux/actions/Actions';;
-// import { StyleSheet } from 'react-native';
+import {set_is_logged} from '../../redux/actions/Actions';
 
  class Screen extends Component {
-
     constructor(props) {
 		super(props)
-		// console.log("this.props");
-		// console.log(this.props);
-		
     }
 
     end_session() {
@@ -78,8 +73,8 @@ import {set_is_logged} from '../../redux/actions/Actions';;
 							onPress= {(active_tab!="Dashboard")?() => Actions.Dashboard():null}
 							>
 								<View style={(active_tab=="Dashboard")?styles.footertab_active_indicator:null} />
-								<Icon 
-									style={(active_tab=="Dashboard")?styles.footertab_icon_active:null} 
+								<Icon
+									style={(active_tab=="Dashboard")?styles.footertab_icon_active:null}
 									type="FontAwesome" name="line-chart"
 								/>
 							</Button>
@@ -87,8 +82,8 @@ import {set_is_logged} from '../../redux/actions/Actions';;
 							onPress= {(active_tab!="Loads")?() => Actions.Loads():null}
 							>
 								<View style={(active_tab=="Loads")?styles.footertab_active_indicator:null} />
-								<Icon 
-									style={(active_tab=="Loads")?styles.footertab_icon_active:null} 
+								<Icon
+									style={(active_tab=="Loads")?styles.footertab_icon_active:null}
 									type="FontAwesome5" name="dolly"
 								/>
 							</Button>
@@ -96,9 +91,9 @@ import {set_is_logged} from '../../redux/actions/Actions';;
 							onPress= {(active_tab!="Trucks")?() => Actions.Trucks():null}
 							>
 								<View style={(active_tab=="Trucks")?styles.footertab_active_indicator:null} />
-								<Icon 
-									style={(active_tab=="Trucks")?styles.footertab_icon_active:null} 
-									type="FontAwesome5" name="truck" 
+								<Icon
+									style={(active_tab=="Trucks")?styles.footertab_icon_active:null}
+									type="FontAwesome5" name="truck"
 								/>
 							</Button>
 							<Button style={styles.footertab_button}>
