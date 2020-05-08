@@ -11,6 +11,7 @@ import SampleComponent2 from './components/sample_component/SampleComponent2.js'
 import Loads from './components/allLoads/Loads.js';
 import GoogleMapsPlacesInput from './components/allLoads/GoogleMapsPlacesInput.js';
 import Orderdetails from './components/allLoads/Orderdetails.js';
+import Editloads from './components/allLoads/Editloads.js';
 import Register from './components/login/Register.js';
 import Dashboard from './components/dashboard/Dashboard.js/';
 import Trucks from './components/trucks/Trucks.js/';
@@ -78,6 +79,12 @@ class Routes extends Component {
                             key="Orderdetails"
                             component={Orderdetails}
                             title="Orderdetails"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Editloads"
+                            component={Editloads}
+                            title="Editloads"
                             hideNavBar
                         />
                         <Scene

@@ -5,6 +5,7 @@ import Screen from '../layout/Screen';
 import { Actions } from 'react-native-router-flux';
 import styles from '../../assets/styles/CommonStyles';
 import axios from 'axios';
+
 //REDUX
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -23,6 +24,10 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 
         };
 	}
+
+
+    // import { StyleSheet } from 'react-native';
+
 
     componentDidMount() {
         var self = this;
@@ -51,6 +56,20 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <CardItem header style={{backgroundColor:'#05426e' }}>
                     <Text style={{color:'#fff'}}>{data.load_id}</Text>
                     <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
+                        <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/>
+                        <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Editloads({
+                            origin:data.origin,
+                            destination:data.destination,
+                            date_available:data.date_available,
+                            trailer_type: data.trailer_type,
+                            length: data.length,
+                            width:data.width,
+                            rate: data.rate,
+                            commodity: data.commodity,
+                            reference_number:data.reference_number,
+                            comments: data.comments,
+                        }); }}/>
+
                         <Icon style={styles.order_detailes} onPress={ () => {Actions.Orderdetails({
                             trailer_type: data.trailer_type,
                             date_available: data.date_available,
