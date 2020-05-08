@@ -31,8 +31,6 @@ import Truckmapsv2 from './components/other_old/truck_maps/truckmapsv2.js';
 import TruckMapSearch from './components/other_old/truck_map_search/TruckMapSearch.js';
 import Load_map from './components/other_old/Load_map.js';
 
-const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
-const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
 
 // Dont just exist, live.
 class Routes extends Component {
