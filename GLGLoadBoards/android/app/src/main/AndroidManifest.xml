@@ -10,6 +10,21 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+
+      <!-- Our Changes -->
+      
+      <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyAiCJ2KCchVNTCutDA8lHJs4i4_5xKFJA4"/>
+      <!-- <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyDnwl47Nw6vlyjpD_r4txGBl58MEgqqn0o"/> -->
+
+      <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
+
+      <!-- Our Changes - End -->
+
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

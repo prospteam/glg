@@ -36,3 +36,16 @@ allprojects {
         maven { url 'https://jitpack.io' }
     }
 }
+
+/**
+ + Project-wide Gradle configuration properties
+ */
+ext {
+    compileSdkVersion   = 28
+    // targetSdkVersion    = xxx
+    // buildToolsVersion   = "xxx"
+    // minSdkVersion       = xxx
+    // supportLibVersion   = "xxx"
+    playServicesVersion = "17.0.0" // or find latest version
+    // androidMapsUtilsVersion = "xxx"
+}

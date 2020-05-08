@@ -16,7 +16,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { set_is_logged,set_user_data } from '../../redux/actions/Actions';
 
-
 class Login extends Component {
 
     state = {

@@ -5,7 +5,7 @@ import Login from './components/login/Login.js';
 // import TruckMapSearch from './components/truck_map_search/TruckMapSearch';
 // import Asd from './components/truck_map_search/Asd';
 import AppPreloader from './components/AppPreloader';
-import Temp from './components/Temp.js';
+import Mileage from './components/mileage/Mileage';
 import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
 import Loads from './components/allLoads/Loads.js';
@@ -37,7 +37,6 @@ const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818
 // Dont just exist, live.
 class Routes extends Component {
     render() {
-
         return (
             <>
                 <Spinner
@@ -61,6 +60,12 @@ class Routes extends Component {
                             key="Dashboard"
                             component={Dashboard}
                             title="Dashboard"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Mileage"
+                            component={Mileage}
+                            title="Mileage"
                             hideNavBar
                         />
                         <Scene
