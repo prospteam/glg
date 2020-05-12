@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Linking } from 'react-native';
+import { TouchableOpacity, Linking } from 'react-native';
 import { Text, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body, View  } from 'native-base';
 import MapView from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
@@ -83,6 +83,7 @@ Geocoder.init("AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4"); // use a valid API key
 		alert();
 		// this.props.set_sampleString('set_sampleString',this.state.input_sampleString);
 	}
+	
 	asd(){
 		const url = Platform.select({
 			ios: 'maps:e37.484847,-122.148386',
@@ -101,18 +102,20 @@ Geocoder.init("AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4"); // use a valid API key
 		// 	return
 			
         return (
-			<Screen>
-				<Text style={styles.contentItem}>
-					Sub Title
-				</Text>
 				<View
 					style={{
 						flex:1,
-						// backgroundColor:'red',
+						backgroundColor:'red',
+						// justifyContent: 'flex-end',
+						width:'100%',
+						position:'relative',
 					}}
 					>
 					<MapView
-						style={{flex:1}}
+						style={{
+							flex:1,
+						backgroundColor:'red',
+						}}
 						initialRegion={{
 							latitude: 37.78825,
 							longitude: -122.4324,
@@ -132,49 +135,25 @@ Geocoder.init("AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4"); // use a valid API key
 						}}
 					  />
 					</MapView>
-				<Button onPress={()=>this.asd()}><Text>call asd</Text></Button>
+					<View style={{
+						// width: '100%', 
+						height: 50, 
+						justifyContent: 'center', 
+						alignItems: 'center',
+						position:'absolute',
+						bottom: 0,
+						right: 5,
+						}} >
+						<TouchableOpacity onPress={()=>this.asd()}>
+							<Text style={{
+								...styles.call_button,
+								marginLeft:0,
+								padding: 3,
+								fontSize: 15,
+								}}>View Directions</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
-				{/* <Card style={styles.contentItem}>
-					<CardItem header>
-						<Text>Sample Redux State Call</Text>
-					</CardItem>
-					<CardItem>
-						<Body>
-							<Text>
-							redux_state.sampleString={this.props.redux_state.sampleString}
-							</Text>
-						</Body>
-					</CardItem>
-				</Card>
-				<Card style={styles.contentItem}>
-					<CardItem header>
-						<Text>Sample Redux Function Call</Text>
-					</CardItem>
-					<CardItem>
-						<Body>
-							<Item regular>
-								<Icon active name='home' />
-								<Input
-									placeholder="Input text..."
-									onChangeText={
-										(text) => this.setState(
-											{input_sampleString:text}
-											)
-										}
-									defaultValue={this.state.input_sampleString}
-								/>
-							</Item>
-						</Body>
-					</CardItem>
-					<CardItem>
-						<Body>
-							<Button onPress={() => this.submit_sampleString()}>
-								<Text>Update</Text>
-							</Button>
-						</Body>
-					</CardItem>
-				</Card> */}
-			</Screen>
 		)
     }
 }

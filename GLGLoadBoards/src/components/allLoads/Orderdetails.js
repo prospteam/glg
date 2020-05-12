@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { Text, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body, View  } from 'native-base';
-import Screen from '../layout/Screen';
-import styles from '../../assets/styles/CommonStyles';
 import axios from 'axios';
+
+import Screen from '../layout/Screen';
+import Mileage from '../mileage/Mileage';
+import styles from '../../assets/styles/CommonStyles';
 
 //REDUX
 import { connect } from 'react-redux';
@@ -34,64 +36,85 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         return (
             <Screen>
 				<Text style={styles.contentItem}>
-					Order Details
+					Order Details 1
 				</Text>
                 <ScrollView>
                 <View style={styles.contentBody}>
-                        <Card>
-                            <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
-                                <Text style={{color:'#fff'}}>Hillboro - Phoenix</Text>
-                            </CardItem>
-                            <CardItem>
+                    <Card containerStyle={{
+                        flex:1,
+                        // height:200,
+                        // height:'100%',
+                        backgroundColor:'red',
+                        // elevation:0, 
+                        // backgroundColor:'#123'
+                        }}>
+                        <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
+                            <Text style={{color:'#fff'}}>Hillboro - Phoenix</Text>
+                        </CardItem>
+                        <CardItem>
                             <Body>
-                                  <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                                      <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Trailer Type</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.trailer_type}</Text>
-                                      </View>
-                                      <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Ship Date</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.date_available}</Text>
-                                      </View>
-                                      <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Commodity</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.commodity}</Text>
-                                      </View>
-                                  </View>
-                                   <View style={{flex: 1, flexDirection: 'row', margin:15}}/>
-                                  <View style={{flex: 1, flexDirection: 'row', marginLeft:30}}>
-                                      <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Weight</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.weight}</Text>
-                                      </View>
-                                      <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Height</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.height}</Text>
-                                      </View>
-                                      <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Width</Text>
-                                          <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.width}</Text>
-                                      </View>
-                                  </View>
-                                    <TouchableOpacity>
-                                        <Text style={styles.call_button}>Call Brooker</Text>
-                                    </TouchableOpacity>
-                                    <View>
-                                        <Text style={{fontSize:15, fontWeight: 'bold',marginLeft:75}}>(+96356612)</Text>
+                                <View style={{
+                                        height:200,
+                                        width:'100%',
+                                        backgroundColor:'red',
+                                    }}>
+                                    <Mileage props={{
+                                                origin:this.props.origin+',+USA',
+                                                destination:this.props.destination+',+USA'
+                                            }}/>
+                                </View>
+                            </Body>
+                        </CardItem>
+                        <CardItem>
+                            <Body>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                                    <View style={{flex:1}}>
+                                        <Text style={{fontSize:10}}>Trailer Type</Text>
+                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.trailer_type}</Text>
                                     </View>
-                                </Body>
-                            </CardItem>
-                                <CardItem footer style={{backgroundColor:'#05426e' }}>
-                                <View style={{flex: 1, flexDirection: 'column',justifyContent: "center", alignItems: "center"}}>
-                                    <View>
-                                        <Text style={{color:'white'}}>Comment</Text>
+                                    <View style={{flex:1}}>
+                                        <Text style={{fontSize:10}}>Ship Date</Text>
+                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.date_available}</Text>
                                     </View>
-                                    <View style={{marginBottom:5}}>
-                                        <Text style={{color:'white'}}>Arrive Time: 04:45 PM</Text>
+                                    <View style={{flex:1}}>
+                                        <Text style={{fontSize:10}}>Commodity</Text>
+                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.commodity}</Text>
                                     </View>
                                 </View>
-                            </CardItem>
-                        </Card>
+                                <View style={{flex: 1, flexDirection: 'row', margin:15}}/>
+                                <View style={{flex: 1, flexDirection: 'row', marginLeft:30}}>
+                                    <View style={{flex:1}}>
+                                        <Text style={{fontSize:10}}>Weight</Text>
+                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.weight}</Text>
+                                    </View>
+                                    <View style={{flex:1}}>
+                                        <Text style={{fontSize:10}}>Height</Text>
+                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.height}</Text>
+                                    </View>
+                                    <View style={{flex:1}}>
+                                        <Text style={{fontSize:10}}>Width</Text>
+                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.width}</Text>
+                                    </View>
+                                </View>
+                                <TouchableOpacity>
+                                    <Text style={styles.call_button}>Call Brooker</Text>
+                                </TouchableOpacity>
+                                <View>
+                                    <Text style={{fontSize:15, fontWeight: 'bold',marginLeft:75}}>(+96356612)</Text>
+                                </View>
+                            </Body>
+                        </CardItem>
+                            <CardItem footer style={{backgroundColor:'#05426e' }}>
+                            <View style={{flex: 1, flexDirection: 'column',justifyContent: "center", alignItems: "center"}}>
+                                <View>
+                                    <Text style={{color:'white'}}>Comment</Text>
+                                </View>
+                                <View style={{marginBottom:5}}>
+                                    <Text style={{color:'white'}}>Arrive Time: 04:45 PM</Text>
+                                </View>
+                            </View>
+                        </CardItem>
+                    </Card>
                 </View>
                 </ScrollView>
 			</Screen>

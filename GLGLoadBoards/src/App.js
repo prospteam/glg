@@ -73,7 +73,7 @@ export default class App extends Component {
 	componentDidMount() {
 		setTimeout( () => {
 			this.setTimePassed();
-		},1000);
+		},100);
 	}
 	setTimePassed() {
 		this.setState({timePassed: true});
