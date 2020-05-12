@@ -34,7 +34,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 
     axios({
         method: 'get',
-        url: 'http://web2.proweaverlinks.com/tech/bwbsafe/backend_web_api/loads.txt',
+        url: 'https://glgfreight.com/loadboard/api_mobile/Loads/all_loads',
       }).then(function (response) {
         console.log("this is a test");
         console.log(response.data);
@@ -54,8 +54,8 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             return(
             <Card key={index}>
                 <CardItem header style={{backgroundColor:'#05426e' }}>
-                    
-                {/* <TouchableOpacity onPress={()=>Actions.Mileage({
+
+                <TouchableOpacity onPress={()=>Actions.Mileage({
                                         origin:data.origin+',+USA',
                                         destination:data.destination+',+USA'
                                     })}>

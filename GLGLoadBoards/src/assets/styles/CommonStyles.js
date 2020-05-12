@@ -76,7 +76,7 @@ export default StyleSheet.create({
     deleteIcon:{
         color:'white',
         fontSize: 15,
-        marginLeft:120,
+        marginLeft:80,
     },
     footertab_active_indicator: {
         width:'75%',
