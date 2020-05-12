@@ -55,10 +55,28 @@ class Routes extends Component {
                 <Router>
                     <Scene key="root">
                         <Scene
+                            direction='left'
                             key="Dashboard"
                             component={Dashboard}
                             title="Dashboard"
                             hideNavBar
+                            transitionConfig={() => ({
+                                screenInterpolator: (props) => {
+                                const { scene } = props
+                                switch (scene.route.routeName) {
+                                    /* case yourKeyScene:
+                                    return theAnimationYouWant(props)*/
+                                    case 'groups':
+                                    return CardStackStyleInterpolator.forVertical(props)
+                                    case 'home':
+                                    return CardStackStyleInterpolator.forHorizontal(props)
+                                    case 'inbox':
+                                    return CardStackStyleInterpolator.forFade(props)
+                                    default:
+                                    return CardStackStyleInterpolator.forInitial
+                                }
+                                }
+                            })}
                         />
                         <Scene
                             key="Mileage"

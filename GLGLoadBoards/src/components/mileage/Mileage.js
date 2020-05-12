@@ -40,6 +40,7 @@ Geocoder.init("AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4"); // use a valid API key
 //         .catch(error => console.warn(error));
  
  class Mileage extends Component {
+	mapView = null;
 	constructor(props){
 		super(props);
 		// this.props.set_is_logged('set_is_logged',false);
@@ -118,6 +119,7 @@ Geocoder.init("AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4"); // use a valid API key
 							latitudeDelta: 0.0922,
 							longitudeDelta: 0.0421,
 						}}
+						ref={c => this.mapView = c}
 					>
 					  <MapViewDirections
 						origin={this.state.origin}
@@ -125,6 +127,9 @@ Geocoder.init("AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4"); // use a valid API key
 						// apikey={'AIzaSyAiCJ2KCchVNTCutDA8lHJs4i4_5xKFJA4'}
 						// SA BWB
 						apikey={'AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4'}
+						onReady={result => {
+						  this.mapView.fitToCoordinates(result.coordinates, {});
+						}}
 					  />
 					</MapView>
 				<Button onPress={()=>this.asd()}><Text>call asd</Text></Button>
