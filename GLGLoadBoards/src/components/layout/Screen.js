@@ -80,6 +80,7 @@ import {set_is_logged} from '../../redux/actions/Actions';
 							</Button>
 							<Button style={styles.footertab_button}
 							onPress= {(active_tab!="Loads")?() => Actions.Loads():null}
+                            direction='horizontal'
 							>
 								<View style={(active_tab=="Loads")?styles.footertab_active_indicator:null} />
 								<Icon

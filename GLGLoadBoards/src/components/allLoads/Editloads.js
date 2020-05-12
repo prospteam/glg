@@ -28,31 +28,31 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 
         };
 	}
-        _Update() {
-            console.log(this.props.origin);
-            console.log(this.props.destination);
-            console.log(this.props.trailer_type);
-            console.log(this.props.date);
-            console.log(this.props.commodity);
-            console.log(this.props.reference_number);
+        _handlePress() {
+            // console.log(this.state.origin);
+            // console.log(this.state.destination);
+            // console.log(this.state.trailer_type);
+            // console.log(this.state.date);
+            // console.log(this.state.commodity);
+            // console.log(this.state.reference_number);
 
-            // axios.post('http://192.168.20.33/Projects/globallogisticsgroup/Loadboard_Website/loadboard/loads/search_load?glg_api=yes', {
-            //     origin: this.state.origin,
-            //     destination: this.state.destination,
-            //     trailertype: this.state.trailertype,
-            //     date: this.state.date,
-            //     commodity: this.state.commodity,
-            //     refnumber: this.state.reference_number,
-            //     allLoads: 'All_loads'
-            // }).then(function (response) {
-            //     console.log(response);
-            //     alert('http://192.168.20.33/Projects/globallogisticsgroup/Loadboard_Website/loadboard/loads/search_load');
-            //
-            // }).catch(function (err) {
-            //     console.log(err);
-            //     alert('http://192.168.20.33/Projects/globallogisticsgroup/Loadboard_Website/loadboard/loads/search_load');
-            //
-            // });
+            axios.post('https://glgfreight.com/loadboard/api_mobile/Loads/edit_loads', {
+                origin: this.state.origin,
+                destination: this.state.destination,
+                trailertype: this.state.trailertype,
+                date: this.state.date,
+                commodity: this.state.commodity,
+                refnumber: this.state.reference_number,
+                allLoads: 'All_loads'
+            }).then(function (response) {
+                console.log(response);
+                alert('test');
+
+            }).catch(function (err) {
+                console.log(err);
+                alert('https://glgfreight.com/loadboard/api_mobile/Loads/edit_loads');
+
+            });
         }
     render() {
         console.log(this.props.origin);
@@ -134,7 +134,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                       </View>
                                   </View>
                                    <View style={{flex: 1, flexDirection: 'row', margin:15}}/>
-                                    <TouchableOpacity onPress={() => this._Update()}>
+                                    <TouchableOpacity onPress={() => this._handlePress()}>
                                         <Text style={styles.call_button}>Update</Text>
                                     </TouchableOpacity>
                                 </Body>
