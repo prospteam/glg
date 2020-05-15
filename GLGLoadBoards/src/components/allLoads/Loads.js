@@ -60,7 +60,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                         destination:data.destination+',+USA'
                                     })}>
                             <Icon style={styles.vehicle_type} type="FontAwesome5" name="map-marker"/>
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>
                     <Text style={{color:'#fff'}}>{data.load_id}</Text>
                     <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
                         <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView,ScrollView   } from 'react-native';
+import { SafeAreaView,ScrollView, TouchableOpacity } from 'react-native';
 import { Container, Header, Content, Card, Body, CardItem, Footer, FooterTab, Button, Icon, Title, Text, View,StyleProvider  } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import getTheme from '../../../native-base-theme/components';
@@ -8,7 +8,6 @@ import styles from '../../assets/styles/CommonStyles';
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 import {set_is_logged} from '../../redux/actions/Actions';
-
  class Screen extends Component {
     constructor(props) {
 		super(props)
@@ -36,7 +35,9 @@ import {set_is_logged} from '../../redux/actions/Actions';
 										<Text style={styles.ligtFont}>
 											{
 											(this.props.redux_session.user_data)?
-											this.props.redux_session.user_data.email:"Not available"
+											this.props.redux_session.user_data.email
+											:
+											"Not available"
 											}
 										</Text>
 										<View style={{alignItems: 'flex-end',flex:1,flexDirection:'row-reverse'}}>
@@ -61,6 +62,19 @@ import {set_is_logged} from '../../redux/actions/Actions';
 									</View>
 								</View>
 								<View style={styles.contentBody}>
+									<View style={{
+										height:30,
+										backgroundColor:'red',
+										flexDirection:"row",
+										justifyContent:"space-around"
+									}}>
+										<TouchableOpacity>
+											<Text>Load Mapses</Text>
+										</TouchableOpacity>
+										<TouchableOpacity>
+											<Text>Load Mapses</Text>
+										</TouchableOpacity>
+									</View>
 									{this.props.children}
 								</View>
 							</ScrollView>

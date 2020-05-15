@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 // import Routes from './Routes.js';
 import Login from './components/login/Login.js';
+
 // import TruckMapSearch from './components/truck_map_search/TruckMapSearch';
 // import Asd from './components/truck_map_search/Asd';
+
 import AppPreloader from './components/AppPreloader';
 import Mileage from './components/mileage/Mileage';
 import SampleComponent from './components/sample_component/SampleComponent.js';
@@ -31,7 +33,6 @@ import Truckmapsv2 from './components/other_old/truck_maps/truckmapsv2.js';
 import TruckMapSearch from './components/other_old/truck_map_search/TruckMapSearch.js';
 import Load_map from './components/other_old/Load_map.js';
 
-
 // Dont just exist, live.
 class Routes extends Component {
     render() {
@@ -54,6 +55,22 @@ class Routes extends Component {
                 />
                 <Router>
                     <Scene key="root">
+                        {/* <Scene key='Trucks' tabs={true} >
+                                
+                            <Scene
+                                key="SampleComponent"
+                                component={SampleComponent}
+                                title=""
+                                hideNavBar
+                            />
+                            <Scene
+                                key="Loads"
+                                component={Loads}
+                                title="Loads"
+                                hideNavBar
+                            />
+                        </Scene> */}
+
                         <Scene
                             direction='left'
                             key="Dashboard"
@@ -79,23 +96,18 @@ class Routes extends Component {
                             })}
                         />
                         <Scene
+                            key="Trucks"
+                            component={Trucks}
+                            title="Trucks"
+                            // hideNavBar
+                            
+                        />
+                        {/* <Scene
                             key="Mileage"
                             component={Mileage}
                             title="Mileage"
                             hideNavBar
-                        />
-                        <Scene
-                            key="Trucks"
-                            component={Trucks}
-                            title="Trucks"
-                            hideNavBar
-                        />
-                        <Scene
-                            key="Loads"
-                            component={Loads}
-                            title="Loads"
-                            hideNavBar
-                        />
+                        /> */}
                         <Scene
                             key="Orderdetails"
                             component={Orderdetails}
@@ -124,12 +136,6 @@ class Routes extends Component {
                             key="Login"
                             component={Login}
                             initial={!this.props.redux_session.is_logged}
-                            title=""
-                            hideNavBar
-                        />
-                        <Scene
-                            key="SampleComponent"
-                            component={SampleComponent}
                             title=""
                             hideNavBar
                         />
