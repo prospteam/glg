@@ -136,6 +136,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                               numberOfLines={10}
                                               multiline={true}
                                               defaultValue = {this.props.comments}
+                                              onChangeText={text => this.setState({ reference_number: text })}
                                             />
                                       </View>
                                   </View>
