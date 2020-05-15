@@ -10,6 +10,7 @@ const initstate = {
 	show_theme:false,
 	show_title:false,
 	show_msg:false,
+	show_googleplaces:true,
 }
 
 export default function (state = initstate, action) {

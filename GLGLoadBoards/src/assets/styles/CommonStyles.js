@@ -43,6 +43,7 @@ export default StyleSheet.create({
         borderTopColor: '#ff9c00',
         borderTopWidth: 10,
         },
+    dateInput: { borderWidth: 0 },
     ligtFont: {
         color: '#fff',
         marginRight:10,
@@ -90,11 +91,19 @@ export default StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 10
     },
+
     text_input:{
         borderWidth: 0.5,
         borderColor: '#009688',
-        borderRadius: 5,width:'70%',
+        borderRadius: 5,
+        width:'58%',
         height: 35
+    },
+    date_text_input:{
+        borderWidth: 0.5,
+        borderColor: '#009688',
+        borderRadius: 5,width:'70%',
+        height: 35,
     },
     text_input_edit:{
         borderWidth: 0.5,

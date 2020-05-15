@@ -34,7 +34,7 @@ class Login extends Component {
         // if(this.props.redux_session.is_logged){
         //     this.props.set_is_logged('set_is_logged', false);
         // }
-        
+
         // console.log("api_link");
         // console.log(api_link);
         this.state = {
@@ -53,7 +53,7 @@ class Login extends Component {
             if(!this.props.redux_session.is_logged){
                 this.props.set_is_logged('set_is_logged', true);
                 this.props.set_user_data(
-                    'set_user_data', 
+                    'set_user_data',
                     this.temp_user_data
                 );
             }
@@ -132,9 +132,9 @@ class Login extends Component {
                     title: "Success!",
                     success_login: true
                 });
-                
+
                 that.temp_user_data = response.data[0];
-                
+
                 // Actions.Loads()
                 // Actions.Dashboard()
             } else {
@@ -173,7 +173,7 @@ class Login extends Component {
                             onRequestClose={this.handleOpen}
                             theme={this.state.theme}
                             title={this.state.title}
-                            subtitle={this.state.msg}
+                            subtitle={this.state.subtitle}
                         >
                         <SCLAlertButton theme="default" onPress={this.handleClose}>OK</SCLAlertButton>
                         </SCLAlert>

@@ -15,17 +15,16 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 	constructor(props){
 		super(props);
         this.state = {
-            load_id: '',
             origin: '',
             destination:'',
-            trailer_type:'',
             date_available:'',
-            commodity:'',
-            weight:'',
-            height:'',
+            trailer_type:'',
+            length:'',
             width:'',
             rate:'',
-
+            commodity:'',
+            reference_number:'',
+            comments:'',
         };
 	}
         _handlePress() {
@@ -36,21 +35,23 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             // console.log(this.state.commodity);
             // console.log(this.state.reference_number);
 
-            axios.post('https://glgfreight.com/loadboard/api_mobile/Loads/edit_loads', {
+            axios.post('https://glgfreight.com/loadboard_app/api_mobile/Loads/edit_loads', {
                 origin: this.state.origin,
                 destination: this.state.destination,
+                date_available: this.state.date_available,
                 trailertype: this.state.trailertype,
-                date: this.state.date,
+                length: this.state.length,
+                width: this.state.width,
+                rate: this.state.rate,
                 commodity: this.state.commodity,
-                refnumber: this.state.reference_number,
-                allLoads: 'All_loads'
+                reference_number: this.state.reference_number,
+                comments: this.state.comments,
             }).then(function (response) {
                 console.log(response);
-                alert('test');
-
+                alert('success');
             }).catch(function (err) {
                 console.log(err);
-                alert('https://glgfreight.com/loadboard/api_mobile/Loads/edit_loads');
+                    alert('TO MANY ERRORS');
 
             });
         }
