@@ -25,16 +25,12 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         };
 	}
 
-
-    // import { StyleSheet } from 'react-native';
-
-
     componentDidMount() {
         var self = this;
 
     axios({
         method: 'get',
-        url: 'https://glgfreight.com/loadboard/api_mobile/Loads/all_loads',
+        url: 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads',
       }).then(function (response) {
         console.log("this is a test");
         console.log(response.data);
@@ -45,22 +41,19 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         console.log("LAGI ERROR NA LAGI ALAM KO");
     });
 }
-
     render() {
-
         let load_details;
         if (this.state.response.length!==0) {
             load_details = this.state.response.map((data, index)=>{
             return(
             <Card key={index}>
                 <CardItem header style={{backgroundColor:'#05426e' }}>
-
                 <TouchableOpacity onPress={()=>Actions.Mileage({
                                         origin:data.origin+',+USA',
                                         destination:data.destination+',+USA'
                                     })}>
                             <Icon style={styles.vehicle_type} type="FontAwesome5" name="map-marker"/>
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>
                     <Text style={{color:'#fff'}}>{data.load_id}</Text>
                     <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
                         <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/>
@@ -76,7 +69,6 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                             reference_number:data.reference_number,
                             comments: data.comments,
                         }); }}/>
-
                         <Icon style={styles.order_detailes} onPress={ () => {Actions.Orderdetails({
                             trailer_type: data.trailer_type,
                             date_available: data.date_available,
@@ -144,7 +136,6 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                         {load_details}
                 </View>
                 </ScrollView>
-
 			</Screen>
 		)
         console.log(this.state.response);

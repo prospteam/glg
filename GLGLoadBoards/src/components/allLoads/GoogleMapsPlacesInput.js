@@ -51,57 +51,50 @@ const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818
         return (
 			// <Screen active_tab="Loads" title="Loads" >
             <GooglePlacesAutocomplete
+                listViewDisplayed={this.props.redux_state.show_googleplaces}
                 placeholder='Search by'
-                minLength={2} // minimum length of text to search
+                minLength={2}
                 autoFocus={false}
-                returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-                listViewDisplayed='auto'    // true/false/undefined
+                returnKeyType={'search'}
                 fetchDetails={true}
-                renderDescription={row => row.description} // custom description render
-                onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+                renderDescription={row => row.description}
+                onPress={(data, details = null) => {
                 console.log(data, details);
                 }}
 
-                // getDefaultValue={() => ''}
-
                 query={{
-                // available options: https://developers.google.com/places/web-service/autocomplete
-                key: 'AIzaSyAKqsECe6r8abouPxWMxaO5m8g97YnXL_M',
-                language: 'en', // language of the results
-                types: '(cities)' // default: 'geocode'
+                    key: 'AIzaSyAKqsECe6r8abouPxWMxaO5m8g97YnXL_M',
+                    language: 'en',
+                    types: '(cities)'
                 }}
-
                 styles={{
-                textInputContainer: {
-                width: '100%',
-                zIndex: 9
-                },
-                description: {
-                fontWeight: 'bold'
-                },
-                predefinedPlacesDescription: {
-                color: '#1faadb'
-                }
+                    textInputContainer: {
+                        width: '100%',
+                        zIndex: 9
+                    },
+                    description: {
+                        fontWeight: 'bold'
+                    },
+                    predefinedPlacesDescription: {
+                        color: '#1faadb'
+                    }
                 }}
 
-                currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+                currentLocation={true}
                 currentLocationLabel="Current location"
-                nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+                nearbyPlacesAPI='GooglePlacesSearch'
                 GoogleReverseGeocodingQuery={{
-                // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+
                 }}
                 GooglePlacesSearchQuery={{
-                // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
                 rankby: 'distance',
                 types: 'food'
                 }}
 
                 filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']}
                 enablePoweredByContainer={false}
-                // predefinedPlaces={[homePlace, workPlace]}
 
-                debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
-                // renderRightButton={() => <Text>Search here</Text>}
+                debounce={200}
                 />
 
 		)
