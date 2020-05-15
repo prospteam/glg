@@ -99,7 +99,7 @@ class Routes extends Component {
                             key="Trucks"
                             component={Trucks}
                             title="Trucks"
-                            // hideNavBar
+                            hideNavBar
                             
                         />
                         {/* <Scene
