@@ -20,17 +20,86 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
  class Trucks extends Component {
 	constructor(props){
 		super(props);
-		this.state = {
-			input_sampleString: "",
-            show_googleapi:'',
-		}
+        this.state = {
+            response: [],
+            load_id: '',
+            origin:'',
+            origin_state:'',
+            destination:'',
+            trailer_type:'',
+            date_added:'',
+            comments:'',
+        };
 	}
 
+    componentDidMount() {
+        var self = this;
+
+    axios({
+        method: 'get',
+        url: 'https://glgfreight.com/loadboard_app/api_mobile/Trucks/all_trucks',
+      }).then(function (response) {
+        console.log("this is a test");
+        console.log(response.data);
+        self.setState({response: response.data});
+    })
+    .catch(function (error) {
+        console.log(error);
+        console.log("LAGI ERROR NA LAGI ALAM KO");
+    });
+}
 
 
     render() {
 		console.log("input_sampleString")
-		console.log(this.props.redux_state.show_googleapi)
+        let trucks_details;
+        trucks_details = this.state.response.map((data, index)=>{
+            return (
+                <Card key={index}>
+                    <CardItem header style={{backgroundColor:'#05426e' }}>
+                     <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                         <View style={{flex:1}}>
+                             <Text style={{fontSize:12, color:'white'}}>{data.origin}</Text>
+                             <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{data.origin_state}</Text>
+                         </View>
+                         <View style={{flex:1}}>
+                           <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/>
+                         </View>
+                         <View style={{flex:1}}>
+                             <Text style={{fontSize:12,color:'white'}}>{data.destination}</Text>
+                             <Text style={{fontSize:15,fontWeight: 'bold',color:'white'}}>{data.destination_state}</Text>
+                         </View>
+                     </View>
+                    </CardItem>
+                    <CardItem>
+                        <Body>
+                            <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                               <View style={{flex: 1,marginBottom:5}}>
+                                   <Text style={{fontSize:10}}>Trip Miles</Text>
+                                   <Text style={{fontSize:10}}>001</Text>
+                               </View>
+                               <View style={{flex: 1,marginBottom:5}}>
+                                   <Text style={{fontSize:10}}>Trailer Type</Text>
+                                   <Text style={{fontSize:10}}>{data.trailer_type}</Text>
+                               </View>
+                           </View>
+                           <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                              <View style={{flex: 1,marginBottom:5}}>
+                                  <Text style={{fontSize:10}}>Ship dates</Text>
+                                  <Text style={{fontSize:10}}>{data.date_added}</Text>
+                              </View>
+                              <View style={{flex: 1,marginBottom:5}}>
+                                  <Text style={{fontSize:10}}>Comments</Text>
+                                  <Text style={{fontSize:10}}>{data.comments}</Text>
+                              </View>
+                          </View>
+                        </Body>
+                    </CardItem>
+                </Card>
+            );
+            console.log(response.data.trailer_type);
+        });
+
         return (
                 <Screen active_tab="Loads" title="Loads" >
                     <Text style={styles.contentItem}>
@@ -74,14 +143,12 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                     <TouchableOpacity>
                                         <Text style={styles.search_button}>Search</Text>
                                     </TouchableOpacity>
-                             </View>
-                             <View>
-                             <Text style={styles.contentItem}>
-                                 Trucks List
-                             </Text>
-                             </View>
-                                     <Text style={{color:'black', fontSize:15, fontStyle: 'italic', textAlign: 'center', backgroundColor: '#009688', borderRadius: 2,  opacity: 0.5}}> No Data Available</Text>
-                    </View>
+                                    </View>
+                            </View>
+                                <View>
+                                    <Text style={styles.contentItem}>Truck List</Text>
+                                </View>
+                            {trucks_details}
                     </ScrollView>
                 </Screen>
 		)

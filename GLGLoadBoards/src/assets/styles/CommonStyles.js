@@ -65,9 +65,13 @@ export default StyleSheet.create({
     vehicle_type:{
         color:'orange'
     },
+    arrow_des:{
+        color:'orange',
+        fontSize:15,
+    },
     order_detailes:{
         color:'white',
-        fontSize: 15,
+        fontSize: 17,
     },
 
     editIcon:{

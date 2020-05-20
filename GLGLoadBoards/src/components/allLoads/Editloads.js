@@ -36,6 +36,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             // console.log(this.state.reference_number);
 
             axios.post('https://glgfreight.com/loadboard_app/api_mobile/Loads/edit_loads', {
+                load_id: this.state.load_id,
                 origin: this.state.origin,
                 destination: this.state.destination,
                 date_available: this.state.date_available,
@@ -48,10 +49,11 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 comments: this.state.comments,
             }).then(function (response) {
                 console.log(response);
+                console.log("________________________________________");
                 alert('success');
             }).catch(function (err) {
                 console.log(err);
-                    alert('TO MANY ERRORS');
+                    alert('TOO MANY ERRORS');
 
             });
         }
@@ -66,7 +68,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <View style={styles.contentBody}>
                         <Card>
                             <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
-                                <Text style={{color:'#fff'}}>Edit Loads</Text>
+                                <Text defaultValue = {this.props.load_id}  style={{color:'#fff'}}>Edit Loads</Text>
                             </CardItem>
                             <CardItem>
                             <Body>
