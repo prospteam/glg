@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';// I included ang "index.js"
 
- class Editloads extends Component {
+ class Edittrucks extends Component {
 	constructor(props){
 		super(props);
         this.state = {
@@ -47,18 +47,9 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 commodity: this.state.commodity,
                 reference_number: this.state.reference_number,
                 comments: this.state.comments,
-                bornforyou: "born to be wild",
             }).then(function (response) {
-<<<<<<< HEAD
                 console.log(response);
                 console.log("________________________________________");
-=======
-                console.log("______________________");
-                console.log("______________________");
-                console.log(response.data);
-                console.log("______________________");
-                console.log("______________________");
->>>>>>> 721617238ae55176252b7c9a4935161baec1887d
                 alert('success');
             }).catch(function (err) {
                 console.log(err);
@@ -71,13 +62,13 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         return (
             <Screen>
 				<Text style={styles.contentItem}>
-					Edit Loads
+					Edit Trucks
 				</Text>
                 <ScrollView>
                 <View style={styles.contentBody}>
                         <Card>
                             <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
-                                <Text defaultValue = {this.props.load_id}  style={{color:'#fff'}}>Edit Loads</Text>
+                                <Text defaultValue = {this.props.load_id}  style={{color:'#fff'}}>Edit Trucks</Text>
                             </CardItem>
                             <CardItem>
                             <Body>
@@ -88,8 +79,8 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                       </View>
                                       <View  style={{margin:2}}/>
                                       <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Destination</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.destination} onChangeText={text => this.setState({ destination: text })}/>
+                                          <Text style={{fontSize:10}}>Origin State</Text>
+                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.origin_state} onChangeText={text => this.setState({ destination: text })}/>
                                       </View>
                                   </View>
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
@@ -102,33 +93,6 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Trailer Type</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.trailer_type} onChangeText={text => this.setState({ trailer_type: text })}/>
-                                      </View>
-                                  </View>
-                                  <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                                      <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>length</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.length} onChangeText={text => this.setState({ length: text })}/>
-                                      </View>
-                                      <View  style={{margin:2}}/>
-                                      <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Width</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.width} onChangeText={text => this.setState({ width: text })}/>
-                                      </View>
-                                  </View>
-                                  <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                                      <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Rate</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.rate} onChangeText={text => this.setState({ rate: text })}/>
-                                      </View>
-                                        <View  style={{margin:2}}/>
-                                      <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Commodity</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.commodity} onChangeText={text => this.setState({ commodity: text })}/>
-                                      </View>
-                                            <View  style={{margin:2}}/>
-                                      <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Ref. Number</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.reference_number} onChangeText={text => this.setState({ reference_number: text })}/>
                                       </View>
                                   </View>
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
@@ -179,4 +143,4 @@ function reduxActionFunctions(dispatch){
     },dispatch);
  }
 
-export default connect(reduxStateToProps,reduxActionFunctions)(Editloads);
+export default connect(reduxStateToProps,reduxActionFunctions)(Edittrucks);
