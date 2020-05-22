@@ -49,7 +49,6 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
     });
 }
 
-
     render() {
 		console.log("input_sampleString")
         let trucks_details;
@@ -58,7 +57,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <Card key={index}>
                     <CardItem header style={{backgroundColor:'#05426e' }}>
                      <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                         <View style={{flex:1}}>
+                         <View style={{flex:1}}> 
                              <Text style={{fontSize:12, color:'white'}}>{data.origin}</Text>
                              <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{data.origin_state}</Text>
                          </View>
@@ -69,6 +68,15 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                              <Text style={{fontSize:12,color:'white'}}>{data.destination}</Text>
                              <Text style={{fontSize:15,fontWeight: 'bold',color:'white'}}>{data.destination_state}</Text>
                          </View>
+                         <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Edittrucks({
+                             origin:data.origin,
+                             origin_state:data.origin_state,
+                             destination:data.destination,
+                             destination_state:data.destination_state,
+                             date_available:data.date_available,
+                             trailer_type: data.trailer_type,
+                             comments: data.comments,
+                         }); }}/>
                      </View>
                     </CardItem>
                     <CardItem>

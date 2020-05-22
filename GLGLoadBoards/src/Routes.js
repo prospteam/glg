@@ -17,6 +17,7 @@ import Editloads from './components/allLoads/Editloads.js';
 import Register from './components/login/Register.js';
 import Dashboard from './components/dashboard/Dashboard.js/';
 import Trucks from './components/trucks/Trucks.js/';
+import Edittrucks from './components/trucks/Edittrucks.js/';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 
@@ -56,7 +57,7 @@ class Routes extends Component {
                 <Router>
                     <Scene key="root">
                         {/* <Scene key='Trucks' tabs={true} >
-                                
+
                             <Scene
                                 key="SampleComponent"
                                 component={SampleComponent}
@@ -100,7 +101,7 @@ class Routes extends Component {
                             component={Trucks}
                             title="Trucks"
                             // hideNavBar
-                            
+
                         />
                         {/* <Scene
                             key="Mileage"
@@ -118,6 +119,12 @@ class Routes extends Component {
                             key="Editloads"
                             component={Editloads}
                             title="Editloads"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Edittrucks"
+                            component={Edittrucks}
+                            title="Edittrucks"
                             hideNavBar
                         />
                         <Scene
