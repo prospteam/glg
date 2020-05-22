@@ -9,7 +9,8 @@ import logo from '../../assets/images/logo.png';
 // Redux Imports
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { sampleFunction } from '../../redux/actions/Actions.js';// I included ang "index.js" para di malibog
+import { register_action } from '../../redux/actions/Actions.js';// I included ang "index.js" para di malibog
+import RNPickerSelect from 'react-native-picker-select';
 
 const Item = Picker.Item;
 
@@ -77,79 +78,80 @@ class Register extends Component {
         // alert('getting action');
         // console.log("this.prop");
         console.log(this);
-        this.props.sampleFunction('', inputs);
+        this.props.register_action('', inputs);
     }
 
     render() {
         return (
-         <ScrollView >
-            <View>
-                <ImageBackground source={bg_image} style={{ width: '100%', height: '100%' }}>
-                    <View style={{ marginTop: "8%", justifyContent: "center", alignItems: "center" }}>
-                        <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100 }} />
-                    </View>
-                    <View style={{ justifyContent: "center", alignItems: "center" }}>
-                        <Text style={{ fontSize: 20, color: "#fff" }}>Register</Text>
-                        <TextInput
-                            style={styles.InputRegister}
-                            placeholderTextColor="#fff"
-                            placeholder="First Name"
-                            onChangeText={fname => this.setState({ fname})}
-                            value={this.state.fname}
-                        />
-                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Last Name"
-                            onChangeText={lname => this.setState({ lname })}
-                            value={this.state.lname}
-                        />
-                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="User Name"
-                            onChangeText={username => this.setState({ username })}
-                            value={this.state.username}
-                        />
-                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Password"
-                            onChangeText={password => this.setState({ password })}
-                            value={this.state.password}
-                        />
-                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Address"
-                            onChangeText={address => this.setState({ address })}
-                            value={this.state.address}
-                        />
-                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Contact Number"
-                            onChangeText={cnumber => this.setState({ cnumber })}
-                            value={this.state.cnumber}
-                        />
-                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Email Address"
-                            onChangeText={emailadd => this.setState({ emailadd })}
-                            value={this.state.emailadd}
-                        />
-                        <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="shipper/carrier"
-                            onChangeText={usertype => this.setState({ usertype })}
-                            value={this.state.usertype}
-                        />
-{
-                        // <Picker
-                        //     mode='dropdown'
-                        //     selectedValue={this.state.usertype}
-                        //     onValueChange={fname => this.setState({ fname })}>
-                        //     <Item label='Cats' value='key0' />
-                        //     <Item label='Dogs' value='key1' />
-                        //     <Item label='Birds' value='key2' />
-                        //     <Item label='Elephants' value='key3' />
-                        // </Picker>
-                        }
-                        <TouchableOpacity onPress={this.handleSubmit}>
-                            <Text style={styles.btnlogin}>Register</Text>
-                        </TouchableOpacity>
-
-                        <View style={{ justifyContent: "center", alignItems: "center" }}>
-                            <TouchableOpacity><Text style={{ color: "#fff" }}>Already a Member? Login Here</Text></TouchableOpacity>
+            <View style={{flex:1,backgroundColor:'blue'}}>
+                <ImageBackground source={bg_image} style={{ width: '100%', flex:1 }}>
+                    <ScrollView style={{flex:1}} >
+                        <View style={{ marginTop: "8%", justifyContent: "center", alignItems: "center" }}>
+                            <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100 }} />
                         </View>
-                    </View>
+                        <View style={{ justifyContent: "center", alignItems: "center",flex:1  }}>
+                            <Text style={{ fontSize: 20, color: "#fff" }}>Register</Text>
+                            <TextInput
+                                style={styles.InputRegister}
+                                placeholderTextColor="#fff"
+                                placeholder="First Name"
+                                onChangeText={fname => this.setState({ fname})}
+                                value={this.state.fname}
+                            />
+                            <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Last Name"
+                                onChangeText={lname => this.setState({ lname })}
+                                value={this.state.lname}
+                            />
+                            <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="User Name"
+                                onChangeText={username => this.setState({ username })}
+                                value={this.state.username}
+                            />
+                            <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Password"
+                                onChangeText={password => this.setState({ password })}
+                                value={this.state.password}
+                            />
+                            {/* <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Address"
+                                onChangeText={address => this.setState({ address })}
+                                value={this.state.address}
+                            /> */}
+                            <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Contact Number"
+                                onChangeText={cnumber => this.setState({ cnumber })}
+                                value={this.state.cnumber}
+                            />
+                            <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Email Address"
+                                onChangeText={emailadd => this.setState({ emailadd })}
+                                value={this.state.emailadd}
+                            />
+                            <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="shipper/carrier"
+                                onChangeText={usertype => this.setState({ usertype })}
+                                value={this.state.usertype}
+                            />
+                            <View style={{...styles.InputRegister,textAlign:'center'}}>
+                                <RNPickerSelect
+                                    placeholder={{
+                                        label: 'Register as.',
+                                        value: null,
+                                    }}
+                                    // useNativeAndroidPickerStyle={false}
+                                    onValueChange={(value) => this.setState({usertype:value})}
+                                    items={[
+                                        { label: 'Truck Owner/Carrier', value: 'carrier' },
+                                        { label: 'Shipper', value: 'shipper' },
+                                    ]}
+                                />
+                            </View>
+                            <TouchableOpacity onPress={this.handleSubmit}>
+                                <Text style={styles.btnlogin}>Register</Text>
+                            </TouchableOpacity>
+                            <View style={{ justifyContent: "center", alignItems: "center" }}>
+                                <TouchableOpacity><Text style={{ color: "#fff" }}>Already a Member? Login Here</Text></TouchableOpacity>
+                            </View>
+                        </View>
+                    </ScrollView>
                 </ImageBackground>
             </View>
-        </ScrollView>
         );
     }
-
 }
 const styles = StyleSheet.create({
     InputRegister: {
@@ -183,7 +185,7 @@ function mapStateToProps(state) {
     // const reduxState = (state) => {
     console.log('redaux stae from lgin ', state)
     return {
-        // Reducer: state.Reducer
+        my_config: state.my_config
     }
 }
 
@@ -196,7 +198,7 @@ function mapStateToProps(state) {
 function mapActionsToDispatch(dispatch) {
 
     return bindActionCreators({
-        sampleFunction: sampleFunction,
+        register_action: register_action,
     }, dispatch)
 
 }

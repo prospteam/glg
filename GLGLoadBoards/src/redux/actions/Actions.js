@@ -1,11 +1,5 @@
 // Dependencies
 import axios from 'axios';
-import Geolocation from '@react-native-community/geolocation';
-import { Alert } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import api_link from '../../libraries/MyConfigs.js';
-
-const geolib = require('geolib');
 
 // My Imports
 import firebase from "../../libraries/firestore.js";
@@ -20,35 +14,30 @@ export function set_SAMPLEBOLEAN(type, payload){
 	}
 }
 export function set_user_data(type, payload){
-	// console.log('true_or_false',payload);
 	return{
 		type: type,
 		payload: payload
 	}
 }
 export function set_show_mini_loader(payload){
-	// console.log('true_or_false',payload);
 	return{
 		type: "set_show_mini_loader",
 		payload: payload
 	}
 }
 export function set_is_logged(type, payload){
-	// console.log('true_or_false',payload);
 	return{
 		type: type,
 		payload: payload
 	}
 }
 export function set_sampleString(type, payload){
-	// console.log('true_or_false',payload);
 	return{
 		type: type,
 		payload: payload
 	}
 }
-export function sampleFunction(type_,data){
-	// alert(MyConfigs.api_link +'/login/register/yes');
+export function register_action(type_,data){
 	console.log('Start');
     const api_call = axios.post(MyConfigs.api_link +'/login/register/yes',data)
 		.then(res => {

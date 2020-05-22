@@ -9,7 +9,7 @@ import axios from 'axios';
 //REDUX
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';// I included ang "index.js"
+import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../redux/actions/Actions';// I included ang "index.js"
 
  class Loads extends Component {
 	constructor(props){
@@ -27,20 +27,26 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 
     componentDidMount() {
         var self = this;
-
-    axios({
-        method: 'get',
-        url: 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads',
-      }).then(function (response) {
-        console.log("this is a test");
-        console.log(response.data);
-        self.setState({response: response.data});
-    })
-    .catch(function (error) {
-        console.log(error);
-        console.log("LAGI ERROR NA LAGI ALAM KO");
-    });
-}
+        // if(!this.props.redux_state.set_show_mini_loader)
+            // this.props.set_show_mini_loader(false);
+            
+        axios({
+            method: 'get',
+            url: 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads',
+        }).then(function (response) {
+            console.log("this is a test");
+            console.log(response.data);
+            self.setState({response: response.data});
+            // if(this.props.redux_state.set_show_mini_loader)
+            //     this.props.set_show_mini_loader(false);
+        })
+        .catch(function (error) {
+            // if(this.props.redux_state.set_show_mini_loader)
+            //     this.props.set_show_mini_loader(false);
+            console.log(error);
+            console.log("LAGI ERROR NA LAGI ALAM KO");
+        });
+    }
     render() {
         let load_details;
         if (this.state.response.length!==0) {
@@ -48,12 +54,6 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             return(
             <Card key={index}>
                 <CardItem header style={{backgroundColor:'#05426e' }}>
-                <TouchableOpacity onPress={()=>Actions.Mileage({
-                                        origin:data.origin+',+USA',
-                                        destination:data.destination+',+USA'
-                                    })}>
-                            <Icon style={styles.vehicle_type} type="FontAwesome5" name="map-marker"/>
-                        </TouchableOpacity>
                     <Text style={{color:'#fff'}}>{data.load_id}</Text>
                     <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
                         <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/>
@@ -115,12 +115,12 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
     }
         return (
 			<Screen active_tab="Loads" title="Loads" >
-				<Text style={styles.contentItem}>
-					Load Search
-				</Text>
                 <ScrollView>
+				{/* <Text style={styles.contentHeader}>
+					Loads list
+				</Text> */}
                 <View style={styles.contentBody}>
-                            <View style={styles.middle}>
+                            {/* <View style={styles.middle}>
                                 <Text style={styles.middle_text}>Origin</Text>
                                     <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ origin: text })}/>
                                 <Text style={styles.middle_text}>Destination</Text>
@@ -132,7 +132,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                 <TouchableOpacity>
                                     <Text style={styles.search_button}>Search</Text>
                                 </TouchableOpacity>
-                         </View>
+                         </View> */}
                         {load_details}
                 </View>
                 </ScrollView>
@@ -156,7 +156,8 @@ function reduxStateToProps(state) {
 function reduxActionFunctions(dispatch){
     return bindActionCreators({
         set_sampleString : set_sampleString,
-        set_is_logged : set_is_logged
+        set_is_logged : set_is_logged,
+        set_show_mini_loader : set_show_mini_loader,
 		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
  }

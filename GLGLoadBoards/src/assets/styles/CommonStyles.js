@@ -15,7 +15,7 @@ export default StyleSheet.create({
         // width: '100%'
     },
     contentHeader:{
-        paddingTop:10,
+        paddingTop:5,
     },
     contentBody:{
         // marginLeft:1,

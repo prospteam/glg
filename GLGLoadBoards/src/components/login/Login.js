@@ -184,8 +184,8 @@ class Login extends Component {
                             <Text style={styles.btnlogin}>Login</Text>
                         </TouchableOpacity>
                         <View style={{ marginTop: "5%", justifyContent: "center", alignItems: "center" }}>
-                            <TouchableOpacity onPress={() => Actions.Register()}><Text style={{ color: "#fff", margin: 10 }}>No Account? Register Here</Text></TouchableOpacity>
-                            <Text style={{ color: "#fff", margin: 10 }}>Forgot Password? </Text>
+                            <TouchableOpacity onPress={() => Actions.Register()}><Text style={{ color: "#fff", margin: 10 }}>No Account? Quick Register Here</Text></TouchableOpacity>
+                            {/* <Text style={{ color: "#fff", margin: 10 }}>Forgot Password? </Text> */}
                         </View>
                     </View>
                 </ImageBackground>

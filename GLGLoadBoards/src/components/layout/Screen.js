@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import { SafeAreaView,ScrollView, TouchableOpacity } from 'react-native';
+import { SafeAreaView,ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Container, Header, Content, Card, Body, CardItem, Footer, FooterTab, Button, Icon, Title, Text, View,StyleProvider  } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import getTheme from '../../../native-base-theme/components';
 import material from '../../../native-base-theme/variables/material';
 import styles from '../../assets/styles/CommonStyles';
-import { bindActionCreators } from 'redux';
-import {connect} from 'react-redux';
 import {set_is_logged} from '../../redux/actions/Actions';
+import logo_square from '../../assets/images/logo_square.jpg';
+import {to_upper} from '../../libraries/MyFunctions.js';
+
  class Screen extends Component {
     constructor(props) {
 		super(props)
@@ -22,27 +26,37 @@ import {set_is_logged} from '../../redux/actions/Actions';
         // console.log(this.props.logout);
         return (
 			<StyleProvider style={getTheme(material)}>
-				<Container >
+				<Container>
 					<Content contentContainerStyle={{flex:1}}>
 						<SafeAreaView  style={styles.contentContainer}>
 							<ScrollView contentContainerStyle={{flex:1}}>
 								<View style={styles.contentHeader}>
 									<View style={{
 										flexDirection:'row',
-										padding:10,
+										padding:15,
+										paddingLeft:20,
+										paddingRight:20,
+										justifyContent: 'center',
+										alignItems: 'center'
 									}}>
-										<Icon style={styles.ligtFont} name='image' />
+										<Image style={{
+											height: 30,
+											width: 30,
+											borderRadius: 40,
+											overflow: 'hidden',
+											}} 
+											source={logo_square} />
 										<Text style={styles.ligtFont}>
 											{
 											(this.props.redux_session.user_data)?
-											this.props.redux_session.user_data.email
+											to_upper(this.props.redux_session.user_data.user_type)
 											:
 											"Not available"
 											}
 										</Text>
 										<View style={{alignItems: 'flex-end',flex:1,flexDirection:'row-reverse'}}>
 											<Icon onPress={ () => this.end_session()} style={{...styles.ligtFont}} name='exit' />
-											<Icon onPress={ () => this.end_session()} style={{...styles.ligtFont}} name='person' />
+											{/* <Icon onPress={ () => this.end_session()} style={{...styles.ligtFont}} name='person' /> */}
 										</View>
 									</View>
 									<View style={{
@@ -52,17 +66,10 @@ import {set_is_logged} from '../../redux/actions/Actions';
 										<Text style={[styles.ligtFont,styles.headerBigger]}>
 											{(this.props.title)?this.props.title:"Page Title"}
 										</Text>
-										<Button onPress={()=>Actions.Mileage(
-											{origin:'TX,+USA',destination:'MI,+USA'}
-											)}>
-											<Text>
-											Test Mileage, TX -> MI
-											</Text>
-										</Button>
 									</View>
 								</View>
 								<View style={styles.contentBody}>
-									<View style={{
+									{/* <View style={{
 										height:30,
 										backgroundColor:'red',
 										flexDirection:"row",
@@ -74,7 +81,7 @@ import {set_is_logged} from '../../redux/actions/Actions';
 										<TouchableOpacity>
 											<Text>Load Mapses</Text>
 										</TouchableOpacity>
-									</View>
+									</View> */}
 									{this.props.children}
 								</View>
 							</ScrollView>
@@ -82,7 +89,7 @@ import {set_is_logged} from '../../redux/actions/Actions';
 					</Content>
 					<Footer>
 						<FooterTab style={{backgroundColor: '#fff'}}>
-							<Button
+							{/* <Button
 							style={styles.footertab_button}
 							onPress= {(active_tab!="Dashboard")?() => Actions.Dashboard():null}
 							>
@@ -91,7 +98,7 @@ import {set_is_logged} from '../../redux/actions/Actions';
 									style={(active_tab=="Dashboard")?styles.footertab_icon_active:null}
 									type="FontAwesome" name="line-chart"
 								/>
-							</Button>
+							</Button> */}
 							<Button style={styles.footertab_button}
 							onPress= {(active_tab!="Loads")?() => Actions.Loads():null}
                             direction='horizontal'
@@ -102,15 +109,20 @@ import {set_is_logged} from '../../redux/actions/Actions';
 									type="FontAwesome5" name="dolly"
 								/>
 							</Button>
-							<Button style={styles.footertab_button}
-							onPress= {(active_tab!="Trucks")?() => Actions.Trucks():null}
-							>
-								<View style={(active_tab=="Trucks")?styles.footertab_active_indicator:null} />
-								<Icon
-									style={(active_tab=="Trucks")?styles.footertab_icon_active:null}
-									type="FontAwesome5" name="truck"
-								/>
-							</Button>
+							{
+								this.props.redux_session.user_data.user_type!="shipper"?
+									<Button style={styles.footertab_button}
+									onPress= {(active_tab!="Trucks")?() => Actions.Trucks():null}
+									>
+										<View style={(active_tab=="Trucks")?styles.footertab_active_indicator:null} />
+										<Icon
+											style={(active_tab=="Trucks")?styles.footertab_icon_active:null}
+											type="FontAwesome5" name="truck"
+										/>
+									</Button>
+								:null
+							}
+							
 							<Button style={styles.footertab_button}>
 								<View style={(false)?styles.footertab_active_indicator:null} />
 								<Icon name="person"/>
@@ -127,8 +139,8 @@ import {set_is_logged} from '../../redux/actions/Actions';
 // Push yourself a little more, every day.
 
 function redux_state_to_Props (state){
-	// console.log("Sceen ni ha");
-	// console.log(state.redux_session.user_data.email);
+	console.log("Sceen ni ha");
+	console.log(state.redux_session.user_data);
     return {
         redux_session: state.redux_session
     }

@@ -99,6 +99,9 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                 <TouchableOpacity>
                                     <Text style={styles.call_button}>Call Brooker</Text>
                                 </TouchableOpacity>
+                                <TouchableOpacity>
+                                    <Text style={styles.call_button}>Find Truck</Text>
+                                </TouchableOpacity>
                                 <View>
                                     <Text style={{fontSize:15, fontWeight: 'bold',marginLeft:75}}>(+96356612)</Text>
                                 </View>
@@ -125,9 +128,10 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 // KUNG GUSTO MONG GAMITIN ANG REDUX STATES
 function reduxStateToProps(state) {
     // const reduxState = (state) => {
-    // console.log('redaux stae  ', state)
+    console.log('redux staettt', state.redux_session.user_data.user_type)
     return {
-		redux_state: state.redux_state
+		redux_state: state.redux_state,
+		redux_session: state.redux_session
 		// si MyGlobalReducer kay makit an sa reducers folder
     }
 }
