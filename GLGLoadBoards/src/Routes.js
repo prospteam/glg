@@ -56,30 +56,59 @@ class Routes extends Component {
                 />
                 <Router>
                     <Scene key="root">
-                        {
-                            // this.props.redux_session.user_data.user_type!="carrier"?
-                            // :null
-                        }
+                        {/* <Scene key='Trucks' tabs={true} >
+
+                            <Scene
+                                key="SampleComponent"
+                                component={SampleComponent}
+                                title=""
+                                hideNavBar
+                            />
+                            <Scene
+                                key="Loads"
+                                component={Loads}
+                                title="Loads"
+                                hideNavBar
+                            />
+                        </Scene> */}
+
                         <Scene
-                            key="Loads"
-                            component={Loads}
-                            title="Loads"
+                            direction='left'
+                            key="Dashboard"
+                            component={Dashboard}
+                            title="Dashboard"
                             hideNavBar
+                            transitionConfig={() => ({
+                                screenInterpolator: (props) => {
+                                const { scene } = props
+                                switch (scene.route.routeName) {
+                                    /* case yourKeyScene:
+                                    return theAnimationYouWant(props)*/
+                                    case 'groups':
+                                    return CardStackStyleInterpolator.forVertical(props)
+                                    case 'home':
+                                    return CardStackStyleInterpolator.forHorizontal(props)
+                                    case 'inbox':
+                                    return CardStackStyleInterpolator.forFade(props)
+                                    default:
+                                    return CardStackStyleInterpolator.forInitial
+                                }
+                                }
+                            })}
                         />
                         <Scene
                             key="Trucks"
                             component={Trucks}
                             title="Trucks"
-                            hideNavBar
-                            
+                            // hideNavBar
+
                         />
-                        
-                        <Scene
+                        {/* <Scene
                             key="Mileage"
                             component={Mileage}
                             title="Mileage"
                             hideNavBar
-                        />
+                        /> */}
                         <Scene
                             key="Orderdetails"
                             component={Orderdetails}
@@ -96,6 +125,12 @@ class Routes extends Component {
                             key="Edittrucks"
                             component={Edittrucks}
                             title="Edittrucks"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Loads"
+                            component={Loads}
+                            title="Loads"
                             hideNavBar
                         />
                         <Scene
