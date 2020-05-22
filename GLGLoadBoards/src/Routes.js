@@ -100,8 +100,13 @@ class Routes extends Component {
                             key="Trucks"
                             component={Trucks}
                             title="Trucks"
+<<<<<<< HEAD
                             // hideNavBar
 
+=======
+                            hideNavBar
+                            
+>>>>>>> 721617238ae55176252b7c9a4935161baec1887d
                         />
                         {/* <Scene
                             key="Mileage"

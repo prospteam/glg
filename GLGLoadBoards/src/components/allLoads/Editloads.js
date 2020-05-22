@@ -47,9 +47,18 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 commodity: this.state.commodity,
                 reference_number: this.state.reference_number,
                 comments: this.state.comments,
+                bornforyou: "born to be wild",
             }).then(function (response) {
+<<<<<<< HEAD
                 console.log(response);
                 console.log("________________________________________");
+=======
+                console.log("______________________");
+                console.log("______________________");
+                console.log(response.data);
+                console.log("______________________");
+                console.log("______________________");
+>>>>>>> 721617238ae55176252b7c9a4935161baec1887d
                 alert('success');
             }).catch(function (err) {
                 console.log(err);

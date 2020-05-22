@@ -67,21 +67,18 @@ export default class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			timePassed: false,
+			show_logo: true,
 		};
 	}
 	componentDidMount() {
 		setTimeout( () => {
-			this.setTimePassed();
-		},100);
-	}
-	setTimePassed() {
-		this.setState({timePassed: true});
+			this.setState({show_logo: false});
+		},10);
 	}
 	render() {
-		if (!this.state.timePassed) {
+		if (this.state.show_logo) 
 			return <AppPreloader/>;
-		} 
+		
 		return (
 			<Provider store={store}>
 				<PersistGate loading={loader} persistor={persistor}>
