@@ -1,8 +1,8 @@
-import MyConfigs from "../../libraries/MyConfigs.js";
+import {api_link,base_link} from "../../libraries/MyConfigs.js";
 
 const initstate = {
-    api_link:MyConfigs.api_link,
-    base_link:MyConfigs.base_link,
+    api_link:api_link,
+    base_link:base_link,
 }
 
 export default function (state = initstate, action) {
