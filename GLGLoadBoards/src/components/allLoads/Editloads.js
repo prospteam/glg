@@ -25,22 +25,36 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             commodity:'',
             reference_number:'',
             comments:'',
+                color: 'white',
+                show: false,
+                msg: "",
+                theme: "success",
+                title: "success",
+                edit_success: false,
         };
 	}
-        _handlePress() {
-            // console.log(this.state.origin);
-            // console.log(this.state.destination);
-            // console.log(this.state.trailer_type);
-            // console.log(this.state.date);
-            // console.log(this.state.commodity);
-            // console.log(this.state.reference_number);
+    handleClose = () => {
+        this.setState({
+            show: false
+        });
 
+        if (this.state.edit_success) {
+            this.setState({
+                show: true,
+                msg: "Please Enter Password",
+                theme: "success",
+                title: "Success!"
+            })
+            return;
+        }
+    }
+        _handlePress() {
             axios.post('https://glgfreight.com/loadboard_app/api_mobile/Loads/edit_loads', {
-                load_id: this.state.load_id,
+                load_id: this.props.load_id,
                 origin: this.state.origin,
                 destination: this.state.destination,
                 date_available: this.state.date_available,
-                trailertype: this.state.trailertype,
+                trailer_type: this.state.trailer_type,
                 length: this.state.length,
                 width: this.state.width,
                 rate: this.state.rate,
@@ -49,28 +63,43 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 comments: this.state.comments,
                 bornforyou: "born to be wild",
             }).then(function (response) {
+
+                if (response.data.status == 'ok'){
+                    <SCLAlert
+                        show={this.props.redux_state.show_alert}
+                        theme="success"
+                        title="Success"
+                        subtitle="Edit Successfully"
+                    />
+                }else {
+                    <SCLAlert
+                        show={this.props.redux_state.show_alert}
+                        theme="warning"
+                        title="Warning"
+                        subtitle="Please check your fields"
+                    />
+                }
                 console.log("______________________");
                 console.log("______________________");
-                console.log(response.data);
+                console.log(response);
                 console.log("______________________");
                 console.log("______________________");
                 alert('success');
             }).catch(function (err) {
                 console.log(err);
                     alert('TOO MANY ERRORS');
-
             });
         }
     render() {
-        console.log(this.props.origin);
+        console.log(this.props.load_id);
         return (
             <Screen>
-				<Text style={styles.contentItem}>
+				<Text style={styles.contentItem} defaultValue = {this.props.load_id}>
 					Edit Loads
 				</Text>
                 <ScrollView>
                 <View style={styles.contentBody}>
-                        <Card>
+                            <Card defaultValue = {this.props.load_id}>
                             <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
                                 <Text defaultValue = {this.props.load_id}  style={{color:'#fff'}}>Edit Loads</Text>
                             </CardItem>

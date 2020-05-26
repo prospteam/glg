@@ -6,10 +6,10 @@ const initstate = {
     sampleString: "xd",
     // Jovylle used these
 	show_mini_loader:false,
-	show_alert:false,
-	show_theme:false,
-	show_title:false,
-	show_msg:false,
+	show_alert:true,
+	show_theme:true,
+	show_title:true,
+	show_msg:true,
 	show_googleplaces:true,
 }
 

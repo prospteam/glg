@@ -57,7 +57,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <Card key={index}>
                     <CardItem header style={{backgroundColor:'#05426e' }}>
                      <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                         <View style={{flex:1}}> 
+                         <View style={{flex:1}}>
                              <Text style={{fontSize:12, color:'white'}}>{data.origin}</Text>
                              <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{data.origin_state}</Text>
                          </View>
