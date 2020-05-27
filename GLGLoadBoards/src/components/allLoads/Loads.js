@@ -71,12 +71,15 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                             comments: data.comments,
                         }); }}/>
                         <Icon style={styles.order_detailes} onPress={ () => {Actions.Orderdetails({
+                            origin: data.origin,
+                            destination:data.destination,
                             trailer_type: data.trailer_type,
                             date_available: data.date_available,
                             commodity: data.commodity,
                             weight: data.weight,
                             height: data.height,
-                            width:data.width
+                            width:data.width,
+                            comments:data.comments
                         }); }} type="FontAwesome5" name="bars"/>
                 </CardItem>
                 <CardItem>

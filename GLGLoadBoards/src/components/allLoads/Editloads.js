@@ -105,6 +105,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                             </CardItem>
                             <CardItem>
                             <Body>
+
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Origin</Text>
@@ -133,7 +134,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                           <Text style={{fontSize:10}}>length</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.length} onChangeText={text => this.setState({ length: text })}/>
                                       </View>
-                                      <View  style={{margin:2}}/>
+                                      <View style={{margin:2}}/>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Width</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.width} onChangeText={text => this.setState({ width: text })}/>
