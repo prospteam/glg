@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import {ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { Text, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body, View  } from 'native-base';
 import Screen from '../layout/Screen';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import DatePicker from 'react-native-datepicker'
 import { Actions } from 'react-native-router-flux';
+import RNPickerSelect from 'react-native-picker-select';
 import styles from '../../assets/styles/CommonStyles';
 import axios from 'axios';
 
@@ -91,6 +94,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                         </View>
                         <View style={{marginBottom:5}}>
                             <Text style={{fontSize:10, marginLeft: 60}}>Origin</Text>
+
                             <Text style={{fontSize:10, marginLeft: 60}}>{data.origin}</Text>
                         </View>
                             <View style={{textAlign:'right'}}>
@@ -125,19 +129,185 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
 					Loads list
 				</Text> */}
                 <View style={styles.contentBody}>
-                            {/* <View style={styles.middle}>
+                             <View style={styles.middle}>
                                 <Text style={styles.middle_text}>Origin</Text>
-                                    <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ origin: text })}/>
+                                    { /*<TextInput style={styles.text_input} placeholderTextColor="#000" listViewDisplayed={this.props.redux_state.show_googleplaces}
+                                         onChangeText={text => this.setState({ origin: text })}/>*/}
+                                        <GooglePlacesAutocomplete
+                                            listViewDisplayed={this.props.redux_state.show_googleplaces}
+                                            placeholder='Enter Origin'
+                                            minLength={2}
+                                            autoFocus={false}
+                                            returnKeyType={'search'}
+                                            fetchDetails={true}
+                                            renderDescription={row => row.description}
+                                            onPress={(data, details = null) => {
+                                            console.log(data, details);
+                                            }}
+                                            query={{
+                                                key: 'AIzaSyAKqsECe6r8abouPxWMxaO5m8g97YnXL_M',
+                                                language: 'en',
+                                                types: '(cities)'
+                                            }}
+                                            styles={{
+                                                textInputContainer: {
+                                                    width: '58%',
+                                                    backgroundColor: '#C9C9CE',
+                                                      height: 44,
+                                                      borderTopColor: '#7e7e7e',
+                                                      borderBottomColor: '#b5b5b5',
+                                                      borderTopWidth: 0 ,
+                                                      borderBottomWidth: 0,
+                                                      flexDirection: 'row',
+
+                                                },
+                                                description: {
+                                                    fontWeight: 'bold'
+                                                },
+                                                predefinedPlacesDescription: {
+                                                    color: '#1faadb'
+                                                }
+                                            }}
+
+                                            currentLocation={false}
+                                            currentLocationLabel="Current location"
+                                            nearbyPlacesAPI='GooglePlacesSearch'
+                                            GoogleReverseGeocodingQuery={{
+
+                                            }}
+                                            GooglePlacesSearchQuery={{
+                                            rankby: 'distance',
+                                            types: 'food'
+                                            }}
+
+                                            filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']}
+                                            enablePoweredByContainer={false}
+
+                                            debounce={100}
+                                            />
+
                                 <Text style={styles.middle_text}>Destination</Text>
-                                    <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ destination: text })}/>
+                                <GooglePlacesAutocomplete
+                                    listViewDisplayed={this.props.redux_state.show_googleplaces}
+                                    placeholder='Enter Destination'
+                                    minLength={2}
+                                    autoFocus={false}
+                                    returnKeyType={'search'}
+                                    fetchDetails={true}
+                                    renderDescription={row => row.description}
+                                    onPress={(data, details = null) => {
+                                    console.log(data, details);
+                                    }}
+                                    query={{
+                                        key: 'AIzaSyAKqsECe6r8abouPxWMxaO5m8g97YnXL_M',
+                                        language: 'en',
+                                        types: '(cities)'
+                                    }}
+                                    styles={{
+                                        textInputContainer: {
+                                            width: '58%',
+                                            backgroundColor: '#C9C9CE',
+                                              height: 44,
+                                              borderTopColor: '#7e7e7e',
+                                              borderBottomColor: '#b5b5b5',
+                                              borderTopWidth: 0 ,
+                                              borderBottomWidth: 0,
+                                              flexDirection: 'row',
+
+                                        },
+                                        description: {
+                                            fontWeight: 'bold'
+                                        },
+                                        predefinedPlacesDescription: {
+                                            color: '#1faadb'
+                                        }
+                                    }}
+
+                                    currentLocation={false}
+                                    currentLocationLabel="Current location"
+                                    nearbyPlacesAPI='GooglePlacesSearch'
+                                    GoogleReverseGeocodingQuery={{
+
+                                    }}
+                                    GooglePlacesSearchQuery={{
+                                    rankby: 'distance',
+                                    types: 'food'
+                                    }}
+
+                                    filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']}
+                                    enablePoweredByContainer={false}
+
+                                    debounce={100}
+                                    />
                                 <Text style={styles.middle_text}>Trailer Type</Text>
-                                    <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ trailer_type: text })}/>
+                                <RNPickerSelect
+                                    onValueChange={(text) => this.setState({ trailer_type: text })}
+                                    items={[
+                                        { value: 'AC', label: 'AC (Auto Carrier)' },
+                                        { value: 'CRG', label: 'CRG (Cargo Van)' },
+                                        { value: 'FINT', label: 'FINT (Flat-Intermodal)' },
+                                        { value: 'CONT', label: 'CONT (Container)' },
+                                        { value: 'CV', label: 'Curtain Van' },
+                                        { value: 'DD', label: 'DD (Double Drop)' },
+                                        { value: 'DT', label: 'DT (Dump Trailer)' },
+                                        { value: 'F', label: 'F (Flatbed)' },
+                                        { value: 'FS', label: 'FS (Flat+Sides)' },
+                                        { value: 'LA', label: 'LA (Landal)' },
+                                        { value: 'FT', label: 'FT (Flat+Tarp)' },
+                                        { value: 'HB', label: 'HB (Hopper Bottom)' },
+                                        { value: 'HS', label: 'HS (Hotshot)' },
+                                        { value: 'LB', label: 'LB (Lowboy)' },
+                                        { value: 'MX', label: 'MX (Maxi Flat)' },
+                                        { value: 'PNEU', label: 'PNEU (Pneumatic)' },
+                                        { value: 'PO', label: 'PO (Power Only)' },
+                                        { value: 'R', label: 'R (Reefer)' },
+                                        { value: 'RINT', label: 'RINT (Reefer-Intermodal)' },
+                                        { value: 'RGN', label: 'RGN (Removable Gooseneck)' },
+                                        { value: 'VV', label: 'VV (Van+Vented)' },
+                                        { value: 'V', label: 'V (Dry Van)' },
+                                        { value: 'SD', label: 'SD (Step Deck/Single Drop)' },
+                                        { value: 'TNK', label: 'Tanker' },
+                                        { value: 'VA', label: 'VA (Van+Airride)' },
+                                        { value: 'VINT', label: 'VINT (Van-Intermodal)' },
+                                        { value: 'Other', label: 'Other' },
+                                    ]}
+                                />
+
+                                {    /*<TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ trailer_type: text })}/>*/}
+                                <Text style={styles.middle_text}>Date Available</Text>
+                                <DatePicker
+                                    date={this.state.date}
+                                    style={{width:'64%'}}
+                                    mode="date"
+                                    placeholder="Select Date"
+                                    format="YYYY-MM-DD"
+                                    minDate="2020-01-01"
+                                    maxDate="2025-12-31"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                    dateIcon: {
+                                    width:0,
+                                    height:0,
+                                    },
+                                    dateInput: {
+                                    height: 35,
+                                    borderRadius:5,
+                                    borderWidth: 0.5,
+                                    borderColor: '#009688',
+                                    marginLeft:'3.5%'
+                                    }
+                                    }}
+                                    onDateChange={(text) => this.setState({ date: text })}
+                                />
                                 <Text style={styles.middle_text}>Commodity</Text>
                                     <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ commodity: text })}/>
+                                <Text style={styles.middle_text}>Reference Number</Text>
+                                    <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ reference_number: text })}/>
                                 <TouchableOpacity>
                                     <Text style={styles.search_button}>Search</Text>
                                 </TouchableOpacity>
-                         </View> */}
+                         </View>
                         {load_details}
                 </View>
                 </ScrollView>
