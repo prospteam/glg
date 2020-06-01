@@ -31,12 +31,6 @@ class Login extends Component {
 
     constructor(props) {
         super(props)
-        // if(this.props.redux_session.is_logged){
-        //     this.props.set_is_logged('set_is_logged', false);
-        // }
-
-        // console.log("api_link");
-        // console.log(api_link);
         this.state = {
             username: '',
             password: '',
@@ -47,8 +41,6 @@ class Login extends Component {
         this.setState({
             show: false
         });
-        // console.log("this.temp_user_data");
-        // console.log(this.temp_user_data);
         if (this.state.success_login) {
             if(!this.props.redux_session.is_logged){
                 this.props.set_is_logged('set_is_logged', true);
@@ -97,13 +89,15 @@ class Login extends Component {
                 "select": "*",
                 "from": "glg_users",
                 "where": {
-                    "username": "admin",
-                    // "username": this.state.username.toLowerCase(),
-                    // "password": this.state.password.toLowerCase()
+                    // "username": "admin",
+                    "username": this.state.username.toLowerCase(),
+                    "other_password": this.state.password.toLowerCase()
                 }
             }
           }).then(function (response) {
-
+            console.log("responseLOG");
+            console.log(response);
+            
             // let data = {
             //     state:'isLoggedIn'
             // }
@@ -173,13 +167,20 @@ class Login extends Component {
                             onRequestClose={this.handleOpen}
                             theme={this.state.theme}
                             title={this.state.title}
-                            subtitle={this.state.subtitle}
+                            subtitle={this.state.msg}
                         >
                         <SCLAlertButton theme="default" onPress={this.handleClose}>OK</SCLAlertButton>
                         </SCLAlert>
                         <Text style={{ fontSize: 20, color: "#fff" }}>Login</Text>
-                        <TextInput style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }} placeholderTextColor="#fff" placeholder="Enter Name" returnKeyLabel={"next"} onChangeText={text => this.setState({ username: text })} />
-                        <TextInput secureTextEntry={true} style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }} placeholderTextColor="#fff" placeholder="Enter Password" returnKeyLabel={"next"} onChangeText={text => this.setState({ password: text })} />
+                        <TextInput 
+                            style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }} 
+                            placeholderTextColor="#fff" 
+                            placeholder="Enter Name" 
+                            returnKeyLabel={"next"} 
+                            onChangeText={text => this.setState({ username: text })} 
+                            autoCapitalize = 'none'
+                        />
+                        <TextInput  secureTextEntry={true} style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }} placeholderTextColor="#fff" placeholder="Enter Password" returnKeyLabel={"next"} onChangeText={text => this.setState({ password: text })} />
                         <TouchableOpacity onPress={() => this.handleOpen()}>
                             <Text style={styles.btnlogin}>Login</Text>
                         </TouchableOpacity>

@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../redux/actions/Actions';// I included ang "index.js"
 
- class Loads extends Component {
+ class MyLoads extends Component {
 	constructor(props){
 		super(props);
         this.state = {
@@ -29,10 +29,11 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
         var self = this;
         // if(!this.props.redux_state.set_show_mini_loader)
             // this.props.set_show_mini_loader(false);
-            
+            console.log('____________________________');
+            console.log('https://glgfreight.com/loadboard_app/api_mobile/Loads/my_loads/');
         axios({
             method: 'get',
-            url: 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads',
+            url: 'https://glgfreight.com/loadboard_app/api_mobile/Loads/my_loads/'+this.props.redux_session.user_data.user_id,
         }).then(function (response) {
             console.log("this is a test");
             console.log(response.data);
@@ -114,13 +115,13 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
         });
     }
         return (
-			<Screen active_tab="Loads" title="Loads" >
+			<Screen active_tab="Loads" title="My Loads" >
                 <ScrollView>
 				{/* <Text style={styles.contentHeader}>
 					Loads list
 				</Text> */}
                 <View style={styles.contentBody}>
-                            <View style={styles.middle}>
+                            {/* <View style={styles.middle}>
                                 <Text style={styles.middle_text}>Origin</Text>
                                     <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ origin: text })}/>
                                 <Text style={styles.middle_text}>Destination</Text>
@@ -132,7 +133,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                                 <TouchableOpacity>
                                     <Text style={styles.search_button}>Search</Text>
                                 </TouchableOpacity>
-                         </View>
+                         </View> */}
                         {load_details}
                 </View>
                 </ScrollView>
@@ -147,7 +148,8 @@ function reduxStateToProps(state) {
     // const reduxState = (state) => {
     // console.log('redaux stae  ', state)
     return {
-		redux_state: state.redux_state
+		redux_state: state.redux_state,
+		redux_session: state.redux_session
 		// si MyGlobalReducer kay makit an sa reducers folder
     }
 }
@@ -162,4 +164,4 @@ function reduxActionFunctions(dispatch){
     },dispatch);
  }
 
-export default connect(reduxStateToProps,reduxActionFunctions)(Loads);
+export default connect(reduxStateToProps,reduxActionFunctions)(MyLoads);
