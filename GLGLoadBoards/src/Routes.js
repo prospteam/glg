@@ -47,6 +47,16 @@ class Routes extends Component {
                     textContent={'Loading...'}
                     textStyle={{color: '#FFF'}}
                 />
+                {/* <SCLAlert
+                    show={this.props.redux_state.show_alert}
+                    // onRequestClose={this.props.redux_state.show_}
+                    // theme={this.props.redux_state.show_theme}
+                    // title={this.props.redux_state.show_title}
+                    // subtitle={this.props.redux_state.show_msg}
+                    theme="info"
+                    title="Info"
+                    subtitle="You can setup the colors using the theme prop"
+                /> */}
                 <Router>
                     <Scene key="root">
                         {/* <Scene key='Trucks' tabs={true} >
