@@ -29,6 +29,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             height:'',
             width:'',
             rate:'',
+           contact_name:'',
 
         };
 	}
@@ -36,8 +37,30 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         this.setState({isModalVisible: !this.state.isModalVisible});
     };
 
+    _handlePress() {
+        // console.log(this.state.rate);
+        // console.log(this.state.contact_name);
+        console.log(this.props.load_id);
+        const that = this;
+        axios.post('https://glgfreight.com/loadboard_app/api_mobile/Sendrates/add_rates', {
+            fk_carrier_id: this.props.redux_session.user_data.user_id,
+            fk_load_id:this.props.load_id,
+            rate: this.state.rate,
+            contact_name: this.state.contact_name,
+        }).then(function (response) {
+            console.log(response.data);
+            console.log('SUCCESS');
+            console.log('__________________________________');
+        }).catch(function (err) {
+            console.log(err);
+            console.log('ERRORRRRRRR UUUUY');
+            console.log('__________________________________');
+            console.log('__________________________________');
+        });
+    }
+
     render() {
-        console.log(this.props.trailer_type);
+        console.log(this.props.load_id);
         return (
             <Screen>
 				<Text style={styles.contentItem}>
@@ -55,7 +78,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                             <TouchableOpacity title="Show modal" onPress={this.toggleModal}>
                                 <Text style={styles.call_button}><Icon style={styles.send_rate} type="FontAwesome5" name="star"/> Send a Rate</Text>
                             </TouchableOpacity>
-                              <Modal isVisible={this.state.isModalVisible} style={{margin:0, justifyContent: "center", alignItems: "center", borderRadius:5}}>
+                              <Modal isVisible={this.state.isModalVisible} style={{margin:0, justifyContent: "center", alignItems: "center", borderRadius:5 }}>
                                 <View style={{backgroundColor:'#ffffff', padding:'5%'}}>
                                   <Text style={{color:'#00000'}}>Send a Rate To Broker</Text>
                                    <View style={{borderBottomColor: '#e5e5e5',borderBottomWidth: 1}}/>
@@ -63,17 +86,17 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                   <View style={{flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View>
                                           <Text style={{fontSize:10}}>Rate:</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#d6d6d6" placeholder="Enter Your Rate"/>
+                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#d6d6d6" placeholder="Enter Your Rate" keyboardType={'numeric'} onChangeText={text => this.setState({ rate: text })}/>
                                       </View>
                                       <View  style={{margin:2}}/>
                                       <View>
                                           <Text style={{fontSize:10}}>Contact Name:</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#d6d6d6"  placeholder="Enter Your Contact Number" />
+                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#d6d6d6"  placeholder="Enter Your Contact Number" onChangeText={text => this.setState({ contact_name: text })} />
                                       </View>
                                   </View>
                                    <View style={{margin:10}}/>
-                                   <TouchableOpacity title="Hide modal" onPress={this.toggleModal}>
-                                       <Text style={styles.send_rate_email}>Send Email</Text>
+                                   <TouchableOpacity title="Hide modal" onPress={() => this._handlePress()}>
+                                       <Text style={styles.send_rate_email}>Send Rate</Text>
                                    </TouchableOpacity>
                                 </View>
                               </Modal>
@@ -173,7 +196,7 @@ function reduxStateToProps(state) {
 function reduxActionFunctions(dispatch){
     return bindActionCreators({
         set_sampleString : set_sampleString,
-        set_is_logged : set_is_logged
+        set_is_logged : set_is_logged,
 		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
  }

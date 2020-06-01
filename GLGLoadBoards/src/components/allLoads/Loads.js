@@ -71,6 +71,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                             comments: data.comments,
                         }); }}/>
                         <Icon style={styles.order_detailes} onPress={ () => {Actions.Orderdetails({
+                            load_id:data.load_id,
                             origin: data.origin,
                             destination:data.destination,
                             trailer_type: data.trailer_type,
