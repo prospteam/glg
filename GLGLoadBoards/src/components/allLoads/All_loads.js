@@ -57,6 +57,7 @@ export default class Dashboard extends Component {
       const that = this;
 
       axios.post('http://192.168.20.33/Projects/globallogisticsgroup/Loadboard_Website/loadboard/loads/add_load/yes?glg_api=yes', {
+         load_id: this.state.load_id,
          origin: this.state.origin,
          destination: this.state.destination,
          length: this.state.length,

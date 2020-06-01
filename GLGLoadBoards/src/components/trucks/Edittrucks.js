@@ -19,11 +19,6 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             destination:'',
             date_available:'',
             trailer_type:'',
-            length:'',
-            width:'',
-            rate:'',
-            commodity:'',
-            reference_number:'',
             comments:'',
         };
 	}
@@ -35,17 +30,12 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             // console.log(this.state.commodity);
             // console.log(this.state.reference_number);
 
-            axios.post('https://glgfreight.com/loadboard_app/api_mobile/Loads/edit_loads', {
-                load_id: this.state.load_id,
+            axios.post('https://glgfreight.com/loadboard_app/api_mobile/Trucks/edit_trucks', {
+                truck_id: this.props.truck_id,
                 origin: this.state.origin,
                 destination: this.state.destination,
                 date_available: this.state.date_available,
                 trailertype: this.state.trailertype,
-                length: this.state.length,
-                width: this.state.width,
-                rate: this.state.rate,
-                commodity: this.state.commodity,
-                reference_number: this.state.reference_number,
                 comments: this.state.comments,
             }).then(function (response) {
                 console.log(response);
@@ -58,7 +48,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             });
         }
     render() {
-        console.log(this.props.origin);
+        console.log(this.props.truck_id);
         return (
             <Screen>
 				<Text style={styles.contentItem}>
@@ -66,9 +56,9 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 				</Text>
                 <ScrollView>
                 <View style={styles.contentBody}>
-                        <Card>
+                        <Card defaultValue = {this.props.truck_id}>
                             <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
-                                <Text defaultValue = {this.props.load_id}  style={{color:'#fff'}}>Edit Trucks</Text>
+                                <Text defaultValue = {this.props.truck_id}  style={{color:'#fff'}}>Edit Trucks</Text>
                             </CardItem>
                             <CardItem>
                             <Body>

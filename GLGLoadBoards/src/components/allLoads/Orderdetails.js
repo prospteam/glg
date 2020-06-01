@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { Text, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body, View  } from 'native-base';
+import Modal from 'react-native-modal';
 import axios from 'axios';
 
 import Screen from '../layout/Screen';
@@ -16,6 +17,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 	constructor(props){
 		super(props);
         this.state = {
+            isModalVisible: false,
             response: [],
             load_id: '',
             origin:'',
@@ -27,12 +29,38 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             height:'',
             width:'',
             rate:'',
+           contact_name:'',
 
         };
 	}
+    toggleModal = () => {
+        this.setState({isModalVisible: !this.state.isModalVisible});
+    };
+
+    _handlePress() {
+        // console.log(this.state.rate);
+        // console.log(this.state.contact_name);
+        console.log(this.props.load_id);
+        const that = this;
+        axios.post('https://glgfreight.com/loadboard_app/api_mobile/Sendrates/add_rates', {
+            fk_carrier_id: this.props.redux_session.user_data.user_id,
+            fk_load_id:this.props.load_id,
+            rate: this.state.rate,
+            contact_name: this.state.contact_name,
+        }).then(function (response) {
+            console.log(response.data);
+            console.log('SUCCESS');
+            console.log('__________________________________');
+        }).catch(function (err) {
+            console.log(err);
+            console.log('ERRORRRRRRR UUUUY');
+            console.log('__________________________________');
+            console.log('__________________________________');
+        });
+    }
 
     render() {
-        console.log(this.props.trailer_type);
+        console.log(this.props.load_id);
         return (
             <Screen>
 				<Text style={styles.contentItem}>
@@ -40,19 +68,40 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 				</Text>
                 <ScrollView>
                 <View style={styles.contentBody}>
-                    <Card containerStyle={{
-                        flex:1,
-                        // height:200,
-                        // height:'100%',
-                        backgroundColor:'red',
-                        // elevation:0, 
-                        // backgroundColor:'#123'
-                        }}>
+                    <Card containerStyle={{ flex:1,backgroundColor:'red',}}>
                         <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
-                            <Text style={{color:'#fff'}}>Hillboro - Phoenix</Text>
+                            <Text style={{color:'#fff'}}>{this.props.origin} <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/> {this.props.destination}</Text>
                         </CardItem>
                         <CardItem>
                             <Body>
+                            <View style={{flex: 1}}>
+                            <TouchableOpacity title="Show modal" onPress={this.toggleModal}>
+                                <Text style={styles.call_button}><Icon style={styles.send_rate} type="FontAwesome5" name="star"/> Send a Rate</Text>
+                            </TouchableOpacity>
+                              <Modal isVisible={this.state.isModalVisible} style={{margin:0, justifyContent: "center", alignItems: "center", borderRadius:5 }}>
+                                <View style={{backgroundColor:'#ffffff', padding:'5%'}}>
+                                  <Text style={{color:'#00000'}}>Send a Rate To Broker</Text>
+                                   <View style={{borderBottomColor: '#e5e5e5',borderBottomWidth: 1}}/>
+                                   <View style={{margin:10}}/>
+                                  <View style={{flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                                      <View>
+                                          <Text style={{fontSize:10}}>Rate:</Text>
+                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#d6d6d6" placeholder="Enter Your Rate" keyboardType={'numeric'} onChangeText={text => this.setState({ rate: text })}/>
+                                      </View>
+                                      <View  style={{margin:2}}/>
+                                      <View>
+                                          <Text style={{fontSize:10}}>Contact Name:</Text>
+                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#d6d6d6"  placeholder="Enter Your Contact Number" onChangeText={text => this.setState({ contact_name: text })} />
+                                      </View>
+                                  </View>
+                                   <View style={{margin:10}}/>
+                                   <TouchableOpacity title="Hide modal" onPress={() => this._handlePress()}>
+                                       <Text style={styles.send_rate_email}>Send Rate</Text>
+                                   </TouchableOpacity>
+                                </View>
+                              </Modal>
+                            </View>
+                            <View style={{margin:10}} />
                                 <View style={{
                                         height:200,
                                         width:'100%',
@@ -61,7 +110,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                     <Mileage props={{
                                                 origin:this.props.origin+',+USA',
                                                 destination:this.props.destination+',+USA'
-                                            }}/>
+                                        }}/>
                                 </View>
                             </Body>
                         </CardItem>
@@ -96,24 +145,31 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                         <Text style={{fontSize:15,fontWeight: 'bold'}}>{this.props.width}</Text>
                                     </View>
                                 </View>
-                                <TouchableOpacity>
-                                    <Text style={styles.call_button}>Call Brooker</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity>
-                                    <Text style={styles.call_button}>Find Truck</Text>
-                                </TouchableOpacity>
+                                <View style={{marginBottom: '10%'}} />
+
+
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                                    <View style={{flex:1}}>
+                                        <TouchableOpacity>
+                                            <Text style={styles.call_button}>Call Brooker</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity>
+                                        <Text style={styles.findtruck_button}>Find Truck</Text>
+                                    </TouchableOpacity>
+                                </View>
                                 <View>
-                                    <Text style={{fontSize:15, fontWeight: 'bold',marginLeft:75}}>(+96356612)</Text>
+                                    <Text style={{fontSize:15, fontWeight: 'bold',marginLeft:15}}>(+96356612)</Text>
                                 </View>
                             </Body>
                         </CardItem>
                             <CardItem footer style={{backgroundColor:'#05426e' }}>
                             <View style={{flex: 1, flexDirection: 'column',justifyContent: "center", alignItems: "center"}}>
                                 <View>
-                                    <Text style={{color:'white'}}>Comment</Text>
+                                    <Text style={{color:'white'}}>Comments: </Text>
                                 </View>
                                 <View style={{marginBottom:5}}>
-                                    <Text style={{color:'white'}}>Arrive Time: 04:45 PM</Text>
+                                    <Text style={{color:'white'}}>{this.props.comments}</Text>
                                 </View>
                             </View>
                         </CardItem>
@@ -140,7 +196,7 @@ function reduxStateToProps(state) {
 function reduxActionFunctions(dispatch){
     return bindActionCreators({
         set_sampleString : set_sampleString,
-        set_is_logged : set_is_logged
+        set_is_logged : set_is_logged,
 		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
  }

@@ -29,7 +29,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
         var self = this;
         // if(!this.props.redux_state.set_show_mini_loader)
             // this.props.set_show_mini_loader(false);
-            
+
         axios({
             method: 'get',
             url: 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads',
@@ -58,6 +58,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                     <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
                         <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/>
                         <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Editloads({
+                            load_id:data.load_id,
                             origin:data.origin,
                             destination:data.destination,
                             date_available:data.date_available,
@@ -70,12 +71,16 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                             comments: data.comments,
                         }); }}/>
                         <Icon style={styles.order_detailes} onPress={ () => {Actions.Orderdetails({
+                            load_id:data.load_id,
+                            origin: data.origin,
+                            destination:data.destination,
                             trailer_type: data.trailer_type,
                             date_available: data.date_available,
                             commodity: data.commodity,
                             weight: data.weight,
                             height: data.height,
-                            width:data.width
+                            width:data.width,
+                            comments:data.comments
                         }); }} type="FontAwesome5" name="bars"/>
                 </CardItem>
                 <CardItem>

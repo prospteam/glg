@@ -69,6 +69,10 @@ export default StyleSheet.create({
         color:'orange',
         fontSize:15,
     },
+    send_rate:{
+        color:'#05426e',
+        fontSize:15,
+    },
     order_detailes:{
         color:'white',
         fontSize: 17,
@@ -149,8 +153,24 @@ export default StyleSheet.create({
         textAlign: 'center',
         padding: 8,
         fontSize: 15,
-        marginTop: 0,
-        marginLeft:65,
+    },
+    send_rate_email:{
+        backgroundColor: '#05426e',
+        color: 'white',
+        borderRadius: 30,
+        width: 120,
+        textAlign: 'center',
+        padding: 8,
+        fontSize: 15,
+    },
+    findtruck_button:{
+        backgroundColor: '#05426e',
+        color: 'white',
+        borderRadius: 50,
+        width: 120,
+        textAlign: 'center',
+        padding: 8,
+        fontSize: 15,
     },
     fieldsInput1:{
         borderWidth : 1
