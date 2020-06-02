@@ -196,7 +196,7 @@ class Routes extends Component {
                         }
 
                     {/* SUB PAGES */}
-                    
+
                     <Scene
                             key="FindTruck"
                             component={FindTruck}
