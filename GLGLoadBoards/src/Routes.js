@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
+import { Actions, Router, Scene, Drawer, Stack} from 'react-native-router-flux';
 // import Routes from './Routes.js';
 import Login from './components/login/Login.js';
 
@@ -58,7 +58,7 @@ class Routes extends Component {
                     subtitle="You can setup the colors using the theme prop"
                 /> */}
                 <Router>
-                    <Scene key="root">
+                    <Stack key="root">
                         {/* <Scene key='Trucks' tabs={true} >
 
                             <Scene
@@ -202,7 +202,7 @@ class Routes extends Component {
                             component={FindTruck}
                             title="FindTruck" hideNavBar
                         />
-                    </Scene>
+                    </Stack>
                 </Router>
             </>
         );
