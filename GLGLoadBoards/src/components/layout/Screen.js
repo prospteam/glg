@@ -13,9 +13,26 @@ import logo_square from '../../assets/images/logo_square.jpg';
 import {to_upper} from '../../libraries/MyFunctions.js';
 
  class Screen extends Component {
+
+	
     constructor(props) {
 		super(props)
     }
+
+	go_to_loads(){
+		if(this.props.redux_session.user_data.user_type=="shipper"){
+			Actions.MyLoads();
+		}else{
+			Actions.Loads();
+		}
+	}
+	go_to_trucks(){
+		if(this.props.redux_session.user_data.user_type=="carrier"){
+			Actions.MyTrucks();
+		}else{
+			Actions.Trucks();
+		}
+	}
 
     end_session() {
         this.props.set_is_logged('set_is_logged',false);
@@ -66,6 +83,15 @@ import {to_upper} from '../../libraries/MyFunctions.js';
 										<Text style={[styles.ligtFont,styles.headerBigger]}>
 											{(this.props.title)?this.props.title:"Page Title"}
 										</Text>
+										
+										{/* <Button style={styles.footertab_button}
+										onPress= {() => Actions.FindTruck()}
+										direction='horizontal'
+										>
+											<Text>
+												hi
+											</Text>
+										</Button> */}
 									</View>
 								</View>
 								<View style={styles.contentBody}>
@@ -100,7 +126,7 @@ import {to_upper} from '../../libraries/MyFunctions.js';
 								/>
 							</Button> */}
 							<Button style={styles.footertab_button}
-							onPress= {(active_tab!="Loads")?() => Actions.Loads():null}
+							onPress= {(active_tab!="Loads")?() => this.go_to_loads():null}
                             direction='horizontal'
 							>
 								<View style={(active_tab=="Loads")?styles.footertab_active_indicator:null} />
@@ -109,24 +135,19 @@ import {to_upper} from '../../libraries/MyFunctions.js';
 									type="FontAwesome5" name="dolly"
 								/>
 							</Button>
-							{
-								this.props.redux_session.user_data.user_type!="shipper"?
-									<Button style={styles.footertab_button}
-									onPress= {(active_tab!="Trucks")?() => Actions.Trucks():null}
-									>
-										<View style={(active_tab=="Trucks")?styles.footertab_active_indicator:null} />
-										<Icon
-											style={(active_tab=="Trucks")?styles.footertab_icon_active:null}
-											type="FontAwesome5" name="truck"
-										/>
-									</Button>
-								:null
-							}
-							
-							<Button style={styles.footertab_button}>
+							<Button style={styles.footertab_button}
+							onPress= {(active_tab!="Trucks")?() => this.go_to_trucks():null}
+							>
+								<View style={(active_tab=="Trucks")?styles.footertab_active_indicator:null} />
+								<Icon
+									style={(active_tab=="Trucks")?styles.footertab_icon_active:null}
+									type="FontAwesome5" name="truck"
+								/>
+							</Button>
+							{/* <Button style={styles.footertab_button}>
 								<View style={(false)?styles.footertab_active_indicator:null} />
 								<Icon name="person"/>
-							</Button>
+							</Button> */}
 						</FooterTab>
 					</Footer>
 				</Container>

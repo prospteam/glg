@@ -129,7 +129,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
 					Loads list
 				</Text> */}
                 <View style={styles.contentBody}>
-                             <View style={styles.middle}>
+                            <View style={styles.middle}>
                                 <Text style={styles.middle_text}>Origin</Text>
                                     { /*<TextInput style={styles.text_input} placeholderTextColor="#000" listViewDisplayed={this.props.redux_state.show_googleplaces}
                                          onChangeText={text => this.setState({ origin: text })}/>*/}

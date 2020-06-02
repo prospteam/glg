@@ -11,12 +11,14 @@ import Mileage from './components/mileage/Mileage';
 import SampleComponent from './components/sample_component/SampleComponent.js';
 import SampleComponent2 from './components/sample_component/SampleComponent2.js';
 import Loads from './components/allLoads/Loads.js';
+import MyLoads from './components/allLoads/MyLoads.js';
 import GoogleMapsPlacesInput from './components/allLoads/GoogleMapsPlacesInput.js';
 import Orderdetails from './components/allLoads/Orderdetails.js';
 import Editloads from './components/allLoads/Editloads.js';
 import Register from './components/login/Register.js';
 import Dashboard from './components/dashboard/Dashboard.js/';
 import Trucks from './components/trucks/Trucks.js/';
+import MyTrucks from './components/trucks/MyTrucks.js/';
 import Edittrucks from './components/trucks/Edittrucks.js/';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
@@ -33,6 +35,7 @@ import Truck_map from './components/other_old/truck_maps/truck_map.js';
 import Truckmapsv2 from './components/other_old/truck_maps/truckmapsv2.js';
 import TruckMapSearch from './components/other_old/truck_map_search/TruckMapSearch.js';
 import Load_map from './components/other_old/Load_map.js';
+import FindTruck from './components/FindTruck.js';
 
 // Dont just exist, live.
 class Routes extends Component {
@@ -44,6 +47,16 @@ class Routes extends Component {
                     textContent={'Loading...'}
                     textStyle={{color: '#FFF'}}
                 />
+                {/* <SCLAlert
+                    show={this.props.redux_state.show_alert}
+                    // onRequestClose={this.props.redux_state.show_}
+                    // theme={this.props.redux_state.show_theme}
+                    // title={this.props.redux_state.show_title}
+                    // subtitle={this.props.redux_state.show_msg}
+                    theme="info"
+                    title="Info"
+                    subtitle="You can setup the colors using the theme prop"
+                /> */}
                 <Router>
                     <Scene key="root">
                         {/* <Scene key='Trucks' tabs={true} >
@@ -62,35 +75,41 @@ class Routes extends Component {
                             />
                         </Scene> */}
 
-                        <Scene
+                        {/* <Scene
                             direction='left'
                             key="Dashboard"
                             component={Dashboard}
                             title="Dashboard"
                             hideNavBar
-                            transitionConfig={() => ({
-                                screenInterpolator: (props) => {
-                                const { scene } = props
-                                switch (scene.route.routeName) {
-                                    /* case yourKeyScene:
-                                    return theAnimationYouWant(props)*/
-                                    case 'groups':
-                                    return CardStackStyleInterpolator.forVertical(props)
-                                    case 'home':
-                                    return CardStackStyleInterpolator.forHorizontal(props)
-                                    case 'inbox':
-                                    return CardStackStyleInterpolator.forFade(props)
-                                    default:
-                                    return CardStackStyleInterpolator.forInitial
-                                }
-                                }
-                            })}
+                        /> */}
+                        {
+                            (this.props.redux_session.user_data.user_type=="shipper")?
+                            <Scene
+                                key="MyLoads"
+                                component={MyLoads}
+                                title="MyLoads"
+                                hideNavBar
+                            />
+                            :(this.props.redux_session.user_data.user_type=="carrier")?
+                            <Scene
+                                key="MyTrucks"
+                                component={MyTrucks}
+                                title="MyTrucks"
+                                hideNavBar
+                            />
+                            :null
+                        }
+                        <Scene
+                            key="Loads"
+                            component={Loads}
+                            title="Loads"
+                            hideNavBar
                         />
                         <Scene
                             key="Trucks"
                             component={Trucks}
                             title="Trucks"
-                            // hideNavBar
+                            hideNavBar
 
                         />
                         {/* <Scene
@@ -115,12 +134,6 @@ class Routes extends Component {
                             key="Edittrucks"
                             component={Edittrucks}
                             title="Edittrucks"
-                            hideNavBar
-                        />
-                        <Scene
-                            key="Loads"
-                            component={Loads}
-                            title="Loads"
                             hideNavBar
                         />
                         <Scene
@@ -175,13 +188,20 @@ class Routes extends Component {
                             title="Load_map" hideNavBar
                         />
                         {
-                        // <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
-                        // <Scene key="carrierDashboard" component={CarrierDashboard} title="" hideNavBar/>
-                        // <Scene key="All_loads" component={All_loads} title="" hideNavBar />
-                        // <Scene key="truck_map" component={truck_map} title="" hideNavBar />
-                        // tangtangko above para maka proceed ko. 3/19/20
+                            // <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
+                            // <Scene key="carrierDashboard" component={CarrierDashboard} title="" hideNavBar/>
+                            // <Scene key="All_loads" component={All_loads} title="" hideNavBar />
+                            // <Scene key="truck_map" component={truck_map} title="" hideNavBar />
+                            // tangtangko above para maka proceed ko. 3/19/20
                         }
 
+                    {/* SUB PAGES */}
+                    
+                    <Scene
+                            key="FindTruck"
+                            component={FindTruck}
+                            title="FindTruck" hideNavBar
+                        />
                     </Scene>
                 </Router>
             </>

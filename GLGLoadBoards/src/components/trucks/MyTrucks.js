@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';// I included ang "index.js"
 
- class Trucks extends Component {
+ class MyTrucks extends Component {
 	constructor(props){
 		super(props);
         this.state = {
@@ -57,7 +57,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <Card key={index}>
                     <CardItem header style={{backgroundColor:'#05426e' }}>
                      <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                         <View style={{flex:1}}>
+                         <View style={{flex:1}}> 
                              <Text style={{fontSize:12, color:'white'}}>{data.origin}</Text>
                              <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{data.origin_state}</Text>
                          </View>
@@ -109,13 +109,13 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         });
 
         return (
-                <Screen active_tab="Trucks" title="Trucks" >
+                <Screen active_tab="Trucks" title="My Trucks" >
                     {/* <Text style={styles.contentItem}>
                         Trucks
                     </Text> */}
                     <ScrollView>
                     <View style={styles.contentBody}>
-                                <View style={styles.middle}>
+                                {/* <View style={styles.middle}>
                                     <Text style={styles.middle_text}>Origin</Text>
                                         <TextInput style={styles.text_input} placeholderTextColor="#000" value = {this.props.redux_state.show_googleplaces} onChangeText={text => this.setState({ origin: text })}/>
                                     <Text style={styles.middle_text}>Destination</Text>
@@ -151,12 +151,9 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                     <TouchableOpacity>
                                         <Text style={styles.search_button}>Search</Text>
                                     </TouchableOpacity>
-                                    </View>
-                            </View>
-                                <View>
-                                    <Text style={styles.contentItem}>Truck List</Text>
-                                </View>
+                                    </View> */}
                             {trucks_details}
+                            </View>
                     </ScrollView>
                 </Screen>
 		)
@@ -182,4 +179,4 @@ function reduxActionFunctions(dispatch){
     },dispatch);
  }
 
-export default connect(reduxStateToProps,reduxActionFunctions)(Trucks);
+export default connect(reduxStateToProps,reduxActionFunctions)(MyTrucks);
