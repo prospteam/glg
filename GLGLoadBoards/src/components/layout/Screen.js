@@ -76,25 +76,17 @@ import {to_upper} from '../../libraries/MyFunctions.js';
 											{/* <Icon onPress={ () => this.end_session()} style={{...styles.ligtFont}} name='person' /> */}
 										</View>
 									</View>
+								</View>
+								<View style={styles.contentBody}>
 									<View style={{
 										flexDirection:'row',
 										padding:10,
 									}}>
-										<Text style={[styles.ligtFont,styles.headerBigger]}>
+										<Text style={[styles.darkFont,styles.headerBigger]}>
 											{(this.props.title)?this.props.title:"Page Title"}
 										</Text>
-										
-										{/* <Button style={styles.footertab_button}
-										onPress= {() => Actions.FindTruck()}
-										direction='horizontal'
-										>
-											<Text>
-												hi
-											</Text>
-										</Button> */}
+										{this.props.side_header_buttons}
 									</View>
-								</View>
-								<View style={styles.contentBody}>
 									{/* <View style={{
 										height:30,
 										backgroundColor:'red',

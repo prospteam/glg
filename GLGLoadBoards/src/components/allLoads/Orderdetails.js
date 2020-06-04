@@ -62,10 +62,10 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
     render() {
         console.log(this.props.load_id);
         return (
-            <Screen>
-				<Text style={styles.contentItem}>
+            <Screen title="Load Details">
+				{/* <Text style={styles.contentItem}>
 					Order Details 1
-				</Text>
+				</Text> */}
                 <ScrollView>
                 <View style={styles.contentBody}>
                     <Card containerStyle={{ flex:1,backgroundColor:'red',}}>

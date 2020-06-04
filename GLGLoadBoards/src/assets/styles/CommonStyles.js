@@ -51,8 +51,15 @@ export default StyleSheet.create({
         // fontWeight: 'bold',
         // fontSize: 30,
     },
+    darkFont: {
+        color: '#03365c',
+        marginRight:10,
+        marginLeft:10,
+        // fontWeight: 'bold',
+        // fontSize: 30,
+    },
     headerBigger: {
-        fontSize: 25,
+        fontSize: 20,
         // fontWeight: 'bold',
         // fontSize: 30,
     },
@@ -81,6 +88,10 @@ export default StyleSheet.create({
     editIcon:{
         color:'white',
         fontSize: 15,
+    },
+    headerIcon:{
+        color:'#05426e',
+        fontSize: 22,
     },
     deleteIcon:{
         color:'white',

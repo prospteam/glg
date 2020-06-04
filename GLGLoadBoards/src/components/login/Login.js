@@ -14,7 +14,7 @@ import {api_link} from '../../libraries/MyConfigs.js';
 // REDUX imports
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { set_is_logged,set_user_data } from '../../redux/actions/Actions';
+import { set_is_logged,set_user_data,set_show_mini_loader } from '../../redux/actions/Actions';
 
 class Login extends Component {
 
@@ -52,6 +52,7 @@ class Login extends Component {
         }
     }
     handleOpen = () => {
+        
         if (this.state.usertype == 'carrier') {
 
         }
@@ -82,6 +83,7 @@ class Login extends Component {
         const that = this;
         // http://glgfreight.com/loadboard/api_mobile/common/get
 
+
         axios({
             method: 'post',
             url: api_link+'KROD/query_builder',
@@ -95,6 +97,10 @@ class Login extends Component {
                 }
             }
           }).then(function (response) {
+              
+        // this.props.set_show_mini_loader(true);
+        // this.props.set_show_mini_loader(false);
+            // this.props.set_show_mini_loader(false);
             console.log("responseLOG");
             console.log(response);
             
@@ -141,6 +147,8 @@ class Login extends Component {
             }
         })
         .catch(function (error) {
+            
+            // this.props.set_show_mini_loader(false);
             console.log(error);
             console.log("LAGI ERROR NA LAGI ALAM KO");
         });
@@ -215,13 +223,14 @@ const styles = StyleSheet.create({
     // console.log('redux_session  ', state.redux_session)
     return {
 		redux_session: state.redux_session
-		// si MyGlobalReducer kay makit an sa reducers folder
+        // si MyGlobalReducer kay makit an sa reducers folder
     }
  }
  function redux_action_function_to_props(dispatch){
     return bindActionCreators({
         set_is_logged : set_is_logged,
-        set_user_data : set_user_data
+        set_user_data : set_user_data,
+        set_show_mini_loader : set_show_mini_loader
     },dispatch);
  }
 

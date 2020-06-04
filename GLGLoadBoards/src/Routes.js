@@ -97,7 +97,7 @@ class Routes extends Component {
                                 title="MyTrucks"
                                 hideNavBar
                             />
-                            :null
+                            :""
                         }
                         <Scene
                             key="Loads"
