@@ -54,19 +54,22 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
             load_details = this.state.response.map((data, index)=>{
             return(
             <Card key={index} >
-                <TouchableOpacity onPress={ () => {Actions.Orderdetails({
-                        trailer_type: data.trailer_type,
-                        date_available: data.date_available,
-                        commodity: data.commodity,
-                        weight: data.weight,
-                        height: data.height,
-                        width:data.width
-                    }); }}>
+                <TouchableOpacity onPress={ () => {Actions.Orderdetails(
+                    data
+                    // {
+                    //     trailer_type: data.trailer_type,
+                    //     date_available: data.date_available,
+                    //     commodity: data.commodity,
+                    //     weight: data.weight,
+                    //     height: data.height,
+                    //     width:data.width
+                    // }
+                    ); }}>
                     <CardItem header style={{backgroundColor:'#05426e' }}>
-                        <Text style={{color:'#fff'}}>#{data.load_id}</Text>
+                        <Text style={{color:'#fff'}}>#{(!data.load_id)?'(empty)':data.load_id}</Text>
                         {/* <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text> */}
-                        <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/>
-                        <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Editloads({
+                        {/* <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/> */}
+                        {/* <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Editloads({
                             origin:data.origin,
                             destination:data.destination,
                             date_available:data.date_available,
@@ -77,7 +80,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                             commodity: data.commodity,
                             reference_number:data.reference_number,
                             comments: data.comments,
-                        }); }}/>
+                        }); }}/> */}
                         {/* <Icon style={styles.order_detailes} onPress={ () => {Actions.Orderdetails({
                             trailer_type: data.trailer_type,
                             date_available: data.date_available,
@@ -95,10 +98,10 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                             </View>
                             <View style={{marginBottom:5}}>
                                 <Text style={{fontSize:10, marginLeft: 60}}>Origin</Text>
-                                <Text style={{fontSize:10, marginLeft: 60}}>{data.origin}</Text>
+                                <Text style={{fontSize:10, marginLeft: 60}}>{(!data.origin)?'(empty)':data.origin}</Text>
                             </View>
                                 <View style={{textAlign:'right'}}>
-                                    <Text style={{fontSize:20, marginLeft: 80, fontWeight: 'bold'}}>${data.rate}</Text>
+                                    <Text style={{fontSize:20, marginLeft: 80, fontWeight: 'bold'}}>${(!data.rate)?'(na)':data.rate}</Text>
                                 </View>
                             </View>
                             <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
@@ -108,11 +111,11 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                             </View>
                             <View style={{marginBottom:5}}>
                                 <Text style={{fontSize:10, marginLeft: 20}}>Destination</Text>
-                                <Text style={{fontSize:10, marginLeft: 20}}>{data.destination}</Text>
+                                <Text style={{fontSize:10, marginLeft: 20}}>{(!data.destination)?'(empty)':data.destination}</Text>
                             </View>
                             <View style={{textAlign:'right', marginLeft:70 }}>
                                     <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
-                                    <Text style={{fontSize:10}}>{data.trailer_type}</Text>
+                                    <Text style={{fontSize:10}}>{(!data.trailer_type)?'(empty)':data.trailer_type}</Text>
                             </View>
                         </View>
                         </Body>
@@ -127,7 +130,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
 			<Screen active_tab="Loads" title="My Loads" 
             side_header_buttons={
                 <View style={{...styles.darkFont,flex:1,flexDirection:'row-reverse'}}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() =>{Actions.Addloads()} }>
                         <Icon style={styles.headerIcon} type="FontAwesome5" name="plus"/>
                     </TouchableOpacity>
                 </View>

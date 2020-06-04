@@ -68,7 +68,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                              <Text style={{fontSize:12,color:'white'}}>{data.destination}</Text>
                              <Text style={{fontSize:15,fontWeight: 'bold',color:'white'}}>{data.destination_state}</Text>
                          </View>
-                         <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Edittrucks({
+                         {/* <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Edittrucks({
                              origin:data.origin,
                              origin_state:data.origin_state,
                              destination:data.destination,
@@ -76,7 +76,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                              date_available:data.date_available,
                              trailer_type: data.trailer_type,
                              comments: data.comments,
-                         }); }}/>
+                         }); }}/> */}
                      </View>
                     </CardItem>
                     <CardItem>
@@ -114,9 +114,9 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                         Trucks
                     </Text> */}
                     <ScrollView>
-                        <TouchableOpacity onPress={() =>{Actions.Addtrucks()} } >
+                        {/* <TouchableOpacity onPress={() =>{Actions.Addtrucks()} } >
                             <Text style={styles.add_loads}>Add Trucks</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     <View style={styles.contentBody}>
                                 <View style={styles.middle}>
                                     <Text style={styles.middle_text}>Origin</Text>

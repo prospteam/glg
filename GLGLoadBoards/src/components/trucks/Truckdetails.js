@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';// I included ang "index.js"
 
- class Orderdetails extends Component {
+ class Truckdetails extends Component {
 	constructor(props){
 		super(props);
         this.state = {
@@ -30,66 +30,59 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             width:'',
             rate:'',
            contact_name:'',
+
         };
 	}
     toggleModal = () => {
         this.setState({isModalVisible: !this.state.isModalVisible});
     };
 
-    _handlePress() {
-        // console.log(this.state.rate);
-        // console.log(this.state.contact_name);
-        console.log(this.props.load_id);
-        const that = this;
-        axios.post('https://glgfreight.com/loadboard_app/api_mobile/Sendrates/add_rates', {
-            fk_carrier_id: this.props.redux_session.user_data.user_id,
-            fk_load_id:this.props.load_id,
-            rate: this.state.rate,
-            contact_name: this.state.contact_name,
-        }).then(function (response) {
-            console.log(response.data);
-            console.log('SUCCESS');
-            console.log('__________________________________');
-        }).catch(function (err) {
-            console.log(err);
-            console.log('ERRORRRRRRR UUUUY');
-            console.log('__________________________________');
-            console.log('__________________________________');
-        });
-    }
+    // _handlePress() {
+    //     // console.log(this.state.rate);
+    //     // console.log(this.state.contact_name);
+    //     console.log(this.props.load_id);
+    //     const that = this;
+    //     axios.post('https://glgfreight.com/loadboard_app/api_mobile/Sendrates/add_rates', {
+    //         fk_carrier_id: this.props.redux_session.user_data.user_id,
+    //         fk_load_id:this.props.load_id,
+    //         rate: this.state.rate,
+    //         contact_name: this.state.contact_name,
+    //     }).then(function (response) {
+    //         console.log(response.data);
+    //         console.log('SUCCESS');
+    //         console.log('__________________________________');
+    //     }).catch(function (err) {
+    //         console.log(err);
+    //         console.log('ERRORRRRRRR UUUUY');
+    //         console.log('__________________________________');
+    //         console.log('__________________________________');
+    //     });
+    // }
+
+    
+            // LOG  {"carrier_id": "0", "category": "", "comments": "", "date_added": "2020-06-03 10:06:23", "date_available": "Jjn", "deleted_status": "0", "destination": "Km", "destination_state": "", "origin": "Jjj", "origin_state": "", "trailer_type": "Jj", "truck_id": "47"}
 
     render() {
-        let is_owner=false;
-        if(this.props.shipper_id==this.props.redux_session.user_data.user_id)
-            is_owner=true;
-
+        console.log(this.props.load_id);
         return (
-            <Screen title="Load Details" 
+            <Screen title="Truck Details"
             side_header_buttons={
+                
                 <View style={{...styles.darkFont,flex:1,flexDirection:'row-reverse'}}>
-                    {
-                        (is_owner)?
-                        <TouchableOpacity onPress={() =>{Actions.Editloads({
-                                origin:this.props.origin,
-                                destination:this.props.destination,
-                                date_available:this.props.date_available,
-                                trailer_type: this.props.trailer_type,
-                                length: this.props.length,
-                                width:this.props.width,
-                                rate: this.props.rate,
-                                commodity: this.props.commodity,
-                                reference_number:this.props.reference_number,
-                                comments: this.props.comments,
-                            })}}>
-                            <Icon style={styles.headerIcon} type="FontAwesome5" name="edit"/>
-                        </TouchableOpacity>
-                        :null
-                    }
+                    <TouchableOpacity onPress={() =>{Actions.Edittrucks({
+                        origin:data.origin,
+                        origin_state:data.origin_state,
+                        destination:data.destination,
+                        destination_state:data.destination_state,
+                        date_available:data.date_available,
+                        trailer_type: data.trailer_type,
+                        comments: data.comments,
+                    })}}>
+                        <Icon style={styles.headerIcon} type="FontAwesome5" name="edit"/>
+                    </TouchableOpacity>
                 </View>
                 }				
             >
-
-
 				{/* <Text style={styles.contentItem}>
 					Order Details 1
 				</Text> */}
@@ -97,7 +90,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <View style={styles.contentBody}>
                     <Card containerStyle={{ flex:1,backgroundColor:'red',}}>
                         <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
-                            <Text style={{color:'#fff'}}>{(this.props.origin)?this.props.origin:'(empty)'} <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/> {(this.props.destination)?this.props.destination:'(empty)'}</Text>
+                            <Text style={{color:'#fff'}}>{(this.props.origin)?this.props.origin:'(empty)'} <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/> {(!this.props.destination)?'(empty)':this.props.destination}</Text>
                         </CardItem>
                         <CardItem>
                             <Body>
@@ -122,9 +115,9 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                       </View>
                                   </View>
                                    <View style={{margin:10}}/>
-                                   <TouchableOpacity title="Hide modal" onPress={() => this._handlePress()}>
+                                   {/* <TouchableOpacity title="Hide modal" onPress={() => this._handlePress()}>
                                        <Text style={styles.send_rate_email}>Send Rate</Text>
-                                   </TouchableOpacity>
+                                   </TouchableOpacity> */}
                                 </View>
                               </Modal>
                             </View>
@@ -135,8 +128,8 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                         backgroundColor:'red',
                                     }}>
                                     <Mileage props={{
-                                                origin:(this.props.origin)?this.props.origin+',+USA':'(empty)',
-                                                destination:(this.props.destination)?this.props.destination+',+USA':'(empty)',
+                                                origin:this.props.origin+',+USA',
+                                                destination:this.props.destination+',+USA'
                                         }}/>
                                 </View>
                             </Body>
@@ -146,30 +139,30 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                 <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                     <View style={{flex:1}}>
                                         <Text style={{fontSize:10}}>Trailer Type</Text>
-                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{(this.props.trailer_type)?this.props.trailer_type:'(empty)'}</Text>
+                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{(!this.props.trailer_type)?'(empty)':this.props.trailer_type}</Text>
                                     </View>
                                     <View style={{flex:1}}>
                                         <Text style={{fontSize:10}}>Ship Date</Text>
-                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{(this.props.date_available)?this.props.date_available:'(empty)'}</Text>
+                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{(!this.props.date_available)?'(empty)':this.props.date_available}</Text>
                                     </View>
                                     <View style={{flex:1}}>
                                         <Text style={{fontSize:10}}>Commodity</Text>
-                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{(this.props.commodity)?this.props.commodity:'(empty)'}</Text>
+                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{(!this.props.commodity)?'(empty)':this.props.commodity}</Text>
                                     </View>
                                 </View>
                                 <View style={{flex: 1, flexDirection: 'row', margin:15}}/>
                                 <View style={{flex: 1, flexDirection: 'row', marginLeft:30}}>
                                     <View style={{flex:1}}>
                                         <Text style={{fontSize:10}}>Weight</Text>
-                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{(this.props.weight)?this.props.weight:'(empty)'}</Text>
+                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{(!this.props.weight)?'(empty)':this.props.weight}</Text>
                                     </View>
                                     <View style={{flex:1}}>
                                         <Text style={{fontSize:10}}>Height</Text>
-                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{(this.props.height)?this.props.height:'(empty)'}</Text>
+                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{(!this.props.height)?'(empty)':this.props.height}</Text>
                                     </View>
                                     <View style={{flex:1}}>
                                         <Text style={{fontSize:10}}>Width</Text>
-                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{(this.props.width)?this.props.width:'(empty)'}</Text>
+                                        <Text style={{fontSize:15,fontWeight: 'bold'}}>{(!this.props.width)?'(empty)':this.props.width}</Text>
                                     </View>
                                 </View>
                                 <View style={{marginBottom: '10%'}} />
@@ -196,7 +189,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                     <Text style={{color:'white'}}>Comments: </Text>
                                 </View>
                                 <View style={{marginBottom:5}}>
-                                    <Text style={{color:'white'}}>{(this.props.comments)?this.props.comments:'(empty)'}</Text>
+                                    <Text style={{color:'white'}}>{(!this.props.comments)?'(empty)':this.props.comments}</Text>
                                 </View>
                             </View>
                         </CardItem>
@@ -228,4 +221,4 @@ function reduxActionFunctions(dispatch){
     },dispatch);
  }
 
-export default connect(reduxStateToProps,reduxActionFunctions)(Orderdetails);
+export default connect(reduxStateToProps,reduxActionFunctions)(Truckdetails);

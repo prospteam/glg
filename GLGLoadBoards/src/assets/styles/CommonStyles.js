@@ -59,7 +59,7 @@ export default StyleSheet.create({
         // fontSize: 30,
     },
     headerBigger: {
-        fontSize: 20,
+        fontSize: 18,
         // fontWeight: 'bold',
         // fontSize: 30,
     },

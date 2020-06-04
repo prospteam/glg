@@ -58,9 +58,9 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
             <Card key={index}>
                 <CardItem header style={{backgroundColor:'#05426e' }}>
                     <Text style={{color:'#fff'}}>{data.load_id}</Text>
-                    <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text>
-                        <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/>
-                        <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Editloads({
+                    {/* <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text> */}
+                        {/* <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/> */}
+                        {/* <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Editloads({
                             load_id:data.load_id,
                             origin:data.origin,
                             destination:data.destination,
@@ -72,7 +72,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                             commodity: data.commodity,
                             reference_number:data.reference_number,
                             comments: data.comments,
-                        }); }}/>
+                        }); }}/> */}
                         <Icon style={styles.order_detailes} onPress={ () => {Actions.Orderdetails({
                             load_id:data.load_id,
                             origin: data.origin,
@@ -128,9 +128,9 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
 				{/* <Text style={styles.contentHeader}>
 					Loads list
 				</Text> */}
-                <TouchableOpacity onPress={() =>{Actions.Addloads()} } >
+                {/* <TouchableOpacity onPress={() =>{Actions.Addloads()} } >
                     <Text style={styles.add_loads}>Add Loads</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <View style={styles.contentBody}>
                             <View style={styles.middle}>
                                 <Text style={styles.middle_text}>Origin</Text>

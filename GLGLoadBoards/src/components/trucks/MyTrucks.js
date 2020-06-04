@@ -35,81 +35,91 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
     componentDidMount() {
         var self = this;
 
-    axios({
-        method: 'get',
-        url: 'https://glgfreight.com/loadboard_app/api_mobile/Trucks/all_trucks',
-      }).then(function (response) {
-        console.log("this is a test");
-        console.log(response.data);
-        self.setState({response: response.data});
-    })
-    .catch(function (error) {
-        console.log(error);
-        console.log("LAGI ERROR NA LAGI ALAM KO");
-    });
-}
-
+        axios({
+            method: 'get',
+            url: 'https://glgfreight.com/loadboard_app/api_mobile/Trucks/all_trucks',
+        }).then(function (response) {
+            console.log("this is a test");
+            console.log(response.data);
+            self.setState({response: response.data});
+        })
+        .catch(function (error) {
+            console.log(error);
+            console.log("LAGI ERROR NA LAGI ALAM KO");
+        });
+    }
     render() {
 		console.log("input_sampleString")
         let trucks_details;
         trucks_details = this.state.response.map((data, index)=>{
+            console.log(data)
+            console.log('________________data')
+            // LOG  {"carrier_id": "0", "category": "", "comments": "", "date_added": "2020-06-03 10:06:23", "date_available": "Jjn", "deleted_status": "0", "destination": "Km", "destination_state": "", "origin": "Jjj", "origin_state": "", "trailer_type": "Jj", "truck_id": "47"}
             return (
                 <Card key={index}>
-                    <CardItem header style={{backgroundColor:'#05426e' }}>
-                     <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                         <View style={{flex:1}}> 
-                             <Text style={{fontSize:12, color:'white'}}>{data.origin}</Text>
-                             <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{data.origin_state}</Text>
-                         </View>
-                         <View style={{flex:1}}>
-                           <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/>
-                         </View>
-                         <View style={{flex:1}}>
-                             <Text style={{fontSize:12,color:'white'}}>{data.destination}</Text>
-                             <Text style={{fontSize:15,fontWeight: 'bold',color:'white'}}>{data.destination_state}</Text>
-                         </View>
-                         <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Edittrucks({
-                             origin:data.origin,
-                             origin_state:data.origin_state,
-                             destination:data.destination,
-                             destination_state:data.destination_state,
-                             date_available:data.date_available,
-                             trailer_type: data.trailer_type,
-                             comments: data.comments,
-                         }); }}/>
-                     </View>
-                    </CardItem>
-                    <CardItem>
-                        <Body>
+                    <TouchableOpacity onPress={ () => {Actions.Truckdetails({
+                            // trailer_type: data.trailer_type,
+                            // date_available: data.date_available,
+                            // commodity: data.commodity,
+                            // weight: data.weight,
+                            // height: data.height,
+                            // width:data.width
+                        }); }}>
+                        <CardItem header style={{backgroundColor:'#05426e' }}>
+                        <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                            <View style={{flex:1}}> 
+                                <Text style={{fontSize:12, color:'white'}}>{(!data.origin)?'(empty)':data.origin}</Text>
+                                <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{(!data.origin_state)?'(empty)':data.origin_state}</Text>
+                            </View>
+                            <View style={{flex:1}}>
+                            <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/>
+                            </View>
+                            <View style={{flex:1}}>
+                                <Text style={{fontSize:12,color:'white'}}>{(!data.destination)?'(empty)':data.destination}</Text>
+                                <Text style={{fontSize:15,fontWeight: 'bold',color:'white'}}>{(!data.destination_state)?'(empty)':data.destination_state}</Text>
+                            </View>
+                        </View>
+                        </CardItem>
+                        <CardItem>
+                            <Body>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Trip Miles</Text>
+                                    <Text style={{fontSize:10}}>001</Text>
+                                </View>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Trailer Type</Text>
+                                    <Text style={{fontSize:10}}>{(!data.trailer_type)?'(empty)':data.trailer_type}</Text>
+                                </View>
+                            </View>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                               <View style={{flex: 1,marginBottom:5}}>
-                                   <Text style={{fontSize:10}}>Trip Miles</Text>
-                                   <Text style={{fontSize:10}}>001</Text>
-                               </View>
-                               <View style={{flex: 1,marginBottom:5}}>
-                                   <Text style={{fontSize:10}}>Trailer Type</Text>
-                                   <Text style={{fontSize:10}}>{data.trailer_type}</Text>
-                               </View>
-                           </View>
-                           <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                              <View style={{flex: 1,marginBottom:5}}>
-                                  <Text style={{fontSize:10}}>Ship dates</Text>
-                                  <Text style={{fontSize:10}}>{data.date_added}</Text>
-                              </View>
-                              <View style={{flex: 1,marginBottom:5}}>
-                                  <Text style={{fontSize:10}}>Comments</Text>
-                                  <Text style={{fontSize:10}}>{data.comments}</Text>
-                              </View>
-                          </View>
-                        </Body>
-                    </CardItem>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Ship dates</Text>
+                                    <Text style={{fontSize:10}}>{(!data.date_added)?'(empty)':data.date_added}</Text>
+                                </View>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Comments</Text>
+                                    <Text style={{fontSize:10}}>{(!data.comments)?'(empty)':data.comments}</Text>
+                                </View>
+                            </View>
+                            </Body>
+                        </CardItem>
+                    </TouchableOpacity>
                 </Card>
             );
             console.log(response.data.trailer_type);
         });
 
         return (
-                <Screen active_tab="Trucks" title="My Trucks" >
+                <Screen active_tab="Trucks" title="My Trucks" 
+                side_header_buttons={
+                    <View style={{...styles.darkFont,flex:1,flexDirection:'row-reverse'}}>
+                        <TouchableOpacity onPress={() =>{Actions.Addtrucks()} }>
+                            <Icon style={styles.headerIcon} type="FontAwesome5" name="plus"/>
+                        </TouchableOpacity>
+                    </View>
+                    }				
+                >
                     {/* <Text style={styles.contentItem}>
                         Trucks
                     </Text> */}
