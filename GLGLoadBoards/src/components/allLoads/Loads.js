@@ -128,6 +128,9 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
 				{/* <Text style={styles.contentHeader}>
 					Loads list
 				</Text> */}
+                <TouchableOpacity onPress={() =>{Actions.Addloads()} } >
+                    <Text style={styles.add_loads}>Add Loads</Text>
+                </TouchableOpacity>
                 <View style={styles.contentBody}>
                             <View style={styles.middle}>
                                 <Text style={styles.middle_text}>Origin</Text>

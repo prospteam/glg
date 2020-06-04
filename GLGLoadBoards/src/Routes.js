@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Actions, Router, Scene, Drawer, Stack} from 'react-native-router-flux';
+import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 // import Routes from './Routes.js';
 import Login from './components/login/Login.js';
 
@@ -15,9 +15,11 @@ import MyLoads from './components/allLoads/MyLoads.js';
 import GoogleMapsPlacesInput from './components/allLoads/GoogleMapsPlacesInput.js';
 import Orderdetails from './components/allLoads/Orderdetails.js';
 import Editloads from './components/allLoads/Editloads.js';
+import Addloads from './components/allLoads/Addloads.js';
 import Register from './components/login/Register.js';
 import Dashboard from './components/dashboard/Dashboard.js/';
 import Trucks from './components/trucks/Trucks.js/';
+import Addtrucks from './components/trucks/Addtrucks.js/';
 import MyTrucks from './components/trucks/MyTrucks.js/';
 import Edittrucks from './components/trucks/Edittrucks.js/';
 import LoadSearch from './components/loadsSearch/LoadSearch.js';
@@ -58,7 +60,7 @@ class Routes extends Component {
                     subtitle="You can setup the colors using the theme prop"
                 /> */}
                 <Router>
-                    <Stack key="root">
+                    <Scene key="root">
                         {/* <Scene key='Trucks' tabs={true} >
 
                             <Scene
@@ -122,6 +124,18 @@ class Routes extends Component {
                             key="Orderdetails"
                             component={Orderdetails}
                             title="Orderdetails"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Addloads"
+                            component={Addloads}
+                            title="Addloads"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Addtrucks"
+                            component={Addtrucks}
+                            title="Addtrucks"
                             hideNavBar
                         />
                         <Scene
@@ -196,13 +210,13 @@ class Routes extends Component {
                         }
 
                     {/* SUB PAGES */}
-                    
+
                     <Scene
                             key="FindTruck"
                             component={FindTruck}
                             title="FindTruck" hideNavBar
                         />
-                    </Stack>
+                    </Scene>
                 </Router>
             </>
         );
