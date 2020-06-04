@@ -20,6 +20,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             isModalVisible: false,
             response: [],
             load_id: '',
+            rate_id:'',
             origin:'',
             destination:'',
             trailer_type:'',
@@ -30,6 +31,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             width:'',
             rate:'',
            contact_name:'',
+           contact_number:'' 
 
         };
 	}
@@ -38,17 +40,15 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
     };
 
     _handlePress() {
-        // console.log(this.state.rate);
-        // console.log(this.state.contact_name);
-        console.log(this.props.load_id);
         const that = this;
         axios.post('https://glgfreight.com/loadboard_app/api_mobile/Sendrates/add_rates', {
             fk_carrier_id: this.props.redux_session.user_data.user_id,
             fk_load_id:this.props.load_id,
             rate: this.state.rate,
             contact_name: this.state.contact_name,
+            contact_number: this.state.contact_number
         }).then(function (response) {
-            console.log(response.data);
+            console.log(response);
             console.log('SUCCESS');
             console.log('__________________________________');
         }).catch(function (err) {
@@ -80,7 +80,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                             </TouchableOpacity>
                               <Modal isVisible={this.state.isModalVisible} style={{margin:0, justifyContent: "center", alignItems: "center", borderRadius:5 }}>
                                 <View style={{backgroundColor:'#ffffff', padding:'5%'}}>
-                                  <Text style={{color:'#00000'}}>Send a Rate To Broker</Text>
+                                  <Text style={{color:'#00000'}}>Send a Rate To Brokerss</Text>
                                    <View style={{borderBottomColor: '#e5e5e5',borderBottomWidth: 1}}/>
                                    <View style={{margin:10}}/>
                                   <View style={{flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>

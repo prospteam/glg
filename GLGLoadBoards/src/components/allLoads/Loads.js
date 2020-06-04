@@ -22,7 +22,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
             load_id: '',
             origin:'',
             destination:'',
-            trailer_type:'',
+            trailer_type:'', 
             rate:'',
 
         };
