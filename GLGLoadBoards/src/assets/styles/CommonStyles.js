@@ -145,6 +145,18 @@ export default StyleSheet.create({
         marginTop: 10,
         marginBottom:10
     },
+    add_loads:{
+        backgroundColor: '#05426e',
+        color: 'white',
+        justifyContent: 'center',
+        borderRadius: 2,
+        width: 120,
+        textAlign: 'center',
+        padding: 8,
+        fontSize: 15,
+        marginTop: 10,
+        marginBottom:10
+    },
     call_button:{
         backgroundColor: 'orange',
         color: 'white',

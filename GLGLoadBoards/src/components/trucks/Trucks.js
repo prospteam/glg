@@ -114,6 +114,9 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                         Trucks
                     </Text> */}
                     <ScrollView>
+                        <TouchableOpacity onPress={() =>{Actions.Addtrucks()} } >
+                            <Text style={styles.add_loads}>Add Trucks</Text>
+                        </TouchableOpacity>
                     <View style={styles.contentBody}>
                                 <View style={styles.middle}>
                                     <Text style={styles.middle_text}>Origin</Text>
