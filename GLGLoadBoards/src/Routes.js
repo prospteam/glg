@@ -39,17 +39,13 @@ import Truckmapsv2 from './components/other_old/truck_maps/truckmapsv2.js';
 import TruckMapSearch from './components/other_old/truck_map_search/TruckMapSearch.js';
 import Load_map from './components/other_old/Load_map.js';
 import FindTruck from './components/FindTruck.js';
+import FindLoads from './components/allLoads/FindLoads.js';
 
 // Dont just exist, live.
 class Routes extends Component {
     render() {
         return (
             <>
-                <Spinner
-                    visible={this.props.redux_state.show_mini_loader}
-                    textContent={'Loading...'}
-                    textStyle={{color: '#FFF'}}
-                />
                 {/* <SCLAlert
                     show={this.props.redux_state.show_alert}
                     // onRequestClose={this.props.redux_state.show_}
@@ -223,8 +219,19 @@ class Routes extends Component {
                             component={FindTruck}
                             title="FindTruck" hideNavBar
                         />
+                    <Scene
+                            key="FindLoads"
+                            component={FindLoads}
+                            title="FindLoads" hideNavBar
+                        />
                     </Scene>
                 </Router>
+                
+                {/* <Spinner
+                    visible={this.props.redux_state.show_mini_loader}
+                    textContent={'Loading...'}
+                    textStyle={{color: '#FFF'}}
+                /> */}
             </>
         );
     }

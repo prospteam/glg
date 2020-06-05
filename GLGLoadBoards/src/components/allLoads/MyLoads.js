@@ -23,12 +23,18 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
             rate:'',
 
         };
+        // console.log('________g____________________');
+        // console.log(this.props.redux_state.show_mini_loader);
+        // if(!this.props.redux_state.show_mini_loader){
+        //     this.props.set_show_mini_loader(true);
+        // }
+        // if(this.props.redux_state.show_mini_loader){
+        //     this.props.set_show_mini_loader(false);
+        // }
 	}
 
     componentDidMount() {
         var self = this;
-        // if(!this.props.redux_state.set_show_mini_loader)
-            // this.props.set_show_mini_loader(false);
             console.log('____________________________');
             console.log('https://glgfreight.com/loadboard_app/api_mobile/Loads/my_loads/');
         axios({
@@ -38,12 +44,8 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
             // console.log("this is a test");
             // console.log(response.data);
             self.setState({response: response.data});
-            // if(this.props.redux_state.set_show_mini_loader)
-            //     this.props.set_show_mini_loader(false);
         })
         .catch(function (error) {
-            // if(this.props.redux_state.set_show_mini_loader)
-            //     this.props.set_show_mini_loader(false);
             console.log(error);
             console.log("LAGI ERROR NA LAGI ALAM KO");
         });

@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import {ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import {ScrollView, TouchableOpacity, TextInput, Linking } from 'react-native';
 import { Text, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body, View  } from 'native-base';
 import Modal from 'react-native-modal';
 import axios from 'axios';
+import { Actions } from 'react-native-router-flux';
 
 import Screen from '../layout/Screen';
 import Mileage from '../mileage/Mileage';
 import styles from '../../assets/styles/CommonStyles';
+import {api_link} from '../../libraries/MyConfigs.js';
 
 //REDUX
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';// I included ang "index.js"
+import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../redux/actions/Actions';// I included ang "index.js"
 
  class Orderdetails extends Component {
 	constructor(props){
@@ -33,10 +35,43 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
            contact_name:'',
            contact_number:'' 
         };
-	}
+        console.log('____________________________');
+        console.log('I am Loaded from load detalissss');
+        // this.props.set_show_mini_loader('true');
+    }
+
+    componentDidMount() {
+        var that = this;
+        axios({
+            method: 'post',
+            url: api_link+'KROD/query_builder',
+            data: {
+                "select": "*",
+                "from": "glg_userdata",
+                "where": {
+                    "fk_userid": this.props.shipper_id,
+                    // "username": this.state.username.toLowerCase(),
+                    // "other_password": this.state.password.toLowerCase()
+                }
+            }
+          }).then(function (response) {
+              if(response.data[0].contact_number){
+                that.setState({
+                    contact_number: response.data[0].contact_number
+                });
+              }
+        })
+        .catch(function (error) {
+            
+            // this.props.set_show_mini_loader(false);
+            console.log(error);
+            // console.log("LAGI ERROR NA LAGI ALAM KO");
+        });
+    }
+
     toggleModal = () => {
         this.setState({isModalVisible: !this.state.isModalVisible});
-    };
+    }
 
     _handlePress() {
         const that = this;
@@ -69,7 +104,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <View style={{...styles.darkFont,flex:1,flexDirection:'row-reverse'}}>
                     {
                         (is_owner)?
-                        <TouchableOpacity onPress={() =>{Actions.Editloads({
+                        <TouchableOpacity onPress={() => Actions.Editloads({
                                 origin:this.props.origin,
                                 destination:this.props.destination,
                                 date_available:this.props.date_available,
@@ -80,7 +115,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                 commodity: this.props.commodity,
                                 reference_number:this.props.reference_number,
                                 comments: this.props.comments,
-                            })}}>
+                            })}>
                             <Icon style={styles.headerIcon} type="FontAwesome5" name="edit"/>
                         </TouchableOpacity>
                         :null
@@ -173,20 +208,44 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                     </View>
                                 </View>
                                 <View style={{marginBottom: '10%'}} />
-
-
                                 <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                     <View style={{flex:1}}>
-                                        <TouchableOpacity>
-                                            <Text style={styles.call_button}>Call Brooker</Text>
-                                        </TouchableOpacity>
+                                        {
+                                            (this.state.contact_number)?
+                                            <TouchableOpacity 
+                                            onPress={()=>Linking.openURL(`tel:${this.state.contact_number}`)}>
+                                                <Text style={styles.call_button}>Call Brooker</Text>
+                                            </TouchableOpacity>
+                                            :
+                                            <TouchableOpacity>
+                                                <Text style={styles.call_button}>Call Brooker</Text>
+                                            </TouchableOpacity>
+                                        }
                                     </View>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={() =>{Actions.FindTruck({
+                                            origin:this.props.origin,
+                                            destination:this.props.destination,
+                                            // date_available:this.props.date_available,
+                                            // trailer_type: this.props.trailer_type,
+                                            // length: this.props.length,
+                                            // width:this.props.width,
+                                            // rate: this.props.rate,
+                                            // commodity: this.props.commodity,
+                                            // reference_number:this.props.reference_number,
+                                            // comments: this.props.comments,
+                                        })}}>
                                         <Text style={styles.findtruck_button}>Find Truck</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View>
-                                    <Text style={{fontSize:15, fontWeight: 'bold',marginLeft:15}}>(+96356612)</Text>
+                                    <Text style={{fontSize:15, fontWeight: 'bold',marginLeft:15}}>
+                                        {
+                                            (this.state.contact_number)?
+                                            "("+this.state.contact_number+")"
+                                            :"(empty)"
+                                        }
+                                    </Text>
                                 </View>
                             </Body>
                         </CardItem>
@@ -224,6 +283,7 @@ function reduxActionFunctions(dispatch){
     return bindActionCreators({
         set_sampleString : set_sampleString,
         set_is_logged : set_is_logged,
+        set_show_mini_loader : set_show_mini_loader,
 		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
  }

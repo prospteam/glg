@@ -26,6 +26,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
             rate:'',
 
         };
+        
 	}
 
     componentDidMount() {
@@ -56,67 +57,67 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
             load_details = this.state.response.map((data, index)=>{
             return(
             <Card key={index}>
-                <CardItem header style={{backgroundColor:'#05426e' }}>
-                    <Text style={{color:'#fff'}}>{data.load_id}</Text>
-                    {/* <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text> */}
-                        {/* <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/> */}
-                        {/* <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Editloads({
-                            load_id:data.load_id,
-                            origin:data.origin,
-                            destination:data.destination,
-                            date_available:data.date_available,
-                            trailer_type: data.trailer_type,
-                            length: data.length,
-                            width:data.width,
-                            rate: data.rate,
-                            commodity: data.commodity,
-                            reference_number:data.reference_number,
-                            comments: data.comments,
-                        }); }}/> */}
-                        <Icon style={styles.order_detailes} onPress={ () => {Actions.Orderdetails({
-                            load_id:data.load_id,
-                            origin: data.origin,
-                            destination:data.destination,
-                            trailer_type: data.trailer_type,
-                            date_available: data.date_available,
-                            commodity: data.commodity,
-                            weight: data.weight,
-                            height: data.height,
-                            width:data.width,
-                            comments:data.comments
-                        }); }} type="FontAwesome5" name="bars"/>
-                </CardItem>
-                <CardItem>
-                    <Body>
-                    <View style={{flex: 1, flexDirection: 'row'}}>
-                        <View>
-                            <Text>Origin</Text>
-                        </View>
-                        <View style={{marginBottom:5}}>
-                            <Text style={{fontSize:10, marginLeft: 60}}>Origin</Text>
+                <TouchableOpacity onPress={ () => {Actions.Orderdetails(
+                    data
+                    // {
+                    //     trailer_type: data.trailer_type,
+                    //     date_available: data.date_available,
+                    //     commodity: data.commodity,
+                    //     weight: data.weight,
+                    //     height: data.height,
+                    //     width:data.width
+                    // }
+                    ); }}>
+                    <CardItem header style={{backgroundColor:'#05426e' }}>
+                        <Text style={{color:'#fff'}}>{data.load_id}</Text>
+                        {/* <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text> */}
+                            {/* <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/> */}
+                            {/* <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Editloads({
+                                load_id:data.load_id,
+                                origin:data.origin,
+                                destination:data.destination,
+                                date_available:data.date_available,
+                                trailer_type: data.trailer_type,
+                                length: data.length,
+                                width:data.width,
+                                rate: data.rate,
+                                commodity: data.commodity,
+                                reference_number:data.reference_number,
+                                comments: data.comments,
+                            }); }}/> */}
+                    </CardItem>
+                    <CardItem>
+                        <Body>
+                        <View style={{flex: 1, flexDirection: 'row'}}>
+                            <View>
+                                <Text>Origin</Text>
+                            </View>
+                            <View style={{marginBottom:5}}>
+                                <Text style={{fontSize:10, marginLeft: 60}}>Origin</Text>
 
-                            <Text style={{fontSize:10, marginLeft: 60}}>{data.origin}</Text>
-                        </View>
-                            <View style={{textAlign:'right'}}>
-                                <Text style={{fontSize:20, marginLeft: 80, fontWeight: 'bold'}}>${data.rate}</Text>
+                                <Text style={{fontSize:10, marginLeft: 60}}>{data.origin}</Text>
+                            </View>
+                                <View style={{textAlign:'right'}}>
+                                    <Text style={{fontSize:20, marginLeft: 80, fontWeight: 'bold'}}>${data.rate}</Text>
+                                </View>
+                            </View>
+                            <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
+                                <View style={{flex: 1, flexDirection: 'row',marginTop:2}}>
+                            <View>
+                                <Text>Destination</Text>
+                            </View>
+                            <View style={{marginBottom:5}}>
+                                <Text style={{fontSize:10, marginLeft: 20}}>Destination</Text>
+                                <Text style={{fontSize:10, marginLeft: 20}}>{data.destination}</Text>
+                            </View>
+                            <View style={{textAlign:'right', marginLeft:70 }}>
+                                    <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
+                                    <Text style={{fontSize:10}}>{data.trailer_type}</Text>
                             </View>
                         </View>
-                        <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
-                            <View style={{flex: 1, flexDirection: 'row',marginTop:2}}>
-                        <View>
-                            <Text>Destination</Text>
-                        </View>
-                        <View style={{marginBottom:5}}>
-                            <Text style={{fontSize:10, marginLeft: 20}}>Destination</Text>
-                            <Text style={{fontSize:10, marginLeft: 20}}>{data.destination}</Text>
-                        </View>
-                        <View style={{textAlign:'right', marginLeft:70 }}>
-                                <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
-                                <Text style={{fontSize:10}}>{data.trailer_type}</Text>
-                        </View>
-                    </View>
-                    </Body>
-                </CardItem>
+                        </Body>
+                    </CardItem>
+                </TouchableOpacity>
             </Card>
         );
         console.log(response.data.trailer_type);

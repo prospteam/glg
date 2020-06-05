@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import {ScrollView, TouchableOpacity, Linking } from 'react-native';
 import { Text, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body, View  } from 'native-base';
 import axios from 'axios';
-
-
+import { Actions } from 'react-native-router-flux';
 
 // MY Imports
 import Screen from './layout/Screen';
 import styles from '../assets/styles/CommonStyles';
+import {api_link} from '../libraries/MyConfigs.js';
 
 //REDUX
 import { connect } from 'react-redux';
@@ -31,6 +31,33 @@ import { set_sampleString, set_is_logged } from '../redux/actions/Actions';// I 
 
     componentDidMount() {
         var self = this;
+        axios({
+            method: 'post',
+            url: api_link+'KROD/query_builder',
+            data: {
+                "select": "*",
+                "from": "glg_trucks",
+                "where": {
+                    "origin": this.props.origin,
+                    "destination": this.props.destination,
+                    // "username": this.state.username.toLowerCase(),
+                    // "other_password": this.state.password.toLowerCase()
+                }
+            }
+            }).then(function (response) {
+                console.log('___________NEW_________________');
+                console.log(response.data);
+                // if(response.data[0].contact_number){
+                //     that.setState({
+                //         contact_number: response.data[0].contact_number
+                //     });
+                // }
+            })
+            .catch(function (error) {
+                // this.props.set_show_mini_loader(false);
+                console.log(error);
+                // console.log("LAGI ERROR NA LAGI ALAM KO");
+            });
 
     axios({
         method: 'get',
@@ -52,58 +79,67 @@ import { set_sampleString, set_is_logged } from '../redux/actions/Actions';// I 
         trucks_details = this.state.response.map((data, index)=>{
             return (
                 <Card key={index}>
-                    <CardItem header style={{backgroundColor:'#05426e' }}>
-                     <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                         <View style={{flex:1}}> 
-                             <Text style={{fontSize:12, color:'white'}}>{data.origin}</Text>
-                             <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{data.origin_state}</Text>
-                         </View>
-                         <View style={{flex:1}}>
-                           <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/>
-                         </View>
-                         <View style={{flex:1}}>
-                             <Text style={{fontSize:12,color:'white'}}>{data.destination}</Text>
-                             <Text style={{fontSize:15,fontWeight: 'bold',color:'white'}}>{data.destination_state}</Text>
-                         </View>
-                     </View>
-                    </CardItem>
-                    <CardItem>
-                        <Body>
+                    <TouchableOpacity onPress={ () => {Actions.Truckdetails({
+                        data
+                            // trailer_type: data.trailer_type,
+                            // date_available: data.date_available,
+                            // commodity: data.commodity,
+                            // weight: data.weight,
+                            // height: data.height,
+                            // width:data.width
+                        }); }}>
+                        <CardItem header style={{backgroundColor:'#05426e' }}>
+                        <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                            <View style={{flex:1}}> 
+                                <Text style={{fontSize:12, color:'white'}}>{data.origin}</Text>
+                                <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{data.origin_state}</Text>
+                            </View>
+                            <View style={{flex:1}}>
+                            <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/>
+                            </View>
+                            <View style={{flex:1}}>
+                                <Text style={{fontSize:12,color:'white'}}>{data.destination}</Text>
+                                <Text style={{fontSize:15,fontWeight: 'bold',color:'white'}}>{data.destination_state}</Text>
+                            </View>
+                        </View>
+                        </CardItem>
+                        <CardItem>
+                            <Body>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Trip Miles</Text>
+                                    <Text style={{fontSize:10}}>001</Text>
+                                </View>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Trailer Type</Text>
+                                    <Text style={{fontSize:10}}>{data.trailer_type}</Text>
+                                </View>
+                            </View>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                               <View style={{flex: 1,marginBottom:5}}>
-                                   <Text style={{fontSize:10}}>Trip Miles</Text>
-                                   <Text style={{fontSize:10}}>001</Text>
-                               </View>
-                               <View style={{flex: 1,marginBottom:5}}>
-                                   <Text style={{fontSize:10}}>Trailer Type</Text>
-                                   <Text style={{fontSize:10}}>{data.trailer_type}</Text>
-                               </View>
-                           </View>
-                           <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                              <View style={{flex: 1,marginBottom:5}}>
-                                  <Text style={{fontSize:10}}>Ship dates</Text>
-                                  <Text style={{fontSize:10}}>{data.date_added}</Text>
-                              </View>
-                              <View style={{flex: 1,marginBottom:5}}>
-                                  <Text style={{fontSize:10}}>Comments</Text>
-                                  <Text style={{fontSize:10}}>{data.comments}</Text>
-                              </View>
-                          </View>
-                        </Body>
-                    </CardItem>
-                    <CardItem>
-                        <Body>
-                            <View style={{flex: 1}}>
-                                <TouchableOpacity onPress={()=>
-Linking.openURL(`tel:094560596098`)}>
-                                    <Text style={styles.call_button}>Call Driver</Text>
-                                </TouchableOpacity>
-                          </View>
-                        </Body>
-                    </CardItem>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Ship dates</Text>
+                                    <Text style={{fontSize:10}}>{data.date_added}</Text>
+                                </View>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Comments</Text>
+                                    <Text style={{fontSize:10}}>{data.comments}</Text>
+                                </View>
+                            </View>
+                            </Body>
+                        </CardItem>
+                        <CardItem>
+                            <Body>
+                                <View style={{flex: 1}}>
+                                    <TouchableOpacity onPress={()=>
+                                        Linking.openURL(`tel:094560596098`)} >
+                                        <Text style={styles.call_button}>Call Driver</Text>
+                                    </TouchableOpacity>
+                            </View>
+                            </Body>
+                        </CardItem>
+                    </TouchableOpacity>
                 </Card>
             );
-            console.log(response.data.trailer_type);
         });
 
         return (

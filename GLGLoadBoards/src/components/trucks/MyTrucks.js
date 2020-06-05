@@ -6,8 +6,6 @@ import axios from 'axios';
 import DatePicker from 'react-native-datepicker'
 import { GoogleMapsPlacesAutocomplete } from 'react-native-google-maps-places-autocomplete';
 
-
-
 // MY Imports
 import Screen from '../layout/Screen';
 import styles from '../../assets/styles/CommonStyles';
@@ -34,7 +32,6 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
 
     componentDidMount() {
         var self = this;
-
         axios({
             method: 'get',
             url: 'https://glgfreight.com/loadboard_app/api_mobile/Trucks/all_trucks',
@@ -58,6 +55,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             return (
                 <Card key={index}>
                     <TouchableOpacity onPress={ () => {Actions.Truckdetails({
+                        data
                             // trailer_type: data.trailer_type,
                             // date_available: data.date_available,
                             // commodity: data.commodity,

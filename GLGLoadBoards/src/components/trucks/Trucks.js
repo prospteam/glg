@@ -35,19 +35,19 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
     componentDidMount() {
         var self = this;
 
-    axios({
-        method: 'get',
-        url: 'https://glgfreight.com/loadboard_app/api_mobile/Trucks/all_trucks',
-      }).then(function (response) {
-        console.log("this is a test");
-        console.log(response.data);
-        self.setState({response: response.data});
-    })
-    .catch(function (error) {
-        console.log(error);
-        console.log("LAGI ERROR NA LAGI ALAM KO");
-    });
-}
+        axios({
+            method: 'get',
+            url: 'https://glgfreight.com/loadboard_app/api_mobile/Trucks/all_trucks',
+        }).then(function (response) {
+            console.log("this is a test");
+            console.log(response.data);
+            self.setState({response: response.data});
+        })
+        .catch(function (error) {
+            console.log(error);
+            console.log("LAGI ERROR NA LAGI ALAM KO");
+        });
+    }
 
     render() {
 		console.log("input_sampleString")
@@ -55,54 +55,64 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         trucks_details = this.state.response.map((data, index)=>{
             return (
                 <Card key={index}>
-                    <CardItem header style={{backgroundColor:'#05426e' }}>
-                     <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                         <View style={{flex:1}}>
-                             <Text style={{fontSize:12, color:'white'}}>{data.origin}</Text>
-                             <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{data.origin_state}</Text>
-                         </View>
-                         <View style={{flex:1}}>
-                           <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/>
-                         </View>
-                         <View style={{flex:1}}>
-                             <Text style={{fontSize:12,color:'white'}}>{data.destination}</Text>
-                             <Text style={{fontSize:15,fontWeight: 'bold',color:'white'}}>{data.destination_state}</Text>
-                         </View>
-                         {/* <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Edittrucks({
-                             origin:data.origin,
-                             origin_state:data.origin_state,
-                             destination:data.destination,
-                             destination_state:data.destination_state,
-                             date_available:data.date_available,
-                             trailer_type: data.trailer_type,
-                             comments: data.comments,
-                         }); }}/> */}
-                     </View>
-                    </CardItem>
-                    <CardItem>
-                        <Body>
+                    <TouchableOpacity onPress={ () => {Actions.Truckdetails({
+                        data
+                            // trailer_type: data.trailer_type,
+                            // date_available: data.date_available,
+                            // commodity: data.commodity,
+                            // weight: data.weight,
+                            // height: data.height,
+                            // width:data.width
+                        }); }}>
+                        <CardItem header style={{backgroundColor:'#05426e' }}>
+                        <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                            <View style={{flex:1}}>
+                                <Text style={{fontSize:12, color:'white'}}>{data.origin}</Text>
+                                <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{data.origin_state}</Text>
+                            </View>
+                            <View style={{flex:1}}>
+                            <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/>
+                            </View>
+                            <View style={{flex:1}}>
+                                <Text style={{fontSize:12,color:'white'}}>{data.destination}</Text>
+                                <Text style={{fontSize:15,fontWeight: 'bold',color:'white'}}>{data.destination_state}</Text>
+                            </View>
+                            {/* <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Edittrucks({
+                                origin:data.origin,
+                                origin_state:data.origin_state,
+                                destination:data.destination,
+                                destination_state:data.destination_state,
+                                date_available:data.date_available,
+                                trailer_type: data.trailer_type,
+                                comments: data.comments,
+                            }); }}/> */}
+                        </View>
+                        </CardItem>
+                        <CardItem>
+                            <Body>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Trip Miles</Text>
+                                    <Text style={{fontSize:10}}>001</Text>
+                                </View>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Trailer Type</Text>
+                                    <Text style={{fontSize:10}}>{data.trailer_type}</Text>
+                                </View>
+                            </View>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                               <View style={{flex: 1,marginBottom:5}}>
-                                   <Text style={{fontSize:10}}>Trip Miles</Text>
-                                   <Text style={{fontSize:10}}>001</Text>
-                               </View>
-                               <View style={{flex: 1,marginBottom:5}}>
-                                   <Text style={{fontSize:10}}>Trailer Type</Text>
-                                   <Text style={{fontSize:10}}>{data.trailer_type}</Text>
-                               </View>
-                           </View>
-                           <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                              <View style={{flex: 1,marginBottom:5}}>
-                                  <Text style={{fontSize:10}}>Ship dates</Text>
-                                  <Text style={{fontSize:10}}>{data.date_added}</Text>
-                              </View>
-                              <View style={{flex: 1,marginBottom:5}}>
-                                  <Text style={{fontSize:10}}>Comments</Text>
-                                  <Text style={{fontSize:10}}>{data.comments}</Text>
-                              </View>
-                          </View>
-                        </Body>
-                    </CardItem>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Ship dates</Text>
+                                    <Text style={{fontSize:10}}>{data.date_added}</Text>
+                                </View>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Comments</Text>
+                                    <Text style={{fontSize:10}}>{data.comments}</Text>
+                                </View>
+                            </View>
+                            </Body>
+                        </CardItem>
+                    </TouchableOpacity>
                 </Card>
             );
             console.log(response.data.trailer_type);

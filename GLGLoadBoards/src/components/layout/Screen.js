@@ -4,6 +4,7 @@ import { Container, Header, Content, Card, Body, CardItem, Footer, FooterTab, Bu
 import { Actions } from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import getTheme from '../../../native-base-theme/components';
 import material from '../../../native-base-theme/variables/material';
@@ -13,8 +14,6 @@ import logo_square from '../../assets/images/logo_square.jpg';
 import {to_upper} from '../../libraries/MyFunctions.js';
 
  class Screen extends Component {
-
-	
     constructor(props) {
 		super(props)
     }
@@ -47,6 +46,11 @@ import {to_upper} from '../../libraries/MyFunctions.js';
 					<Content contentContainerStyle={{flex:1}}>
 						<SafeAreaView  style={styles.contentContainer}>
 							<ScrollView contentContainerStyle={{flex:1}}>
+								<Spinner
+									visible={this.props.redux_state.show_mini_loader}
+									textContent={'Loading...'}
+									textStyle={{color: '#FFF'}}
+								/>
 								<View style={styles.contentHeader}>
 									<View style={{
 										flexDirection:'row',
@@ -155,15 +159,16 @@ function redux_state_to_Props (state){
 	console.log("Sceen ni ha");
 	console.log(state.redux_session.user_data);
     return {
-        redux_session: state.redux_session
+        redux_session: state.redux_session,
+        redux_state: state.redux_state
     }
 }
 
 function reduxActionFunctions(dispatch){
-    return bindActionCreators({
-        set_is_logged : set_is_logged
-    },dispatch);
- }
-
+	return bindActionCreators({
+		set_is_logged : set_is_logged,
+		// set_show_mini_loader : set_show_mini_loader,
+	},dispatch);
+}
 
 export default connect(redux_state_to_Props,reduxActionFunctions)(Screen);
