@@ -11,6 +11,7 @@ const initstate = {
 	show_title:true,
 	show_msg:true,
 	show_googleplaces:true,
+	autocomplete_text:{},
 }
 
 export default function (state = initstate, action) {
@@ -19,6 +20,11 @@ export default function (state = initstate, action) {
             return {
                 ...state,
                 show_mini_loader: action.payload
+            }
+        case "set_autocomplete_text":
+            return {
+                ...state,
+                autocomplete_text: action.payload
             }
         case "set_sampleBolean":
             return {
@@ -55,7 +61,6 @@ export default function (state = initstate, action) {
 				...state,
 				isLoggedIn: false
 			}
-
 				break;
         default:
             return state;

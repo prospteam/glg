@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import {ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { Text, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body, View  } from 'native-base';
-import Screen from '../layout/Screen';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import DatePicker from 'react-native-datepicker'
 import { Actions } from 'react-native-router-flux';
 import RNPickerSelect from 'react-native-picker-select';
-import styles from '../../assets/styles/CommonStyles';
 import axios from 'axios';
+
+// MY IMPORTS
+import Screen from '../layout/Screen';
+import styles from '../../assets/styles/CommonStyles';
+import AddressAutocomplete from '../AddressAutocomplete.js';
+import {api_link} from '../../libraries/MyConfigs.js';
 
 //REDUX
 import { connect } from 'react-redux';
@@ -23,35 +27,105 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
             origin:'',
             destination:'',
             trailer_type:'', 
+            date:'', 
             rate:'',
-
+            input_address_origin:false,
+            input_address_destination:false,
         };
         
 	}
+    componentDidUpdate (){
+        console.log("this.propsxxAA");
+        // console.log(this.props);
+        console.log("this.propsxxEE");
+    }
+    search(){
+        
 
-    componentDidMount() {
+        var origin_array = this.state.origin.split(", ");
+        var destination_array = this.state.destination.split(", ");
+
+        var origin_city=origin_array[0];
+        var origin_state=origin_array[1];
+        var destination_city=destination_array[0];
+        var destination_state=destination_array[1];
+
+
+        var where_query = {
+            // "origin_state": origin_state,
+            // "origin": origin_city, // CITY
+            // "destination": destination_city, // CITY
+            // "destination_state": destination_state,
+            // "date_available": this.state.date,
+            // "trailer_type": this.state.trailer_type,
+        }
+        if(this.state.date)
+            where_query.date_available=this.state.date
+
+        if(this.state.trailer_type)
+        where_query.trailer_type=this.state.trailer_type
+
+        if(origin_city)
+            where_query.origin=origin_city
+
+        if(origin_state)
+            where_query.origin_state=origin_state
+
+        if(origin_city)
+            where_query.origin=origin_city
+
+        if(origin_state)
+            where_query.destination_state=destination_state
+
         var self = this;
-        // if(!this.props.redux_state.set_show_mini_loader)
-            // this.props.set_show_mini_loader(false);
 
         axios({
-            method: 'get',
-            url: 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads',
-        }).then(function (response) {
-            console.log("this is a test");
-            console.log(response.data);
-            self.setState({response: response.data});
-            // if(this.props.redux_state.set_show_mini_loader)
-            //     this.props.set_show_mini_loader(false);
-        })
-        .catch(function (error) {
-            // if(this.props.redux_state.set_show_mini_loader)
-            //     this.props.set_show_mini_loader(false);
-            console.log(error);
-            console.log("LAGI ERROR NA LAGI ALAM KO");
-        });
+            method: 'post',
+            url: api_link+'KROD/query_builder',
+            data: {
+                "select": "*",
+                "from": "glg_loads",
+                "where": where_query
+            }
+            }).then(function (response) {
+                console.log('___________NEW2____xxxx_____________');
+                console.log(response.data);
+                
+                self.setState({response: response.data});
+            })
+            .catch(function (error) {
+                // this.props.set_show_mini_loader(false);
+                console.log(error);
+                // console.log("LAGI ERROR NA LAGI ALAM KO");
+            });
+        // if(!this.props.redux_state.set_show_mini_loader)
+            // this.props.set_show_mini_loader(false);
+            
     }
+    componentDidMount() {
+        this.search();
+    }
+
     render() {
+        if(this.state.input_address_origin){
+            return <AddressAutocomplete 
+            title='Origin'
+            callback={value => this.setState({
+                'origin':value,
+                'input_address_origin':false
+            })}/>
+        }
+        if(this.state.input_address_destination){
+            return <AddressAutocomplete 
+            title='Destination'
+            callback={value => this.setState({
+                'destination':value,
+                'input_address_destination':false
+            })}/>
+        }
+
+
+
         let load_details;
         if (this.state.response.length!==0) {
             load_details = this.state.response.map((data, index)=>{
@@ -135,150 +209,64 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                 <View style={styles.contentBody}>
                             <View style={styles.middle}>
                                 <Text style={styles.middle_text}>Origin</Text>
-                                    { /*<TextInput style={styles.text_input} placeholderTextColor="#000" listViewDisplayed={this.props.redux_state.show_googleplaces}
-                                         onChangeText={text => this.setState({ origin: text })}/>*/}
-                                        <GooglePlacesAutocomplete
-                                            listViewDisplayed={this.props.redux_state.show_googleplaces}
-                                            placeholder='Enter Origin'
-                                            minLength={2}
-                                            autoFocus={false}
-                                            returnKeyType={'search'}
-                                            fetchDetails={true}
-                                            renderDescription={row => row.description}
-                                            onPress={(data, details = null) => {
-                                            console.log(data, details);
-                                            }}
-                                            query={{
-                                                key: 'AIzaSyAKqsECe6r8abouPxWMxaO5m8g97YnXL_M',
-                                                language: 'en',
-                                                types: '(cities)'
-                                            }}
-                                            styles={{
-                                                textInputContainer: {
-                                                    width: '58%',
-                                                    backgroundColor: '#C9C9CE',
-                                                      height: 44,
-                                                      borderTopColor: '#7e7e7e',
-                                                      borderBottomColor: '#b5b5b5',
-                                                      borderTopWidth: 0 ,
-                                                      borderBottomWidth: 0,
-                                                      flexDirection: 'row',
-
-                                                },
-                                                description: {
-                                                    fontWeight: 'bold'
-                                                },
-                                                predefinedPlacesDescription: {
-                                                    color: '#1faadb'
-                                                }
-                                            }}
-
-                                            currentLocation={false}
-                                            currentLocationLabel="Current location"
-                                            nearbyPlacesAPI='GooglePlacesSearch'
-                                            GoogleReverseGeocodingQuery={{
-
-                                            }}
-                                            GooglePlacesSearchQuery={{
-                                            rankby: 'distance',
-                                            types: 'food'
-                                            }}
-
-                                            filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']}
-                                            enablePoweredByContainer={false}
-
-                                            debounce={100}
-                                            />
+                                <TextInput 
+                                style={styles.text_input} placeholderTextColor="#000" 
+                                listViewDisplayed={this.props.redux_state.show_googleplaces}
+                                value={this.state.origin}
+                                // value={(this.props.redux_state.autocomplete_text.state)?this.props.redux_state.autocomplete_text.state:'empty'}
+                                // onChangeText={text => this.setState({ origin: text })}
+                                onFocus={text => this.setState({'input_address_origin':true})}
+                                // onFocus={text => Actions.AddressAutocomplete()}
+                                /> 
 
                                 <Text style={styles.middle_text}>Destination</Text>
-                                <GooglePlacesAutocomplete
-                                    listViewDisplayed={this.props.redux_state.show_googleplaces}
-                                    placeholder='Enter Destination'
-                                    minLength={2}
-                                    autoFocus={false}
-                                    returnKeyType={'search'}
-                                    fetchDetails={true}
-                                    renderDescription={row => row.description}
-                                    onPress={(data, details = null) => {
-                                    console.log(data, details);
-                                    }}
-                                    query={{
-                                        key: 'AIzaSyAKqsECe6r8abouPxWMxaO5m8g97YnXL_M',
-                                        language: 'en',
-                                        types: '(cities)'
-                                    }}
-                                    styles={{
-                                        textInputContainer: {
-                                            width: '58%',
-                                            backgroundColor: '#C9C9CE',
-                                              height: 44,
-                                              borderTopColor: '#7e7e7e',
-                                              borderBottomColor: '#b5b5b5',
-                                              borderTopWidth: 0 ,
-                                              borderBottomWidth: 0,
-                                              flexDirection: 'row',
-
-                                        },
-                                        description: {
-                                            fontWeight: 'bold'
-                                        },
-                                        predefinedPlacesDescription: {
-                                            color: '#1faadb'
-                                        }
-                                    }}
-
-                                    currentLocation={false}
-                                    currentLocationLabel="Current location"
-                                    nearbyPlacesAPI='GooglePlacesSearch'
-                                    GoogleReverseGeocodingQuery={{
-
-                                    }}
-                                    GooglePlacesSearchQuery={{
-                                    rankby: 'distance',
-                                    types: 'food'
-                                    }}
-
-                                    filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']}
-                                    enablePoweredByContainer={false}
-
-                                    debounce={100}
-                                    />
+                                <TextInput 
+                                style={styles.text_input} placeholderTextColor="#000" 
+                                listViewDisplayed={this.props.redux_state.show_googleplaces}
+                                value={this.state.destination}
+                                onFocus={text => this.setState({'input_address_destination':true})}
+                                /> 
                                 <Text style={styles.middle_text}>Trailer Type</Text>
-                                <RNPickerSelect
-                                    onValueChange={(text) => this.setState({ trailer_type: text })}
-                                    items={[
-                                        { value: 'AC', label: 'AC (Auto Carrier)' },
-                                        { value: 'CRG', label: 'CRG (Cargo Van)' },
-                                        { value: 'FINT', label: 'FINT (Flat-Intermodal)' },
-                                        { value: 'CONT', label: 'CONT (Container)' },
-                                        { value: 'CV', label: 'Curtain Van' },
-                                        { value: 'DD', label: 'DD (Double Drop)' },
-                                        { value: 'DT', label: 'DT (Dump Trailer)' },
-                                        { value: 'F', label: 'F (Flatbed)' },
-                                        { value: 'FS', label: 'FS (Flat+Sides)' },
-                                        { value: 'LA', label: 'LA (Landal)' },
-                                        { value: 'FT', label: 'FT (Flat+Tarp)' },
-                                        { value: 'HB', label: 'HB (Hopper Bottom)' },
-                                        { value: 'HS', label: 'HS (Hotshot)' },
-                                        { value: 'LB', label: 'LB (Lowboy)' },
-                                        { value: 'MX', label: 'MX (Maxi Flat)' },
-                                        { value: 'PNEU', label: 'PNEU (Pneumatic)' },
-                                        { value: 'PO', label: 'PO (Power Only)' },
-                                        { value: 'R', label: 'R (Reefer)' },
-                                        { value: 'RINT', label: 'RINT (Reefer-Intermodal)' },
-                                        { value: 'RGN', label: 'RGN (Removable Gooseneck)' },
-                                        { value: 'VV', label: 'VV (Van+Vented)' },
-                                        { value: 'V', label: 'V (Dry Van)' },
-                                        { value: 'SD', label: 'SD (Step Deck/Single Drop)' },
-                                        { value: 'TNK', label: 'Tanker' },
-                                        { value: 'VA', label: 'VA (Van+Airride)' },
-                                        { value: 'VINT', label: 'VINT (Van-Intermodal)' },
-                                        { value: 'Other', label: 'Other' },
-                                    ]}
-                                />
+                                <View style={{
+                                    ...styles.text_input,
+                                    }}>
+                                    <RNPickerSelect
+                                        onValueChange={(text) => this.setState({ trailer_type: text })}
+                                        items={[
+                                            { value: 'AC', label: 'AC (Auto Carrier)' },
+                                            { value: 'CRG', label: 'CRG (Cargo Van)' },
+                                            { value: 'FINT', label: 'FINT (Flat-Intermodal)' },
+                                            { value: 'CONT', label: 'CONT (Container)' },
+                                            { value: 'CV', label: 'Curtain Van' },
+                                            { value: 'DD', label: 'DD (Double Drop)' },
+                                            { value: 'DT', label: 'DT (Dump Trailer)' },
+                                            { value: 'F', label: 'F (Flatbed)' },
+                                            { value: 'FS', label: 'FS (Flat+Sides)' },
+                                            { value: 'LA', label: 'LA (Landal)' },
+                                            { value: 'FT', label: 'FT (Flat+Tarp)' },
+                                            { value: 'HB', label: 'HB (Hopper Bottom)' },
+                                            { value: 'HS', label: 'HS (Hotshot)' },
+                                            { value: 'LB', label: 'LB (Lowboy)' },
+                                            { value: 'MX', label: 'MX (Maxi Flat)' },
+                                            { value: 'PNEU', label: 'PNEU (Pneumatic)' },
+                                            { value: 'PO', label: 'PO (Power Only)' },
+                                            { value: 'R', label: 'R (Reefer)' },
+                                            { value: 'RINT', label: 'RINT (Reefer-Intermodal)' },
+                                            { value: 'RGN', label: 'RGN (Removable Gooseneck)' },
+                                            { value: 'VV', label: 'VV (Van+Vented)' },
+                                            { value: 'V', label: 'V (Dry Van)' },
+                                            { value: 'SD', label: 'SD (Step Deck/Single Drop)' },
+                                            { value: 'TNK', label: 'Tanker' },
+                                            { value: 'VA', label: 'VA (Van+Airride)' },
+                                            { value: 'VINT', label: 'VINT (Van-Intermodal)' },
+                                            { value: 'Other', label: 'Other' },
+                                        ]}
+                                    />
+                                </View>
 
                                 {    /*<TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ trailer_type: text })}/>*/}
                                 <Text style={styles.middle_text}>Date Available</Text>
+                                
                                 <DatePicker
                                     date={this.state.date}
                                     style={{width:'64%'}}
@@ -304,11 +292,11 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                                     }}
                                     onDateChange={(text) => this.setState({ date: text })}
                                 />
-                                <Text style={styles.middle_text}>Commodity</Text>
+                                {/* <Text style={styles.middle_text}>Commodity</Text>
                                     <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ commodity: text })}/>
                                 <Text style={styles.middle_text}>Reference Number</Text>
-                                    <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ reference_number: text })}/>
-                                <TouchableOpacity>
+                                    <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ reference_number: text })}/> */}
+                                <TouchableOpacity onPress={e => this.search()}>
                                     <Text style={styles.search_button}>Search</Text>
                                 </TouchableOpacity>
                          </View>

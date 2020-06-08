@@ -92,7 +92,8 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             // LOG  {"carrier_id": "0", "category": "", "comments": "", "date_added": "2020-06-03 10:06:23", "date_available": "Jjn", "deleted_status": "0", "destination": "Km", "destination_state": "", "origin": "Jjj", "origin_state": "", "trailer_type": "Jj", "truck_id": "47"}
 
     render() {
-        console.log(this.props.load_id);
+        console.log("this.propsnoo");
+        console.log(this.props);
         return (
             <Screen title="Truck Details"
             side_header_buttons={
@@ -201,18 +202,18 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                             (this.state.contact_number)?
                                             <TouchableOpacity 
                                             onPress={()=>Linking.openURL(`tel:${this.state.contact_number}`)}>
-                                                <Text style={styles.call_button}>Call Driver</Text>
+                                                <Text style={styles.call_button}>Call Carrier</Text>
                                             </TouchableOpacity>
                                             :
                                             <TouchableOpacity>
-                                                <Text style={styles.call_button}>Call Driver</Text>
+                                                <Text style={styles.call_button}>Call Carrier</Text>
                                             </TouchableOpacity>
                                         }
                                     </View>
                                     <TouchableOpacity
                                         onPress={() =>{Actions.FindLoads({
-                                            // origin:this.props.origin,
-                                            // destination:this.props.destination,
+                                            origin:this.props.origin,
+                                            destination:this.props.destination,
                                             // date_available:this.props.date_available,
                                             // trailer_type: this.props.trailer_type,
                                             // length: this.props.length,

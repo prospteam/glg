@@ -39,18 +39,18 @@ import {to_upper} from '../../libraries/MyFunctions.js';
 	//TEst
     render() {
 		const { active_tab, title } = this.props;
-        // console.log(this.props.logout);
+
         return (
 			<StyleProvider style={getTheme(material)}>
 				<Container>
 					<Content contentContainerStyle={{flex:1}}>
 						<SafeAreaView  style={styles.contentContainer}>
 							<ScrollView contentContainerStyle={{flex:1}}>
-								<Spinner
+								{/* <Spinner
 									visible={this.props.redux_state.show_mini_loader}
 									textContent={'Loading...'}
 									textStyle={{color: '#FFF'}}
-								/>
+								/> */}
 								<View style={styles.contentHeader}>
 									<View style={{
 										flexDirection:'row',

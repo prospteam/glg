@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { set_sampleString, set_is_logged } from '../redux/actions/Actions';// I included ang "index.js"
 
- class FindTruck extends Component {
+ class RatesFromCarrier extends Component {
 	constructor(props){
 		super(props);
         this.state = {
@@ -26,6 +26,7 @@ import { set_sampleString, set_is_logged } from '../redux/actions/Actions';// I 
             trailer_type:'',
             date_added:'',
             comments:'',
+            message:'Loading.',
         };
 	}
 
@@ -35,22 +36,28 @@ import { set_sampleString, set_is_logged } from '../redux/actions/Actions';// I 
             method: 'post',
             url: api_link+'KROD/query_builder',
             data: {
-                "select": "*",
-                "from": "glg_trucks",
+                "select": "rate,email,glg_userdata.contact_number",
+                "from": "glg_rates",
                 "where": {
-                    // "origin": "Manassas",
-                    // "destination": "Atlanta",
-                    "origin": this.props.origin,
-                    "destination": this.props.destination,
-                    // "username": this.state.username.toLowerCase(),
-                    // "other_password": this.state.password.toLowerCase()
-                }
+                    // "fk_load_id": "140",
+                    "fk_load_id": this.props.load_id,
+                },
+                "join": {
+                    // "fk_load_id": "140",
+                    "glg_users": "glg_users.user_id = glg_rates.fk_carrier_id",
+                    "glg_userdata": "glg_userdata.fk_userid = glg_rates.fk_carrier_id",
+                },
             }
             }).then(function (response) {
-                console.log('___________NEW_________________');
+                console.log('_________RAtes nga iyaha,_________________');
                 console.log(response.data);
                 
-                self.setState({response: response.data});
+                
+                if(response.data.length==0){
+                    self.setState({message: "Connection error."});
+                }else{
+                    self.setState({response: response.data});
+                }
                 // if(response.data[0].contact_number){
                 //     that.setState({
                 //         contact_number: response.data[0].contact_number
@@ -60,7 +67,8 @@ import { set_sampleString, set_is_logged } from '../redux/actions/Actions';// I 
             .catch(function (error) {
                 // this.props.set_show_mini_loader(false);
                 console.log(error);
-                // console.log("LAGI ERROR NA LAGI ALAM KO");
+                self.setState({message: "Connection error."});
+                console.log("Errorrsss");
             });
 
     // axios({
@@ -78,24 +86,30 @@ import { set_sampleString, set_is_logged } from '../redux/actions/Actions';// I 
 }
 
     render() {
+        // return <View><Text>Hi</Text></View>;
         let trucks_details;
+        let temp_contact_number;
         if(this.state.response.length==0)
             trucks_details = 
             <Card>
                 <CardItem header>
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                             <Text style={{fontSize:12}}>
-                                No data found.
-                                </Text>
+                                {this.state.message}
+                            </Text>
                     </View>
                 </CardItem>
             </Card>
         else
             trucks_details = this.state.response.map((data, index)=>{
+                if(data.contact_number.includes(" Ext. ")){
+                    temp_contact_number = data.contact_number.split(' Ext. ');
+                    data.contact_number= temp_contact_number[1]+temp_contact_number[0];
+                }
             return (
                 <Card key={index}>
                     <TouchableOpacity onPress={ () => {Actions.Truckdetails({
-                        data
+                        // data
                             // trailer_type: data.trailer_type,
                             // date_available: data.date_available,
                             // commodity: data.commodity,
@@ -103,62 +117,37 @@ import { set_sampleString, set_is_logged } from '../redux/actions/Actions';// I 
                             // height: data.height,
                             // width:data.width
                         }); }}>
-                        <CardItem header style={{backgroundColor:'#05426e' }}>
-                        <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                            <View style={{flex:1}}> 
-                                <Text style={{fontSize:12, color:'white'}}>{data.origin}</Text>
-                                <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{data.origin_state}</Text>
+                        <CardItem header>
+                            <View style={{flex:1,backgroundColor:'none'}}>
+                                <Text>Price/Rate:${(data.rate)?data.rate:"(empty)"}
+                                </Text>
+                                <Text>From Email:</Text>
+                                <Text style={{textAlign:'center'}}>
+                                    {(data.email)?data.email:"(empty)"}
+                                </Text>
+                                <Text>Contact Number:</Text>
+                                <Text style={{textAlign:'center'}}>
+                                    {(data.contact_number)?data.contact_number:"(empty)"}
+                                </Text>
+                                <View style={{alignItems:'center'}}>
+                                {
+                                    (data.contact_number)?
+                                        <TouchableOpacity 
+                                        onPress={()=>Linking.openURL(`tel:${data.contact_number}`)}>
+                                            <Text style={styles.call_button}>Call Carrier</Text>
+                                        </TouchableOpacity>
+                                    :""
+                                }
+                                </View>
                             </View>
-                            <View style={{flex:1}}>
-                            <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/>
-                            </View>
-                            <View style={{flex:1}}>
-                                <Text style={{fontSize:12,color:'white'}}>{data.destination}</Text>
-                                <Text style={{fontSize:15,fontWeight: 'bold',color:'white'}}>{data.destination_state}</Text>
-                            </View>
-                        </View>
                         </CardItem>
-                        <CardItem>
-                            <Body>
-                                <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                                <View style={{flex: 1,marginBottom:5}}>
-                                    <Text style={{fontSize:10}}>Trip Miles</Text>
-                                    <Text style={{fontSize:10}}>001</Text>
-                                </View>
-                                <View style={{flex: 1,marginBottom:5}}>
-                                    <Text style={{fontSize:10}}>Trailer Type</Text>
-                                    <Text style={{fontSize:10}}>{data.trailer_type}</Text>
-                                </View>
-                            </View>
-                            <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                                <View style={{flex: 1,marginBottom:5}}>
-                                    <Text style={{fontSize:10}}>Ship dates</Text>
-                                    <Text style={{fontSize:10}}>{data.date_added}</Text>
-                                </View>
-                                <View style={{flex: 1,marginBottom:5}}>
-                                    <Text style={{fontSize:10}}>Comments</Text>
-                                    <Text style={{fontSize:10}}>{data.comments}</Text>
-                                </View>
-                            </View>
-                            </Body>
-                        </CardItem>
-                        {/* <CardItem>
-                            <Body>
-                                <View style={{flex: 1}}>
-                                    <TouchableOpacity onPress={()=>
-                                        Linking.openURL(`tel:094560596098`)} >
-                                        <Text style={styles.call_button}>Call Driver</Text>
-                                    </TouchableOpacity>
-                            </View>
-                            </Body>
-                        </CardItem> */}
                     </TouchableOpacity>
                 </Card>
             );
         });
 
         return (
-                <Screen active_tab="Loads" title="Find Matched Trucks" >
+                <Screen active_tab="" title="Rates Carriers Submitted" >
                     {/* <Text style={styles.contentItem}>
 						Truck List
                     </Text> */}
@@ -191,4 +180,4 @@ function reduxActionFunctions(dispatch){
     },dispatch);
  }
 
-export default connect(reduxStateToProps,reduxActionFunctions)(FindTruck);
+export default connect(reduxStateToProps,reduxActionFunctions)(RatesFromCarrier);

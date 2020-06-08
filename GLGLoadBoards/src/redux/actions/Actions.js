@@ -6,6 +6,18 @@ import firebase from "../../libraries/firestore.js";
 
 // alert('action loaded');
 
+export function set_autocomplete_text(payload){
+	return{
+		type: "set_autocomplete_text",
+		payload: payload
+	}
+}
+export function set_show_mini_loader(payload){
+	return{
+		type: "set_show_mini_loader",
+		payload: payload
+	}
+}
 export function set_SAMPLEBOLEAN(type, payload){
 	// console.log('true_or_false',payload);
 	return{
@@ -16,12 +28,6 @@ export function set_SAMPLEBOLEAN(type, payload){
 export function set_user_data(type, payload){
 	return{
 		type: type,
-		payload: payload
-	}
-}
-export function set_show_mini_loader(payload){
-	return{
-		type: "set_show_mini_loader",
 		payload: payload
 	}
 }
