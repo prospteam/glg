@@ -130,7 +130,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                           <Text style={{fontSize:10}}>Trailer Type</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.trailer_type} onChangeText={text => this.setState({ trailer_type: text })}/>
                                       </View>
-                                  </View>
+                                  </View> 
                                       <View  style={{marginBottom:15}}/>
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
