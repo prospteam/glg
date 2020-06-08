@@ -88,7 +88,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
     //     });
     // }
 
-    
+
             // LOG  {"carrier_id": "0", "category": "", "comments": "", "date_added": "2020-06-03 10:06:23", "date_available": "Jjn", "deleted_status": "0", "destination": "Km", "destination_state": "", "origin": "Jjj", "origin_state": "", "trailer_type": "Jj", "truck_id": "47"}
 
     render() {
@@ -96,7 +96,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         return (
             <Screen title="Truck Details"
             side_header_buttons={
-                
+
                 <View style={{...styles.darkFont,flex:1,flexDirection:'row-reverse'}}>
                     <TouchableOpacity onPress={() =>{Actions.Edittrucks({
                         origin:this.props.origin,
@@ -110,7 +110,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                         <Icon style={styles.headerIcon} type="FontAwesome5" name="edit"/>
                     </TouchableOpacity>
                 </View>
-                }				
+                }
             >
 				{/* <Text style={styles.contentItem}>
 					Order Details 1
@@ -199,7 +199,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                     <View style={{flex:1}}>
                                         {
                                             (this.state.contact_number)?
-                                            <TouchableOpacity 
+                                            <TouchableOpacity
                                             onPress={()=>Linking.openURL(`tel:${this.state.contact_number}`)}>
                                                 <Text style={styles.call_button}>Call Driver</Text>
                                             </TouchableOpacity>

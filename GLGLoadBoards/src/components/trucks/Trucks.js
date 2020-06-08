@@ -95,6 +95,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                     <Text style={{fontSize:10}}>Trip Miles</Text>
                                     <Text style={{fontSize:10}}>001</Text>
                                 </View>
+                                <View  style={{marginBottom:10}}/>
                                 <View style={{flex: 1,marginBottom:5}}>
                                     <Text style={{fontSize:10}}>Trailer Type</Text>
                                     <Text style={{fontSize:10}}>{data.trailer_type}</Text>

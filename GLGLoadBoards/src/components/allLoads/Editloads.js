@@ -117,18 +117,21 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.destination} onChangeText={text => this.setState({ destination: text })}/>
                                       </View>
                                   </View>
+                                    <View  style={{marginBottom:15}}/>
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Date Available</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.date_available}  onChangeText={text => this.setState({ date_available: text })}/>
                                       </View>
                                   </View>
+                                      <View  style={{marginBottom:15}}/>
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Trailer Type</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.trailer_type} onChangeText={text => this.setState({ trailer_type: text })}/>
                                       </View>
                                   </View>
+                                      <View  style={{marginBottom:15}}/>
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>length</Text>
@@ -140,11 +143,8 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.width} onChangeText={text => this.setState({ width: text })}/>
                                       </View>
                                   </View>
+                                      <View  style={{marginBottom:15}}/>
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                                      <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Rate</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.rate} onChangeText={text => this.setState({ rate: text })}/>
-                                      </View>
                                         <View  style={{margin:2}}/>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Commodity</Text>
@@ -156,6 +156,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.reference_number} onChangeText={text => this.setState({ reference_number: text })}/>
                                       </View>
                                   </View>
+                                      <View  style={{marginBottom:15}}/>
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Comments</Text>
