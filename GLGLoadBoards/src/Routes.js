@@ -34,16 +34,21 @@ import {set_is_logged} from './redux/actions/Actions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 // Other Screens
-import Truck_map from './components/other_old/truck_maps/truck_map.js';
-import Truckmapsv2 from './components/other_old/truck_maps/truckmapsv2.js';
-import TruckMapSearch from './components/other_old/truck_map_search/TruckMapSearch.js';
-import Load_map from './components/other_old/Load_map.js';
+// import Truck_map from './components/other_old/truck_maps/truck_map.js';
+// import Truckmapsv2 from './components/other_old/truck_maps/truckmapsv2.js';
+// import TruckMapSearch from './components/other_old/truck_map_search/TruckMapSearch.js';
+// import Load_map from './components/other_old/Load_map.js';
 import FindTruck from './components/FindTruck.js';
+import RatesFromCarrier from './components/RatesFromCarrier.js';
 import FindLoads from './components/allLoads/FindLoads.js';
+import AddressAutocomplete from './components/AddressAutocomplete.js';
 
 // Dont just exist, live.
 class Routes extends Component {
     render() {
+
+        // console.log(this.props.redux_state.show_mini_loader);
+        // console.log("this.props.redux_state.show_mini_loader");
         return (
             <>
                 {/* <SCLAlert
@@ -55,6 +60,12 @@ class Routes extends Component {
                     theme="info"
                     title="Info"
                     subtitle="You can setup the colors using the theme prop"
+                /> */}
+                
+                {/* <Spinner
+                    visible={this.props.redux_state.show_mini_loader}
+                    textContent={'Loading...'}
+                    textStyle={{color: '#FFF'}}
                 /> */}
                 <Router>
                     <Scene key="root">
@@ -184,7 +195,7 @@ class Routes extends Component {
                         />
 
                         {/*  OTHER COMPONENTS */}
-                        <Scene
+                        {/* <Scene
                             key="Truck_map"
                             component={Truck_map}
                             title="Truck_map" hideNavBar
@@ -203,7 +214,7 @@ class Routes extends Component {
                             key="Load_map"
                             component={Load_map}
                             title="Load_map" hideNavBar
-                        />
+                        /> */}
                         {
                             // <Scene key="shipperDashboard" component={shipperDashboard} title="" hideNavBar/>
                             // <Scene key="carrierDashboard" component={CarrierDashboard} title="" hideNavBar/>
@@ -212,26 +223,31 @@ class Routes extends Component {
                             // tangtangko above para maka proceed ko. 3/19/20
                         }
 
-                    {/* SUB PAGES */}
+                        {/* SUB PAGES */}
 
-                    <Scene
+                        <Scene
                             key="FindTruck"
                             component={FindTruck}
                             title="FindTruck" hideNavBar
                         />
-                    <Scene
+                        <Scene
                             key="FindLoads"
                             component={FindLoads}
                             title="FindLoads" hideNavBar
                         />
+                        <Scene
+                            key="RatesFromCarrier"
+                            component={RatesFromCarrier}
+                            title="RatesFromCarrier" hideNavBar
+                        />
+                        <Scene
+                            key="AddressAutocomplete"
+                            component={AddressAutocomplete}
+                            title="AddressAutocomplete" hideNavBar
+                        />
                     </Scene>
                 </Router>
                 
-                {/* <Spinner
-                    visible={this.props.redux_state.show_mini_loader}
-                    textContent={'Loading...'}
-                    textStyle={{color: '#FFF'}}
-                /> */}
             </>
         );
     }

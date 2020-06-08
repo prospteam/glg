@@ -55,7 +55,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             return (
                 <Card key={index}>
                     <TouchableOpacity onPress={ () => {Actions.Truckdetails({
-                        data
+                        ...data
                             // trailer_type: data.trailer_type,
                             // date_available: data.date_available,
                             // commodity: data.commodity,

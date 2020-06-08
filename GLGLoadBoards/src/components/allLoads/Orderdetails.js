@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 
 import Screen from '../layout/Screen';
+import RatesFromCarrier from '../RatesFromCarrier.js';
 import Mileage from '../mileage/Mileage';
 import styles from '../../assets/styles/CommonStyles';
 import {api_link} from '../../libraries/MyConfigs.js';
@@ -137,9 +138,8 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                         <CardItem>
                             <Body>
                             <View style={{flex: 1}}>
-                            <TouchableOpacity title="Show modal" onPress={this.toggleModal}>
-                                <Text style={styles.call_button}><Icon style={styles.send_rate} type="FontAwesome5" name="star"/> Send a Rate</Text>
-                            </TouchableOpacity>
+                            
+                            
                               <Modal isVisible={this.state.isModalVisible} style={{margin:0, justifyContent: "center", alignItems: "center", borderRadius:5 }}>
                                 <View style={{backgroundColor:'#ffffff', padding:'5%'}}>
                                   <Text style={{color:'#00000'}}>Send a Rate To Brokerss</Text>
@@ -214,11 +214,11 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                                             (this.state.contact_number)?
                                             <TouchableOpacity
                                             onPress={()=>Linking.openURL(`tel:${this.state.contact_number}`)}>
-                                                <Text style={styles.call_button}>Call Brooker</Text>
+                                                <Text style={styles.call_button}>Call Shipper</Text>
                                             </TouchableOpacity>
                                             :
                                             <TouchableOpacity>
-                                                <Text style={styles.call_button}>Call Brooker</Text>
+                                                <Text style={styles.call_button}>Call Shipper</Text>
                                             </TouchableOpacity>
                                         }
                                     </View>
@@ -249,7 +249,35 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                                 </View>
                             </Body>
                         </CardItem>
-                            <CardItem footer style={{backgroundColor:'#05426e' }}>
+                        <CardItem footer style={{backgroundColor:'none' }}>
+                            <View style={{flex: 1, flexDirection: 'column',justifyContent: "center", alignItems: "center"}}>
+                               {
+                                   (is_owner)?
+                                    <TouchableOpacity title="Show modal" 
+                                        onPress={() =>Actions.RatesFromCarrier({
+                                            load_id:this.props.load_id,
+                                            // origin:this.props.origin,
+                                            // destination:this.props.destination,
+                                            // date_available:this.props.date_available,
+                                            // trailer_type: this.props.trailer_type,
+                                            // length: this.props.length,
+                                            // width:this.props.width,
+                                            // rate: this.props.rate,
+                                            // commodity: this.props.commodity,
+                                            // reference_number:this.props.reference_number,
+                                            // comments: this.props.comments,
+                                        })}>
+                                        <Text style={{...styles.call_button,width:200}}><Icon style={styles.send_rate} type="FontAwesome5" name="star"/> View Submitted Rates</Text>
+                                    </TouchableOpacity>
+                                   :
+                                    <TouchableOpacity title="Show modal" onPress={this.toggleModal}>
+                                        <Text style={styles.call_button}><Icon style={styles.send_rate} type="FontAwesome5" name="star"/> Send a Rate</Text>
+                                    </TouchableOpacity>
+
+                               } 
+                            </View>
+                        </CardItem>
+                        <CardItem footer style={{backgroundColor:'#05426e' }}>
                             <View style={{flex: 1, flexDirection: 'column',justifyContent: "center", alignItems: "center"}}>
                                 <View>
                                     <Text style={{color:'white'}}>Comments: </Text>

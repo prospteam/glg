@@ -17,6 +17,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 
 YellowBox.ignoreWarnings([
+	'Warning: componentWillReceiveProps has been renamed',
 	'Warning: componentWillUpdate is deprecated',
 	'Warning: componentWillMount is deprecated',
 	'Warning: componentWillReceiveProps is deprecated',
@@ -73,7 +74,7 @@ export default class App extends Component {
 	componentDidMount() {
 		setTimeout( () => {
 			this.setState({show_logo: false});
-		},10);
+		},3000);
 	}
 	render() {
 		if (this.state.show_logo) 

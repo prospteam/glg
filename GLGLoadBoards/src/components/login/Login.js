@@ -26,7 +26,6 @@ class Login extends Component {
         title: "Warning",
         success_login:false,
     }
-
     temp_user_data={};
 
     constructor(props) {
@@ -34,6 +33,7 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
+            // is_load_test: false,
         }
     }
 
@@ -52,7 +52,14 @@ class Login extends Component {
         }
     }
     handleOpen = () => {
-        
+        // this.props.set_show_mini_loader(true);
+        // var thatssss = this;
+        // setTimeout(function(){
+        //     thatssss.props.set_show_mini_loader(false);
+      
+        //   }, 1000);
+        // this.setState({is_load_test:true});
+        // return
         if (this.state.usertype == 'carrier') {
 
         }
@@ -84,6 +91,7 @@ class Login extends Component {
         // http://glgfreight.com/loadboard/api_mobile/common/get
 
 
+
         axios({
             method: 'post',
             url: api_link+'KROD/query_builder',
@@ -97,33 +105,9 @@ class Login extends Component {
                 }
             }
           }).then(function (response) {
-              
-        // this.props.set_show_mini_loader(true);
-        // this.props.set_show_mini_loader(false);
-            // this.props.set_show_mini_loader(false);
-            console.log("responseLOG");
-            console.log(response);
-            
-            // let data = {
-            //     state:'isLoggedIn'
-            // }
-            // if (response.data.userdata.user_type == "shipper") {
-            //     that.props.login_true_false('SET_TRUE_FALSE', data);
-            //     Actions.Loads();
-            //     // Actions.Dashboard();
-
-            // } else if (response.data.userdata.user_type == "carrier") {
-            //     Actions.carrierDashboard();
-            // } else {
-            //     Actions.Loads();
-            //     // Actions.Dashboard();
-            // }
-
+            // that.props.set_show_mini_loader(false);
+            // that.setState({is_load_test:false});
             if (response.data.length>0) {
-
-                // console.log("responseXd");
-                // console.log(response.data[0].user_id);
-                // console.log(response.data.length);
 
                 that.setState({
                     show: true,
@@ -132,11 +116,7 @@ class Login extends Component {
                     title: "Success!",
                     success_login: true
                 });
-
                 that.temp_user_data = response.data[0];
-
-                // Actions.Loads()
-                // Actions.Dashboard()
             } else {
                 that.setState({
                     show: true,
@@ -148,7 +128,8 @@ class Login extends Component {
         })
         .catch(function (error) {
             
-            // this.props.set_show_mini_loader(false);
+            // that.setState({is_load_test:false});
+            // that.props.set_show_mini_loader(false);
             console.log(error);
             console.log("LAGI ERROR NA LAGI ALAM KO");
         });
@@ -163,6 +144,8 @@ class Login extends Component {
     render() {
         // console.log('redux_session22');
         // console.log(this.props.redux_session);
+        // console.log("this.state.is_load_test");
+        // console.log(this.state.is_load_test);
         return (
             <View>
                 <ImageBackground source={bg_image} style={{ width: '100%', height: '100%' }}>
@@ -183,7 +166,7 @@ class Login extends Component {
                         <TextInput 
                             style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }} 
                             placeholderTextColor="#fff" 
-                            placeholder="Enter Name" 
+                            placeholder="Enter Username" 
                             returnKeyLabel={"next"} 
                             onChangeText={text => this.setState({ username: text })} 
                             autoCapitalize = 'none'
