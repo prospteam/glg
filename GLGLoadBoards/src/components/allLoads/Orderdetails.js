@@ -47,7 +47,7 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
         console.log(this.props.destination);
         console.log(this.props.origin);
         console.log(this.props.origin_state);
-        
+
         var that = this;
         axios({
             method: 'post',
@@ -140,8 +140,8 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                     <Card containerStyle={{ flex:1,backgroundColor:'red',}}>
                         <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
                             <Text style={{color:'#fff'}}>
-                                {(this.props.origin)?this.props.origin+', '+this.props.origin_state:'(empty)'} 
-                                <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/> 
+                                {(this.props.origin)?this.props.origin+', '+this.props.origin_state:'(empty)'}
+                                <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/>
                                 {(this.props.destination)?this.props.destination+', '+this.props.destination_state:'(empty)'}
                             </Text>
                         </CardItem>
@@ -164,10 +164,19 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#d6d6d6"  placeholder="Enter Your Contact Number" onChangeText={text => this.setState({ contact_name: text })} />
                                       </View>
                                   </View>
-                                   <View style={{margin:10}}/>
-                                   <TouchableOpacity title="Hide modal" onPress={() => this._handlePress()}>
-                                       <Text style={styles.send_rate_email}>Send Rate</Text>
-                                   </TouchableOpacity>
+                                    <View  style={{margin:10}}/>
+                                   <View style={{flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                                       <View style={{flex:1}}>
+                                            <TouchableOpacity onPress={() => this._handlePress()}>
+                                                <Text style={styles.send_rate_email}>Send Rate</Text>
+                                            </TouchableOpacity>
+                                       </View>
+                                       <View style={{flex:1}}>
+                                            <TouchableOpacity onPress={this.toggleModal}>
+                                                <Text style={styles.cancelratebtn}>Cancel</Text>
+                                            </TouchableOpacity>
+                                       </View>
+                                   </View>
                                 </View>
                               </Modal>
                             </View>
@@ -261,7 +270,7 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                             <View style={{flex: 1, flexDirection: 'column',justifyContent: "center", alignItems: "center"}}>
                                {
                                    (is_owner)?
-                                    <TouchableOpacity title="Show modal" 
+                                    <TouchableOpacity title="Show modal"
                                         onPress={() =>Actions.RatesFromCarrier({
                                             load_id:this.props.load_id,
                                             // origin:this.props.origin,
@@ -275,14 +284,14 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                                             // reference_number:this.props.reference_number,
                                             // comments: this.props.comments,
                                         })}>
-                                        <Text style={{...styles.call_button,width:200}}><Icon style={styles.send_rate} type="FontAwesome5" name="star"/> View Submitted Rates</Text>
+                                        <Text style={{...styles.call_button,width:200}}> View Submitted Rates</Text>
                                     </TouchableOpacity>
                                    :
                                     <TouchableOpacity title="Show modal" onPress={this.toggleModal}>
-                                        <Text style={styles.call_button}><Icon style={styles.send_rate} type="FontAwesome5" name="star"/> Send a Rate</Text>
+                                        <Text style={styles.sendratebtn}>Send Rate per Mile</Text>
                                     </TouchableOpacity>
 
-                               } 
+                               }
                             </View>
                         </CardItem>
                         <CardItem footer style={{backgroundColor:'#05426e' }}>

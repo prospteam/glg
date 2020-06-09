@@ -178,6 +178,25 @@ export default StyleSheet.create({
         fontSize: 15,
         marginLeft:65
     },
+    sendratebtn:{
+        backgroundColor: 'orange',
+        color: 'white',
+        borderRadius: 50,
+        width: 150,
+        textAlign: 'center',
+        padding: 8,
+        fontSize: 15,
+        marginLeft:65
+    },
+    cancelratebtn:{
+        backgroundColor: '#ccc2c2',
+        color: 'black',
+        borderRadius: 50,
+        width: 120,
+        textAlign: 'center',
+        padding: 8,
+        fontSize: 15,
+    },
     send_rate_email:{
         backgroundColor: '#05426e',
         color: 'white',

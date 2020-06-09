@@ -101,7 +101,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <View style={styles.contentBody}>
                             <Card defaultValue = {this.props.load_id}>
                             <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
-                                <Text defaultValue = {this.props.load_id}  style={{color:'#fff'}}>Edit Loads</Text>
+                                <Text defaultValue = {this.props.load_id}  style={{color:'#fff'}}>Edit Loads</Text> 
                             </CardItem>
                             <CardItem>
                             <Body>
@@ -130,7 +130,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                           <Text style={{fontSize:10}}>Trailer Type</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.trailer_type} onChangeText={text => this.setState({ trailer_type: text })}/>
                                       </View>
-                                  </View> 
+                                  </View>
                                       <View  style={{marginBottom:15}}/>
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
