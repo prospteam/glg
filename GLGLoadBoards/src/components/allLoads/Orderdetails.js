@@ -36,12 +36,18 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
            contact_name:'',
            contact_number:'' 
         };
-        console.log('____________________________');
-        console.log('I am Loaded from load detalissss');
         // this.props.set_show_mini_loader('true');
     }
 
     componentDidMount() {
+
+
+        console.log('_______________________2_____');
+        console.log('I am Loaded from load detalissss');
+        console.log(this.props.destination);
+        console.log(this.props.origin);
+        console.log(this.props.origin_state);
+        
         var that = this;
         axios({
             method: 'post',
@@ -133,16 +139,18 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                 <View style={styles.contentBody}>
                     <Card containerStyle={{ flex:1,backgroundColor:'red',}}>
                         <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
-                            <Text style={{color:'#fff'}}>{(this.props.origin)?this.props.origin:'(empty)'} <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/> {(this.props.destination)?this.props.destination:'(empty)'}</Text>
+                            <Text style={{color:'#fff'}}>
+                                {(this.props.origin)?this.props.origin+', '+this.props.origin_state:'(empty)'} 
+                                <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/> 
+                                {(this.props.destination)?this.props.destination+', '+this.props.destination_state:'(empty)'}
+                            </Text>
                         </CardItem>
                         <CardItem>
                             <Body>
                             <View style={{flex: 1}}>
-                            
-                            
                               <Modal isVisible={this.state.isModalVisible} style={{margin:0, justifyContent: "center", alignItems: "center", borderRadius:5 }}>
                                 <View style={{backgroundColor:'#ffffff', padding:'5%'}}>
-                                  <Text style={{color:'#00000'}}>Send a Rate To Brokerss</Text>
+                                  <Text style={{color:'#00000'}}>Send your rate to this load.</Text>
                                    <View style={{borderBottomColor: '#e5e5e5',borderBottomWidth: 1}}/>
                                    <View style={{margin:10}}/>
                                   <View style={{flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
@@ -169,9 +177,9 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                                         width:'100%',
                                         backgroundColor:'red',
                                     }}>
-                                    <Mileage props={{
-                                                origin:(this.props.origin)?this.props.origin+',+USA':'(empty)',
-                                                destination:(this.props.destination)?this.props.destination+',+USA':'(empty)',
+                                    <Mileage pasa_data={{
+                                                origin:this.props.origin+', '+this.props.origin+', USA',
+                                                destination:this.props.destination+', '+this.props.destination+', USA'
                                         }}/>
                                 </View>
                             </Body>

@@ -78,7 +78,24 @@ class Register extends Component {
         // alert('getting action');
         // console.log("this.prop");
         console.log(this);
-        this.props.register_action('', inputs);
+        console.log('Start');
+         axios.post(this.props.my_config.api_link +'/KROD/query_builder',inputs)
+        //  axios.post(this.props.my_config.api_link +'/login/register/yes',inputs)
+            .then(res => {
+                console.log(res.data);
+                if (res.data.status == "success") {
+                    alert('Success: ' + res.data.message);
+                }else{
+                    alert('Error: ' + res.data.message);
+                }
+                console.log('End2');
+            })
+            .catch(err => {
+                console.log({status_:'error',err});
+                alert('Error in API connection');
+                console.log('End2');
+            });
+        console.log('End');
     }
 
     render() {
@@ -102,11 +119,17 @@ class Register extends Component {
                                 onChangeText={lname => this.setState({ lname })}
                                 value={this.state.lname}
                             />
-                            <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="User Name"
+                            <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Username"
+                            autoCapitalize = 'none'
+                            autoCompleteType="username"
+                            textContentType="username"
                                 onChangeText={username => this.setState({ username })}
                                 value={this.state.username}
                             />
                             <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Password"
+                            autoCapitalize = 'none'
+                            autoCompleteType="password"
+                            textContentType="password"
                                 onChangeText={password => this.setState({ password })}
                                 value={this.state.password}
                             />
@@ -114,19 +137,30 @@ class Register extends Component {
                                 onChangeText={address => this.setState({ address })}
                                 value={this.state.address}
                             /> */}
-                            <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Contact Number"
+                            <TextInput style={styles.InputRegister} 
+                            autoCompleteType="tel"
+                            textContentType="telephoneNumber"
+                            keyboardType="phone-pad"
+                            placeholderTextColor="#fff" placeholder="Contact Number"
                                 onChangeText={cnumber => this.setState({ cnumber })}
                                 value={this.state.cnumber}
                             />
-                            <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Email Address"
+                            <TextInput style={styles.InputRegister} 
+                            autoCompleteType="email"
+                            textContentType="emailAddress"
+                            placeholderTextColor="#fff" placeholder="Email Address"
                                 onChangeText={emailadd => this.setState({ emailadd })}
                                 value={this.state.emailadd}
                             />
-                            <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="shipper/carrier"
+                            {/* <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="shipper/carrier"
                                 onChangeText={usertype => this.setState({ usertype })}
                                 value={this.state.usertype}
-                            />
-                            <View style={{...styles.InputRegister,textAlign:'center'}}>
+                            /> */}
+                            <View style={{
+                                ...styles.InputRegister,
+                                // 'textAlign':'center',
+                                justifyContent:'center',
+                                }}>
                                 <RNPickerSelect
                                     placeholder={{
                                         label: 'Register as.',

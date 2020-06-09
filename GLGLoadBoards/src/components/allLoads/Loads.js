@@ -71,10 +71,10 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
         if(origin_state)
             where_query.origin_state=origin_state
 
-        if(origin_city)
-            where_query.origin=origin_city
+        if(destination_city)
+            where_query.origin=destination_city
 
-        if(origin_state)
+        if(destination_state)
             where_query.destination_state=destination_state
 
         var self = this;
@@ -107,96 +107,124 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
     }
 
     render() {
-        if(this.state.input_address_origin){
+        if(this.state.input_address_origin || this.state.input_address_destination){
+            var autocomplete_title="";
+            var autocomplete_value="";
+            if(this.state.input_address_origin){
+                autocomplete_title="Origin";
+                autocomplete_value=this.state.origin;
+            }else{
+                autocomplete_title="Destination";
+                autocomplete_value=this.state.destination;
+            }
             return <AddressAutocomplete 
-            title='Origin'
-            callback={value => this.setState({
-                'origin':value,
-                'input_address_origin':false
-            })}/>
+                        title={autocomplete_title}
+                        value={autocomplete_value}
+                        callback={value => {
+                            if(this.state.input_address_origin){
+                                this.setState({
+                                    'origin':value,
+                                    'input_address_origin':false
+                                })
+                            }else{
+                                this.setState({
+                                    'destination':value,
+                                    'input_address_destination':false
+                                })
+                            }
+                        }}/>
         }
-        if(this.state.input_address_destination){
-            return <AddressAutocomplete 
-            title='Destination'
-            callback={value => this.setState({
-                'destination':value,
-                'input_address_destination':false
-            })}/>
-        }
-
-
+        // if(this.state.input_address_destination){
+        //     return <AddressAutocomplete 
+        //     title='Destination'
+        //     callback={value => this.setState({
+        //         'destination':value,
+        //         'input_address_destination':false
+        //     })}/>
+        // }
 
         let load_details;
-        if (this.state.response.length!==0) {
-            load_details = this.state.response.map((data, index)=>{
-            return(
-            <Card key={index}>
-                <TouchableOpacity onPress={ () => {Actions.Orderdetails(
-                    data
-                    // {
-                    //     trailer_type: data.trailer_type,
-                    //     date_available: data.date_available,
-                    //     commodity: data.commodity,
-                    //     weight: data.weight,
-                    //     height: data.height,
-                    //     width:data.width
-                    // }
-                    ); }}>
-                    <CardItem header style={{backgroundColor:'#05426e' }}>
-                        <Text style={{color:'#fff'}}>{data.load_id}</Text>
-                        {/* <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text> */}
-                            {/* <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/> */}
-                            {/* <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Editloads({
-                                load_id:data.load_id,
-                                origin:data.origin,
-                                destination:data.destination,
-                                date_available:data.date_available,
-                                trailer_type: data.trailer_type,
-                                length: data.length,
-                                width:data.width,
-                                rate: data.rate,
-                                commodity: data.commodity,
-                                reference_number:data.reference_number,
-                                comments: data.comments,
-                            }); }}/> */}
-                    </CardItem>
-                    <CardItem>
-                        <Body>
-                        <View style={{flex: 1, flexDirection: 'row'}}>
-                            <View>
-                                <Text>Origin</Text>
-                            </View>
-                            <View style={{marginBottom:5}}>
-                                <Text style={{fontSize:10, marginLeft: 60}}>Origin</Text>
-
-                                <Text style={{fontSize:10, marginLeft: 60}}>{data.origin}</Text>
-                            </View>
-                                <View style={{textAlign:'right'}}>
-                                    <Text style={{fontSize:20, marginLeft: 80, fontWeight: 'bold'}}>${data.rate}</Text>
-                                </View>
-                            </View>
-                            <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
-                                <View style={{flex: 1, flexDirection: 'row',marginTop:2}}>
-                            <View>
-                                <Text>Destination</Text>
-                            </View>
-                            <View style={{marginBottom:5}}>
-                                <Text style={{fontSize:10, marginLeft: 20}}>Destination</Text>
-                                <Text style={{fontSize:10, marginLeft: 20}}>{data.destination}</Text>
-                            </View>
-                            <View style={{textAlign:'right', marginLeft:70 }}>
-                                    <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
-                                    <Text style={{fontSize:10}}>{data.trailer_type}</Text>
-                            </View>
-                        </View>
-                        </Body>
-                    </CardItem>
-                </TouchableOpacity>
+        if (this.state.response.length==0) {
+            load_details = 
+            <Card>
+                <CardItem header>
+                    <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                        <Text style={{fontSize:12}}>
+                            No data found.
+                        </Text>
+                    </View>
+                </CardItem>
             </Card>
-        );
-        console.log(response.data.trailer_type);
-        });
-    }
+        }else{
+            load_details = this.state.response.map((data, index)=>{
+                return(
+                    <Card key={index}>
+                        <TouchableOpacity onPress={ () => {Actions.Orderdetails(
+                            data
+                            // {
+                            //     trailer_type: data.trailer_type,
+                            //     date_available: data.date_available,
+                            //     commodity: data.commodity,
+                            //     weight: data.weight,
+                            //     height: data.height,
+                            //     width:data.width
+                            // }
+                            ); }}>
+                            <CardItem header style={{backgroundColor:'#05426e' }}>
+                                <Text style={{color:'#fff'}}>{data.load_id}</Text>
+                                {/* <Text style={{color:'#4caf50', fontSize:12}}> On Way</Text> */}
+                                    {/* <Icon style={styles.deleteIcon} type="FontAwesome5" name="trash"/> */}
+                                    {/* <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Editloads({
+                                        load_id:data.load_id,
+                                        origin:data.origin,
+                                        destination:data.destination,
+                                        date_available:data.date_available,
+                                        trailer_type: data.trailer_type,
+                                        length: data.length,
+                                        width:data.width,
+                                        rate: data.rate,
+                                        commodity: data.commodity,
+                                        reference_number:data.reference_number,
+                                        comments: data.comments,
+                                    }); }}/> */}
+                            </CardItem>
+                            <CardItem>
+                                <Body>
+                                <View style={{flex: 1, flexDirection: 'row'}}>
+                                    <View>
+                                        <Text>Origin</Text>
+                                    </View>
+                                    <View style={{marginBottom:5}}>
+                                        <Text style={{fontSize:10, marginLeft: 60}}>Origin</Text>
+    
+                                        <Text style={{fontSize:10, marginLeft: 60}}>{data.origin}</Text>
+                                    </View>
+                                        <View style={{textAlign:'right'}}>
+                                            <Text style={{fontSize:20, marginLeft: 80, fontWeight: 'bold'}}>${data.rate}</Text>
+                                        </View>
+                                    </View>
+                                    <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
+                                        <View style={{flex: 1, flexDirection: 'row',marginTop:2}}>
+                                    <View>
+                                        <Text>Destination</Text>
+                                    </View>
+                                    <View style={{marginBottom:5}}>
+                                        <Text style={{fontSize:10, marginLeft: 20}}>Destination</Text>
+                                        <Text style={{fontSize:10, marginLeft: 20}}>{data.destination}</Text>
+                                    </View>
+                                    <View style={{textAlign:'right', marginLeft:70 }}>
+                                            <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
+                                            <Text style={{fontSize:10}}>{data.trailer_type}</Text>
+                                    </View>
+                                </View>
+                                </Body>
+                            </CardItem>
+                        </TouchableOpacity>
+                    </Card>
+                );
+                console.log(response.data.trailer_type);
+                });
+        }
         return (
 			<Screen active_tab="Loads" title="Loads" >
                 <ScrollView>
@@ -210,7 +238,9 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                             <View style={styles.middle}>
                                 <Text style={styles.middle_text}>Origin</Text>
                                 <TextInput 
-                                style={styles.text_input} placeholderTextColor="#000" 
+                                style={styles.text_input} 
+                                // placeholderTextColor="#000" 
+                                placeholder="Insert Origin." 
                                 listViewDisplayed={this.props.redux_state.show_googleplaces}
                                 value={this.state.origin}
                                 // value={(this.props.redux_state.autocomplete_text.state)?this.props.redux_state.autocomplete_text.state:'empty'}
@@ -221,7 +251,9 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
 
                                 <Text style={styles.middle_text}>Destination</Text>
                                 <TextInput 
-                                style={styles.text_input} placeholderTextColor="#000" 
+                                style={styles.text_input}
+                                //  placeholderTextColor="#000" 
+                                placeholder="Insert Destination." 
                                 listViewDisplayed={this.props.redux_state.show_googleplaces}
                                 value={this.state.destination}
                                 onFocus={text => this.setState({'input_address_destination':true})}
@@ -230,42 +262,47 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                                 <View style={{
                                     ...styles.text_input,
                                     }}>
-                                    <RNPickerSelect
-                                        onValueChange={(text) => this.setState({ trailer_type: text })}
-                                        items={[
-                                            { value: 'AC', label: 'AC (Auto Carrier)' },
-                                            { value: 'CRG', label: 'CRG (Cargo Van)' },
-                                            { value: 'FINT', label: 'FINT (Flat-Intermodal)' },
-                                            { value: 'CONT', label: 'CONT (Container)' },
-                                            { value: 'CV', label: 'Curtain Van' },
-                                            { value: 'DD', label: 'DD (Double Drop)' },
-                                            { value: 'DT', label: 'DT (Dump Trailer)' },
-                                            { value: 'F', label: 'F (Flatbed)' },
-                                            { value: 'FS', label: 'FS (Flat+Sides)' },
-                                            { value: 'LA', label: 'LA (Landal)' },
-                                            { value: 'FT', label: 'FT (Flat+Tarp)' },
-                                            { value: 'HB', label: 'HB (Hopper Bottom)' },
-                                            { value: 'HS', label: 'HS (Hotshot)' },
-                                            { value: 'LB', label: 'LB (Lowboy)' },
-                                            { value: 'MX', label: 'MX (Maxi Flat)' },
-                                            { value: 'PNEU', label: 'PNEU (Pneumatic)' },
-                                            { value: 'PO', label: 'PO (Power Only)' },
-                                            { value: 'R', label: 'R (Reefer)' },
-                                            { value: 'RINT', label: 'RINT (Reefer-Intermodal)' },
-                                            { value: 'RGN', label: 'RGN (Removable Gooseneck)' },
-                                            { value: 'VV', label: 'VV (Van+Vented)' },
-                                            { value: 'V', label: 'V (Dry Van)' },
-                                            { value: 'SD', label: 'SD (Step Deck/Single Drop)' },
-                                            { value: 'TNK', label: 'Tanker' },
-                                            { value: 'VA', label: 'VA (Van+Airride)' },
-                                            { value: 'VINT', label: 'VINT (Van-Intermodal)' },
-                                            { value: 'Other', label: 'Other' },
-                                        ]}
-                                    />
+                                    <View style={{
+                                    'position':'relative',
+                                    'top':-8
+                                    }}>
+                                        <RNPickerSelect
+                                            onValueChange={(text) => this.setState({ trailer_type: text })}
+                                            items={[
+                                                { value: 'AC', label: 'AC (Auto Carrier)' },
+                                                { value: 'CRG', label: 'CRG (Cargo Van)' },
+                                                { value: 'FINT', label: 'FINT (Flat-Intermodal)' },
+                                                { value: 'CONT', label: 'CONT (Container)' },
+                                                { value: 'CV', label: 'Curtain Van' },
+                                                { value: 'DD', label: 'DD (Double Drop)' },
+                                                { value: 'DT', label: 'DT (Dump Trailer)' },
+                                                { value: 'F', label: 'F (Flatbed)' },
+                                                { value: 'FS', label: 'FS (Flat+Sides)' },
+                                                { value: 'LA', label: 'LA (Landal)' },
+                                                { value: 'FT', label: 'FT (Flat+Tarp)' },
+                                                { value: 'HB', label: 'HB (Hopper Bottom)' },
+                                                { value: 'HS', label: 'HS (Hotshot)' },
+                                                { value: 'LB', label: 'LB (Lowboy)' },
+                                                { value: 'MX', label: 'MX (Maxi Flat)' },
+                                                { value: 'PNEU', label: 'PNEU (Pneumatic)' },
+                                                { value: 'PO', label: 'PO (Power Only)' },
+                                                { value: 'R', label: 'R (Reefer)' },
+                                                { value: 'RINT', label: 'RINT (Reefer-Intermodal)' },
+                                                { value: 'RGN', label: 'RGN (Removable Gooseneck)' },
+                                                { value: 'VV', label: 'VV (Van+Vented)' },
+                                                { value: 'V', label: 'V (Dry Van)' },
+                                                { value: 'SD', label: 'SD (Step Deck/Single Drop)' },
+                                                { value: 'TNK', label: 'Tanker' },
+                                                { value: 'VA', label: 'VA (Van+Airride)' },
+                                                { value: 'VINT', label: 'VINT (Van-Intermodal)' },
+                                                { value: 'Other', label: 'Other' },
+                                            ]}
+                                        />
+                                    </View>
                                 </View>
 
                                 {    /*<TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ trailer_type: text })}/>*/}
-                                <Text style={styles.middle_text}>Date Available</Text>
+                                <Text style={styles.middle_text}>Pick Up Date</Text>
                                 
                                 <DatePicker
                                     date={this.state.date}
@@ -300,8 +337,11 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                                     <Text style={styles.search_button}>Search</Text>
                                 </TouchableOpacity>
                          </View>
-                        {load_details}
                 </View>
+                <View>
+                    <Text style={styles.contentItem}>Truck List Result</Text>
+                </View>
+                {load_details}
                 </ScrollView>
 			</Screen>
 		)

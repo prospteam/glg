@@ -93,10 +93,10 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
     render() {
         console.log(this.props.load_id);
         return (
-            <Screen>
-				<Text style={styles.contentItem} defaultValue = {this.props.load_id}>
+            <Screen title="Edit Loads">
+				{/* <Text style={styles.contentItem} defaultValue = {this.props.load_id}>
 					Edit Loads
-				</Text>
+				</Text> */}
                 <ScrollView>
                 <View style={styles.contentBody}>
                             <Card defaultValue = {this.props.load_id}>

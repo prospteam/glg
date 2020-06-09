@@ -46,6 +46,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         });
     }
     render() {
+
 		console.log("input_sampleString")
         let trucks_details;
         trucks_details = this.state.response.map((data, index)=>{

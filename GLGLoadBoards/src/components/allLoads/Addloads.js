@@ -34,7 +34,10 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 title: "success",
                 edit_success: false,
         };
-	}
+    }
+    openAddressInput = (asd) => {
+        alert(asd);
+    }
     handleClose = () => {
         this.setState({
             show: false
@@ -94,7 +97,10 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Origin</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#000" onChangeText={text => this.setState({ origin: text })}/>
+                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#000" 
+                                          onChangeText={text => this.setState({ origin: text })}
+                                          onFocus={openAddressInput('hi')}
+                                          />
                                       </View>
                                       <View  style={{margin:2}}/>
                                       <View style={{flex:1}}>

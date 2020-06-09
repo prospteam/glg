@@ -22,30 +22,45 @@ import { set_sampleString, set_is_logged,set_autocomplete_text } from '../redux/
 	}
 
     componentDidMount() {
+        
+        this.locationRef.setAddressText(this.props.value)
     }
 
     render() {
-        console.log("propsaddress");
-        console.log(this.props);
-        
+        // console.log("propsaddress");
+        // console.log(this.props);
         return (
             <View style={{backgroundColor:'none',flex:1}}>
                 <View style={{justifyContent:'space-between',flexDirection:'row',margin:10}}>
                     <Text>{this.props.title}</Text>
-                    <TouchableOpacity 
-                    onPress={e=>this.props.callback(this.state.city_state_country)}>
-                        <Text style={{
-                            ...styles.call_button,
-                            margin:0,
-                            width:60,
-                            padding: 3,
-                            fontSize: 15,
-                            }}>Done</Text>
-                    </TouchableOpacity>
+                    <View style={{flexDirection:'row'}}>
+                        {/* <TouchableOpacity 
+                        onPress={e=>Actions.pop()}>
+                            <Text style={{
+                                ...styles.call_button,
+                                margin:0,
+                                width:60,
+                                padding: 3,
+                                fontSize: 15,
+                                }}>Cancel</Text>
+                        </TouchableOpacity> */}
+                        <TouchableOpacity 
+                        onPress={e=>this.props.callback(this.state.city_state_country)}>
+                            <Text style={{
+                                ...styles.call_button,
+                                margin:0,
+                                marginLeft:5,
+                                width:60,
+                                padding: 3,
+                                fontSize: 15,
+                                }}>Done</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             { /*<TextInput style={styles.text_input} placeholderTextColor="#000" listViewDisplayed={this.props.redux_state.show_googleplaces}
                     onChangeText={text => this.setState({ origin: text })}/>*/}
                 <GooglePlacesAutocomplete
+                    ref={(instance) => { this.locationRef = instance }}
                     listViewDisplayed={this.props.redux_state.show_googleplaces}
                     placeholder='Enter Location. Example:Ada, MI, USA'
                     minLength={2}
@@ -71,8 +86,7 @@ import { set_sampleString, set_is_logged,set_autocomplete_text } from '../redux/
                         // });
                     }}
                     query={{
-                        // key: 'AIzaSyAiCJ2KCchVNTCutDA8lHJs4i4_5xKFJA4',
-                        key: 'AIzaSyAKqsECe6r8abouPxWMxaO5m8g97YnXL_M',
+                        key: 'AIzaSyDM5OUCsOfjNDSdym5Mpv2TbbOAejmLGEo',
                         language: 'en',
                         types: '(cities)',
                         components: 'country:us',

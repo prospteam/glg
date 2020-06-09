@@ -92,24 +92,32 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             // LOG  {"carrier_id": "0", "category": "", "comments": "", "date_added": "2020-06-03 10:06:23", "date_available": "Jjn", "deleted_status": "0", "destination": "Km", "destination_state": "", "origin": "Jjj", "origin_state": "", "trailer_type": "Jj", "truck_id": "47"}
 
     render() {
+        let is_owner=false;
+        if(this.props.carrier_id==this.props.redux_session.user_data.user_id)
+            is_owner=true;
+
+        
         console.log("this.propsnoo");
         console.log(this.props);
         return (
             <Screen title="Truck Details"
             side_header_buttons={
-                
                 <View style={{...styles.darkFont,flex:1,flexDirection:'row-reverse'}}>
-                    <TouchableOpacity onPress={() =>{Actions.Edittrucks({
-                        origin:this.props.origin,
-                        origin_state:this.props.origin_state,
-                        destination:this.props.destination,
-                        destination_state:this.props.destination_state,
-                        date_available:this.props.date_available,
-                        trailer_type: this.props.trailer_type,
-                        comments: this.props.comments,
-                    })}}>
-                        <Icon style={styles.headerIcon} type="FontAwesome5" name="edit"/>
-                    </TouchableOpacity>
+                    {
+                        (is_owner)?
+                            <TouchableOpacity onPress={() =>{Actions.Edittrucks({
+                                origin:this.props.origin,
+                                origin_state:this.props.origin_state,
+                                destination:this.props.destination,
+                                destination_state:this.props.destination_state,
+                                date_available:this.props.date_available,
+                                trailer_type: this.props.trailer_type,
+                                comments: this.props.comments,
+                            })}}>
+                                <Icon style={styles.headerIcon} type="FontAwesome5" name="edit"/>
+                            </TouchableOpacity>
+                        :null
+                    }
                 </View>
                 }				
             >
@@ -120,36 +128,15 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <View style={styles.contentBody}>
                     <Card containerStyle={{ flex:1,backgroundColor:'red',}}>
                         <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
-                            <Text style={{color:'#fff'}}>{(this.props.origin)?this.props.origin:'(empty)'} <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/> {(!this.props.destination)?'(empty)':this.props.destination}</Text>
+                            <Text style={{color:'#fff'}}>
+                                {(this.props.origin)?this.props.origin+', '+this.props.origin_state:'(empty)'} 
+                                <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/> 
+                                {(this.props.destination)?this.props.destination+', '+this.props.destination_state:'(empty)'}
+                            </Text>
                         </CardItem>
                         <CardItem>
                             <Body>
                             <View style={{flex: 1}}>
-                            <TouchableOpacity title="Show modal" onPress={this.toggleModal}>
-                                <Text style={styles.call_button}><Icon style={styles.send_rate} type="FontAwesome5" name="star"/> Send a Rate</Text>
-                            </TouchableOpacity>
-                              <Modal isVisible={this.state.isModalVisible} style={{margin:0, justifyContent: "center", alignItems: "center", borderRadius:5 }}>
-                                <View style={{backgroundColor:'#ffffff', padding:'5%'}}>
-                                  <Text style={{color:'#00000'}}>Send a Rate To Broker</Text>
-                                   <View style={{borderBottomColor: '#e5e5e5',borderBottomWidth: 1}}/>
-                                   <View style={{margin:10}}/>
-                                  <View style={{flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                                      <View>
-                                          <Text style={{fontSize:10}}>Rate:</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#d6d6d6" placeholder="Enter Your Rate" keyboardType={'numeric'} onChangeText={text => this.setState({ rate: text })}/>
-                                      </View>
-                                      <View  style={{margin:2}}/>
-                                      <View>
-                                          <Text style={{fontSize:10}}>Contact Name:</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#d6d6d6"  placeholder="Enter Your Contact Number" onChangeText={text => this.setState({ contact_name: text })} />
-                                      </View>
-                                  </View>
-                                   <View style={{margin:10}}/>
-                                   {/* <TouchableOpacity title="Hide modal" onPress={() => this._handlePress()}>
-                                       <Text style={styles.send_rate_email}>Send Rate</Text>
-                                   </TouchableOpacity> */}
-                                </View>
-                              </Modal>
                             </View>
                             <View style={{margin:10}} />
                                 <View style={{
@@ -157,9 +144,9 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                         width:'100%',
                                         backgroundColor:'red',
                                     }}>
-                                    <Mileage props={{
-                                                origin:this.props.origin+',+USA',
-                                                destination:this.props.destination+',+USA'
+                                    <Mileage pasa_data={{
+                                                origin:this.props.origin+', '+this.props.origin_state+', USA',
+                                                destination:this.props.destination+', '+this.props.destination_state+', USA'
                                         }}/>
                                 </View>
                             </Body>

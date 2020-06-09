@@ -1,2 +1,2 @@
-export const api_link = 'http://glgfreight.com/loadboard_app/api_mobile/';
-export const base_link = 'http://glgfreight.com/loadboard_app/';
+export const api_link = 'https://glgfreight.com/loadboard_app/api_mobile/';
+export const base_link = 'https://glgfreight.com/loadboard_app/';

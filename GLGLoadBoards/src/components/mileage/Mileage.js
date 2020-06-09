@@ -43,24 +43,28 @@ Geocoder.init("AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4"); // use a valid API key
 	mapView = null;
 	constructor(props){
 		super(props);
-		// this.props.set_is_logged('set_is_logged',false);
+		// this.props.pasa_data.set_is_logged('set_is_logged',false);
 		this.state = {
 			input_sampleString: "dd",
 			origin: {},
 			destination: {},
 		}
-		// this.props.set_show_mini_loader(true);
+		// this.props.pasa_data.set_show_mini_loader(true);
 		
 	}
 	componentDidMount(){
-		console.log("___________________________________");
+		console.log("_______1____________________________");
 		console.log("Milage componentDidMount");
+		console.log(this.props.pasa_data.origin);
+		console.log(this.props.pasa_data.destination);
+		console.log("Milage componentDidMount");
+
 		
 		let temp_origin={};
-		Geocoder.from(this.props.origin)
+		Geocoder.from(this.props.pasa_data.origin)
         .then(json => {
 			temp_origin=json.results[0].geometry.location;
-			Geocoder.from(this.props.destination)
+			Geocoder.from(this.props.pasa_data.destination)
 			.then(json => {
 				var location = json.results[0].geometry.location;
 
@@ -73,7 +77,7 @@ Geocoder.init("AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4"); // use a valid API key
 					// origin: {latitude: temp_origin.lat, longitude: temp_origin.lng},
 					destination: {latitude: location.lat, longitude: location.lng},
 				});
-				// this.props.set_show_mini_loader(false);
+				// this.props.pasa_data.set_show_mini_loader(false);
 			})
 			.catch(error => console.warn(error));
         })
@@ -81,24 +85,23 @@ Geocoder.init("AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4"); // use a valid API key
 	}
 	submit_sampleString(){
 		alert();
-		// this.props.set_sampleString('set_sampleString',this.state.input_sampleString);
+		// this.props.pasa_data.set_sampleString('set_sampleString',this.state.input_sampleString);
 	}
-	
-	asd(){
+	open_native_map(){
 		const url = Platform.select({
 			ios: 'maps:e37.484847,-122.148386',
 			// android: 'google.navigation:q=Texas,+USA',
 			// android: 'geo:0,0?q=Texas,+USA',
-			android: 'https://www.google.com/maps/dir/?api=1&origin='+this.props.origin+'&destination='+this.props.destination,
+			android: 'https://www.google.com/maps/dir/?api=1&origin='+this.props.pasa_data.origin+'&destination='+this.props.pasa_data.destination,
 		  });
 		Linking.openURL(url); 
 	}
     render() {
 		console.log("input_sampleString")
 		console.log(this.state)
-		// console.log("this.props")
-		// console.log(this.props.redux_state.sampleString)
-		// if(this.props.show_mini_loader)
+		// console.log("this.props.pasa_data")
+		// console.log(this.props.pasa_data.redux_state.sampleString)
+		// if(this.props.pasa_data.show_mini_loader)
 		// 	return
 			
         return (
@@ -144,7 +147,7 @@ Geocoder.init("AIzaSyC8lpkvXFDua9S2al669zfwz7GSkeVFWs4"); // use a valid API key
 						bottom: 0,
 						right: 5,
 						}} >
-						<TouchableOpacity onPress={()=>this.asd()}>
+						<TouchableOpacity onPress={()=>this.open_native_map()}>
 							<Text style={{
 								...styles.call_button,
 								marginLeft:0,
