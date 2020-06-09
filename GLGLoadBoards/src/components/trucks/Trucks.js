@@ -177,8 +177,12 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                     <Text style={{fontSize:12, color:'white'}}>{data.origin}</Text>
                                     <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{data.origin_state}</Text>
                                 </View>
-                                <View style={{flex:1}}>
-                                <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/>
+                                {/* <View style={{flex:1}}>
+                                <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/> */}
+                                <View  style={{marginBottom:10}}/>
+                                <View style={{flex: 1,marginBottom:5}}>
+                                    <Text style={{fontSize:10}}>Trailer Type</Text>
+                                    <Text style={{fontSize:10}}>{data.trailer_type}</Text>
                                 </View>
                                 <View style={{flex:1}}>
                                     <Text style={{fontSize:12,color:'white'}}>{data.destination}</Text>

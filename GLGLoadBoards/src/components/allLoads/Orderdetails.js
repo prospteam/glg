@@ -34,7 +34,7 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
             width:'',
             rate:'',
            contact_name:'',
-           contact_number:'' 
+           contact_number:''
         };
         // this.props.set_show_mini_loader('true');
     }
@@ -69,7 +69,7 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
               }
         })
         .catch(function (error) {
-            
+
             // this.props.set_show_mini_loader(false);
             console.log(error);
             // console.log("LAGI ERROR NA LAGI ALAM KO");
@@ -106,7 +106,7 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
             is_owner=true;
 
         return (
-            <Screen title="Load Details" 
+            <Screen title="Load Details"
             side_header_buttons={
                 <View style={{...styles.darkFont,flex:1,flexDirection:'row-reverse'}}>
                     {
@@ -128,7 +128,7 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                         :null
                     }
                 </View>
-                }				
+                }
             >
 
 
@@ -220,7 +220,7 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                                     <View style={{flex:1}}>
                                         {
                                             (this.state.contact_number)?
-                                            <TouchableOpacity 
+                                            <TouchableOpacity
                                             onPress={()=>Linking.openURL(`tel:${this.state.contact_number}`)}>
                                                 <Text style={styles.call_button}>Call Shipper</Text>
                                             </TouchableOpacity>

@@ -161,6 +161,12 @@ android {
         //     keyAlias 'your_key_alias'
         //     keyPassword 'your_key_file_alias_password'
         // }
+        // release {
+        //     storeFile file(MYAPP_RELEASE_STORE_FILE)
+        //     storePassword MYAPP_RELEASE_STORE_PASSWORD
+        //     keyAlias MYAPP_RELEASE_KEY_ALIAS
+        //     keyPassword MYAPP_RELEASE_KEY_PASSWORD
+        // }
     }
     buildTypes {
         debug {

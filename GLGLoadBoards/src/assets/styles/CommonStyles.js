@@ -176,6 +176,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         padding: 8,
         fontSize: 15,
+        marginLeft:65
     },
     send_rate_email:{
         backgroundColor: '#05426e',
@@ -194,6 +195,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         padding: 8,
         fontSize: 15,
+        marginLeft:65
     },
     fieldsInput1:{
         borderWidth : 1

@@ -66,13 +66,14 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                         }); }}>
                         <CardItem header style={{backgroundColor:'#05426e' }}>
                         <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                            <View style={{flex:1}}> 
+                            <View style={{flex:1}}>
                                 <Text style={{fontSize:12, color:'white'}}>{(!data.origin)?'(empty)':data.origin}</Text>
                                 <Text style={{fontSize:15,fontWeight: 'bold', color:'white'}}>{(!data.origin_state)?'(empty)':data.origin_state}</Text>
                             </View>
                             <View style={{flex:1}}>
                             <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/>
                             </View>
+                            <View  style={{marginLeft:90}}/>
                             <View style={{flex:1}}>
                                 <Text style={{fontSize:12,color:'white'}}>{(!data.destination)?'(empty)':data.destination}</Text>
                                 <Text style={{fontSize:15,fontWeight: 'bold',color:'white'}}>{(!data.destination_state)?'(empty)':data.destination_state}</Text>
@@ -83,21 +84,22 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                             <Body>
                                 <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                 <View style={{flex: 1,marginBottom:5}}>
-                                    <Text style={{fontSize:10}}>Trip Miles</Text>
+                                    <Text style={{fontSize:10, fontWeight:"bold"}}>Trip Miles</Text>
                                     <Text style={{fontSize:10}}>001</Text>
                                 </View>
                                 <View style={{flex: 1,marginBottom:5}}>
-                                    <Text style={{fontSize:10}}>Trailer Type</Text>
+                                    <Text style={{fontSize:10, fontWeight:"bold"}}>Trailer Type</Text>
                                     <Text style={{fontSize:10}}>{(!data.trailer_type)?'(empty)':data.trailer_type}</Text>
                                 </View>
                             </View>
+                            <View  style={{marginBottom:15}}/>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                 <View style={{flex: 1,marginBottom:5}}>
-                                    <Text style={{fontSize:10}}>Ship dates</Text>
+                                    <Text style={{fontSize:10, fontWeight:"bold"}}>Ship dates</Text>
                                     <Text style={{fontSize:10}}>{(!data.date_added)?'(empty)':data.date_added}</Text>
                                 </View>
                                 <View style={{flex: 1,marginBottom:5}}>
-                                    <Text style={{fontSize:10}}>Comments</Text>
+                                    <Text style={{fontSize:10, fontWeight:"bold"}}>Comments</Text>
                                     <Text style={{fontSize:10}}>{(!data.comments)?'(empty)':data.comments}</Text>
                                 </View>
                             </View>
@@ -110,14 +112,14 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         });
 
         return (
-                <Screen active_tab="Trucks" title="My Trucks" 
+                <Screen active_tab="Trucks" title="My Trucks"
                 side_header_buttons={
                     <View style={{...styles.darkFont,flex:1,flexDirection:'row-reverse'}}>
                         <TouchableOpacity onPress={() =>{Actions.Addtrucks()} }>
                             <Icon style={styles.headerIcon} type="FontAwesome5" name="plus"/>
                         </TouchableOpacity>
                     </View>
-                    }				
+                    }
                 >
                     {/* <Text style={styles.contentItem}>
                         Trucks
