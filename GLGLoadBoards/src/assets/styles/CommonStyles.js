@@ -241,7 +241,7 @@ export default StyleSheet.create({
     iconCompleted:{
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent:'space-between',
+        // justifyContent:'space-between',
 
       },
      dash:{
