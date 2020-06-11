@@ -3,6 +3,7 @@ import {ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { Text, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body, View  } from 'native-base';
 import Screen from '../layout/Screen';
 import { Actions } from 'react-native-router-flux';
+import Dash from 'react-native-dash';
 import styles from '../../assets/styles/CommonStyles';
 import axios from 'axios';
 
@@ -52,7 +53,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
     }
     render() {
         let load_details;
-        
+
 		if (this.state.response.length <= 0)
             load_details = <Card>
                         <CardItem header>
@@ -104,31 +105,39 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                     <CardItem>
                         <Body>
                         <View style={{flex: 1, flexDirection: 'row'}}>
-                            <View>
-                                <Text>Origin</Text>
-                            </View>
-                            <View style={{marginBottom:5}}>
-                                <Text style={{fontSize:10, marginLeft: 60}}>Origin</Text>
-                                <Text style={{fontSize:10, marginLeft: 60}}>{(!data.origin)?'(empty)':data.origin}</Text>
-                            </View>
-                                <View style={{textAlign:'right'}}>
-                                    <Text style={{fontSize:20, marginLeft: 80, fontWeight: 'bold'}}>${(!data.rate)?'(na)':data.rate}</Text>
+                            <View style={styles.iconCompleted}>
+                                <View style={{flexDirection: 'column'}}>
+                                    <Text>Origin</Text>
+                                        <View style={{ margin: 2}} />
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Icon name='ios-checkmark-circle' style={{color:'#05426e', fontSize:15, marginLeft:20}}/>
+                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.origin}</Text>
+                                        </View>
+                                        <View style={{flexDirection: 'column', marginLeft:0}}>
+                                            <Dash dashColor={'#57B9BB'} style={styles.dash}/>
+                                            <Icon type="FontAwesome5" name='truck' style={{color:'orange', fontSize:15, marginLeft:20}}/>
+                                            <Dash dashColor={'#57B9BB'} style={styles.dash}/>
+                                        </View>
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Icon name='ios-checkmark-circle' style={{color:'#05426e', fontSize:15, marginLeft:20}}/>
+                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.destination}</Text>
+                                        </View>
+                                        <View style={{ margin: 2}} />
+                                    <Text>Destination</Text>
+                                  </View>
+                                </View>
+                                <View style={{flex: 1,flexDirection: 'column', marginLeft:'50%'}}>
+                                    <View style={{textAlign:'right'}}>
+                                        <Text>Rates</Text>
+                                        <Text style={{fontSize:20,fontWeight:'bold'}}>${data.rate}</Text>
+                                    </View>
+                                    <View style={{ margin:20}}/>
+                                    <View style={{textAlign:'right'}}>
+                                        <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
+                                        <Text style={{fontSize:15}}>{data.trailer_type}</Text>
+                                    </View>
                                 </View>
                             </View>
-                            <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
-                                <View style={{flex: 1, flexDirection: 'row',marginTop:2}}>
-                            <View>
-                                <Text>Destination</Text>
-                            </View>
-                            <View style={{marginBottom:5}}>
-                                <Text style={{fontSize:10, marginLeft: 20}}>Destination</Text>
-                                <Text style={{fontSize:10, marginLeft: 20}}>{(!data.destination)?'(empty)':data.destination}</Text>
-                            </View>
-                            <View style={{textAlign:'right', marginLeft:70 }}>
-                                    <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
-                                    <Text style={{fontSize:10}}>{(!data.trailer_type)?'(empty)':data.trailer_type}</Text>
-                            </View>
-                        </View>
                         </Body>
                     </CardItem>
                 </TouchableOpacity>
@@ -138,14 +147,14 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
         });
     }
         return (
-			<Screen active_tab="Loads" title="My Loads" 
+			<Screen active_tab="Loads" title="My Loads"
             side_header_buttons={
                 <View style={{...styles.darkFont,flex:1,flexDirection:'row-reverse'}}>
                     <TouchableOpacity onPress={() =>{Actions.Addloads()} }>
                         <Icon style={styles.headerIcon} type="FontAwesome5" name="plus"/>
                     </TouchableOpacity>
                 </View>
-                }				
+                }
             >
                 <ScrollView>
 				{/* <Text style={styles.contentHeader}>

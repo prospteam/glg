@@ -117,7 +117,7 @@ class Edittrucks extends Component {
 											<Text style={{ fontSize: 10 }}>Origin</Text>
 											<TextInput
 												style={styles.text_input_edit}
-												// defaultValue = {this.state.origin_address} 
+												// defaultValue = {this.state.origin_address}
 												// placeholderTextColor="#000"
 												onFocus={() => this.setState({
 													is_address_input_open: true,
@@ -126,7 +126,7 @@ class Edittrucks extends Component {
 												value={this.state.origin_address}
 											/>
 											{/* <TextInput style={styles.text_input_edit} placeholderTextColor="#000"
-																				defaultValue = {this.props.origin} 
+																				defaultValue = {this.props.origin}
 																				onFocus={() => this.setState({
 																						is_address_input_open: true,
 																						for_origin: true,
@@ -141,7 +141,7 @@ class Edittrucks extends Component {
 											<Text style={{ fontSize: 10 }}>Destination</Text>
 											<TextInput
 												style={styles.text_input_edit}
-												// defaultValue = {this.state.origin_address} 
+												// defaultValue = {this.state.origin_address}
 												// placeholderTextColor="#000"
 												onFocus={() => this.setState({
 													is_address_input_open: true,
@@ -149,7 +149,7 @@ class Edittrucks extends Component {
 												value={this.state.destination_address}
 											/>
 											{/* <TextInput style={styles.text_input_edit} placeholderTextColor="#000"
-																				defaultValue = {this.props.destination} 
+																				defaultValue = {this.props.destination}
 																				onFocus={() => this.setState({
 																						is_address_input_open: true,
 																						for_destination: true,
@@ -163,8 +163,8 @@ class Edittrucks extends Component {
 									{/* <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
 																		<View style={{flex:1}}>
 																				<Text style={{fontSize:10}}>Origin</Text>
-																				<TextInput style={styles.text_input_edit} placeholderTextColor="#000" 
-																				defaultValue = {this.props.origin} 
+																				<TextInput style={styles.text_input_edit} placeholderTextColor="#000"
+																				defaultValue = {this.props.origin}
 																				onChangeText={text => this.setState({ origin: text })}/>
 																		</View>
 																		<View  style={{margin:2}}/>
@@ -252,6 +252,7 @@ class Edittrucks extends Component {
 											</View>
 										</View>
 									</View>
+									<View style={{ margin: 8 }} />
 									<View style={{ flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center" }}>
 										<View style={{ flex: 1 }}>
 											<Text style={{ fontSize: 10 }}>Comments</Text>

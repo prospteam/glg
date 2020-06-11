@@ -51,8 +51,8 @@ import { set_sampleString, set_is_logged } from '../redux/actions/Actions';// I 
             }).then(function (response) {
                 console.log('_________RAtes nga iyaha,_________________');
                 console.log(response.data);
-                
-                
+
+
                 if(response.data.length==0){
                     self.setState({message: "Connection error."});
                 }else{
@@ -90,7 +90,7 @@ import { set_sampleString, set_is_logged } from '../redux/actions/Actions';// I 
         let trucks_details;
         let temp_contact_number;
         if(this.state.response.length==0)
-            trucks_details = 
+            trucks_details =
             <Card>
                 <CardItem header>
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
@@ -132,7 +132,7 @@ import { set_sampleString, set_is_logged } from '../redux/actions/Actions';// I 
                                 <View style={{alignItems:'center'}}>
                                 {
                                     (data.contact_number)?
-                                        <TouchableOpacity 
+                                        <TouchableOpacity
                                         onPress={()=>Linking.openURL(`tel:${data.contact_number}`)}>
                                             <Text style={styles.call_button}>Call Carrier</Text>
                                         </TouchableOpacity>

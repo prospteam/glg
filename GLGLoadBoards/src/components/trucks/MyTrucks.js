@@ -107,23 +107,23 @@ class MyTrucks extends Component {
 							<Body>
 								<View style={{ flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center" }}>
 									<View style={{ flex: 1, marginBottom: 5 }}>
-										<Text style={{ fontSize: 10, fontWeight: "bold" }}>Trip Miles</Text>
-										<Text style={{ fontSize: 10 }}>001</Text>
+										<Text style={{ fontSize: 15, fontWeight: "bold" }}>Trip Miles</Text>
+										<Text style={{ fontSize: 15 }}>001</Text>
 									</View>
 									<View style={{ flex: 1, marginBottom: 5 }}>
-										<Text style={{ fontSize: 10, fontWeight: "bold" }}>Trailer Type</Text>
-										<Text style={{ fontSize: 10 }}>{(!data.trailer_type) ? '(empty)' : data.trailer_type}</Text>
+										<Text style={{ fontSize: 15, fontWeight: "bold" }}>Trailer Type</Text>
+										<Text style={{ fontSize: 15 }}>{(!data.trailer_type) ? '(empty)' : data.trailer_type}</Text>
 									</View>
 								</View>
 								<View style={{ marginBottom: 15 }} />
 								<View style={{ flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center" }}>
 									<View style={{ flex: 1, marginBottom: 5 }}>
-										<Text style={{ fontSize: 10, fontWeight: "bold" }}>Ship dates</Text>
-										<Text style={{ fontSize: 10 }}>{(!data.date_added) ? '(empty)' : data.date_added}</Text>
+										<Text style={{ fontSize: 15, fontWeight: "bold" }}>Ship dates</Text>
+										<Text style={{ fontSize: 12 }}>{(!data.date_added) ? '(empty)' : data.date_added}</Text>
 									</View>
 									<View style={{ flex: 1, marginBottom: 5 }}>
-										<Text style={{ fontSize: 10, fontWeight: "bold" }}>Comments</Text>
-										<Text style={{ fontSize: 10 }}>{(!data.comments) ? '(empty)' : data.comments}</Text>
+										<Text style={{ fontSize: 15, fontWeight: "bold" }}>Comments</Text>
+										<Text style={{ fontSize: 15}}>{(!data.comments) ? '(empty)' : data.comments}</Text>
 									</View>
 								</View>
 							</Body>

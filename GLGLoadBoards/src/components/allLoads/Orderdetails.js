@@ -89,6 +89,7 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
             contact_name: this.state.contact_name,
             contact_number: this.state.contact_number
         }).then(function (response) {
+
             console.log(response);
             console.log('SUCCESS');
             console.log('__________________________________');
@@ -231,7 +232,7 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                                 </View>
                                 <View style={{marginBottom: '10%'}} />
                                 <View style={{
-                                    flex: 1, 
+                                    flex: 1,
                                     flexDirection:'row',
                                     justifyContent:'space-between',
                                     }}>
@@ -251,7 +252,7 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                                             </TouchableOpacity>
                                         }
                                     </View>
-                                    
+
                                     <TouchableOpacity style={{
                                         flex:1,
                                         }}
@@ -284,9 +285,9 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                         <CardItem footer style={{backgroundColor:'none' }}>
                             <View style={{
                                 // backgroundColor:'red',
-                                // flex: 1, 
+                                // flex: 1,
                                 // // flexDirection: 'column',
-                                // justifyContent: "center", 
+                                // justifyContent: "center",
                                 // alignItems: "center",
                                 // padding:0,
                                 }}>

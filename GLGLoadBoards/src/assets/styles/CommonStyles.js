@@ -237,5 +237,17 @@ export default StyleSheet.create({
     },
     fieldsInput1:{
         borderWidth : 1
-    }
+    },
+    iconCompleted:{
+        flexDirection: 'column',
+        alignItems: 'center',
+
+      },
+     dash:{
+        width:1,
+        height: 20,
+        top:0,
+        marginLeft:25,
+        flexDirection:'column',
+     },
 });
