@@ -181,12 +181,12 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                 <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/> */}
                                 <View  style={{marginBottom:10}}/>
                                 <View style={{flex: 1,marginBottom:5}}>
-                                    <Text style={{fontSize:10}}>Trailer Type</Text>
-                                    <Text style={{fontSize:10}}>{data.trailer_type}</Text>
+                                    <Text style={{fontSize:12, color:'white'}}>Trailer Type</Text>
+                                    <Text style={{fontSize:12, color:'white'}}>{data.trailer_type}</Text>
                                 </View>
                                 <View style={{flex:1}}>
                                     <Text style={{fontSize:12,color:'white'}}>{data.destination}</Text>
-                                    <Text style={{fontSize:15,fontWeight: 'bold',color:'white'}}>{data.destination_state}</Text>
+                                    <Text style={{fontSize:15,fontWeight:'bold',color:'white'}}>{data.destination_state}</Text>
                                 </View>
                                 {/* <Icon style={styles.editIcon} type="FontAwesome5" name="edit" onPress={() =>{Actions.Edittrucks({
                                     origin:data.origin,
