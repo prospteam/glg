@@ -178,6 +178,15 @@ export default StyleSheet.create({
         fontSize: 15,
         marginLeft:65
     },
+    call_button_sad:{
+        backgroundColor: 'orange',
+        color: 'white',
+        borderRadius: 50,
+        width: 120,
+        textAlign: 'center',
+        padding: 8,
+        fontSize: 15,
+    },
     sendratebtn:{
         backgroundColor: 'orange',
         color: 'white',
@@ -215,6 +224,16 @@ export default StyleSheet.create({
         padding: 8,
         fontSize: 15,
         marginLeft:65
+    },
+    findtruck_button_sad:{
+        backgroundColor: '#05426e',
+        color: 'white',
+        borderRadius: 50,
+        width: 120,
+        textAlign: 'center',
+        padding: 8,
+        fontSize: 15,
+        // marginLeft:65
     },
     fieldsInput1:{
         borderWidth : 1

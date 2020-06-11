@@ -106,6 +106,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                     {
                         (is_owner)?
                             <TouchableOpacity onPress={() =>{Actions.Edittrucks({
+                                truck_id:this.props.truck_id,
                                 origin:this.props.origin,
                                 origin_state:this.props.origin_state,
                                 destination:this.props.destination,
@@ -183,21 +184,29 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                     </View>
                                 </View>
                                 <View style={{marginBottom: '10%'}} />
-                                <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                                    <View style={{flex:1}}>
+                                <View style={{
+                                    flex: 1, 
+                                    flexDirection:'row',
+                                    justifyContent:'space-between',
+                                    }}>
+                                    <View style={{
+                                        flex:1,
+                                        }}
+                                        >
                                         {
                                             (this.state.contact_number)?
                                             <TouchableOpacity
                                             onPress={()=>Linking.openURL(`tel:${this.state.contact_number}`)}>
-                                                <Text style={styles.call_button}>Call Carrier</Text>
+                                                <Text style={styles.call_button_sad}>Call Carrier</Text>
                                             </TouchableOpacity>
                                             :
                                             <TouchableOpacity>
-                                                <Text style={styles.call_button}>Call Carrier</Text>
+                                                <Text style={styles.call_button_sad}>Call Carrier</Text>
                                             </TouchableOpacity>
                                         }
                                     </View>
                                     <TouchableOpacity
+                                        style={{flex:1}}
                                         onPress={() =>{Actions.FindLoads({
                                             origin:this.props.origin,
                                             destination:this.props.destination,
@@ -210,7 +219,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                             // reference_number:this.props.reference_number,
                                             // comments: this.props.comments,
                                         })}}>
-                                        <Text style={styles.findtruck_button}>Find Loads</Text>
+                                        <Text style={styles.findtruck_button_sad}>Find Loads</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View>

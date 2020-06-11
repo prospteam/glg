@@ -52,7 +52,16 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
     }
     render() {
         let load_details;
-        if (this.state.response.length!==0) {
+        
+		if (this.state.response.length <= 0)
+            load_details = <Card>
+                        <CardItem header>
+                            <View>
+                                <Text>No data found.</Text>
+                            </View>
+                        </CardItem>
+                    </Card>
+        else{
             load_details = this.state.response.map((data, index)=>{
             return(
             <Card key={index} >

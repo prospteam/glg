@@ -96,3 +96,10 @@ export function login_true_false(type, true_or_false){
 		payload: true_or_false
 	}
 }
+
+export function split_city_state_country(param){
+	return{
+		type: 'split_city_state_country',
+		payload: param
+	}
+}

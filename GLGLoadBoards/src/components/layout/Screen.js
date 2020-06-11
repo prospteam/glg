@@ -87,7 +87,7 @@ import {to_upper} from '../../libraries/MyFunctions.js';
 										padding:10,
 									}}>
 										<Text style={[styles.darkFont,styles.headerBigger]}>
-											{(this.props.title)?this.props.title:"Page Title"}
+											{(this.props.title)?this.props.title:""}
 										</Text>
 										{this.props.side_header_buttons}
 									</View>

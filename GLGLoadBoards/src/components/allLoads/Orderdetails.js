@@ -225,21 +225,31 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                                     </View>
                                 </View>
                                 <View style={{marginBottom: '10%'}} />
-                                <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
-                                    <View style={{flex:1}}>
+                                <View style={{
+                                    flex: 1, 
+                                    flexDirection:'row',
+                                    justifyContent:'space-between',
+                                    }}>
+                                    <View style={{
+                                        flex:1,
+                                        }}
+                                        >
                                         {
                                             (this.state.contact_number)?
                                             <TouchableOpacity
                                             onPress={()=>Linking.openURL(`tel:${this.state.contact_number}`)}>
-                                                <Text style={styles.call_button}>Call Shipper</Text>
+                                                <Text style={styles.call_button_sad}>Call Shipper</Text>
                                             </TouchableOpacity>
                                             :
                                             <TouchableOpacity>
-                                                <Text style={styles.call_button}>Call Shipper</Text>
+                                                <Text style={styles.call_button_sad}>Call Shipper</Text>
                                             </TouchableOpacity>
                                         }
                                     </View>
-                                    <TouchableOpacity
+                                    
+                                    <TouchableOpacity style={{
+                                        flex:1,
+                                        }}
                                         onPress={() =>{Actions.FindTruck({
                                             origin:this.props.origin,
                                             destination:this.props.destination,
@@ -252,7 +262,7 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                                             // reference_number:this.props.reference_number,
                                             // comments: this.props.comments,
                                         })}}>
-                                        <Text style={styles.findtruck_button}>Find Truck</Text>
+                                        <Text style={styles.findtruck_button_sad}>Find Truck</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View>
@@ -267,7 +277,14 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                             </Body>
                         </CardItem>
                         <CardItem footer style={{backgroundColor:'none' }}>
-                            <View style={{flex: 1, flexDirection: 'column',justifyContent: "center", alignItems: "center"}}>
+                            <View style={{
+                                // backgroundColor:'red',
+                                // flex: 1, 
+                                // // flexDirection: 'column',
+                                // justifyContent: "center", 
+                                // alignItems: "center",
+                                // padding:0,
+                                }}>
                                {
                                    (is_owner)?
                                     <TouchableOpacity title="Show modal"
