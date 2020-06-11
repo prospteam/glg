@@ -85,7 +85,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             }).then(function (response) {
                 console.log('___________NEW2____xxxx_____________');
                 console.log(response.data);
-                
+
                 self.setState({response: response.data});
             })
             .catch(function (error) {
@@ -95,7 +95,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
             });
         // if(!this.props.redux_state.set_show_mini_loader)
             // this.props.set_show_mini_loader(false);
-            
+
     }
     componentDidMount() {
         this.search();
@@ -127,7 +127,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 autocomplete_title="Destination";
                 autocomplete_value=this.state.destination;
             }
-            return <AddressAutocomplete 
+            return <AddressAutocomplete
                         title={autocomplete_title}
                         value={autocomplete_value}
                         callback={value => {
@@ -146,9 +146,9 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         }
 
         let trucks_details;
-        
+
         if (this.state.response.length==0)
-        trucks_details = 
+        trucks_details =
             <Card>
                 <CardItem header>
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
@@ -242,23 +242,23 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                             <View style={styles.middle}>
                                 <Text style={styles.middle_text}>Origin</Text>
                                 {/* <TextInput style={styles.text_input} placeholderTextColor="#000" value = {this.props.redux_state.show_googleplaces} onChangeText={text => this.setState({ origin: text })}/> */}
-                                <TextInput 
-                                    style={styles.text_input} 
-                                    placeholder="Insert Origin." 
+                                <TextInput
+                                    style={styles.text_input}
+                                    placeholder="Insert Origin."
                                     listViewDisplayed={this.props.redux_state.show_googleplaces}
                                     value={this.state.origin}
                                     onFocus={text => this.setState({'input_address_origin':true})}
-                                /> 
+                                />
                                 <Text style={styles.middle_text}>Destination</Text>
-                                
-                                    <TextInput 
+
+                                    <TextInput
                                     style={styles.text_input}
-                                    //  placeholderTextColor="#000" 
-                                    placeholder="Insert Destination." 
+                                    //  placeholderTextColor="#000"
+                                    placeholder="Insert Destination."
                                     listViewDisplayed={this.props.redux_state.show_googleplaces}
                                     value={this.state.destination}
                                     onFocus={text => this.setState({'input_address_destination':true})}
-                                    /> 
+                                    />
                                     {/* <TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ destination: text })}/> */}
                                 <Text style={styles.middle_text}>Trailer Type</Text>
                                 <View style={{

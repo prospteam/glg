@@ -96,7 +96,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
         if(this.props.carrier_id==this.props.redux_session.user_data.user_id)
             is_owner=true;
 
-        
+
         console.log("this.propsnoo");
         console.log(this.props);
         return (
@@ -130,8 +130,8 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                     <Card containerStyle={{ flex:1,backgroundColor:'red',}}>
                         <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
                             <Text style={{color:'#fff'}}>
-                                {(this.props.origin)?this.props.origin+', '+this.props.origin_state:'(empty)'} 
-                                <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/> 
+                                {(this.props.origin)?this.props.origin+', '+this.props.origin_state:'(empty)'}
+                                <Icon style={styles.arrow_des} type="FontAwesome5" name="arrow-right"/>
                                 {(this.props.destination)?this.props.destination+', '+this.props.destination_state:'(empty)'}
                             </Text>
                         </CardItem>
@@ -156,36 +156,36 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                             <Body>
                                 <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                     <View style={{flex:1}}>
-                                        <Text style={{fontSize:10}}>Trailer Type</Text>
+                                        <Text style={{fontSize:12}}>Trailer Type</Text>
                                         <Text style={{fontSize:15,fontWeight: 'bold'}}>{(!this.props.trailer_type)?'(empty)':this.props.trailer_type}</Text>
                                     </View>
                                     <View style={{flex:1}}>
-                                        <Text style={{fontSize:10}}>Ship Date</Text>
+                                        <Text style={{fontSize:12}}>Ship Date</Text>
                                         <Text style={{fontSize:15,fontWeight: 'bold'}}>{(!this.props.date_available)?'(empty)':this.props.date_available}</Text>
                                     </View>
                                     <View style={{flex:1}}>
-                                        <Text style={{fontSize:10}}>Commodity</Text>
+                                        <Text style={{fontSize:12}}>Commodity</Text>
                                         <Text style={{fontSize:15,fontWeight: 'bold'}}>{(!this.props.commodity)?'(empty)':this.props.commodity}</Text>
                                     </View>
                                 </View>
                                 <View style={{flex: 1, flexDirection: 'row', margin:15}}/>
                                 <View style={{flex: 1, flexDirection: 'row', marginLeft:30}}>
                                     <View style={{flex:1}}>
-                                        <Text style={{fontSize:10}}>Weight</Text>
+                                        <Text style={{fontSize:12}}>Weight</Text>
                                         <Text style={{fontSize:15,fontWeight: 'bold'}}>{(!this.props.weight)?'(empty)':this.props.weight}</Text>
                                     </View>
                                     <View style={{flex:1}}>
-                                        <Text style={{fontSize:10}}>HeigCallht</Text>
+                                        <Text style={{fontSize:12}}>HeigCallht</Text>
                                         <Text style={{fontSize:15,fontWeight: 'bold'}}>{(!this.props.height)?'(empty)':this.props.height}</Text>
                                     </View>
                                     <View style={{flex:1}}>
-                                        <Text style={{fontSize:10}}>Width</Text>
+                                        <Text style={{fontSize:12}}>Width</Text>
                                         <Text style={{fontSize:15,fontWeight: 'bold'}}>{(!this.props.width)?'(empty)':this.props.width}</Text>
                                     </View>
                                 </View>
                                 <View style={{marginBottom: '10%'}} />
                                 <View style={{
-                                    flex: 1, 
+                                    flex: 1,
                                     flexDirection:'row',
                                     justifyContent:'space-between',
                                     }}>

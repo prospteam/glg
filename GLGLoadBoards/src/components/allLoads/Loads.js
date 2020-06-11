@@ -4,9 +4,9 @@ import { Text, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body, Vie
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import DatePicker from 'react-native-datepicker'
 import { Actions } from 'react-native-router-flux';
+import Dash from 'react-native-dash';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
-
 // MY IMPORTS
 import Screen from '../layout/Screen';
 import styles from '../../assets/styles/CommonStyles';
@@ -28,7 +28,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
             destination:'',
             trailer_type:'',
             date:'',
-            rate:'', 
+            rate:'',
             input_address_origin:false,
             input_address_destination:false,
         };
@@ -191,32 +191,39 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                             <CardItem>
                                 <Body>
                                 <View style={{flex: 1, flexDirection: 'row'}}>
-                                    <View>
-                                        <Text>Origin</Text>
-                                    </View>
-                                    <View style={{marginBottom:5}}>
-                                        <Text style={{fontSize:10, marginLeft: 60}}>Origin</Text>
-
-                                        <Text style={{fontSize:10, marginLeft: 60}}>{data.origin}</Text>
-                                    </View>
-                                        <View style={{textAlign:'right'}}>
-                                            <Text style={{fontSize:20, marginLeft: 80, fontWeight: 'bold'}}>${data.rate}</Text>
+                                    <View style={styles.iconCompleted}>
+                                        <View style={{flexDirection: 'column'}}>
+                                            <Text>Origin</Text>
+                                                <View style={{ margin: 2}} />
+                                                <View style={{flexDirection: 'row'}}>
+                                                    <Icon name='ios-checkmark-circle' style={{color:'#05426e', fontSize:15, marginLeft:20}}/>
+                                                    <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.origin}</Text>
+                                                </View>
+                                                <View style={{flexDirection: 'column', marginLeft:0}}>
+                                                    <Dash dashColor={'#57B9BB'} style={styles.dash}/>
+                                                    <Icon type="FontAwesome5" name='truck' style={{color:'orange', fontSize:15, marginLeft:20}}/>
+                                                    <Dash dashColor={'#57B9BB'} style={styles.dash}/>
+                                                </View>
+                                                <View style={{flexDirection: 'row'}}>
+                                                    <Icon name='ios-checkmark-circle' style={{color:'#05426e', fontSize:15, marginLeft:20}}/>
+                                                    <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.destination}</Text>
+                                                </View>
+                                                <View style={{ margin: 2}} />
+                                            <Text>Destination</Text>
+                                          </View>
+                                        </View>
+                                        <View style={{flex: 1,flexDirection: 'column', marginLeft:'50%'}}>
+                                            <View style={{textAlign:'right'}}>
+                                                <Text>Rates</Text>
+                                                <Text style={{fontSize:20,fontWeight:'bold'}}>${data.rate}</Text>
+                                            </View>
+                                            <View style={{ margin:20}}/>
+                                            <View style={{textAlign:'right'}}>
+                                                <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
+                                                <Text style={{fontSize:15}}>{data.trailer_type}</Text>
+                                            </View>
                                         </View>
                                     </View>
-                                    <View style={{borderBottomColor: '#004f6a',borderBottomWidth: 1, width:'80%'}} />
-                                        <View style={{flex: 1, flexDirection: 'row',marginTop:2}}>
-                                    <View>
-                                        <Text>Destination</Text>
-                                    </View>
-                                    <View style={{marginBottom:5}}>
-                                        <Text style={{fontSize:10, marginLeft: 20}}>Destination</Text>
-                                        <Text style={{fontSize:10, marginLeft: 20}}>{data.destination}</Text>
-                                    </View>
-                                    <View style={{textAlign:'right', marginLeft:70 }}>
-                                            <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck"/>
-                                            <Text style={{fontSize:10}}>{data.trailer_type}</Text>
-                                    </View>
-                                </View>
                                 </Body>
                             </CardItem>
                         </TouchableOpacity>

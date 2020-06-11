@@ -101,45 +101,45 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                 <View style={styles.contentBody}>
                             <Card defaultValue = {this.props.load_id}>
                             <CardItem header style={{backgroundColor:'#05426e',justifyContent: "center", alignItems: "center"}}>
-                                <Text defaultValue = {this.props.load_id}  style={{color:'#fff'}}>Edit Loads</Text> 
+                                <Text defaultValue = {this.props.load_id}  style={{color:'#fff'}}>Edit Loads</Text>
                             </CardItem>
                             <CardItem>
                             <Body>
 
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Origin</Text>
+                                          <Text style={{fontSize:12}}>Origin</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.origin} onChangeText={text => this.setState({ origin: text })}/>
                                       </View>
                                       <View  style={{margin:2}}/>
                                       <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Destination</Text>
+                                          <Text style={{fontSize:12}}>Destination</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.destination} onChangeText={text => this.setState({ destination: text })}/>
                                       </View>
                                   </View>
                                     <View  style={{marginBottom:15}}/>
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Date Available</Text>
+                                          <Text style={{fontSize:12}}>Date Available</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.date_available}  onChangeText={text => this.setState({ date_available: text })}/>
                                       </View>
                                   </View>
                                       <View  style={{marginBottom:15}}/>
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Trailer Type</Text>
+                                          <Text style={{fontSize:12}}>Trailer Type</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.trailer_type} onChangeText={text => this.setState({ trailer_type: text })}/>
                                       </View>
                                   </View>
                                       <View  style={{marginBottom:15}}/>
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>length</Text>
+                                          <Text style={{fontSize:12}}>length</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.length} onChangeText={text => this.setState({ length: text })}/>
                                       </View>
                                       <View style={{margin:2}}/>
                                       <View style={{flex:1}}>
-                                          <Text style={{fontSize:10}}>Width</Text>
+                                          <Text style={{fontSize:12}}>Width</Text>
                                           <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.width} onChangeText={text => this.setState({ width: text })}/>
                                       </View>
                                   </View>
