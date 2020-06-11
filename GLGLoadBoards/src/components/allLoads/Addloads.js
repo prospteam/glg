@@ -12,6 +12,7 @@ import Screen from '../layout/Screen';
 import styles from '../../assets/styles/CommonStyles';
 import AddressAutocomplete from '../AddressAutocomplete.js';
 
+
 //REDUX
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

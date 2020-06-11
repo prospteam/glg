@@ -26,13 +26,13 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
             load_id: '',
             origin:'',
             destination:'',
-            trailer_type:'', 
-            date:'', 
-            rate:'',
+            trailer_type:'',
+            date:'',
+            rate:'', 
             input_address_origin:false,
             input_address_destination:false,
         };
-        
+
 	}
     componentDidUpdate (){
         console.log("this.propsxxAA");
@@ -40,7 +40,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
         console.log("this.propsxxEE");
     }
     search(){
-        
+
 
         var origin_array = this.state.origin.split(", ");
         var destination_array = this.state.destination.split(", ");
@@ -90,7 +90,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
             }).then(function (response) {
                 console.log('___________NEW2____xxxx_____________');
                 console.log(response.data);
-                
+
                 self.setState({response: response.data});
             })
             .catch(function (error) {
@@ -100,7 +100,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
             });
         // if(!this.props.redux_state.set_show_mini_loader)
             // this.props.set_show_mini_loader(false);
-            
+
     }
     componentDidMount() {
         this.search();
@@ -117,7 +117,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                 autocomplete_title="Destination";
                 autocomplete_value=this.state.destination;
             }
-            return <AddressAutocomplete 
+            return <AddressAutocomplete
                         title={autocomplete_title}
                         value={autocomplete_value}
                         callback={value => {
@@ -135,7 +135,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                         }}/>
         }
         // if(this.state.input_address_destination){
-        //     return <AddressAutocomplete 
+        //     return <AddressAutocomplete
         //     title='Destination'
         //     callback={value => this.setState({
         //         'destination':value,
@@ -145,7 +145,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
 
         let load_details;
         if (this.state.response.length==0) {
-            load_details = 
+            load_details =
             <Card>
                 <CardItem header>
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
@@ -196,7 +196,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                                     </View>
                                     <View style={{marginBottom:5}}>
                                         <Text style={{fontSize:10, marginLeft: 60}}>Origin</Text>
-    
+
                                         <Text style={{fontSize:10, marginLeft: 60}}>{data.origin}</Text>
                                     </View>
                                         <View style={{textAlign:'right'}}>
@@ -237,27 +237,27 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                 <View style={styles.contentBody}>
                             <View style={styles.middle}>
                                 <Text style={styles.middle_text}>Origin</Text>
-                                <TextInput 
-                                style={styles.text_input} 
-                                // placeholderTextColor="#000" 
-                                placeholder="Insert Origin." 
+                                <TextInput
+                                style={styles.text_input}
+                                // placeholderTextColor="#000"
+                                placeholder="Insert Origin."
                                 listViewDisplayed={this.props.redux_state.show_googleplaces}
                                 value={this.state.origin}
                                 // value={(this.props.redux_state.autocomplete_text.state)?this.props.redux_state.autocomplete_text.state:'empty'}
                                 // onChangeText={text => this.setState({ origin: text })}
                                 onFocus={text => this.setState({'input_address_origin':true})}
                                 // onFocus={text => Actions.AddressAutocomplete()}
-                                /> 
+                                />
 
                                 <Text style={styles.middle_text}>Destination</Text>
-                                <TextInput 
+                                <TextInput
                                 style={styles.text_input}
-                                //  placeholderTextColor="#000" 
-                                placeholder="Insert Destination." 
+                                //  placeholderTextColor="#000"
+                                placeholder="Insert Destination."
                                 listViewDisplayed={this.props.redux_state.show_googleplaces}
                                 value={this.state.destination}
                                 onFocus={text => this.setState({'input_address_destination':true})}
-                                /> 
+                                />
                                 <Text style={styles.middle_text}>Trailer Type</Text>
                                 <View style={{
                                     ...styles.text_input,
@@ -303,7 +303,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
 
                                 {    /*<TextInput style={styles.text_input} placeholderTextColor="#000" onChangeText={text => this.setState({ trailer_type: text })}/>*/}
                                 <Text style={styles.middle_text}>Pick Up Date</Text>
-                                
+
                                 <DatePicker
                                     date={this.state.date}
                                     style={{width:'64%'}}
