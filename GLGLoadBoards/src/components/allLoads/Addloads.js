@@ -7,6 +7,7 @@ import styles from '../../assets/styles/CommonStyles';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 
+
 //REDUX
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -97,7 +98,7 @@ import { set_sampleString, set_is_logged } from '../../redux/actions/Actions';//
                                   <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
                                       <View style={{flex:1}}>
                                           <Text style={{fontSize:10}}>Origin</Text>
-                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#000" 
+                                          <TextInput style={styles.text_input_edit} placeholderTextColor="#000"
                                           onChangeText={text => this.setState({ origin: text })}
                                           onFocus={openAddressInput('hi')}
                                           />

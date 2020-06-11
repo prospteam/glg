@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Container, Content, Picker } from 'native-base';
-
+import axios from 'axios';
 // MY IMPORTS
 import bg_image from '../../assets/images/bg_image.png';
 import logo from '../../assets/images/logo.png';
@@ -18,18 +18,19 @@ class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fname: "",
+            first_name: "",
             username: "",
-            lname: "",
+            last_name: "",
             password: "",
             address: "",
-            emailadd: "",
-            cnumber: "",
-            usertype: "",
+            email: "",
+            contact_number: "",
+            user_type: "",
             mc_number: "",
             tax_id: "",
             company: "",
             register: "",
+            fk_userid:"",
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -46,13 +47,13 @@ class Register extends Component {
 
         // 		Array
         // 			(
-        // 				[fname] => John
+        // 				[first_name] => John
         // 				[username] => tcarrier2
-        // 				[lname] => Test Smith
+        // 				[last_name] => Test Smith
         // 				[password] => password
         // 				[address] => Test
-        // 				[emailadd] => asd@asd.asd
-        // 				[cnumber] => 0945609
+        // 				[email] => asd@asd.asd
+        // 				[contact_number] => 0945609
         // 				[usertype] => carrier
         // 				[mc_number] => 123
         // 				[tax_id] => 123
@@ -61,25 +62,25 @@ class Register extends Component {
         // )
 
         const inputs = {
-            fname: this.state.fname,
-            lname: this.state.username,
-            username: this.state.lname,
+            first_name: this.state.first_name,
+            last_name: this.state.username,
+            username: this.state.last_name,
             password: this.state.password,
             address: this.state.address,
-            emailadd: this.state.emailadd,
-            cnumber: this.state.cnumber,
-            usertype: this.state.usertype,
+            email: this.state.email,
+            contact_number: this.state.contact_number,
             mc_number: this.state.mc_number,
             tax_id: this.state.tax_id,
             company: this.state.company,
             register: "any_value",
         }
+        console.log( this.props.redux_session.user_data.user_id);
 
         // alert('getting action');
         // console.log("this.prop");
         console.log(this);
         console.log('Start');
-         axios.post(this.props.my_config.api_link +'/KROD/query_builder',inputs)
+         axios.post(this.props.my_config.api_link +'/KROD/register',inputs)
         //  axios.post(this.props.my_config.api_link +'/login/register/yes',inputs)
             .then(res => {
                 console.log(res.data);
@@ -112,12 +113,12 @@ class Register extends Component {
                                 style={styles.InputRegister}
                                 placeholderTextColor="#fff"
                                 placeholder="First Name"
-                                onChangeText={fname => this.setState({ fname})}
-                                value={this.state.fname}
+                                onChangeText={first_name => this.setState({ first_name})}
+                                value={this.state.first_name}
                             />
                             <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Last Name"
-                                onChangeText={lname => this.setState({ lname })}
-                                value={this.state.lname}
+                                onChangeText={last_name => this.setState({ last_name })}
+                                value={this.state.last_name}
                             />
                             <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="Username"
                             autoCapitalize = 'none'
@@ -137,20 +138,20 @@ class Register extends Component {
                                 onChangeText={address => this.setState({ address })}
                                 value={this.state.address}
                             /> */}
-                            <TextInput style={styles.InputRegister} 
+                            <TextInput style={styles.InputRegister}
                             autoCompleteType="tel"
                             textContentType="telephoneNumber"
                             keyboardType="phone-pad"
                             placeholderTextColor="#fff" placeholder="Contact Number"
-                                onChangeText={cnumber => this.setState({ cnumber })}
-                                value={this.state.cnumber}
+                                onChangeText={contact_number => this.setState({ contact_number })}
+                                value={this.state.contact_number}
                             />
-                            <TextInput style={styles.InputRegister} 
+                            <TextInput style={styles.InputRegister}
                             autoCompleteType="email"
-                            textContentType="emailAddress"
+                            textContentType="emailress"
                             placeholderTextColor="#fff" placeholder="Email Address"
-                                onChangeText={emailadd => this.setState({ emailadd })}
-                                value={this.state.emailadd}
+                                onChangeText={email => this.setState({ email })}
+                                value={this.state.email}
                             />
                             {/* <TextInput style={styles.InputRegister} placeholderTextColor="#fff" placeholder="shipper/carrier"
                                 onChangeText={usertype => this.setState({ usertype })}
@@ -167,7 +168,7 @@ class Register extends Component {
                                         value: null,
                                     }}
                                     // useNativeAndroidPickerStyle={false}
-                                    onValueChange={(value) => this.setState({usertype:value})}
+                                    onValueChange={(value) => this.setState({user_type:value})}
                                     items={[
                                         { label: 'Truck Owner/Carrier', value: 'carrier' },
                                         { label: 'Shipper', value: 'shipper' },
