@@ -186,6 +186,18 @@ class Editloads extends Component {
 									<View style={{ marginBottom: 15 }} />
 									<View style={{ flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center" }}>
 										<View style={{ flex: 1 }}>
+											<Text style={{ fontSize: 10 }}>Rate per mile</Text>
+											<TextInput
+												style={styles.text_input_edit}
+												// placeholderTextColor="#000"
+												onChangeText={text => this.setState({ rate: text })}
+												value={this.state.rate}
+											/>
+										</View>
+									</View>
+									<View style={{ marginBottom: 15 }} />
+									<View style={{ flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center" }}>
+										<View style={{ flex: 1 }}>
 											<Text style={{ fontSize: 10 }}>Pick Up Date</Text>
 											{/* <TextInput style={styles.text_input_edit} placeholderTextColor="#000" defaultValue = {this.props.date_available}  onChangeText={text => this.setState({ date_available: text })}/> */}
 											<DatePicker
