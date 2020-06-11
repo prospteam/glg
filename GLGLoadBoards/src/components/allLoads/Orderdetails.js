@@ -112,12 +112,17 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                     {
                         (is_owner)?
                         <TouchableOpacity onPress={() => Actions.Editloads({
+                                load_id:this.props.load_id,
                                 origin:this.props.origin,
                                 destination:this.props.destination,
+                                origin_state:this.props.origin_state,
+                                destination_state:this.props.destination_state,
                                 date_available:this.props.date_available,
                                 trailer_type: this.props.trailer_type,
                                 length: this.props.length,
                                 width:this.props.width,
+                                height: this.props.height,
+                                weight:this.props.weight,
                                 rate: this.props.rate,
                                 commodity: this.props.commodity,
                                 reference_number:this.props.reference_number,
@@ -187,8 +192,8 @@ import { set_sampleString, set_is_logged, set_show_mini_loader } from '../../red
                                         backgroundColor:'red',
                                     }}>
                                     <Mileage pasa_data={{
-                                                origin:this.props.origin+', '+this.props.origin+', USA',
-                                                destination:this.props.destination+', '+this.props.destination+', USA'
+                                                origin:this.props.origin+', '+this.props.origin_state+', USA',
+                                                destination:this.props.destination+', '+this.props.destination_state+', USA'
                                         }}/>
                                 </View>
                             </Body>

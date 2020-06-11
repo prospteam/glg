@@ -69,14 +69,6 @@ class Edittrucks extends Component {
 		});
 	}
 	render() {
-		// console.log('_______________xdxd_____________');
-		// console.log(MyFunctions.split_city_state_country(' Jjovyylle'));
-		// console.log('_______________xdxd_____________');
-
-		// ready this.state.origin
-		// and this.state.destination
-
-
 
 		if (this.state.is_address_input_open) {
 			var autocomplete_title = "";

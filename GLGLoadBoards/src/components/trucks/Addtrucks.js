@@ -81,6 +81,7 @@ class Addtrucks extends Component {
 			console.log("______________________");
 			console.log("______________________");
 			alert('success');
+			Actions.MyTrucks();
 		}).catch(function (err) {
 			console.log(err);
 			alert('TOO MANY ERRORS');

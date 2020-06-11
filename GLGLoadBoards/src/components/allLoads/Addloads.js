@@ -28,6 +28,8 @@ class Addloads extends Component {
 			trailer_type: '',
 			length: '',
 			width: '',
+			height: '',
+			weight: '',
 			rate: '',
 			commodity: '',
 			reference_number: '',
@@ -60,17 +62,21 @@ class Addloads extends Component {
 	}
 	_handlePress() {
 		axios.post('https://glgfreight.com/loadboard_app/api_mobile/Loads/addloads', {
-			origin: this.state.origin,
-			destination: this.state.destination,
+			origin: this.state.origin.split(", ")[0],
+			destination: this.state.destination.split(", ")[0],
+			origin_state: this.state.origin.split(", ")[1],
+			destination_state: this.state.destination.split(", ")[1],
 			date_available: this.state.date_available,
 			trailer_type: this.state.trailer_type,
 			length: this.state.length,
 			width: this.state.width,
+			height: this.state.height,
+			weight: this.state.weight,
 			rate: this.state.rate,
 			commodity: this.state.commodity,
 			reference_number: this.state.reference_number,
 			comments: this.state.comments,
-			bornforyou: "born to be wild",
+			shipper_id: this.props.redux_session.user_data.user_id,
 		}).then(function (response) {
 			console.log("______________________");
 			console.log("______________________");
@@ -78,6 +84,7 @@ class Addloads extends Component {
 			console.log("______________________");
 			console.log("______________________");
 			alert('success');
+			Actions.MyLoads();
 		}).catch(function (err) {
 			console.log(err);
 			alert('TOO MANY ERRORS');
@@ -150,14 +157,25 @@ class Addloads extends Component {
 													is_address_input_open: true,
 												})}
 												value={this.state.destination}
-												onChangeText={text => this.setState({ destination: text })}
 											/>
 										</View>
 									</View>
 									<View style={{ marginBottom: 15 }} />
 									<View style={{ flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center" }}>
 										<View style={{ flex: 1 }}>
-											<Text style={{ fontSize: 10 }}>Date Available</Text>
+											<Text style={{ fontSize: 10 }}>Rate per mile</Text>
+											<TextInput
+												style={styles.text_input_edit}
+												// placeholderTextColor="#000"
+												onChangeText={text => this.setState({ rate: text })}
+												value={this.state.rate}
+											/>
+										</View>
+									</View>
+									<View style={{ marginBottom: 15 }} />
+									<View style={{ flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center" }}>
+										<View style={{ flex: 1 }}>
+											<Text style={{ fontSize: 10 }}>Pick Up Date</Text>
 											{/* <TextInput style={styles.text_input_edit} placeholderTextColor="#000" onChangeText={text => this.setState({ date_available: text })} /> */}
 											<DatePicker
 												date={this.state.date_available}
@@ -200,6 +218,7 @@ class Addloads extends Component {
 												}}>
 													<RNPickerSelect
 														onValueChange={(text) => this.setState({ trailer_type: text })}
+														value={this.state.trailer_type}
 														items={[
 															{ value: 'AC', label: 'AC (Auto Carrier)' },
 															{ value: 'CRG', label: 'CRG (Cargo Van)' },
@@ -248,7 +267,18 @@ class Addloads extends Component {
 									</View>
 									<View style={{ marginBottom: 15 }} />
 									<View style={{ flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center" }}>
+										<View style={{ flex: 1 }}>
+											<Text style={{ fontSize: 10 }}>Height</Text>
+											<TextInput style={styles.text_input_edit} placeholderTextColor="#000" onChangeText={text => this.setState({ height: text })} />
+										</View>
 										<View style={{ margin: 2 }} />
+										<View style={{ flex: 1 }}>
+											<Text style={{ fontSize: 10 }}>Weight</Text>
+											<TextInput style={styles.text_input_edit} placeholderTextColor="#000" onChangeText={text => this.setState({ weight: text })} />
+										</View>
+									</View>
+									<View style={{ marginBottom: 15 }} />
+									<View style={{ flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center" }}>
 										<View style={{ flex: 1 }}>
 											<Text style={{ fontSize: 10 }}>Commodity</Text>
 											<TextInput style={styles.text_input_edit} placeholderTextColor="#000" onChangeText={text => this.setState({ commodity: text })} />
@@ -270,7 +300,7 @@ class Addloads extends Component {
 												placeholderTextColor="grey"
 												numberOfLines={10}
 												multiline={true}
-												onChangeText={text => this.setState({ reference_number: text })}
+												onChangeText={text => this.setState({ comments: text })}
 											/>
 										</View>
 									</View>
@@ -293,7 +323,8 @@ function reduxStateToProps(state) {
 	// const reduxState = (state) => {
 	// console.log('redaux stae  ', state)
 	return {
-		redux_state: state.redux_state
+		redux_state: state.redux_state,
+		redux_session: state.redux_session,
 		// si MyGlobalReducer kay makit an sa reducers folder
 	}
 }
