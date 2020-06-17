@@ -111,7 +111,9 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                                         <View style={{ margin: 2}} />
                                         <View style={{flexDirection: 'row'}}>
                                             <Icon name='ios-checkmark-circle' style={{color:'#05426e', fontSize:15, marginLeft:20}}/>
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.origin}</Text>
+                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>
+                                                {data.origin+", "+data.origin_state+", USA"}
+                                                </Text>
                                         </View>
                                         <View style={{flexDirection: 'column', marginLeft:0}}>
                                             <Dash dashColor={'#57B9BB'} style={styles.dash}/>
@@ -120,13 +122,22 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                                         </View>
                                         <View style={{flexDirection: 'row'}}>
                                             <Icon name='ios-checkmark-circle' style={{color:'#05426e', fontSize:15, marginLeft:20}}/>
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.destination}</Text>
+                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>
+                                                {data.destination+", "+data.destination_state+", USA"}
+                                                </Text>
                                         </View>
                                         <View style={{ margin: 2}} />
                                     <Text>Destination</Text>
                                   </View>
                                 </View>
-                                <View style={{flex: 1,flexDirection: 'column', marginLeft:'50%'}}>
+                                <View style={{flex: 1,flexDirection: 'column',
+                                // backgroundColor:'red',
+                                //  marginLeft:'30%'
+                                //  marginRight:0,
+                                 width:50,
+                                //  textAlign:'center',
+                                 alignItems:'center'
+                                 }}>
                                     <View style={{textAlign:'right'}}>
                                         <Text>Rates</Text>
                                         <Text style={{fontSize:20,fontWeight:'bold'}}>${data.rate}</Text>
