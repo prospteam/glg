@@ -132,14 +132,13 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                                     <Text>Destination</Text>
                                   </View>
                                 </View>
-                                        <View style={{flex: 1,flexDirection: 'column',
-                                        // backgroundColor:'red',
-                                        //  marginLeft:'30%'
-                                        //  marginRight:0,
-                                         width:50,
-                                        //  textAlign:'center',
-                                         alignItems:'center'
-                                         }}>
+                                <View style={{flex: 1,flexDirection: 'column',
+                                    // backgroundColor:'red',
+                                    //  marginLeft:'30%'
+                                    //  marginRight:0,
+                                    //  textAlign:'center',
+                                        alignItems:'center'
+                                        }}>
                                     <View style={{textAlign:'right'}}>
                                         <Text>Rates</Text>
                                         <Text style={{fontSize:20,fontWeight:'bold'}}>${data.rate}</Text>

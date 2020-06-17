@@ -5,6 +5,7 @@ import axios from 'axios';
 // MY IMPORTS
 import bg_image from '../../assets/images/bg_image.png';
 import logo from '../../assets/images/logo.png';
+import { Actions } from 'react-native-router-flux';
 
 // Redux Imports
 import { connect } from 'react-redux';
@@ -40,31 +41,10 @@ class Register extends Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-
-        //Alert.alert('hi'+this.state.first_name);
-        //console.log('hi');
-        //console.log(this.state);
-
-        // 		Array
-        // 			(
-        // 				[first_name] => John
-        // 				[username] => tcarrier2
-        // 				[last_name] => Test Smith
-        // 				[password] => password
-        // 				[address] => Test
-        // 				[email] => asd@asd.asd
-        // 				[contact_number] => 0945609
-        // 				[usertype] => carrier
-        // 				[mc_number] => 123
-        // 				[tax_id] => 123
-        // 				[company] => Test
-        // 				[register] =>
-        // )
-
         const inputs = {
             first_name: this.state.first_name,
-            last_name: this.state.username,
-            username: this.state.last_name,
+            last_name: this.state.last_name,
+            username: this.state.username,
             password: this.state.password,
             address: this.state.address,
             email: this.state.email,
@@ -72,31 +52,24 @@ class Register extends Component {
             mc_number: this.state.mc_number,
             tax_id: this.state.tax_id,
             company: this.state.company,
-            register: "any_value",
+            user_type: this.state.user_type,
         }
-        console.log( this.props.redux_session.user_data.user_id);
-
-        // alert('getting action');
-        // console.log("this.prop");
         console.log(this);
         console.log('Start');
-         axios.post(this.props.my_config.api_link +'/KROD/register',inputs)
-        //  axios.post(this.props.my_config.api_link +'/login/register/yes',inputs)
+        axios.post(this.props.my_config.api_link +'/KROD/register',inputs)
             .then(res => {
                 console.log(res.data);
                 if (res.data.status == "success") {
-                    alert('Success: ' + res.data.message);
+                    alert(res.data.message);
+                    Actions.Login();
                 }else{
                     alert('Error: ' + res.data.message);
                 }
-                console.log('End2');
             })
             .catch(err => {
-                console.log({status_:'error',err});
+                console.log(err);
                 alert('Error in API connection');
-                console.log('End2');
             });
-        console.log('End');
     }
 
     render() {
@@ -179,7 +152,7 @@ class Register extends Component {
                                 <Text style={styles.btnlogin}>Register</Text>
                             </TouchableOpacity>
                             <View style={{ justifyContent: "center", alignItems: "center" }}>
-                                <TouchableOpacity><Text style={{ color: "#fff" }}>Already a Member? Login Here</Text></TouchableOpacity>
+                            <TouchableOpacity onPress={() => Actions.Login()}><Text style={{ color: "#fff" }}>Already a Member? Login Here</Text></TouchableOpacity>
                             </View>
                         </View>
                     </ScrollView>

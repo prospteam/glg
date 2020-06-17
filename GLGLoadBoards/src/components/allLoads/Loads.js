@@ -220,7 +220,7 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                                         // backgroundColor:'red',
                                         //  marginLeft:'30%'
                                         //  marginRight:0,
-                                         width:50,
+                                        //  width:50,
                                         //  textAlign:'center',
                                          alignItems:'center'
                                          }}>

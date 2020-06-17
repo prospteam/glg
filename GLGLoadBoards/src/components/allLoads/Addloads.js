@@ -124,10 +124,10 @@ class Addloads extends Component {
 
 
 		return (
-			<Screen>
-				<Text style={styles.contentItem}>
+			<Screen title="Add Loads">
+				{/* <Text style={styles.contentItem}>
 					Add Loads
-				</Text>
+				</Text> */}
 				<ScrollView>
 					<View style={styles.contentBody}>
 						<Card>
