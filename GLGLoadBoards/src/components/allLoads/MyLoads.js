@@ -120,7 +120,9 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
                                             <Icon type="FontAwesome5" name='truck' style={{color:'orange', fontSize:15, marginLeft:20}}/>
                                             <Dash dashColor={'#57B9BB'} style={styles.dash}/>
                                         </View>
-                                        <View style={{flexDirection: 'row'}}>
+                                        <View style={{
+                                            flexDirection: 'row'
+                                            }}>
                                             <Icon name='ios-checkmark-circle' style={{color:'#05426e', fontSize:15, marginLeft:20}}/>
                                             <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>
                                                 {data.destination+", "+data.destination_state+", USA"}
