@@ -61,7 +61,7 @@ class Routes extends Component {
                     title="Info"
                     subtitle="You can setup the colors using the theme prop"
                 /> */}
-                
+
                 {/* <Spinner
                     visible={this.props.redux_state.show_mini_loader}
                     textContent={'Loading...'}
@@ -247,7 +247,7 @@ class Routes extends Component {
                         />
                     </Scene>
                 </Router>
-                
+
             </>
         );
     }
