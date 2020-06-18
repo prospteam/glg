@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 
-import Apptest from './components/test/Apptest.js';
+import App from '/App.js';
 // REDUX IMPORTS
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
-import {set_is_logged} from './redux/actions/Actions';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-
 
 // Dont just exist, live.
 class Routes extends Component {
@@ -17,12 +14,12 @@ class Routes extends Component {
                 <Router>
                     <Scene key="root">
                         <Scene
-                            key="Apptest"
-                            component={Apptest}
-                            title="Apptest"
+                            key="App"
+                            component={App}
+                            title="App"
                             {/* <hideNavBar*/}
                         />
-                    </Scene> 
+                    </Scene>
                 </Router>
             </>
         );

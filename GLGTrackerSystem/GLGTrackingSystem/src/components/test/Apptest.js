@@ -9,11 +9,9 @@ import { bindActionCreators } from 'redux';
  class Apptest extends Component {
     render() {
         return (
-			<Screen active_tab="Loads" title="Loads" >
                 <Text>hi</Text>
-			</Screen>
 		)
-        console.log(this.state.response);
+
     }
 }
 
