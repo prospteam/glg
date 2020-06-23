@@ -19,6 +19,20 @@ export default StyleSheet.create({
     height:50,
   },
   contentItem:{
-      margin:10,
+      margin:20,
   },
+  iconCompleted:{
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  vehicle_type:{
+    color:'orange'
+},
+trackinput:{
+  justifyContent: "center",
+   alignItems: "stretch",
+   borderBottomWidth : 1,
+   borderColor: "#24cea7",
+   width:'60%'
+},
 });
