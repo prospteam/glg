@@ -10,9 +10,9 @@ import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../red
  class App extends Component {
 
     render() {
-        return (
-            <Text>Hi this is a tetst only</Text>
-		)
+      return (
+        <Text>Hi this is a tetst only</Text>
+		  )
     }
 }
 

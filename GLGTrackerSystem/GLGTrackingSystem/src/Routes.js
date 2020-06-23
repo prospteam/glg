@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 
-import App from '/App.js';
+// OUR IMPORTS
+import { Apptest } from './components/test/Apptest';
+
 // REDUX IMPORTS
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
@@ -14,10 +16,10 @@ class Routes extends Component {
                 <Router>
                     <Scene key="root">
                         <Scene
-                            key="App"
-                            component={App}
-                            title="App"
-                            {/* <hideNavBar*/}
+                            key="Apptest"
+                            component={Apptest}
+                            title="Apptest"
+                            hideNavBar
                         />
                     </Scene>
                 </Router>

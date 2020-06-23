@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {ScrollView, TouchableOpacity, TextInput, Text } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import {Text } from 'react-native';
 
 //REDUX
 import { connect } from 'react-redux';

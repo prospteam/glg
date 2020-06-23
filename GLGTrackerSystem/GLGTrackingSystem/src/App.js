@@ -6,8 +6,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 var logo = require('./assets/images/logo_cropped.jpg');
 import Routes from './Routes';
 import allReducers from './redux/reducers/index.js';
-import AppPreloader from './components/AppPreloader';
-import Dashboard from './components/login/Dashboard';
+// import AppPreloader from './components/AppPreloader';
+// import Dashboard from './components/login/Dashboard';
 
 //REDUX APP
 import thunk from 'redux-thunk';
@@ -15,6 +15,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+
+
 
 YellowBox.ignoreWarnings([
 	'Warning: componentWillReceiveProps has been renamed',
@@ -70,14 +72,17 @@ export default class App extends Component {
 		},3000);
 	}
 	render() {
-		if (this.state.show_logo)
-			return <AppPreloader/>;
+		// if (this.state.show_logo)
+		// 	return <AppPreloader/>;
 
 		return (
 			<Provider store={store}>
 				<PersistGate loading={loader} persistor={persistor}>
 					{/* <Dashboard /> */}
-					<Routes />
+					{/* <Routes /> */}
+					<View>
+						<Text>Hi I am ready</Text>
+					</View>
 				</PersistGate>
 			</Provider>
 		)
