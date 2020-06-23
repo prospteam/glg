@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import {Text } from 'react-native';
+import {ScrollView, TouchableOpacity, TextInput, Text} from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { set_is_logged } from '../../redux/actions/Actions';
 
 //REDUX
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {api_link} from '../../libraries/MyConfigs.js';
 
- class Apptest extends Component {
+ class App extends Component {
+
     render() {
         return (
-                <Text>hi</Text>
+            <Text>Hello World</Text>
 		)
-
     }
 }
 
@@ -19,8 +22,7 @@ function reduxStateToProps(state) {
     // const reduxState = (state) => {
     // console.log('redaux stae  ', state)
     return {
-		redux_state: state.redux_state
-		// si MyGlobalReducer kay makit an sa reducers folder
+		redux_state: state.redux_state,
     }
 }
 
@@ -29,9 +31,7 @@ function reduxActionFunctions(dispatch){
     return bindActionCreators({
         set_sampleString : set_sampleString,
         set_is_logged : set_is_logged,
-        set_show_mini_loader : set_show_mini_loader,
 		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
  }
-
-export default connect(reduxStateToProps,reduxActionFunctions)(Apptest);
+export default connect(reduxStateToProps,reduxActionFunctions)(App);

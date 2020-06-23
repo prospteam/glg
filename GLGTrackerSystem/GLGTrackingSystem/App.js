@@ -1,40 +1,17 @@
-import React, { Component } from 'react';
-import {ScrollView, TouchableOpacity, TextInput, Text} from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import React from 'react';
+import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import bg_image from './src/assets/images/bg_image.png';
+import styles from './src/assets/styles/Commonstyles.js';
 
-//REDUX
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { set_show_mini_loader, set_sampleString, set_is_logged } from '../../redux/actions/Actions';// I included ang "index.js"
 
- class App extends Component {
+export default function App() {
+  return (
 
-    render() {
-      return (
-        <Text>Hi this is a tetst only</Text>
-		  )
-    }
+      <View>
+          <ImageBackground source={bg_image} style={{ width: '100%', height: '100%', marginBottom: 65, blurRadius: 5}}>
+
+          </ImageBackground>
+      </View>
+
+  );
 }
-
-// KUNG GUSTO MONG GAMITIN ANG REDUX STATES
-function reduxStateToProps(state) {
-    // const reduxState = (state) => {
-    // console.log('redaux stae  ', state)
-    return {
-		redux_state: state.redux_state,
-		redux_session: state.redux_session
-		// si MyGlobalReducer kay makit an sa reducers folder
-    }
-}
-
-// KUNG GUSTO MONG GAMITIN ANG REDUX FUNCTIONS(YUNG NASA ACTIONS)
-function reduxActionFunctions(dispatch){
-    return bindActionCreators({
-        set_sampleString : set_sampleString,
-        set_is_logged : set_is_logged,
-        set_show_mini_loader : set_show_mini_loader,
-		// si set_sampleString function kay makit an sa actions folder
-    },dispatch);
- }
-
-export default connect(reduxStateToProps,reduxActionFunctions)(App);
