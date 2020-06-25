@@ -2,8 +2,6 @@
 import axios from 'axios';
 
 // My Imports
-import firebase from "../../libraries/firestore.js";
-
 // alert('action loaded');
 
 export function set_autocomplete_text(payload){
