@@ -19,7 +19,7 @@ export default StyleSheet.create({
     height:50,
   },
   contentItem:{
-      margin:20,
+      margin:100,
   },
   iconCompleted:{
       flexDirection: 'column',
@@ -34,5 +34,12 @@ trackinput:{
    borderBottomWidth : 1,
    borderColor: "#24cea7",
    width:'60%'
+},
+dash:{
+   width:1,
+   height: 20,
+   top:0,
+   marginLeft:25,
+   flexDirection:'column',
 },
 });

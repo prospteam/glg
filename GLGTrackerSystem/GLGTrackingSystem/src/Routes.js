@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 
 // OUR IMPORTS
-import { Apptest } from './components/test/Apptest';
+import { Apptest } from './components/test/Apptest.js';
 
 // REDUX IMPORTS
 import { bindActionCreators } from 'redux';
@@ -35,4 +35,4 @@ function reduxActionFunctions(dispatch){
 		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
  }
-export default connect(redux_state_to_Props,reduxActionFunctions)(Routes);
+export default connect(reduxActionFunctions)(Routes);

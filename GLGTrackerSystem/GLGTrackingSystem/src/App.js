@@ -81,7 +81,7 @@ export default class App extends Component {
 					{/* <Dashboard /> */}
 					{/* <Routes /> */}
 					<View>
-						<Text>Hi I am ready</Text>
+						<Text>Hello World</Text>
 					</View>
 				</PersistGate>
 			</Provider>
