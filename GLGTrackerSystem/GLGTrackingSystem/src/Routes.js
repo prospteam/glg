@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 
 // OUR IMPORTS
-import { Apptest } from './components/test/Apptest';
+import { Apptest } from './components/test/Apptest.js';
 
 // REDUX IMPORTS
 import { bindActionCreators } from 'redux';

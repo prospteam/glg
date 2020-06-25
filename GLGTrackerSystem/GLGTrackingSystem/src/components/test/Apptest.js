@@ -12,7 +12,7 @@ import {api_link} from '../../libraries/MyConfigs.js';
 
     render() {
         return (
-            <Text>Hello World</Text>
+            <Text>Hello Worldss</Text>
 		)
     }
 }
