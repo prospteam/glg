@@ -19,7 +19,9 @@ export default StyleSheet.create({
     height:50,
   },
   contentItem:{
-      margin:100,
+      margin:10,
+      borderRadius: 5
+
   },
   iconCompleted:{
       flexDirection: 'column',
