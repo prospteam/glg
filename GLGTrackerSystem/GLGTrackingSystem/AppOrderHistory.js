@@ -35,7 +35,7 @@ export default function App() {
                           </View>
                       </View>
 
-                      <View style={{ margin: 10}} />
+                      <View style={{ margin: 10}} /> 
 
                       <View style={{flexDirection: 'row'}}>
                           <Icon name='ios-checkmark-circle' style={{color:'#24cea7', fontSize:20,}}/>

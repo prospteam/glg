@@ -4,6 +4,8 @@ import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
 // OUR IMPORTS
 import Apptest from './components/test/Apptest.js';
 import SampleComponent from './components/SampleComponent.js';
+import Guest from './components/guest/Guest.js';
+import Login from './components/guest/Login.js';
 import {set_is_logged} from './redux/actions/Actions'
 
 // REDUX IMPORTS
@@ -17,6 +19,18 @@ class Routes extends Component {
             <>
                 <Router>
                     <Scene key="root">
+                    <Scene
+                        key="Guest"
+                        component={Guest}
+                        title="Guest"
+                        hideNavBar
+                    />
+                    <Scene
+                        key="Login"
+                        component={Login}
+                        title="Login"
+                        hideNavBar
+                    />
                         <Scene
                             key="SampleComponent"
                             component={SampleComponent}
