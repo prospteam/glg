@@ -79,10 +79,10 @@ export default class App extends Component {
 			<Provider store={store}>
 				<PersistGate loading={loader} persistor={persistor}>
 					{/* <Dashboard /> */}
-					{/* <Routes /> */}
-					<View>
+					<Routes />
+					{/* <View>
 						<Text>Hello World</Text>
-					</View>
+					</View> */}
 				</PersistGate>
 			</Provider>
 		)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ScrollView, TouchableOpacity, TextInput, Text} from 'react-native';
+import { Text, View, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body  } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { set_is_logged } from '../../redux/actions/Actions';
 
@@ -10,11 +10,22 @@ import {api_link} from '../../libraries/MyConfigs.js';
 
  class App extends Component {
 
-    render() {
-        return (
-            <Text>Hello Worldss</Text>
-		)
-    }
+  render() {
+    return (
+      <View>
+        <Text>Hello Worldss</Text>
+        <Text> </Text>
+        <Button onPress={()=>Actions.Apptest()}>
+          <Text>Click me to app test</Text>
+          
+        </Button>
+        <Text> </Text>
+        <Button onPress={()=>Actions.SampleComponent()}>
+          <Text>Click me to app Sample Component</Text>
+        </Button>
+      </View>
+    )
+  }
 }
 
 // KUNG GUSTO MONG GAMITIN ANG REDUX STATES
@@ -29,7 +40,7 @@ function reduxStateToProps(state) {
 // KUNG GUSTO MONG GAMITIN ANG REDUX FUNCTIONS(YUNG NASA ACTIONS)
 function reduxActionFunctions(dispatch){
     return bindActionCreators({
-        set_sampleString : set_sampleString,
+        // set_sampleString : set_sampleString,
         set_is_logged : set_is_logged,
 		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
