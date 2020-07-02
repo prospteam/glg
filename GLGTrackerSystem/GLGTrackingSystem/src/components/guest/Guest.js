@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View, TextInput, Button, Image, Icon, ImageBackground, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import truck_bg from '../../assets/images/truck_bg.jpg';
 import logo from '../../assets/images/logo.png';

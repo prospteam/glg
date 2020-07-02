@@ -1,5 +1,5 @@
 // Dependencies di ka kaya kung wala siya
-import React, { Component } from 'react';
+import React { Component } from 'react';
 import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 // import { Icon } from 'native-base';
 import { Actions } from 'react-native-router-flux';
@@ -56,7 +56,7 @@ class Login extends Component {
         // var thatssss = this;
         // setTimeout(function(){
         //     thatssss.props.set_show_mini_loader(false);
-      
+
         //   }, 1000);
         // this.setState({is_load_test:true});
         // return
@@ -127,7 +127,7 @@ class Login extends Component {
             }
         })
         .catch(function (error) {
-            
+
             // that.setState({is_load_test:false});
             // that.props.set_show_mini_loader(false);
             console.log(error);
@@ -163,12 +163,12 @@ class Login extends Component {
                         <SCLAlertButton theme="default" onPress={this.handleClose}>OK</SCLAlertButton>
                         </SCLAlert>
                         <Text style={{ fontSize: 20, color: "#fff" }}>Login</Text>
-                        <TextInput 
-                            style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }} 
-                            placeholderTextColor="#fff" 
-                            placeholder="Enter Username" 
-                            returnKeyLabel={"next"} 
-                            onChangeText={text => this.setState({ username: text })} 
+                        <TextInput
+                            style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }}
+                            placeholderTextColor="#fff"
+                            placeholder="Enter Username"
+                            returnKeyLabel={"next"}
+                            onChangeText={text => this.setState({ username: text })}
                             autoCapitalize = 'none'
                         />
                         <TextInput  secureTextEntry={true} style={{ borderWidth: 2, margin: 10, width: '70%', color: "#fff", borderColor: "#009688", textAlign: 'center', borderRadius: 5, backgroundColor: "#164367" }} placeholderTextColor="#fff" placeholder="Enter Password" returnKeyLabel={"next"} onChangeText={text => this.setState({ password: text })} />
