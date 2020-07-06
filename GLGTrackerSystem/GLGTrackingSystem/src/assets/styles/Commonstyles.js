@@ -9,6 +9,7 @@ export default StyleSheet.create({
         width:'70%',
         height: 50,
         backgroundColor: '#00000082',
+        color: "#fff",
     },
     button: {
     alignItems: "center",
@@ -20,8 +21,7 @@ export default StyleSheet.create({
   },
   contentItem:{
       margin:10,
-      borderRadius: 5
-
+      borderRadius: 5,
   },
   iconCompleted:{
       flexDirection: 'column',

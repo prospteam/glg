@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Actions, Router, Scene, Drawer} from 'react-native-router-flux';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 
 // OUR IMPORTS
+import Login from './components/guest/Login.js';
 import Apptest from './components/test/Apptest.js';
 import SampleComponent from './components/SampleComponent.js';
 import Guest from './components/guest/Guest.js';
-import Login from './components/guest/Login.js';
+import Orderstatus from './components/guest/Orderstatus.js';
+import Shipper from './components/shipper/Shipper.js';
 import {set_is_logged} from './redux/actions/Actions'
 
 // REDUX IMPORTS
@@ -19,6 +22,7 @@ class Routes extends Component {
             <>
                 <Router>
                     <Scene key="root">
+
                     <Scene
                         key="Guest"
                         component={Guest}
@@ -29,8 +33,25 @@ class Routes extends Component {
                         key="Login"
                         component={Login}
                         title="Login"
+                        // initial={!this.props.redux_session.is_logged}
+                        title=""
                         hideNavBar
                     />
+
+                        <Scene
+                        key="Orderstatus"
+                        component={Login}
+                        title="Orderstatus"
+                        hideNavBar
+                        />
+
+                        <Scene
+                        key="Shipper"
+                        component={Shipper}
+                        title="Shipper"
+                        hideNavBar
+                        />
+
                         <Scene
                             key="SampleComponent"
                             component={SampleComponent}
@@ -50,10 +71,28 @@ class Routes extends Component {
     }
 }
 
+// Push yourself a little more, every day.
+// function redux_state_to_Props (state){
+//     console.log('_____________________________________');
+//     console.log('');
+//     console.log('      Router.js redux_session  ');
+//     console.log('');
+//     console.log('is_logged');
+//     console.log(state.redux_session.is_logged);
+//     console.log('');
+//     console.log('user_data');
+//     console.log(state.redux_session.user_data);
+//     console.log('');
+//     console.log('_____________________________________');
+//     return {
+//         redux_state: state.redux_state,
+//         redux_session: state.redux_session
+//     }
+// }
+
 // KUNG GUSTO MONG GAMITIN ANG REDUX FUNCTIONS(YUNG NASA ACTIONS)
 function reduxActionFunctions(dispatch){
     return bindActionCreators({
-        set_is_logged : set_is_logged
 		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
  }
