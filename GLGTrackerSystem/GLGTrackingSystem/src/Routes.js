@@ -22,40 +22,36 @@ class Routes extends Component {
             <>
                 <Router>
                     <Scene key="root">
-
-                    <Scene
-                        key="Guest"
-                        component={Guest}
-                        title="Guest"
-                        hideNavBar
-                    />
-                    <Scene
-                        key="Login"
-                        component={Login}
-                        title="Login"
-                        // initial={!this.props.redux_session.is_logged}
-                        title=""
-                        hideNavBar
-                    />
-
-                        <Scene
-                        key="Orderstatus"
-                        component={Login}
-                        title="Orderstatus"
-                        hideNavBar
-                        />
-
-                        <Scene
-                        key="Shipper"
-                        component={Shipper}
-                        title="Shipper"
-                        hideNavBar
-                        />
-
                         <Scene
                             key="SampleComponent"
                             component={SampleComponent}
                             title="SampleComponent"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Shipper"
+                            component={Shipper}
+                            title="Shipper"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Orderstatus"
+                            component={Login}
+                            title="Orderstatus"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Guest"
+                            component={Guest}
+                            title="Guest"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Login"
+                            component={Login}
+                            title="Login"
+                            // initial={!this.props.redux_session.is_logged}
+                            title=""
                             hideNavBar
                         />
                         <Scene
