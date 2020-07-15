@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
-import truck_bg from '../../assets/images/truck_bg.jpg';
-import logo from '../../assets/images/logo.png';
-import styles from '../../assets/styles/Commonstyles.js';
 import axios from 'axios';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import { Actions } from 'react-native-router-flux';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { set_is_logged } from '../../redux/actions/Actions';
+import { my_actions } from '../../redux/actions/Actions';
 
+// Out Imports
+import truck_bg from '../../assets/images/truck_bg.jpg';
+import logo from '../../assets/images/logo.png';
+import styles from '../../assets/styles/Commonstyles.js';
+import {test} from '../../libraries/MyFunctions.js';
 
 
 class Login extends Component {
-
     state = {
         color: 'white',
         show: false,
@@ -49,6 +50,9 @@ class Login extends Component {
         }
     }
     handleOpen = () => {
+        // alert();
+        this.props.my_actions('asd');
+        return;
         // this.props.set_show_mini_loader(true);
         // var thatssss = this;
         // setTimeout(function(){
@@ -57,6 +61,8 @@ class Login extends Component {
         //   }, 1000);
         // this.setState({is_load_test:true});
         // return
+
+
         if (this.state.usertype == 'carrier') {
 
         }
@@ -98,7 +104,6 @@ class Login extends Component {
             // that.props.set_show_mini_loader(false);
             // that.setState({is_load_test:false});
             if (response.data.length>0) {
-
                 that.setState({
                     show: true,
                     msg: "Successfully Login",
@@ -136,7 +141,9 @@ class Login extends Component {
           <View>
               <ImageBackground source={truck_bg} style={{ width: '100%', height: '100%', marginBottom: 65, blurRadius: 5}}>
                   <View style={{ marginTop: "30%", justifyContent: "center", alignItems: "center" }}>
-                      <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100, blurRadius: 5 }} />
+                      <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100,
+                  //  blurRadius: 5 
+                    }} />
                   </View>
                   <View  style={{justifyContent: "center", alignItems: "center", marginTop: 15}}>
                     <Text style={{color:'white', fontSize:25, fontFamily: 'sans-serif' }}>Login </Text>
@@ -145,13 +152,12 @@ class Login extends Component {
                             <TextInput style={styles.text_input} placeholder="Password"  placeholderTextColor="white" onChangeText={text => this.setState({ password: text })}/>
                   </View>
                   <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
-                    <TouchableOpacity style={styles.button} onPress={()=>{Actions.Shipper()}}>
+                    <TouchableOpacity style={styles.button} onPress={()=>{this.handleOpen()}}>
                         <Text style={{fontSize:18}}>Log In</Text>
                    </TouchableOpacity>
                   </View>
               </ImageBackground>
           </View>
-
       );
   }
 }
@@ -160,14 +166,14 @@ class Login extends Component {
 function redux_states_to_props(state){
    // console.log('redux_session  ', state.redux_session)
    return {
-       redux_session: state.redux_session
+    my_config: state.my_config
        // si MyGlobalReducer kay makit an sa reducers folder
    }
 }
 function redux_action_function_to_props(dispatch){
    return bindActionCreators({
-       set_is_logged : set_is_logged,
-       // set_user_data : set_user_data,
+        my_actions : my_actions,
+        // set_user_data : set_user_data,
    },dispatch);
 }
 export default connect(redux_states_to_props,redux_action_function_to_props)(Login);

@@ -17,7 +17,9 @@ export default function App() {
                </TouchableOpacity>
             </View>
               <View style={{ marginTop: "10%", justifyContent: "center", alignItems: "center" }}>
-                  <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100, blurRadius: 5 }} />
+                  <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100,
+                  //  blurRadius: 5 
+                    }} />
               </View>
               <View  style={{justifyContent: "center", alignItems: "center", marginTop: 50}}>
                 <Text style={{color:'white', fontSize:25, fontFamily: 'sans-serif' }}>GLG Tack a Load </Text>

@@ -23,6 +23,14 @@ class Routes extends Component {
                 <Router>
                     <Scene key="root">
                         <Scene
+                            key="Login"
+                            component={Login}
+                            title="Login"
+                            // initial={!this.props.redux_session.is_logged}
+                            title=""
+                            hideNavBar
+                        />
+                        <Scene
                             key="SampleComponent"
                             component={SampleComponent}
                             title="SampleComponent"
@@ -44,14 +52,6 @@ class Routes extends Component {
                             key="Guest"
                             component={Guest}
                             title="Guest"
-                            hideNavBar
-                        />
-                        <Scene
-                            key="Login"
-                            component={Login}
-                            title="Login"
-                            // initial={!this.props.redux_session.is_logged}
-                            title=""
                             hideNavBar
                         />
                         <Scene

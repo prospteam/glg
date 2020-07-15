@@ -4,6 +4,84 @@ import axios from 'axios';
 // My Imports
 // alert('action loaded');
 
+export function set(redux_state,payload){
+	
+	return{
+		type: redux_state,
+		payload: payload
+	}
+}
+
+export function my_actions(payload){
+
+	// axios({
+	// 	method: 'post',
+	// 	url: api_link+'KROD/query_builder',
+	// 	data: {
+	// 		"select": "*",
+	// 		"from": "glg_users",
+	// 		"where": {
+	// 			"username": "admin",
+	// 			// "username": this.state.username.toLowerCase(),
+	// 			// "other_password": this.state.password.toLowerCase()
+	// 		}
+	// 	}
+	//   }).then(function (response) {
+
+	// 	console.log('____________________________');
+	// 	console.log(response);
+	// 	// that.props.set_show_mini_loader(false);
+	// 	// that.setState({is_load_test:false});
+	// 	if (response.data.length>0) {
+	// 		// that.setState({
+	// 		// 	show: true,
+	// 		// 	msg: "Successfully Login",
+	// 		// 	theme: "success",
+	// 		// 	title: "Success!",
+	// 		// 	success_login: true
+	// 		// });
+	// 		// that.temp_user_data = response.data[0];
+	// 	} else {
+	// 		// that.setState({
+	// 		// 	show: true,
+	// 		// 	msg: "Incorrect Username and Password",
+	// 		// 	theme: "warning",
+	// 		// 	title: "Warning!"
+	// 		// });
+	// 	}
+	// })
+	// .catch(function (error) {
+
+	// 	// that.setState({is_load_test:false});
+	// 	// that.props.set_show_mini_loader(false);
+	// 	console.log(error);
+	// 	console.log("LAGI ERROR NA LAGI ALAM KO");
+	// });
+
+
+	alert(2);
+
+	console.log('____________________________');
+	// console.log(this.props.my_config);
+	
+	return (dispatch, asd) => {
+		// const {items} = getState().my_config;
+	
+		alert(asd().my_config.api_link);
+		alert("_____________");
+
+		// console.log('_____________ddd_______________');
+		// console.log(dispatch);
+		// return dispatch({
+		// 	type: "test",
+		// 	payload: payload
+		// });
+		return{
+			type: "test",
+			payload: payload
+		}
+	  }
+}
 export function set_autocomplete_text(payload){
 	return{
 		type: "set_autocomplete_text",
