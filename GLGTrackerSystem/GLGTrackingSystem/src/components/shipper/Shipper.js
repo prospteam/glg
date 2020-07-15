@@ -109,7 +109,7 @@ class Shipper extends Component {
             }
 
         return (
-            <ImageBackground source={bg_image} style={{ width: '100%', height: '100%', marginBottom: 65, blurRadius: 5}}>
+            <ImageBackground source={bg_image} style={{ width: '100%', height: '100%', marginBottom: 65,}}>
                 <ScrollView>
                     <View style={styles.contentBody}>
                         {load_details}
