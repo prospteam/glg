@@ -19,6 +19,15 @@ export default StyleSheet.create({
     borderRadius:20,
     height:50,
   },
+  contentBody:{
+      // marginLeft:1,
+      // marginRight:1, container Edges unta
+      paddingTop:'45%',
+      flex:1,
+      borderTopLeftRadius:30,
+      borderTopRightRadius:30,
+      padding:15,
+  },
   contentItem:{
       margin:10,
       borderRadius: 5,

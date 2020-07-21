@@ -142,7 +142,7 @@ class Login extends Component {
               <ImageBackground source={truck_bg} style={{ width: '100%', height: '100%', marginBottom: 65, blurRadius: 5}}>
                   <View style={{ marginTop: "30%", justifyContent: "center", alignItems: "center" }}>
                       <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100,
-                  //  blurRadius: 5 
+                  //  blurRadius: 5
                     }} />
                   </View>
                   <View  style={{justifyContent: "center", alignItems: "center", marginTop: 15}}>
@@ -152,7 +152,7 @@ class Login extends Component {
                             <TextInput style={styles.text_input} placeholder="Password"  placeholderTextColor="white" onChangeText={text => this.setState({ password: text })}/>
                   </View>
                   <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
-                    <TouchableOpacity style={styles.button} onPress={()=>{this.handleOpen()}}>
+                    <TouchableOpacity style={styles.button} onPress={()=>{Actions.Carrier()} }>
                         <Text style={{fontSize:18}}>Log In</Text>
                    </TouchableOpacity>
                   </View>
@@ -165,6 +165,8 @@ class Login extends Component {
 
 function redux_states_to_props(state){
    // console.log('redux_session  ', state.redux_session)
+   // for login button
+     // <TouchableOpacity style={styles.button} onPress={()=>{this.handleOpen()}}>
    return {
     my_config: state.my_config
        // si MyGlobalReducer kay makit an sa reducers folder
