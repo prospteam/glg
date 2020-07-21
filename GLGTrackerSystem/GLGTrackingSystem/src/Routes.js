@@ -23,6 +23,12 @@ class Routes extends Component {
                 <Router>
                     <Scene key="root">
                         <Scene
+                            key="Guest"
+                            component={Guest}
+                            title="Guest"
+                            hideNavBar
+                        />
+                        <Scene
                             key="SampleComponent"
                             component={SampleComponent}
                             title="SampleComponent"
@@ -35,15 +41,15 @@ class Routes extends Component {
                             hideNavBar
                         />
                         <Scene
-                            key="Orderstatus"
-                            component={Login}
-                            title="Orderstatus"
-                            hideNavBar
-                        />
-                        <Scene
                             key="Guest"
                             component={Guest}
                             title="Guest"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Orderstatus"
+                            component={Orderstatus}
+                            title="Orderstatus"
                             hideNavBar
                         />
                         <Scene
