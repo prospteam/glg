@@ -44,4 +44,11 @@ dash:{
    marginLeft:25,
    flexDirection:'column',
 },
+dash1:{
+   width:1,
+   height: 50,
+   top:0,
+   flexDirection:'column',
+},
+
 });
