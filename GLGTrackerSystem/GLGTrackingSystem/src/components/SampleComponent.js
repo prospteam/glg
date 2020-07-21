@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body  } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-// import Screen from '../layout/Screen';
+import MyLayout from './layout/MyLayout';
 // import styles from '../../assets/styles/CommonStyles';
 
 //REDUX
@@ -28,19 +28,21 @@ import { bindActionCreators } from 'redux';
 		// console.log(this.props.redux_state.sampleString)
 
         return (
-			<View>
-			  <Text>Hello From Sample Compoopnpnnent</Text>
-			  <Text> </Text>
-			  <Button onPress={()=>Actions.Apptest()}>
-				<Text>Click me to app test</Text>
+			<Layout>
+				<View>
+				<Text>Hello From Sample Compoopnpnnent</Text>
+				<Text> </Text>
+				<Button onPress={()=>Actions.Apptest()}>
+					<Text>Click me to app test</Text>
+					
+				</Button>
 				
-			  </Button>
-			  
-			  <Text> </Text>
-			  <Button onPress={()=>Actions.SampleComponent()}>
-				<Text>Click me to app Sample Component</Text>
-			  </Button>
-			</View>
+				<Text> </Text>
+				<Button onPress={()=>Actions.SampleComponent()}>
+					<Text>Click me to app Sample Component</Text>
+				</Button>
+				</View>
+			</Layout>
 		)
     }
 }

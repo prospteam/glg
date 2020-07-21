@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import { SafeAreaView,ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Container, Header, Content, Card, Body, CardItem, Footer, FooterTab, Button, Icon, Title, Text, View,StyleProvider  } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Spinner from 'react-native-loading-spinner-overlay';
+// import Spinner from 'react-native-loading-spinner-overlay';
 
 // Out Imports
 import getTheme from '../../../native-base-theme/components';
 import material from '../../../native-base-theme/variables/material';
 import my_styles from '../../assets/styles/MyStyles';
-import {set_is_logged} from '../../redux/actions/Actions';
+// import {set_is_logged} from '../../redux/actions/Actions';
 import logo_square from '../../assets/images/logo_square.jpg';
 import {to_upper} from '../../libraries/MyFunctions.js';
 
- class Layout extends Component {
+ class MyLayout extends Component {
     constructor(props) {
 		super(props)
     }
@@ -27,14 +27,14 @@ import {to_upper} from '../../libraries/MyFunctions.js';
 			<StyleProvider style={getTheme(material)}>
 				<Container>
 					<Content contentContainerStyle={{flex:1}}>
-						<SafeAreaView  style={styles.contentContainer}>
+						<SafeAreaView  style={my_styles.contentContainer}>
 							<ScrollView contentContainerStyle={{flex:1}}>
 								{/* <Spinner
 									visible={this.props.redux_state.show_mini_loader}
 									textContent={'Loading...'}
 									textStyle={{color: '#FFF'}}
 								/> */}
-								<View style={styles.contentHeader}>
+								<View style={my_styles.contentHeader}>
 									<View style={{
 										flexDirection:'row',
 										padding:15,
@@ -50,7 +50,7 @@ import {to_upper} from '../../libraries/MyFunctions.js';
 											overflow: 'hidden',
 											}} 
 											source={logo_square} />
-										<Text style={styles.ligtFont}>
+										<Text style={my_styles.ligtFont}>
 											{
 											(this.props.redux_session.user_data)?
 											to_upper(this.props.redux_session.user_data.user_type)
@@ -59,17 +59,17 @@ import {to_upper} from '../../libraries/MyFunctions.js';
 											}
 										</Text>
 										<View style={{alignItems: 'flex-end',flex:1,flexDirection:'row-reverse'}}>
-											<Icon onPress={ () => this.end_session()} style={{...styles.ligtFont}} name='exit' />
-											{/* <Icon onPress={ () => this.end_session()} style={{...styles.ligtFont}} name='person' /> */}
+											<Icon onPress={ () => this.end_session()} style={{...my_styles.ligtFont}} name='exit' />
+											{/* <Icon onPress={ () => this.end_session()} style={{...my_styles.ligtFont}} name='person' /> */}
 										</View>
 									</View>
 								</View>
-								<View style={styles.contentBody}>
+								<View style={my_styles.contentBody}>
 									<View style={{
 										flexDirection:'row',
 										padding:10,
 									}}>
-										<Text style={[styles.darkFont,styles.headerBigger]}>
+										<Text style={[my_styles.darkFont,my_styles.headerBigger]}>
 											{(this.props.title)?this.props.title:""}
 										</Text>
 										{this.props.side_header_buttons}
@@ -95,36 +95,36 @@ import {to_upper} from '../../libraries/MyFunctions.js';
 					<Footer>
 						<FooterTab style={{backgroundColor: '#fff'}}>
 							{/* <Button
-							style={styles.footertab_button}
+							style={my_styles.footertab_button}
 							onPress= {(active_tab!="Dashboard")?() => Actions.Dashboard():null}
 							>
-								<View style={(active_tab=="Dashboard")?styles.footertab_active_indicator:null} />
+								<View style={(active_tab=="Dashboard")?my_styles.footertab_active_indicator:null} />
 								<Icon
-									style={(active_tab=="Dashboard")?styles.footertab_icon_active:null}
+									style={(active_tab=="Dashboard")?my_styles.footertab_icon_active:null}
 									type="FontAwesome" name="line-chart"
 								/>
 							</Button> */}
-							<Button style={styles.footertab_button}
+							<Button style={my_styles.footertab_button}
 							onPress= {(active_tab!="Loads")?() => this.go_to_loads():null}
                             direction='horizontal'
 							>
-								<View style={(active_tab=="Loads")?styles.footertab_active_indicator:null} />
+								<View style={(active_tab=="Loads")?my_styles.footertab_active_indicator:null} />
 								<Icon
-									style={(active_tab=="Loads")?styles.footertab_icon_active:null}
+									style={(active_tab=="Loads")?my_styles.footertab_icon_active:null}
 									type="FontAwesome5" name="dolly"
 								/>
 							</Button>
-							<Button style={styles.footertab_button}
+							<Button style={my_styles.footertab_button}
 							onPress= {(active_tab!="Trucks")?() => this.go_to_trucks():null}
 							>
-								<View style={(active_tab=="Trucks")?styles.footertab_active_indicator:null} />
+								<View style={(active_tab=="Trucks")?my_styles.footertab_active_indicator:null} />
 								<Icon
-									style={(active_tab=="Trucks")?styles.footertab_icon_active:null}
+									style={(active_tab=="Trucks")?my_styles.footertab_icon_active:null}
 									type="FontAwesome5" name="truck"
 								/>
 							</Button>
-							{/* <Button style={styles.footertab_button}>
-								<View style={(false)?styles.footertab_active_indicator:null} />
+							{/* <Button style={my_styles.footertab_button}>
+								<View style={(false)?my_styles.footertab_active_indicator:null} />
 								<Icon name="person"/>
 							</Button> */}
 						</FooterTab>
@@ -149,9 +149,9 @@ function redux_state_to_Props (state){
 
 function reduxActionFunctions(dispatch){
 	return bindActionCreators({
-		set_is_logged : set_is_logged,
+		// set_is_logged : set_is_logged,
 		// set_show_mini_loader : set_show_mini_loader,
 	},dispatch);
 }
 
-export default connect(redux_state_to_Props,reduxActionFunctions)(Layout);
+export default connect(redux_state_to_Props,reduxActionFunctions)(MyLayout);
