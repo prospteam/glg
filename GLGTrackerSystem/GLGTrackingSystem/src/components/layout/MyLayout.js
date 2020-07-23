@@ -1,157 +1,41 @@
 import React, { Component } from 'react';
-import { SafeAreaView,ScrollView, TouchableOpacity, Image } from 'react-native';
-import { Container, Header, Content, Card, Body, CardItem, Footer, FooterTab, Button, Icon, Title, Text, View,StyleProvider  } from 'native-base';
-import { Actions } from 'react-native-router-flux';
+import {ScrollView, TouchableOpacity, TextInput, ImageBackground, Image } from 'react-native';
+import { Text, Form, Item, Input, Label, Icon, Button, Card, CardItem, Body, View } from 'native-base';
+// import Dash from 'react-native-dash';
+
+// import { Actions } from 'react-native-router-flux';
+// import truck_bg from '../../assets/images/truck_bg.jpg';
+// import logo from '../../assets/images/logo.png';
+import bg_image from '../../assets/images/bg_image.png';
+// import styles from '../../assets/styles/Commonstyles.js';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import Spinner from 'react-native-loading-spinner-overlay';
+import { set_is_logged } from '../../redux/actions/Actions';
 
-// Out Imports
-import getTheme from '../../../native-base-theme/components';
-import material from '../../../native-base-theme/variables/material';
-import my_styles from '../../assets/styles/MyStyles';
-// import {set_is_logged} from '../../redux/actions/Actions';
-import logo_square from '../../assets/images/logo_square.jpg';
-import {to_upper} from '../../libraries/MyFunctions.js';
-
- class MyLayout extends Component {
-    constructor(props) {
-		super(props)
-    }
-
-	//TEst
-    render() {
-		const { active_tab, title } = this.props;
-
+class MyLayout extends Component {
+    render(){
         return (
-			<StyleProvider style={getTheme(material)}>
-				<Container>
-					<Content contentContainerStyle={{flex:1}}>
-						<SafeAreaView  style={my_styles.contentContainer}>
-							<ScrollView contentContainerStyle={{flex:1}}>
-								{/* <Spinner
-									visible={this.props.redux_state.show_mini_loader}
-									textContent={'Loading...'}
-									textStyle={{color: '#FFF'}}
-								/> */}
-								<View style={my_styles.contentHeader}>
-									<View style={{
-										flexDirection:'row',
-										padding:15,
-										paddingLeft:20,
-										paddingRight:20,
-										justifyContent: 'center',
-										alignItems: 'center'
-									}}>
-										<Image style={{
-											height: 30,
-											width: 30,
-											borderRadius: 40,
-											overflow: 'hidden',
-											}} 
-											source={logo_square} />
-										<Text style={my_styles.ligtFont}>
-											{
-											(this.props.redux_session.user_data)?
-											to_upper(this.props.redux_session.user_data.user_type)
-											:
-											"Not available"
-											}
-										</Text>
-										<View style={{alignItems: 'flex-end',flex:1,flexDirection:'row-reverse'}}>
-											<Icon onPress={ () => this.end_session()} style={{...my_styles.ligtFont}} name='exit' />
-											{/* <Icon onPress={ () => this.end_session()} style={{...my_styles.ligtFont}} name='person' /> */}
-										</View>
-									</View>
-								</View>
-								<View style={my_styles.contentBody}>
-									<View style={{
-										flexDirection:'row',
-										padding:10,
-									}}>
-										<Text style={[my_styles.darkFont,my_styles.headerBigger]}>
-											{(this.props.title)?this.props.title:""}
-										</Text>
-										{this.props.side_header_buttons}
-									</View>
-									{/* <View style={{
-										height:30,
-										backgroundColor:'red',
-										flexDirection:"row",
-										justifyContent:"space-around"
-									}}>
-										<TouchableOpacity>
-											<Text>Load Mapses</Text>
-										</TouchableOpacity>
-										<TouchableOpacity>
-											<Text>Load Mapses</Text>
-										</TouchableOpacity>
-									</View> */}
-									{this.props.children}
-								</View>
-							</ScrollView>
-						</SafeAreaView>
-					</Content>
-					<Footer>
-						<FooterTab style={{backgroundColor: '#fff'}}>
-							{/* <Button
-							style={my_styles.footertab_button}
-							onPress= {(active_tab!="Dashboard")?() => Actions.Dashboard():null}
-							>
-								<View style={(active_tab=="Dashboard")?my_styles.footertab_active_indicator:null} />
-								<Icon
-									style={(active_tab=="Dashboard")?my_styles.footertab_icon_active:null}
-									type="FontAwesome" name="line-chart"
-								/>
-							</Button> */}
-							<Button style={my_styles.footertab_button}
-							onPress= {(active_tab!="Loads")?() => this.go_to_loads():null}
-                            direction='horizontal'
-							>
-								<View style={(active_tab=="Loads")?my_styles.footertab_active_indicator:null} />
-								<Icon
-									style={(active_tab=="Loads")?my_styles.footertab_icon_active:null}
-									type="FontAwesome5" name="dolly"
-								/>
-							</Button>
-							<Button style={my_styles.footertab_button}
-							onPress= {(active_tab!="Trucks")?() => this.go_to_trucks():null}
-							>
-								<View style={(active_tab=="Trucks")?my_styles.footertab_active_indicator:null} />
-								<Icon
-									style={(active_tab=="Trucks")?my_styles.footertab_icon_active:null}
-									type="FontAwesome5" name="truck"
-								/>
-							</Button>
-							{/* <Button style={my_styles.footertab_button}>
-								<View style={(false)?my_styles.footertab_active_indicator:null} />
-								<Icon name="person"/>
-							</Button> */}
-						</FooterTab>
-					</Footer>
-				</Container>
-			</StyleProvider>
-        );
+			<View>
+				<ImageBackground source={bg_image} style={{ width: '100%', height: '100%', marginBottom: 65, blurRadius: 5}}>
+					{this.props.children}
+				</ImageBackground>
+			</View>
+		);
     }
 }
 
-
-// Push yourself a little more, every day.
-
-function redux_state_to_Props (state){
-	console.log("Sceen ni ha");
-	console.log(state.redux_session.user_data);
-    return {
-        redux_session: state.redux_session,
-        redux_state: state.redux_state
-    }
+function redux_states_to_props(state){
+   // console.log('redux_session  ', state.redux_session)
+   return {
+       redux_session: state.redux_session
+       // si MyGlobalReducer kay makit an sa reducers folder
+   }
 }
-
-function reduxActionFunctions(dispatch){
-	return bindActionCreators({
-		// set_is_logged : set_is_logged,
-		// set_show_mini_loader : set_show_mini_loader,
-	},dispatch);
+function redux_action_function_to_props(dispatch){
+   return bindActionCreators({
+       set_is_logged : set_is_logged,
+       // set_user_data : set_user_data,
+   },dispatch);
 }
-
-export default connect(redux_state_to_Props,reduxActionFunctions)(MyLayout);
+export default connect(redux_states_to_props,redux_action_function_to_props)(MyLayout);

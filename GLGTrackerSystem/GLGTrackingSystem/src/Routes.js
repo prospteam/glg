@@ -5,7 +5,7 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 // OUR IMPORTS
 import Login from './components/guest/Login.js';
 import Apptest from './components/test/Apptest.js';
-import SampleComponent from './components/SampleComponent.js';
+import SampleComponent from './components/test/SampleComponent.js';
 import Guest from './components/guest/Guest.js';
 import Orderstatus from './components/guest/Orderstatus.js';
 import Shipper from './components/shipper/Shipper.js';
@@ -23,27 +23,27 @@ class Routes extends Component {
                 <Router>
                     <Scene key="root">
                         <Scene
-                            key="Guest"
-                            component={Guest}
-                            title="Guest"
-                            hideNavBar
-                        />
-                        <Scene
                             key="SampleComponent"
                             component={SampleComponent}
                             title="SampleComponent"
                             hideNavBar
                         />
                         <Scene
-                            key="Shipper"
-                            component={Shipper}
-                            title="Shipper"
-                            hideNavBar
-                        />
-                        <Scene
                             key="Orderstatus"
                             component={Orderstatus}
                             title="Orderstatus"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Guest"
+                            component={Guest}
+                            title="Guest"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Shipper"
+                            component={Shipper}
+                            title="Shipper"
                             hideNavBar
                         />
                         <Scene

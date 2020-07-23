@@ -10,6 +10,7 @@ import styles from '../../assets/styles/Commonstyles.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { set_is_logged } from '../../redux/actions/Actions';
+import MyLayout from '../layout/MyLayout';
 
 class Shipper extends Component {
     constructor(props){
@@ -26,7 +27,7 @@ class Shipper extends Component {
 }
     render(){
         return (
-            <ImageBackground source={bg_image} style={{ width: '100%', height: '100%', marginBottom: 65,}}>
+            <MyLayout>
                 <ScrollView>
                     <View style={styles.contentBody}>
                     <Card>
@@ -80,7 +81,7 @@ class Shipper extends Component {
                     </Card>
                     </View>
                 </ScrollView>
-            </ImageBackground>
+                </MyLayout>
 
         );
 
