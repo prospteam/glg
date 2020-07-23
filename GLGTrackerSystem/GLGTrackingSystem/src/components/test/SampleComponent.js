@@ -34,9 +34,7 @@ import { bindActionCreators } from 'redux';
 				<Text> </Text>
 				<Button onPress={()=>Actions.Apptest()}>
 					<Text>Click me to app test</Text>
-					
 				</Button>
-				
 				<Text> </Text>
 				<Button onPress={()=>Actions.SampleComponent()}>
 					<Text>Click me to app Sample Component</Text>
