@@ -35,7 +35,6 @@ class Carrier extends Component {
                             <View style={{ flex: 1, flexDirection: 'row'}}>
                                     <Text style={{color:'#fff', flex:1}}>#001</Text>
                                     <RNPickerSelect
-                                            onValueChange={(text) => this.setState({ trailer_type: text })}
                                             items={[
                                                     { value: 'pending', label: 'Pending' },
                                                     { value: 'onhold', label: 'On-Hold'},
