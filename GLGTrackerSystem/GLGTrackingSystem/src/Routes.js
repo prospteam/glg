@@ -9,6 +9,7 @@ import SampleComponent from './components/test/SampleComponent.js';
 import Guest from './components/guest/Guest.js';
 import Orderstatus from './components/guest/Orderstatus.js';
 import Shipper from './components/shipper/Shipper.js';
+import Carrier from './components/carrier/Carrier.js';
 import {set_is_logged} from './redux/actions/Actions'
 
 // REDUX IMPORTS
