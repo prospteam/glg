@@ -22,17 +22,33 @@ class Shipper extends Component {
     destination:'',
     trailer_type:'',
     rate:'',
-
     };
 }
+        componentDidMount() {
+            var self = this;
+            console.log('____________________________');
+            console.log('https://glgfreight.com/loadboard_app/api_mobile/Loads/my_loads/');
+            axios({
+                method: 'get',
+                url: 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads',
+            }).then(function (response) {
+                self.setState({response: response.data});
+            })
+            .catch(function (error) {
+                console.log(error);
+                console.log("LAGI ERROR NA LAGI ALAM KO");
+            });
+        }
+
     render(){
-        return (
-            <MyLayout>
-                <ScrollView>
-                    <View style={styles.contentBody}>
-                    <Card>
+        let load_details;
+
+        if (this.state.response.length <= 0) {
+            load_details = this.state.response.map((data,index) =>{
+                return(
+                    <Card key={index}>
                         <CardItem header style={{backgroundColor:'#1fb599' }}>
-                            <Text style={{color:'#fff'}}>#321</Text>
+                            <Text style={{color:'#fff'}}>{data.load_id}</Text>
                         </CardItem>
                         <CardItem>
                         <Body>
@@ -43,7 +59,7 @@ class Shipper extends Component {
                                         <View style={{ margin: 2}} />
                                         <View style={{flexDirection: 'row'}}>
                                             <Icon name='ios-checkmark-circle' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>California, CA </Text>
+                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.origin} </Text>
                                         </View>
                                         <View style={{flexDirection: 'column', marginLeft:0}}>
                                             <Dash dashColor={'#57B9BB'} style={styles.dash} />
@@ -54,7 +70,7 @@ class Shipper extends Component {
                                                     flexDirection: 'row'
                                                     }}>
                                             <Icon name='heart' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>Acme, CA
+                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.destination}
                                             </Text>
                                         </View>
                                         <View style={{ margin: 2}} />
@@ -67,18 +83,28 @@ class Shipper extends Component {
                                          }}>
                                     <View style={{textAlign:'right'}}>
                                         <Text>Rates</Text>
-                                        <Text style={{fontSize:20,fontWeight:'bold'}}>$50.00</Text>
+                                        <Text style={{fontSize:20,fontWeight:'bold'}}>{data.rate}</Text>
                                     </View>
                                     <View style={{ margin:20}} />
                                     <View style={{textAlign:'right'}}>
                                         <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck" />
-                                        <Text style={{fontSize:15}}>AB</Text>
+                                        <Text style={{fontSize:15}}>{data.trailer_type}</Text>
                                     </View>
                                 </View>
                             </View>
                         </Body>
                         </CardItem>
                     </Card>
+
+                )
+            })
+        }
+
+        return (
+            <MyLayout>
+                <ScrollView>
+                    <View style={styles.contentBody}>
+                        {load_details}
                     </View>
                 </ScrollView>
                 </MyLayout>

@@ -25,6 +25,7 @@ class Carrier extends Component {
 
     };
 }
+
     render(){
         return (
             <ImageBackground source={bg_image} style={{ width: '100%', height: '100%', marginBottom: 65,}}>
@@ -34,14 +35,10 @@ class Carrier extends Component {
                         <CardItem header style={{backgroundColor:'#1fb599' }}>
                             <View style={{ flex: 1, flexDirection: 'row'}}>
                                     <Text style={{color:'#fff', flex:1}}>#0013663</Text>
-                                    <RNPickerSelect
-                                   onValueChange={(value) => console.log(value)}
-                                   items={[
-                                       { label: 'Football', value: 'football' },
-                                       { label: 'Baseball', value: 'baseball' },
-                                       { label: 'Hockey', value: 'hockey' },
-                                   ]}
-                               />
+                                    <View style={{
+                                        ...styles.text_input_edit,
+                                    }}>
+                                    </View>
                             </View>
                         </CardItem>
                         <CardItem>

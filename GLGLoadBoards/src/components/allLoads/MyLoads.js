@@ -52,6 +52,7 @@ console.log(error);
 console.log("LAGI ERROR NA LAGI ALAM KO");
 });
 }
+
 render() {
 let load_details;
 
