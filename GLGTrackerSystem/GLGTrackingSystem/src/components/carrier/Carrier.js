@@ -86,6 +86,116 @@ class Carrier extends Component {
                         </Body>
                         </CardItem>
                     </Card>
+                    <Card>
+                        <CardItem header style={{backgroundColor:'#1fb599' }}>
+                            <View style={{ flex: 1, flexDirection: 'row'}}>
+                                    <Text style={{color:'#fff', flex:1}}>#0013663</Text>
+                                    <View style={{
+                                        ...styles.text_input_edit,
+                                    }}>
+                                    </View>
+                            </View>
+                        </CardItem>
+                        <CardItem>
+                        <Body>
+                            <View style={{flexDirection: 'row'}}>
+                                <View style={styles.iconCompleted}>
+                                    <View style={{flexDirection: 'column'}}>
+                                        <Text>Origin</Text>
+                                        <View style={{ margin: 2}} />
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Icon name='ios-checkmark-circle' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>California, CA </Text>
+                                        </View>
+                                        <View style={{flexDirection: 'column', marginLeft:0}}>
+                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
+                                            <Icon type="FontAwesome5" name='truck' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
+                                        </View>
+                                        <View style={{
+                                                    flexDirection: 'row'
+                                                    }}>
+                                            <Icon name='heart' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>Acme, CA
+                                            </Text>
+                                        </View>
+                                        <View style={{ margin: 2}} />
+                                        <Text>Destination</Text>
+                                    </View>
+                                </View>
+                                <View style={{flex: 1,flexDirection: 'column',
+                                         width:50,
+                                         alignItems:'center'
+                                         }}>
+                                    <View style={{textAlign:'right'}}>
+                                        <Text>Rates</Text>
+                                        <Text style={{fontSize:20,fontWeight:'bold'}}>$50.00</Text>
+                                    </View>
+                                    <View style={{ margin:20}} />
+                                    <View style={{textAlign:'right'}}>
+                                        <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck" />
+                                        <Text style={{fontSize:15}}>AB</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </Body>
+                        </CardItem>
+                    </Card>
+                    <Card>
+                        <CardItem header style={{backgroundColor:'#1fb599' }}>
+                            <View style={{ flex: 1, flexDirection: 'row'}}>
+                                    <Text style={{color:'#fff', flex:1}}>#0013663</Text>
+                                    <View style={{
+                                        ...styles.text_input_edit,
+                                    }}>
+                                    </View>
+                            </View>
+                        </CardItem>
+                        <CardItem>
+                        <Body>
+                            <View style={{flexDirection: 'row'}}>
+                                <View style={styles.iconCompleted}>
+                                    <View style={{flexDirection: 'column'}}>
+                                        <Text>Origin</Text>
+                                        <View style={{ margin: 2}} />
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Icon name='ios-checkmark-circle' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>California, CA </Text>
+                                        </View>
+                                        <View style={{flexDirection: 'column', marginLeft:0}}>
+                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
+                                            <Icon type="FontAwesome5" name='truck' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
+                                        </View>
+                                        <View style={{
+                                                    flexDirection: 'row'
+                                                    }}>
+                                            <Icon name='heart' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>Acme, CA
+                                            </Text>
+                                        </View>
+                                        <View style={{ margin: 2}} />
+                                        <Text>Destination</Text>
+                                    </View>
+                                </View>
+                                <View style={{flex: 1,flexDirection: 'column',
+                                         width:50,
+                                         alignItems:'center'
+                                         }}>
+                                    <View style={{textAlign:'right'}}>
+                                        <Text>Rates</Text>
+                                        <Text style={{fontSize:20,fontWeight:'bold'}}>$50.00</Text>
+                                    </View>
+                                    <View style={{ margin:20}} />
+                                    <View style={{textAlign:'right'}}>
+                                        <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck" />
+                                        <Text style={{fontSize:15}}>AB</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </Body>
+                        </CardItem>
+                    </Card>
                     </View>
                 </ScrollView>
             </ImageBackground>

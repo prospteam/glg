@@ -13,6 +13,8 @@ import truck_bg from '../../assets/images/truck_bg.jpg';
 import logo from '../../assets/images/logo.png';
 import styles from '../../assets/styles/Commonstyles.js';
 import {test} from '../../libraries/MyFunctions.js';
+import {api_link} from '../../libraries/MyConfigs.js';
+import { set_is_logged,set_user_data } from '../../redux/actions/Actions';
 
 
 class Login extends Component {
@@ -50,9 +52,6 @@ class Login extends Component {
         }
     }
     handleOpen = () => {
-        // alert();
-        this.props.my_actions('asd');
-        return;
         // this.props.set_show_mini_loader(true);
         // var thatssss = this;
         // setTimeout(function(){
@@ -61,8 +60,6 @@ class Login extends Component {
         //   }, 1000);
         // this.setState({is_load_test:true});
         // return
-
-
         if (this.state.usertype == 'carrier') {
 
         }
@@ -86,8 +83,12 @@ class Login extends Component {
             })
             return;
         }
-        const that = this;
 
+        // console.log(this.state);
+        // console.log("GETTING");
+        // .toLowerCase();
+        const that = this;
+        // http://glgfreight.com/loadboard/api_mobile/common/get
         axios({
             method: 'post',
             url: api_link+'KROD/query_builder',
@@ -104,6 +105,7 @@ class Login extends Component {
             // that.props.set_show_mini_loader(false);
             // that.setState({is_load_test:false});
             if (response.data.length>0) {
+
                 that.setState({
                     show: true,
                     msg: "Successfully Login",
@@ -152,7 +154,7 @@ class Login extends Component {
                             <TextInput style={styles.text_input} placeholder="Password"  placeholderTextColor="white" onChangeText={text => this.setState({ password: text })}/>
                   </View>
                   <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
-                    <TouchableOpacity style={styles.button} onPress={()=>{Actions.Shipper()} }>
+                    <TouchableOpacity style={styles.button} onPress={() => this.handleOpen()}>
                         <Text style={{fontSize:18}}>Log In</Text>
                    </TouchableOpacity>
                   </View>
@@ -168,14 +170,17 @@ function redux_states_to_props(state){
    // for login button
      // <TouchableOpacity style={styles.button} onPress={()=>{this.handleOpen()}}>
    return {
-    my_config: state.my_config
+    // my_config: state.my_config
+    redux_session: state.redux_session
        // si MyGlobalReducer kay makit an sa reducers folder
    }
 }
 function redux_action_function_to_props(dispatch){
    return bindActionCreators({
-        my_actions : my_actions,
+        // my_actions : my_actions,
         // set_user_data : set_user_data,
+        set_is_logged : set_is_logged,
+        set_user_data : set_user_data,
    },dispatch);
 }
 export default connect(redux_states_to_props,redux_action_function_to_props)(Login);

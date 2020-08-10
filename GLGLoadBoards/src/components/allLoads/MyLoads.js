@@ -37,7 +37,7 @@ rate:'',
 
 componentDidMount() {
 var self = this;
-console.log('____________________________');
+console.log('testttttttttttttttttttttttttttttttttttttttttttttttt');
 console.log('https://glgfreight.com/loadboard_app/api_mobile/Loads/my_loads/');
 axios({
 method: 'get',

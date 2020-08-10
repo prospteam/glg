@@ -24,6 +24,25 @@ class Routes extends Component {
             <>
                 <Router>
                     <Scene key="root">
+
+                    {
+                        (this.props.redux_session.user_data.user_type=="shipper")?
+                        <Scene
+                            key="Shipper"
+                            component={Shipper}
+                            title="Shipper"
+                            hideNavBar
+                        />
+                        :(this.props.redux_session.user_data.user_type=="carrier")?
+                        <Scene
+                            key="Carrier"
+                            component={Carrier}
+                            title="Carrier"
+                            hideNavBar
+                        />
+
+                        :""
+                    }
                     <Scene
                     key="Guest"
                     component={Guest}
@@ -31,18 +50,6 @@ class Routes extends Component {
                     hideNavBar
                     />
 
-                        <Scene
-                            key="Carrier"
-                            component={Carrier}
-                            title="Carrier"
-                            hideNavBar
-                        />
-                        <Scene
-                            key="Shipper"
-                            component={Shipper}
-                            title="Shipper"
-                            hideNavBar
-                        />
                         <Scene
                             key="SampleComponent"
                             component={SampleComponent}
@@ -59,7 +66,7 @@ class Routes extends Component {
                             key="Login"
                             component={Login}
                             title="Login"
-                            // initial={!this.props.redux_session.is_logged}
+                            initial={!this.props.redux_session.is_logged}
                             title=""
                             hideNavBar
                         />
@@ -77,23 +84,23 @@ class Routes extends Component {
 }
 
 // Push yourself a little more, every day.
-// function redux_state_to_Props (state){
-//     console.log('_____________________________________');
-//     console.log('');
-//     console.log('      Router.js redux_session  ');
-//     console.log('');
-//     console.log('is_logged');
-//     console.log(state.redux_session.is_logged);
-//     console.log('');
-//     console.log('user_data');
-//     console.log(state.redux_session.user_data);
-//     console.log('');
-//     console.log('_____________________________________');
-//     return {
-//         redux_state: state.redux_state,
-//         redux_session: state.redux_session
-//     }
-// }
+function redux_state_to_Props (state){
+    console.log('_____________________________________');
+    console.log('');
+    console.log('      Router.js redux_session  ');
+    console.log('');
+    console.log('is_logged');
+    console.log(state.redux_session.is_logged);
+    console.log('');
+    console.log('user_data');
+    console.log(state.redux_session.user_data);
+    console.log('');
+    console.log('_____________________________________');
+    return {
+        redux_state: state.redux_state,
+        redux_session: state.redux_session
+    }
+}
 
 // KUNG GUSTO MONG GAMITIN ANG REDUX FUNCTIONS(YUNG NASA ACTIONS)
 function reduxActionFunctions(dispatch){
@@ -101,4 +108,4 @@ function reduxActionFunctions(dispatch){
 		// si set_sampleString function kay makit an sa actions folder
     },dispatch);
  }
-export default connect(null,reduxActionFunctions)(Routes);
+export default connect(redux_state_to_Props,reduxActionFunctions)(Routes);

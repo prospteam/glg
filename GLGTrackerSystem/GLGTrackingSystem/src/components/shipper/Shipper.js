@@ -27,10 +27,10 @@ class Shipper extends Component {
         componentDidMount() {
             var self = this;
             console.log('____________________________');
-            console.log('https://glgfreight.com/loadboard_app/api_mobile/Loads/my_loads/');
+            console.log('https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads/');
             axios({
                 method: 'get',
-                url: 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads',
+                url: 'https://glgfreight.com/loadboard_app/api_mobile/Loads/my_loads/'+this.props.redux_session.user_data.user_id,
             }).then(function (response) {
                 self.setState({response: response.data});
             })
