@@ -25,24 +25,18 @@ class Routes extends Component {
                 <Router>
                     <Scene key="root">
 
-                    {
-                        (this.props.redux_session.user_data.user_type=="shipper")?
                         <Scene
                             key="Shipper"
                             component={Shipper}
                             title="Shipper"
                             hideNavBar
                         />
-                        :(this.props.redux_session.user_data.user_type=="carrier")?
                         <Scene
                             key="Carrier"
                             component={Carrier}
                             title="Carrier"
                             hideNavBar
                         />
-
-                        :""
-                    }
                     <Scene
                     key="Guest"
                     component={Guest}

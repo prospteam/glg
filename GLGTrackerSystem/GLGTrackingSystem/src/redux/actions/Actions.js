@@ -5,7 +5,7 @@ import axios from 'axios';
 // alert('action loaded');
 
 export function set(redux_state,payload){
-	
+
 	return{
 		type: redux_state,
 		payload: payload
@@ -63,10 +63,10 @@ export function my_actions(payload){
 
 	console.log('____________________________');
 	// console.log(this.props.my_config);
-	
+
 	return (dispatch, asd) => {
 		// const {items} = getState().my_config;
-	
+
 		alert(asd().my_config.api_link);
 		alert("_____________");
 

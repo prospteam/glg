@@ -17,33 +17,37 @@ class Shipper extends Component {
     super(props);
     this.state = {
     response: [],
-    load_id: '',
-    origin:'',
-    destination:'',
-    trailer_type:'',
-    rate:'',
+    origin:this.props.origin,
+    destination:this.props.destination,
+    trailer_type:this.props.trailer_type,
+    rate:this.props.rate,
     };
 }
         componentDidMount() {
-            var self = this;
-            console.log('____________________________');
-            console.log('https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads/');
-            axios({
-                method: 'get',
-                url: 'https://glgfreight.com/loadboard_app/api_mobile/Loads/my_loads/'+this.props.redux_session.user_data.user_id,
-            }).then(function (response) {
-                self.setState({response: response.data});
-            })
-            .catch(function (error) {
-                console.log(error);
-                console.log("LAGI ERROR NA LAGI ALAM KO");
+            axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads/',{
+                load_id: this.props.load_id,
+                origin: this.props.origin,
+                destination: this.props.destination,
+                trailer_type: this.props.trailer_type,
+                rate: this.props.rate
+            }).then( function(response){
+                console.log("__________________________________");
+                console.log("__________________________________");
+                console.log(response);
+                console.log("__________________________________");
+                console.log("__________________________________");
+                alert('success');
+            }).catch(function(err){
+                console.log(err);
+                alert('Hay NAKUUUUUUUUUUUUUUUU');
             });
         }
+
 
     render(){
         let load_details;
 
-        if (this.state.response.length <= 0) {
+        if (this.state.response.length !==0) {
             load_details = this.state.response.map((data,index) =>{
                 return(
                     <Card key={index}>
@@ -97,7 +101,8 @@ class Shipper extends Component {
                     </Card>
 
                 )
-            })
+            });
+
         }
 
         return (
@@ -116,17 +121,17 @@ class Shipper extends Component {
 
 
 
-function redux_states_to_props(state){
-   // console.log('redux_session  ', state.redux_session)
-   return {
-       redux_session: state.redux_session
-       // si MyGlobalReducer kay makit an sa reducers folder
-   }
-}
+// function redux_states_to_props(state){
+//    // console.log('redux_session  ', state.redux_session)
+//    return {
+//        redux_session: state.redux_session
+//        // si MyGlobalReducer kay makit an sa reducers folder
+//    }
+// }
 function redux_action_function_to_props(dispatch){
    return bindActionCreators({
        set_is_logged : set_is_logged,
        // set_user_data : set_user_data,
    },dispatch);
 }
-export default connect(redux_states_to_props,redux_action_function_to_props)(Shipper);
+export default connect(null,redux_action_function_to_props)(Shipper);

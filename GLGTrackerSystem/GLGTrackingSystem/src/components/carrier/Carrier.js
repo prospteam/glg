@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {ScrollView, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
 import { Text, Form, Item, Input, Label, Button,Icon, Card, CardItem, Body, View } from 'native-base';
-import RNPickerSelect from 'react-native-picker-select';
 import Dash from 'react-native-dash';
 import axios from 'axios';
 
@@ -11,6 +10,7 @@ import styles from '../../assets/styles/Commonstyles.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { set_is_logged } from '../../redux/actions/Actions';
+import MyLayout from '../layout/MyLayout';
 
 class Carrier extends Component {
     constructor(props){
@@ -22,183 +22,92 @@ class Carrier extends Component {
     destination:'',
     trailer_type:'',
     rate:'',
-
     };
 }
+        componentDidMount() {
+            var self = this;
+            console.log('____________________________');
+            console.log('https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads/');
+            axios({
+                method: 'get',
+                url: 'https://glgfreight.com/loadboard_app/api_mobile/Loads/my_loads/'+this.props.redux_session.user_data.user_id,
+            }).then(function (response) {
+                self.setState({response: response.data});
+            })
+            .catch(function (error) {
+                console.log(error);
+                console.log("LAGI ERROR NA LAGI ALAM KO");
+            });
+        }
 
     render(){
+        let load_details;
+
+        if (this.state.response.length <= 0) {
+            load_details = this.state.response.map((data,index) =>{
+                return(
+                    <Card key={index}>
+                        <CardItem header style={{backgroundColor:'#1fb599' }}>
+                            <Text style={{color:'#fff'}}>{data.load_id}</Text>
+                        </CardItem>
+                        <CardItem>
+                        <Body>
+                            <View style={{flexDirection: 'row'}}>
+                                <View style={styles.iconCompleted}>
+                                    <View style={{flexDirection: 'column'}}>
+                                        <Text>Origin</Text>
+                                        <View style={{ margin: 2}} />
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Icon name='ios-checkmark-circle' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.origin} </Text>
+                                        </View>
+                                        <View style={{flexDirection: 'column', marginLeft:0}}>
+                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
+                                            <Icon type="FontAwesome5" name='truck' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
+                                        </View>
+                                        <View style={{
+                                                    flexDirection: 'row'
+                                                    }}>
+                                            <Icon name='heart' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.destination}
+                                            </Text>
+                                        </View>
+                                        <View style={{ margin: 2}} />
+                                        <Text>Destination</Text>
+                                    </View>
+                                </View>
+                                <View style={{flex: 1,flexDirection: 'column',
+                                         width:50,
+                                         alignItems:'center'
+                                         }}>
+                                    <View style={{textAlign:'right'}}>
+                                        <Text>Rates</Text>
+                                        <Text style={{fontSize:20,fontWeight:'bold'}}>{data.rate}</Text>
+                                    </View>
+                                    <View style={{ margin:20}} />
+                                    <View style={{textAlign:'right'}}>
+                                        <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck" />
+                                        <Text style={{fontSize:15}}>{data.trailer_type}</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </Body>
+                        </CardItem>
+                    </Card>
+
+                )
+            })
+        }
+
         return (
-            <ImageBackground source={bg_image} style={{ width: '100%', height: '100%', marginBottom: 65,}}>
+            <MyLayout>
                 <ScrollView>
                     <View style={styles.contentBody}>
-                    <Card>
-                        <CardItem header style={{backgroundColor:'#1fb599' }}>
-                            <View style={{ flex: 1, flexDirection: 'row'}}>
-                                    <Text style={{color:'#fff', flex:1}}>#0013663</Text>
-                                    <View style={{
-                                        ...styles.text_input_edit,
-                                    }}>
-                                    </View>
-                            </View>
-                        </CardItem>
-                        <CardItem>
-                        <Body>
-                            <View style={{flexDirection: 'row'}}>
-                                <View style={styles.iconCompleted}>
-                                    <View style={{flexDirection: 'column'}}>
-                                        <Text>Origin</Text>
-                                        <View style={{ margin: 2}} />
-                                        <View style={{flexDirection: 'row'}}>
-                                            <Icon name='ios-checkmark-circle' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>California, CA </Text>
-                                        </View>
-                                        <View style={{flexDirection: 'column', marginLeft:0}}>
-                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                            <Icon type="FontAwesome5" name='truck' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                        </View>
-                                        <View style={{
-                                                    flexDirection: 'row'
-                                                    }}>
-                                            <Icon name='heart' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>Acme, CA
-                                            </Text>
-                                        </View>
-                                        <View style={{ margin: 2}} />
-                                        <Text>Destination</Text>
-                                    </View>
-                                </View>
-                                <View style={{flex: 1,flexDirection: 'column',
-                                         width:50,
-                                         alignItems:'center'
-                                         }}>
-                                    <View style={{textAlign:'right'}}>
-                                        <Text>Rates</Text>
-                                        <Text style={{fontSize:20,fontWeight:'bold'}}>$50.00</Text>
-                                    </View>
-                                    <View style={{ margin:20}} />
-                                    <View style={{textAlign:'right'}}>
-                                        <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck" />
-                                        <Text style={{fontSize:15}}>AB</Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </Body>
-                        </CardItem>
-                    </Card>
-                    <Card>
-                        <CardItem header style={{backgroundColor:'#1fb599' }}>
-                            <View style={{ flex: 1, flexDirection: 'row'}}>
-                                    <Text style={{color:'#fff', flex:1}}>#0013663</Text>
-                                    <View style={{
-                                        ...styles.text_input_edit,
-                                    }}>
-                                    </View>
-                            </View>
-                        </CardItem>
-                        <CardItem>
-                        <Body>
-                            <View style={{flexDirection: 'row'}}>
-                                <View style={styles.iconCompleted}>
-                                    <View style={{flexDirection: 'column'}}>
-                                        <Text>Origin</Text>
-                                        <View style={{ margin: 2}} />
-                                        <View style={{flexDirection: 'row'}}>
-                                            <Icon name='ios-checkmark-circle' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>California, CA </Text>
-                                        </View>
-                                        <View style={{flexDirection: 'column', marginLeft:0}}>
-                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                            <Icon type="FontAwesome5" name='truck' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                        </View>
-                                        <View style={{
-                                                    flexDirection: 'row'
-                                                    }}>
-                                            <Icon name='heart' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>Acme, CA
-                                            </Text>
-                                        </View>
-                                        <View style={{ margin: 2}} />
-                                        <Text>Destination</Text>
-                                    </View>
-                                </View>
-                                <View style={{flex: 1,flexDirection: 'column',
-                                         width:50,
-                                         alignItems:'center'
-                                         }}>
-                                    <View style={{textAlign:'right'}}>
-                                        <Text>Rates</Text>
-                                        <Text style={{fontSize:20,fontWeight:'bold'}}>$50.00</Text>
-                                    </View>
-                                    <View style={{ margin:20}} />
-                                    <View style={{textAlign:'right'}}>
-                                        <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck" />
-                                        <Text style={{fontSize:15}}>AB</Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </Body>
-                        </CardItem>
-                    </Card>
-                    <Card>
-                        <CardItem header style={{backgroundColor:'#1fb599' }}>
-                            <View style={{ flex: 1, flexDirection: 'row'}}>
-                                    <Text style={{color:'#fff', flex:1}}>#0013663</Text>
-                                    <View style={{
-                                        ...styles.text_input_edit,
-                                    }}>
-                                    </View>
-                            </View>
-                        </CardItem>
-                        <CardItem>
-                        <Body>
-                            <View style={{flexDirection: 'row'}}>
-                                <View style={styles.iconCompleted}>
-                                    <View style={{flexDirection: 'column'}}>
-                                        <Text>Origin</Text>
-                                        <View style={{ margin: 2}} />
-                                        <View style={{flexDirection: 'row'}}>
-                                            <Icon name='ios-checkmark-circle' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>California, CA </Text>
-                                        </View>
-                                        <View style={{flexDirection: 'column', marginLeft:0}}>
-                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                            <Icon type="FontAwesome5" name='truck' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                        </View>
-                                        <View style={{
-                                                    flexDirection: 'row'
-                                                    }}>
-                                            <Icon name='heart' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>Acme, CA
-                                            </Text>
-                                        </View>
-                                        <View style={{ margin: 2}} />
-                                        <Text>Destination</Text>
-                                    </View>
-                                </View>
-                                <View style={{flex: 1,flexDirection: 'column',
-                                         width:50,
-                                         alignItems:'center'
-                                         }}>
-                                    <View style={{textAlign:'right'}}>
-                                        <Text>Rates</Text>
-                                        <Text style={{fontSize:20,fontWeight:'bold'}}>$50.00</Text>
-                                    </View>
-                                    <View style={{ margin:20}} />
-                                    <View style={{textAlign:'right'}}>
-                                        <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck" />
-                                        <Text style={{fontSize:15}}>AB</Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </Body>
-                        </CardItem>
-                    </Card>
+                        {load_details}
                     </View>
                 </ScrollView>
-            </ImageBackground>
+                </MyLayout>
 
         );
 
