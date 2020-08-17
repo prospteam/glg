@@ -51,7 +51,8 @@ class Login extends Component {
             }
         }
     }
-    handleOpen = () => {
+    form_login= () => {
+        alert(1)
         // this.props.set_show_mini_loader(true);
         // var thatssss = this;
         // setTimeout(function(){
@@ -128,7 +129,7 @@ class Login extends Component {
             // that.setState({is_load_test:false});
             // that.props.set_show_mini_loader(false);
             console.log(error);
-            console.log("LAGI ERROR NA LAGI ALAM KO");
+            console.log("Errorr");
         });
     }
 
@@ -147,17 +148,17 @@ class Login extends Component {
                   //  blurRadius: 5
                     }} />
                   </View>
-                  <View  style={{justifyContent: "center", alignItems: "center", marginTop: 15}}>
-                    <Text style={{color:'white', fontSize:25, fontFamily: 'sans-serif' }}>Login </Text>
-                            <TextInput style={styles.text_input} placeholder="Username"  placeholderTextColor="white" onChangeText={text => this.setState({ username: text })}/>
+                    <View  style={{justifyContent: "center", alignItems: "center", marginTop: 15}}>
+                        <Text style={{color:'white', fontSize:25, fontFamily: 'sans-serif' }}>Login </Text>
+                        <TextInput style={styles.text_input} placeholder="Username"  placeholderTextColor="white" onChangeText={text => this.setState({ username: text })}/>
                         <View style={{margin:5}}/>
-                            <TextInput style={styles.text_input} placeholder="Password"  placeholderTextColor="white" onChangeText={text => this.setState({ password: text })}/>
-                  </View>
-                  <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
-                    <TouchableOpacity style={styles.button} onPress={() => Actions.Shipper()}>
-                        <Text style={{fontSize:18}}>Log In</Text>
-                   </TouchableOpacity>
-                  </View>
+                        <TextInput style={styles.text_input} placeholder="Password"  placeholderTextColor="white" onChangeText={text => this.setState({ password: text })}/>
+                    </View>
+                    <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
+                        <TouchableOpacity style={styles.button} onPress={() => this.form_login()}>
+                            <Text style={{fontSize:18}}>Log In</Text>
+                        </TouchableOpacity>
+                    </View>
               </ImageBackground>
           </View>
       );

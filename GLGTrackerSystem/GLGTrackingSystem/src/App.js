@@ -61,6 +61,7 @@ const loader =
 
 export default class App extends Component {
 	constructor(props) {
+		console.log('_______APP STARTED________');
 		super(props);
 		this.state = {
 			show_logo: true,
