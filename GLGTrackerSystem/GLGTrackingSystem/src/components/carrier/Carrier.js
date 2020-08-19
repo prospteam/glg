@@ -24,16 +24,13 @@ class Carrier extends Component {
             trailer_type:'',
             date:'',
             rate:'',
-            selected2: undefined
+            tracking_status: '',
+            services: ['Pending', 'Processing', 'Delivered'],
+            selectedService: 'Pending'
         };
 
     }
 
-    onValueChange2(value: string) {
-        this.setState({
-            selected2: value
-        });
-    }
     componentDidMount() {
         var self = this;
         axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads/',{
@@ -55,9 +52,22 @@ class Carrier extends Component {
             console.log(err);
             alert('Hay NAKUUUUUUUUUUUUUUUU');
         });
+
     }
 
+    change_status() {
+       setTimeout(() =>  {
+        this.setState({
+         services: [ 'Pending', 'Processing', 'Delivered']
+        })
+       }, 3000)
+   }
+
     render(){
+        let serviceItems = this.state.services.map( (s, i) => {
+           return <Picker.Item key={i} value={s} label={s} />
+       });
+
         let load_details;
         if (this.state.response.length==0) {
             load_details =
@@ -79,18 +89,10 @@ class Carrier extends Component {
                             <Text style={{color:'#fff'}}>{data.load_id}</Text>
                             <Item picker>
                                 <Picker
-                                  mode="dropdown"
-                                  iosIcon={<Icon name="arrow-down" />}
-                                  placeholder="Change Status"
-                                  placeholderStyle={{ color: "#bfc6ea" }}
-                                  placeholderIconColor="#007aff"
-                                  selectedValue={this.state.selected2}
-                                  onValueChange={this.onValueChange2.bind(this)}
-                                >
-                                  <Picker.Item label="Pending" value="pending" />
-                                  <Picker.Item label="Processing" value="processing" />
-                                  <Picker.Item label="Delivered" value="delivered" />
-                                </Picker>
+                                   selectedValue={this.state.selectedService}
+                                   onValueChange={ (service) => ( this.setState({selectedService:service}) ) } >
+                                   {serviceItems}
+                               </Picker>
                             </Item>
                         </CardItem>
                         <CardItem>
