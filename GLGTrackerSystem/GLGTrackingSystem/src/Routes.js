@@ -79,17 +79,17 @@ class Routes extends Component {
 
 // Push yourself a little more, every day.
 function redux_state_to_Props (state){
-    // console.log('_________________Android Application Started____________________');
-    // console.log('');
-    // console.log('      Router.js redux_session  ');
-    // console.log('');
-    // console.log('is_logged');
-    // console.log(state.redux_session.is_logged);
-    // console.log('');
-    // console.log('user_data');
-    // console.log(state.redux_session.user_data);
-    // console.log('');
-    // console.log('_____________________________________');
+    console.log('_____________________________________');
+    console.log('');
+    console.log('      Router.js redux_session  ');
+    console.log('');
+    console.log('is_logged');
+    console.log(state.redux_session.is_logged);
+    console.log('');
+    console.log('user_data');
+    console.log(state.redux_session.user_data);
+    console.log('');
+    console.log('_____________________________________');
     return {
         redux_state: state.redux_state,
         redux_session: state.redux_session

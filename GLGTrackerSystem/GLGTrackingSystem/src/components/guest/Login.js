@@ -18,15 +18,15 @@ import { set_is_logged,set_user_data } from '../../redux/actions/Actions';
 
 
 class Login extends Component {
-    state = {
-        color: 'white',
-        show: false,
-        msg: "",
-        theme: "warning",
-        title: "Warning",
-        success_login:false,
-    }
-    temp_user_data={};
+    // state = {
+    //     color: 'white',
+    //     show: false,
+    //     msg: "",
+    //     theme: "warning",
+    //     title: "Warning",
+    //     success_login:false,
+    // }
+    // temp_user_data={};
 
     constructor(props) {
         super(props)
@@ -37,22 +37,21 @@ class Login extends Component {
         }
     }
 
-    handleClose = () => {
-        this.setState({
-            show: false
-        });
-        if (this.state.success_login) {
-            if(!this.props.redux_session.is_logged){
-                this.props.set_is_logged('set_is_logged', true);
-                this.props.set_user_data(
-                    'set_user_data',
-                    this.temp_user_data
-                );
-            }
-        }
-    }
+    // handleClose = () => {
+    //     this.setState({
+    //         show: false
+    //     });
+    //     if (this.state.success_login) {
+    //         if(!this.props.redux_session.is_logged){
+    //             this.props.set_is_logged('set_is_logged', true);
+    //             this.props.set_user_data(
+    //                 'set_user_data',
+    //                 this.temp_user_data
+    //             );
+    //         }
+    //     }
+    // }
     form_login= () => {
-        alert(1)
         // this.props.set_show_mini_loader(true);
         // var thatssss = this;
         // setTimeout(function(){
@@ -61,9 +60,7 @@ class Login extends Component {
         //   }, 1000);
         // this.setState({is_load_test:true});
         // return
-        if (this.state.usertype == 'carrier') {
 
-        }
         if (this.state.username != '') {
             if (this.state.password != '') {
             } else {
@@ -90,6 +87,9 @@ class Login extends Component {
         // .toLowerCase();
         const that = this;
         // http://glgfreight.com/loadboard/api_mobile/common/get
+
+
+        alert('Loading...');
         axios({
             method: 'post',
             url: api_link+'KROD/query_builder',
@@ -106,22 +106,17 @@ class Login extends Component {
             // that.props.set_show_mini_loader(false);
             // that.setState({is_load_test:false});
             if (response.data.length>0) {
-
-                that.setState({
-                    show: true,
-                    msg: "Successfully Login",
-                    theme: "success",
-                    title: "Success!",
-                    success_login: true
-                });
-                that.temp_user_data = response.data[0];
+                alert("Successfully Login");
+                // console.log('___________testxxx_________________');
+                // console.log(that.props);
+                that.props.set_is_logged('set_is_logged', true);
+                that.props.set_user_data(
+                    'set_user_data',
+                    this.temp_user_data
+                );
+                // console.log(response.data[0]);
             } else {
-                that.setState({
-                    show: true,
-                    msg: "Incorrect Username and Password",
-                    theme: "warning",
-                    title: "Warning!"
-                });
+                alert("Incorrect Username and Password");
             }
         })
         .catch(function (error) {
@@ -140,6 +135,7 @@ class Login extends Component {
     }
 
     render(){
+
       return (
           <View>
               <ImageBackground source={truck_bg} style={{ width: '100%', height: '100%', marginBottom: 65, blurRadius: 5}}>
@@ -167,9 +163,6 @@ class Login extends Component {
 
 
 function redux_states_to_props(state){
-   // console.log('redux_session  ', state.redux_session)
-   // for login button
-     // <TouchableOpacity style={styles.button} onPress={()=>{this.handleOpen()}}>
    return {
     // my_config: state.my_config
     redux_session: state.redux_session
@@ -178,8 +171,6 @@ function redux_states_to_props(state){
 }
 function redux_action_function_to_props(dispatch){
    return bindActionCreators({
-        // my_actions : my_actions,
-        // set_user_data : set_user_data,
         set_is_logged : set_is_logged,
         set_user_data : set_user_data,
    },dispatch);
