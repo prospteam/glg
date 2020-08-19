@@ -14,26 +14,32 @@ import MyLayout from '../layout/MyLayout';
 
 class Shipper extends Component {
     constructor(props){
-    super(props);
-    this.state = {
-    response: [],
-    origin:this.props.origin,
-    destination:this.props.destination,
-    trailer_type:this.props.trailer_type,
-    rate:this.props.rate,
-    };
-}
+        super(props);
+        this.state = {
+            response: [],
+            load_id: '',
+            origin:'',
+            destination:'',
+            trailer_type:'',
+            date:'',
+            rate:'',
+        };
+
+    }
         componentDidMount() {
+            var self = this;
             axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads/',{
-                load_id: this.props.load_id,
-                origin: this.props.origin,
-                destination: this.props.destination,
-                trailer_type: this.props.trailer_type,
-                rate: this.props.rate
+                load_id: this.state.load_id,
+                origin: this.state.origin,
+                destination: this.state.destination,
+                trailer_type: this.state.trailer_type,
+                rate: this.state.rate
             }).then( function(response){
                 console.log("__________________________________");
+                console.log("Rogen Lang gwapaaaaaaaaaaaaaaaaaaaaaa");
                 console.log("__________________________________");
                 console.log(response);
+                self.setState({response: response.data});
                 console.log("__________________________________");
                 console.log("__________________________________");
                 alert('success');
@@ -46,10 +52,21 @@ class Shipper extends Component {
 
     render(){
         let load_details;
-
-        if (this.state.response.length !==0) {
+        if (this.state.response.length==0) {
+            load_details =
+            <Card>
+                <CardItem header>
+                    <View style={{flex: 1, flexDirection: 'row', justifyContent: "center", alignItems: "center"}}>
+                        <Text style={{fontSize:12}}>
+                            No data found.
+                        </Text>
+                    </View>
+                </CardItem>
+            </Card>
+        }else{
             load_details = this.state.response.map((data,index) =>{
                 return(
+                    <>
                     <Card key={index}>
                         <CardItem header style={{backgroundColor:'#1fb599' }}>
                             <Text style={{color:'#fff'}}>{data.load_id}</Text>
@@ -87,7 +104,7 @@ class Shipper extends Component {
                                          }}>
                                     <View style={{textAlign:'right'}}>
                                         <Text>Rates</Text>
-                                        <Text style={{fontSize:20,fontWeight:'bold'}}>{data.rate}</Text>
+                                        <Text style={{fontSize:20,fontWeight:'bold'}}>${data.rate}.00</Text>
                                     </View>
                                     <View style={{ margin:20}} />
                                     <View style={{textAlign:'right'}}>
@@ -99,12 +116,12 @@ class Shipper extends Component {
                         </Body>
                         </CardItem>
                     </Card>
+                    </>
 
-                )
+                );
             });
 
         }
-
         return (
             <MyLayout>
                 <ScrollView>
@@ -115,23 +132,22 @@ class Shipper extends Component {
                 </MyLayout>
 
         );
+            console.log(this.state.response);
 
     }
 }
 
-
-
-// function redux_states_to_props(state){
-//    // console.log('redux_session  ', state.redux_session)
-//    return {
-//        redux_session: state.redux_session
-//        // si MyGlobalReducer kay makit an sa reducers folder
-//    }
-// }
+function redux_states_to_props(state){
+   // console.log('redux_session  ', state.redux_session)
+   return {
+       redux_session: state.redux_session
+       // si MyGlobalReducer kay makit an sa reducers folder
+   }
+}
 function redux_action_function_to_props(dispatch){
    return bindActionCreators({
        set_is_logged : set_is_logged,
        // set_user_data : set_user_data,
    },dispatch);
 }
-export default connect(null,redux_action_function_to_props)(Shipper);
+export default connect(redux_states_to_props,redux_action_function_to_props)(Shipper);
