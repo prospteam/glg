@@ -17,6 +17,7 @@ import { set_is_logged } from '../../redux/actions/Actions';
 
 class Orderstatus extends Component {
     render(){
+
         return (
             <MyLayout>
                     <View style={{justifyContent: "center", alignItems: "center"}}>
@@ -66,10 +67,9 @@ class Orderstatus extends Component {
 
                     </View>
                 </MyLayout>
-
-    );
+        );
     }
-    }
+}
 
 function redux_states_to_props(state){
    // console.log('redux_session  ', state.redux_session)

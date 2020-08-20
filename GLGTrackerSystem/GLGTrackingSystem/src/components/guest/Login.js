@@ -112,7 +112,7 @@ class Login extends Component {
                 that.props.set_is_logged('set_is_logged', true);
                 that.props.set_user_data(
                     'set_user_data',
-                    this.temp_user_data
+                    response.data[0]
                 );
                 // console.log(response.data[0]);
             } else {

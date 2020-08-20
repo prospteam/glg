@@ -28,7 +28,6 @@ class Carrier extends Component {
             services: ['Pending', 'Processing', 'Delivered'],
             selectedService: 'Pending'
         };
-
     }
 
     componentDidMount() {
@@ -41,7 +40,7 @@ class Carrier extends Component {
             rate: this.state.rate
         }).then( function(response){
             console.log("__________________________________");
-            console.log("Rogen Lang gwapaaaaaaaaaaaaaaaaaaaaaa");
+            console.log("Rogen Gwapa na lagi ka,");
             console.log("__________________________________");
             console.log(response);
             self.setState({response: response.data});
