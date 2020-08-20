@@ -20,17 +20,11 @@ import {connect} from 'react-redux';
 // Dont just exist, live.
 class Routes extends Component {
     render() {
+        // this.props.set_is_logged('set_is_logged', false);
         return (
             <>
                 <Router>
                     <Scene key="root">
-
-                        <Scene
-                            key="Shipper"
-                            component={Shipper}
-                            title="Shipper"
-                            hideNavBar
-                        />
                         <Scene
                             key="Carrier"
                             component={Carrier}
@@ -38,10 +32,16 @@ class Routes extends Component {
                             hideNavBar
                         />
                         <Scene
-                        key="Guest"
-                        component={Guest}
-                        title="Guest"
-                        hideNavBar
+                            key="Shipper"
+                            component={Shipper}
+                            title="Shipper"
+                            hideNavBar
+                        />
+                        <Scene
+                            key="Guest"
+                            component={Guest}
+                            title="Guest"
+                            hideNavBar
                         />
 
                         <Scene
@@ -99,7 +99,9 @@ function redux_state_to_Props (state){
 // KUNG GUSTO MONG GAMITIN ANG REDUX FUNCTIONS(YUNG NASA ACTIONS)
 function reduxActionFunctions(dispatch){
     return bindActionCreators({
-		// si set_sampleString function kay makit an sa actions folder
+        // si set_sampleString function kay makit an sa actions folder
+        set_is_logged: set_is_logged,
+        // set_user_data: set_user_data,
     },dispatch);
  }
 export default connect(redux_state_to_Props,reduxActionFunctions)(Routes);
