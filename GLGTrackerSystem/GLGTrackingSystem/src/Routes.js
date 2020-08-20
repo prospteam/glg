@@ -25,17 +25,18 @@ class Routes extends Component {
             <>
                 <Router>
                     <Scene key="root">
+                    <Scene
+                    key="Guest"
+                    component={Guest}
+                    title="Guest"
+                    hideNavBar
+                    />
+
                         <Scene
                             key="Carrier"
                             component={Carrier}
                             title="Carrier"
                             hideNavBar
-                        />
-                        <Scene
-                        key="Guest"
-                        component={Guest}
-                        title="Guest"
-                        hideNavBar
                         />
 
                         <Scene
