@@ -12,6 +12,19 @@ import { set_is_logged } from '../../redux/actions/Actions';
 
 
 class Guest extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            response: [],
+            load_id: '',
+        };
+
+    }
+
+    _handlePress() {
+        console.log(this.state.load_id);
+        alert("rogen Lang talaga magandaaaaaaaa");
+    } 
     render() {
         return (
             <View>
@@ -26,15 +39,15 @@ class Guest extends Component {
             </View>
             {/* <View style={{ marginTop: "10%", justifyContent: "center", alignItems: "center" }}>
                   <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100,
-                  //  blurRadius: 5 
+                  //  blurRadius: 5
                     }} />
               </View> */}
                 <View  style={{justifyContent: "center", alignItems: "center", marginTop: 50}}>
                     <Text style={{color:'white', fontSize:25, fontFamily: 'sans-serif' }}>GLG Tack a Load </Text>
-                    <TextInput style={styles.text_input} placeholder="Enter Code Here"  placeholderTextColor="white"/>
+                    <TextInput style={styles.text_input} placeholder="Enter Code Here"  placeholderTextColor="white" onChangeText={text => this.setState({ load_id: text })} />
                 </View>
                     <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
-                            <TouchableOpacity style={styles.button} onPress={()=>{Actions.Orderstatus()} }>
+                            <TouchableOpacity style={styles.button} onPress={() => this._handlePress()}>
                                 <Text style={{fontSize:18}}>Track</Text>
                             </TouchableOpacity>
                         </View>
