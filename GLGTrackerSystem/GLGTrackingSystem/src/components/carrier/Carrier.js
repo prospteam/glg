@@ -34,7 +34,6 @@ class Carrier extends Component {
         this.fetch_loads();
     }
 
-
     fetch_loads =()=>{
         var self = this;
         axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads/',{
@@ -59,16 +58,17 @@ class Carrier extends Component {
 
     }
 
-
     change_status(value) {
         var self = this;
-        axios.post( 'UPDATE API FOR LOAD',{
+        axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/change_load_status/',{
             load_id: this.state.load_id,
             tracking_status :value
         }).then( function(response){
             if(response.data.status){
                 this.fetch_loads();
             }
+            console.log(response.data);
+            console.log("_____+++++++++++____");
         });
 
    }
@@ -89,12 +89,12 @@ class Carrier extends Component {
         }else{
             load_details = this.state.response.map((data,index) =>{
                 let status_ ;
-                if(data.tracking_status===0){ 
+                if(data.tracking_status===0){
                     status_ = "Pending";
                 }else if(data.tracking_status===1) {
                     status_ = "Processing";
                 }else{
-                    status_ = "Destiantion";
+                    status_ = "Delivered";
                 }
                 return(
                     <>
@@ -112,7 +112,7 @@ class Carrier extends Component {
                                         } }>
                                       <Picker.Item value={0} label={'Pending'} />
                                       <Picker.Item value={1} label={'Processing'} />
-                                      <Picker.Item value={2} label={'Destination'} />
+                                      <Picker.Item value={2} label={'Delivered'} />
                                    </Picker>
                                 </Item>
                             </View>
