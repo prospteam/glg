@@ -31,6 +31,10 @@ class Carrier extends Component {
     }
 
     componentDidMount() {
+        this.fetch_loads();
+    }
+
+    fetch_loads =()=>{
         var self = this;
         axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads/',{
             load_id: this.state.load_id,
@@ -54,19 +58,22 @@ class Carrier extends Component {
 
     }
 
-    change_status() {
-       setTimeout(() =>  {
-        this.setState({
-         services: [ 'Pending', 'Processing', 'Delivered']
-        })
-       }, 3000)
+    change_status(value) {
+        var self = this;
+        axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/change_load_status/',{
+            load_id: this.state.load_id,
+            tracking_status :value
+        }).then( function(response){
+            if(response.data.status){
+                this.fetch_loads();
+            }
+            console.log(response.data);
+            console.log("_____+++++++++++____");
+        });
+
    }
 
     render(){
-        let serviceItems = this.state.services.map( (s, i) => {
-           return <Picker.Item key={i} value={s} label={s} />
-       });
-
         let load_details;
         if (this.state.response.length==0) {
             load_details =
@@ -81,18 +88,34 @@ class Carrier extends Component {
             </Card>
         }else{
             load_details = this.state.response.map((data,index) =>{
+                let status_ ;
+                if(data.tracking_status===0){
+                    status_ = "Pending";
+                }else if(data.tracking_status===1) {
+                    status_ = "Processing";
+                }else{
+                    status_ = "Delivered";
+                }
                 return(
                     <>
                     <Card key={index}>
                         <CardItem header style={{backgroundColor:'#1fb599' }}>
-                            <Text style={{color:'#fff'}}>{data.load_id}</Text>
-                            <Item picker>
-                                <Picker
-                                   selectedValue={this.state.selectedService}
-                                   onValueChange={ (service) => ( this.setState({selectedService:service}) ) } >
-                                   {serviceItems}
-                               </Picker>
-                            </Item>
+                            <View style={{flexDirection: 'column', justifyContent: "center", alignItems: "center"}}>
+                                <Text style={{color:'#fff', flex: 1}}>{data.load_id}</Text>
+                                <Item picker>
+                                    <Picker
+                                    style={{backgroundColor:'orange', color: '#fff', height: 25, width: '100%'}}
+                                       selectedValue={status_}
+                                        onValueChange={() =>{
+                                            this.change_status();
+                                            this.setState({load_id:data.load_id});
+                                        } }>
+                                      <Picker.Item value={0} label={'Pending'} />
+                                      <Picker.Item value={1} label={'Processing'} />
+                                      <Picker.Item value={2} label={'Delivered'} />
+                                   </Picker>
+                                </Item>
+                            </View>
                         </CardItem>
                         <CardItem >
                             <Body >
