@@ -24,30 +24,32 @@ class Shipper extends Component {
             date:'',
             rate:'',
         };
-
     }
-        componentDidMount() {
-            var self = this;
-            axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads/',{
-                load_id: this.state.load_id,
-                origin: this.state.origin,
-                destination: this.state.destination,
-                trailer_type: this.state.trailer_type,
-                rate: this.state.rate
-            }).then( function(response){
-                console.log("__________________________________");
-                console.log("Rogen Lang gwapaaaaaaaaaaaaaaaaaaaaaa");
-                console.log("__________________________________");
-                console.log(response);
-                self.setState({response: response.data});
-                console.log("__________________________________");
-                console.log("__________________________________");
-                alert('success');
-            }).catch(function(err){
-                console.log(err);
-                alert('Hay NAKUUUUUUUUUUUUUUUU');
-            });
-        }
+    componentDidMount() {
+        var self = this;
+        console.log('___s_________________________');
+        console.log(this);
+        axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/all_loads/',{
+            load_id: this.state.load_id,
+            origin: this.state.origin,
+            destination: this.state.destination,
+            trailer_type: this.state.trailer_type,
+            rate: this.state.rate
+        }).then( function(response){
+            console.log("__________________________________");
+            console.log("Rogen Lang gwapaaaaaaaaaaaaaaaaaaaaaa");
+            console.log("__________________________________");
+            console.log(response);
+            self.setState({response: response.data});
+            console.log("__________________________________");
+            console.log("__________________________________");
+            alert('success');
+        }).catch(function(err){
+            console.log(err);
+            console.log('errorrr ');
+            alert('Hay NAKUUUUUUUUUUUUUUUUw');
+        });
+    }
 
 
     render(){

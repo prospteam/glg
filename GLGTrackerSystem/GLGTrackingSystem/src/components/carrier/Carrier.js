@@ -94,49 +94,54 @@ class Carrier extends Component {
                                </Picker>
                             </Item>
                         </CardItem>
-                        <CardItem>
-                        <Body>
-                            <View style={{flexDirection: 'row'}}>
-                                <View style={styles.iconCompleted}>
-                                    <View style={{flexDirection: 'column'}}>
-                                        <Text>Origin</Text>
-                                        <View style={{ margin: 2}} />
-                                        <View style={{flexDirection: 'row'}}>
-                                            <Icon name='ios-checkmark-circle' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.origin} </Text>
+                        <CardItem >
+                            <Body >
+                                <TouchableOpacity onPress={() => {
+                                    console.log('does not work');
+                                }
+                                }>
+                                    <View style={{ flexDirection: 'row' }} onPress={() => alert('clicked')}>
+                                        <View style={styles.iconCompleted}>
+                                            <View style={{flexDirection: 'column'}}>
+                                                <Text>Origin</Text>
+                                                <View style={{ margin: 2}} />
+                                                <View style={{flexDirection: 'row'}}>
+                                                    <Icon name='ios-checkmark-circle' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                                    <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.origin} </Text>
+                                                </View>
+                                                <View style={{flexDirection: 'column', marginLeft:0}}>
+                                                    <Dash dashColor={'#57B9BB'} style={styles.dash} />
+                                                    <Icon type="FontAwesome5" name='truck' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                                    <Dash dashColor={'#57B9BB'} style={styles.dash} />
+                                                </View>
+                                                <View style={{
+                                                            flexDirection: 'row'
+                                                            }}>
+                                                    <Icon name='heart' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                                    <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.destination}
+                                                    </Text>
+                                                </View>
+                                                <View style={{ margin: 2}} />
+                                                <Text>Destination</Text>
+                                            </View>
                                         </View>
-                                        <View style={{flexDirection: 'column', marginLeft:0}}>
-                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                            <Icon type="FontAwesome5" name='truck' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
+                                        <View style={{flex: 1,flexDirection: 'column',
+                                                width:50,
+                                                alignItems:'center'
+                                                }}>
+                                            <View style={{textAlign:'right'}}>
+                                                <Text>Rates</Text>
+                                                <Text style={{fontSize:20,fontWeight:'bold'}}>${data.rate}.00</Text>
+                                            </View>
+                                            <View style={{ margin:20}} />
+                                            <View style={{textAlign:'right'}}>
+                                                <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck" />
+                                                <Text style={{fontSize:15}}>{data.trailer_type}</Text>
+                                            </View>
                                         </View>
-                                        <View style={{
-                                                    flexDirection: 'row'
-                                                    }}>
-                                            <Icon name='heart' style={{color:'red', fontSize:15, marginLeft:20}} />
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.destination}
-                                            </Text>
-                                        </View>
-                                        <View style={{ margin: 2}} />
-                                        <Text>Destination</Text>
                                     </View>
-                                </View>
-                                <View style={{flex: 1,flexDirection: 'column',
-                                         width:50,
-                                         alignItems:'center'
-                                         }}>
-                                    <View style={{textAlign:'right'}}>
-                                        <Text>Rates</Text>
-                                        <Text style={{fontSize:20,fontWeight:'bold'}}>${data.rate}.00</Text>
-                                    </View>
-                                    <View style={{ margin:20}} />
-                                    <View style={{textAlign:'right'}}>
-                                        <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck" />
-                                        <Text style={{fontSize:15}}>{data.trailer_type}</Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </Body>
+                                </TouchableOpacity>
+                            </Body>
                         </CardItem>
                     </Card>
                     </>
