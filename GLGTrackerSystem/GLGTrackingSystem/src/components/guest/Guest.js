@@ -24,7 +24,7 @@ class Guest extends Component {
     _handlePress() {
         console.log(this.state.load_id);
         alert("rogen Lang talaga magandaaaaaaaa");
-    } 
+    }
     render() {
         return (
             <View>
@@ -47,7 +47,7 @@ class Guest extends Component {
                     <TextInput style={styles.text_input} placeholder="Enter Code Here"  placeholderTextColor="white" onChangeText={text => this.setState({ load_id: text })} />
                 </View>
                     <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
-                            <TouchableOpacity style={styles.button} onPress={() => this._handlePress()}>
+                            <TouchableOpacity style={styles.button} onPress={() => Actions.Orderstatus()}>
                                 <Text style={{fontSize:18}}>Track</Text>
                             </TouchableOpacity>
                         </View>

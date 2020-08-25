@@ -31,37 +31,12 @@ class Orderstatus extends Component {
                         <TextInput style={styles.trackinput} placeholder="0123456789" placeholderTextColor="white" />
                     </View>
                     <View style={{flexDirection: 'column', justifyContent: "center", alignItems: "center"}}>
-
                         <View style={{ margin: 10}} />
 
-                        <View style={{flexDirection: 'row'}}>
-                            <Icon name='ios-checkmark-circle' style={{color:'#24cea7', fontSize:20,}} />
-                            <Dash dashColor={'#57B9BB'} style={styles.dash1} />
+                        <View style={{flexDirection: 'row', backgroundColor:'#ff9c00cf',  width: '70%', borderRadius:3}}>
                             <View style={{flexDirection: 'column'}}>
+                                <Text style={{fontSize:18, color:'white', marginLeft:75, fontWeight: 'bold'}}>Processing</Text>
                                 <Text style={{fontSize:15, color:'white', marginLeft:60}}>Mon, 01 June 2020</Text>
-                                <Text style={{fontSize:18, color:'white', marginLeft:60, fontWeight: 'bold'}}>Claimed </Text>
-                            </View>
-                        </View>
-
-                        <View style={{ margin: 10}} />
-
-                        <View style={{flexDirection: 'row'}}>
-                            <Icon name='ios-checkmark-circle' style={{color:'#24cea7', fontSize:20,}} />
-                            <Dash dashColor={'#57B9BB'} style={styles.dash1} />
-                            <View style={{flexDirection: 'column'}}>
-                                <Text style={{fontSize:15, color:'white', marginLeft:60}}>Mon, 01 June 2020</Text>
-                                <Text style={{fontSize:18, color:'white', marginLeft:60, fontWeight: 'bold'}}>Arrived at USA</Text>
-                            </View>
-                        </View>
-
-                        <View style={{ margin: 10}} />
-
-                        <View style={{flexDirection: 'row'}}>
-                            <Icon name='ios-checkmark-circle' style={{color:'#24cea7', fontSize:20,}} />
-                            <Dash dashColor={'#57B9BB'} style={styles.dash1} />
-                            <View style={{flexDirection: 'column'}}>
-                                <Text style={{fontSize:15, color:'white', marginLeft:60}}>Mon, 01 June 2020</Text>
-                                <Text style={{fontSize:18, color:'white', marginLeft:60, fontWeight: 'bold'}}>Delivered </Text>
                             </View>
                         </View>
 
