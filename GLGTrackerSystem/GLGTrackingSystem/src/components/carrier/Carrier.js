@@ -60,7 +60,7 @@ class Carrier extends Component {
 
     change_status(value) {
         var self = this;
-        axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/change_load_status/',{
+        axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/change_load_status/'+this.state.load_id+'/'+value,{
             load_id: this.state.load_id,
             tracking_status :value
         }).then( function(response){
