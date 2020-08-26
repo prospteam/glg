@@ -115,15 +115,6 @@ class Carrier extends Component {
                                       <Picker.Item value={2} label={'Delivered'} />
                                    </Picker>
                                 </Item>
-
-                                    <TouchableOpacity onPress={() => {
-                                        alert('does not work');
-                                    }
-                                    }>
-                                        <Text>
-                                            View Details
-                                        </Text>
-                                    </TouchableOpacity>
                             </View>
                         </CardItem>
 
@@ -148,7 +139,7 @@ class Carrier extends Component {
                                             }}>
                                                 <Icon name='ios-checkmark-circle' style={{ color: 'orange', fontSize: 15, marginLeft: 20 }} />
                                                 <Text style={{ fontSize: 12, color: 'orange', marginLeft: 15, fontWeight: 'bold' }}>{data.destination}
-                                                </Text> 
+                                                </Text>
                         {/* <CardItem >
                             <Body >
                                     <View style={{ flexDirection: 'row' }} onPress={() => alert('clicked')}>
