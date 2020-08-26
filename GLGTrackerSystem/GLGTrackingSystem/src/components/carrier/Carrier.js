@@ -60,7 +60,7 @@ class Carrier extends Component {
 
     change_status(value) {
         var self = this;
-        axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/change_load_status/',{
+        axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/change_load_status/'+this.state.load_id+'/'+value,{
             load_id: this.state.load_id,
             tracking_status :value
         }).then( function(response){
@@ -206,3 +206,28 @@ function redux_action_function_to_props(dispatch){
    },dispatch);
 }
 export default connect(redux_states_to_props,redux_action_function_to_props)(Carrier);
+
+
+
+{/* <CardItem>
+    <Body>
+        <View style={{ flexDirection: 'row' }}>
+            <View style={styles.iconCompleted}>
+                <View style={{ flexDirection: 'column' }}>
+                    <Text>Origin</Text>
+                    <View style={{ margin: 2 }} />
+                    <View style={{ flexDirection: 'row' }}>
+                        <Icon name='ios-checkmark-circle' style={{ color: 'orange', fontSize: 15, marginLeft: 20 }} />
+                        <Text style={{ fontSize: 12, color: 'orange', marginLeft: 15, fontWeight: 'bold' }}>{data.origin} </Text>
+                    </View>
+                    <View style={{ flexDirection: 'column', marginLeft: 0 }}>
+                        <Dash dashColor={'#57B9BB'} style={styles.dash} />
+                        <Icon type="FontAwesome5" name='truck' style={{ color: 'orange', fontSize: 15, marginLeft: 20 }} />
+                        <Dash dashColor={'#57B9BB'} style={styles.dash} />
+                    </View>
+                    <View style={{
+                        flexDirection: 'row'
+                    }}>
+                        <Icon name='ios-checkmark-circle' style={{ color: 'orange', fontSize: 15, marginLeft: 20 }} />
+                        <Text style={{ fontSize: 12, color: 'orange', marginLeft: 15, fontWeight: 'bold' }}>{data.destination}
+                        </Text> */}

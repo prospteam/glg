@@ -55,7 +55,7 @@ dash:{
 },
 dash1:{
    width:1,
-   height: 50,
+   height:50,
    top:0,
    flexDirection:'column',
 },
