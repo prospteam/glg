@@ -115,14 +115,19 @@ class Carrier extends Component {
                                       <Picker.Item value={2} label={'Delivered'} />
                                    </Picker>
                                 </Item>
+
+                                    <TouchableOpacity onPress={() => {
+                                        alert('does not work');
+                                    }
+                                    }>
+                                        <Text>
+                                            View Details
+                                        </Text>
+                                    </TouchableOpacity>
                             </View>
                         </CardItem>
                         <CardItem >
                             <Body >
-                                <TouchableOpacity onPress={() => {
-                                    console.log('does not work');
-                                }
-                                }>
                                     <View style={{ flexDirection: 'row' }} onPress={() => alert('clicked')}>
                                         <View style={styles.iconCompleted}>
                                             <View style={{flexDirection: 'column'}}>
@@ -163,7 +168,6 @@ class Carrier extends Component {
                                             </View>
                                         </View>
                                     </View>
-                                </TouchableOpacity>
                             </Body>
                         </CardItem>
                     </Card>
