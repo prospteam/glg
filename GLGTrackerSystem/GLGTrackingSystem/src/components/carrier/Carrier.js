@@ -115,7 +115,7 @@ class Carrier extends Component {
                                       <Picker.Item value={2} label={'Delivered'} />
                                    </Picker>
                                 </Item>
-
+{/* 
                                     <TouchableOpacity onPress={() => {
                                         alert('does not work');
                                     }
@@ -123,7 +123,7 @@ class Carrier extends Component {
                                         <Text>
                                             View Details
                                         </Text>
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
                             </View>
                         </CardItem>
 
