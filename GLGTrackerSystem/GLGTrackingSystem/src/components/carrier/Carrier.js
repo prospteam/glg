@@ -115,15 +115,6 @@ class Carrier extends Component {
                                       <Picker.Item value={2} label={'Delivered'} />
                                    </Picker>
                                 </Item>
-{/* 
-                                    <TouchableOpacity onPress={() => {
-                                        alert('does not work');
-                                    }
-                                    }>
-                                        <Text>
-                                            View Details
-                                        </Text>
-                                    </TouchableOpacity> */}
                             </View>
                         </CardItem>
 
@@ -148,7 +139,7 @@ class Carrier extends Component {
                                             }}>
                                                 <Icon name='ios-checkmark-circle' style={{ color: 'orange', fontSize: 15, marginLeft: 20 }} />
                                                 <Text style={{ fontSize: 12, color: 'orange', marginLeft: 15, fontWeight: 'bold' }}>{data.destination}
-                                                </Text> 
+                                                </Text>
                         {/* <CardItem >
                             <Body >
                                     <View style={{ flexDirection: 'row' }} onPress={() => alert('clicked')}>
@@ -157,18 +148,18 @@ class Carrier extends Component {
                                                 <Text>Origin</Text>
                                                 <View style={{ margin: 2}} />
                                                 <View style={{flexDirection: 'row'}}>
-                                                    <Icon name='ios-checkmark-circle' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                                    <Icon name='ios-checkmark-circle' style={{color:'orange', fontSize:15, marginLeft:20}} />
                                                     <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.origin} </Text>
                                                 </View>
                                                 <View style={{flexDirection: 'column', marginLeft:0}}>
                                                     <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                                    <Icon type="FontAwesome5" name='truck' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                                    <Icon type="FontAwesome5" name='truck' style={{color:'orange', fontSize:15, marginLeft:20}} />
                                                     <Dash dashColor={'#57B9BB'} style={styles.dash} />
                                                 </View>
                                                 <View style={{
                                                             flexDirection: 'row'
                                                             }}>
-                                                    <Icon name='heart' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                                    <Icon name='ios-checkmark-circle' style={{color:'orange', fontSize:15, marginLeft:20}} />
                                                     <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.destination}
                                                     </Text> */}
                                                 </View>
