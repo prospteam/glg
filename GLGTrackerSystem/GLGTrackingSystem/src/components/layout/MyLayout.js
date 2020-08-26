@@ -15,6 +15,11 @@ import { bindActionCreators } from 'redux';
 import { set_is_logged } from '../../redux/actions/Actions';
 
 class MyLayout extends Component {
+
+    end_session() {
+        this.props.set_is_logged('set_is_logged', false);
+    }
+    
     render(){
         return (
             <ImageBackground source={bg_image} style={{ width: '100%', height: '100%', marginBottom: 65, blurRadius: 5 }}>
@@ -38,11 +43,16 @@ class MyLayout extends Component {
                                 // height: '100%',
                                 // justifyContent: 'center',
                                 flexDirection:'row',
-                                alignItems:'center'
+                                alignItems:'center',
                             }}>
                             <Image source={logo_square} style={{ justifyContent: "center", alignItems: "center",width: 40, height: 40, borderRadius: 100, blurRadius: 5, backgroundColor: 'red' }} />
                             <Text style={{ color: '#fff', marginLeft: 10}}>
-                                {(this.props.title) ? this.props.title : "User Page Title"}
+                                {(this.props.redux_session.user_data.user_type) == "admin" ? "Admin" :
+                                (this.props.redux_session.user_data.user_type) == "broker" ? "Broker" :
+                                (this.props.redux_session.user_data.user_type) == "shipper" ? "Shipper" :
+                                (this.props.redux_session.user_data.user_type) == "Carrier" ? "Shipper" : "User"}
+                                {" "}
+                                {(this.props.title) ? this.props.title : ""}
                             </Text>
                         </View>
                         <View
@@ -54,9 +64,28 @@ class MyLayout extends Component {
                                 flex: 1,
                                 // justifyContent:'flex-end',
                             }}>
-                            <Text style={{color:'#fff'}}>
-                                Option1 | Logout
-                            </Text>
+                                <View style={{flexDirection:'row'}}>
+                                    {/* <TouchableOpacity onPress={() => this.end_session()}>
+                                        <Text style={{ color: '#fff', padding: 5 }}>
+                                            Logout
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <Text style={{ color: '#fff', padding: 5 }}>
+                                        | 
+                                    </Text> */}
+                                    <TouchableOpacity onPress={() => this.end_session()}>
+                                        <Text style={{ color: '#fff',padding:5 }}>
+                                            Logout
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            {/* <Text style={{ color: '#fff' }}>
+                                Option1 | 
+                            </Text> */}
+                            {/* 
+                            <View style={{ alignItems: 'flex-end', flex: 1, flexDirection: 'row-reverse' }}>
+                                <Icon onPress={() => this.end_session()} name='exit' />
+                            </View> */}
                         </View>
                     </View>
 					{this.props.children}
@@ -67,7 +96,7 @@ class MyLayout extends Component {
 }
 
 function redux_states_to_props(state){
-   // console.log('redux_session  ', state.redux_session)
+   console.log('redux_session  ', state.redux_session)
    return {
        redux_session: state.redux_session
        // si MyGlobalReducer kay makit an sa reducers folder

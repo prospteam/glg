@@ -186,13 +186,11 @@ class Carrier extends Component {
                         </CardItem>
                     </Card>
                     </>
-
                 );
             });
-
         }
         return (
-            <MyLayout>
+            <MyLayout title="Assigned Loads">
                 <ScrollView>
                     <View style={styles.contentBody}>
                         {load_details}

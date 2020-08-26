@@ -125,7 +125,7 @@ class Shipper extends Component {
 
         }
         return (
-            <MyLayout>
+            <MyLayout title="Tracked Loads">
                 <ScrollView>
                     <View style={styles.contentBody}>
                         {load_details}

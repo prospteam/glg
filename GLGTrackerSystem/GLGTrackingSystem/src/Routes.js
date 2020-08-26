@@ -61,13 +61,14 @@ class Routes extends Component {
                             title="Guest"
                             hideNavBar
                         />
+
                         <Scene
                             key="Guest"
                             component={Guest}
+                            initial={!this.props.redux_session.is_logged}
                             title="Guest"
                             hideNavBar
                         />
-
                         <Scene
                             key="Login"
                             component={Login}

@@ -13,16 +13,16 @@ export default class Dashboard extends Component {
          color: text
       })
    }
-  //  componentWillMount(){
-  //   AsyncStorage.getItem('userdata').then((user_data_json) => {
-  //     let userdata = JSON.parse(user_data_json);
-  //     this.setState({
-  //       user: userdata,
-  //       loaded: true
-  //     });
-  //   });
-  // }
-  //
+   //  componentWillMount(){
+   //   AsyncStorage.getItem('userdata').then((user_data_json) => {
+   //     let userdata = JSON.parse(user_data_json);
+   //     this.setState({
+   //       user: userdata,
+   //       loaded: true
+   //     });
+   //   });
+   // }
+   //
    render() {
       //  console.log('this.props.RiderReducer.loggedinData', this.props.RiderReducer.loggedinData);
       return (
