@@ -71,7 +71,10 @@ class Shipper extends Component {
                     <>
                     <Card key={index}>
                         <CardItem header style={{backgroundColor:'#1fb599' }}>
-                            <Text style={{color:'#fff'}}>{data.load_id}</Text>
+                            <View style={{flexDirection: 'row',}}>
+                                <Text style={{color:'#fff', flex: 1}}>{data.load_id}</Text>
+                                <Text style={{color:'#fff', backgroundColor:'orange', width:'30%', borderRadius:3, padding:3}}>Pending</Text>
+                            </View>
                         </CardItem>
                         <CardItem>
                         <Body>
@@ -81,18 +84,18 @@ class Shipper extends Component {
                                         <Text>Origin</Text>
                                         <View style={{ margin: 2}} />
                                         <View style={{flexDirection: 'row'}}>
-                                            <Icon name='ios-checkmark-circle' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                            <Icon name='ios-checkmark-circle' style={{color:'orange', fontSize:15, marginLeft:20}} />
                                             <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.origin} </Text>
                                         </View>
                                         <View style={{flexDirection: 'column', marginLeft:0}}>
                                             <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                            <Icon type="FontAwesome5" name='truck' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                            <Icon type="FontAwesome5" name='truck' style={{color:'orange', fontSize:15, marginLeft:20}} />
                                             <Dash dashColor={'#57B9BB'} style={styles.dash} />
                                         </View>
                                         <View style={{
                                                     flexDirection: 'row'
                                                     }}>
-                                            <Icon name='heart' style={{color:'red', fontSize:15, marginLeft:20}} />
+                                            <Icon name='ios-checkmark-circle' style={{color:'orange', fontSize:15, marginLeft:20}} />
                                             <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.destination}
                                             </Text>
                                         </View>

@@ -151,9 +151,9 @@ class Login extends Component {
                         <TextInput style={styles.text_input} placeholder="Password"  placeholderTextColor="white" onChangeText={text => this.setState({ password: text })}/>
                     </View>
                     <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
-                        <TouchableOpacity style={styles.button} 
-                          onPress={() => this.form_login()}
-                        // onPress={() => Actions.Carrier()}
+                        <TouchableOpacity style={styles.button}
+                          // onPress={() => this.form_login()}
+                        onPress={() => Actions.Shipper()}
                         >
                             <Text style={{fontSize:18}}>Log In</Text>
                         </TouchableOpacity>
