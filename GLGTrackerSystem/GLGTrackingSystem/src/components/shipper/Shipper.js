@@ -51,7 +51,6 @@ class Shipper extends Component {
         });
     }
 
-
     render(){
         let load_details;
         if (this.state.response.length==0) {
@@ -119,10 +118,8 @@ class Shipper extends Component {
                         </CardItem>
                     </Card>
                     </>
-
                 );
             });
-
         }
         return (
             <MyLayout title="Tracked Loads">
@@ -131,11 +128,10 @@ class Shipper extends Component {
                         {load_details}
                     </View>
                 </ScrollView>
-                </MyLayout>
+            </MyLayout>
 
         );
             console.log(this.state.response);
-
     }
 }
 

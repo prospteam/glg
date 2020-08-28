@@ -96,7 +96,7 @@ function redux_state_to_Props (state){
     console.log('user_data');
     console.log(state.redux_session.user_data);
     console.log('');
-    console.log('_____________________________________');
+    console.log('_________________Maganda kana lagi, sigig balik____________________');
     return {
         redux_state: state.redux_state,
         redux_session: state.redux_session

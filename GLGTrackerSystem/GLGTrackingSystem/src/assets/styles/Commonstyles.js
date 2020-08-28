@@ -22,7 +22,7 @@ export default StyleSheet.create({
   contentBody:{
       // marginLeft:1,
       // marginRight:1, container Edges unta
-      paddingTop:'15%',
+      // paddingTop:'15%',
       flex:1,
       borderTopLeftRadius:30,
       borderTopRightRadius:30,

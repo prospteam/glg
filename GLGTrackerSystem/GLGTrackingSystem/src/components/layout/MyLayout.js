@@ -22,30 +22,28 @@ class MyLayout extends Component {
     
     render(){
         return (
-            <ImageBackground source={bg_image} style={{ width: '100%', height: '100%', marginBottom: 65, blurRadius: 5 }}>
+            <ImageBackground source={bg_image} style={{ width: '100%', height: '100%', marginBottom: 65, 
+            }}>
                 <View // App Container
                     style={{ 
-                        // backgroundColor: 'blue' ,
                         margin:20,
+                        // backgroundColor:'blue'
                         }}
                         >
                     <View // Header section
                         style={{
-                            // backgroundColor:'red',
-                            // flex:1,
                             flexDirection: 'row',
-                            // height: 80,
+                            marginBottom: 0,
+                            // backgroundColor: 'red'
                         }}>
                         <View
                             style={{
-                                // backgroundColor: 'blue',
                                 flex: 1,
-                                // height: '100%',
-                                // justifyContent: 'center',
                                 flexDirection:'row',
                                 alignItems:'center',
                             }}>
-                            <Image source={logo_square} style={{ justifyContent: "center", alignItems: "center",width: 40, height: 40, borderRadius: 100, blurRadius: 5, backgroundColor: 'red' }} />
+                            <Image source={logo_square} style={{ justifyContent: "center", alignItems: "center",width: 40, height: 40, borderRadius: 100, 
+                             backgroundColor: 'red' }} />
                             <Text style={{ color: '#fff', marginLeft: 10}}>
                                 {(this.props.redux_session.user_data.user_type) == "admin" ? "Admin" :
                                 (this.props.redux_session.user_data.user_type) == "broker" ? "Broker" :
@@ -59,10 +57,7 @@ class MyLayout extends Component {
                             style={{
                                 justifyContent: 'center',
                                 alignItems:'flex-end',
-                                // height: '100%',
-                                // backgroundColor: 'gold',
                                 flex: 1,
-                                // justifyContent:'flex-end',
                             }}>
                                 <View style={{flexDirection:'row'}}>
                                     {/* <TouchableOpacity onPress={() => this.end_session()}>
@@ -79,13 +74,6 @@ class MyLayout extends Component {
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
-                            {/* <Text style={{ color: '#fff' }}>
-                                Option1 | 
-                            </Text> */}
-                            {/* 
-                            <View style={{ alignItems: 'flex-end', flex: 1, flexDirection: 'row-reverse' }}>
-                                <Icon onPress={() => this.end_session()} name='exit' />
-                            </View> */}
                         </View>
                     </View>
 					{this.props.children}

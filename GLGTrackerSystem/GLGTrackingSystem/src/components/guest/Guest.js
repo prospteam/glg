@@ -28,18 +28,17 @@ class Guest extends Component {
     render() {
         return (
             <View>
-                <ImageBackground source={truck_bg} style={{ width: '100%', height: '100%', marginBottom: 65, blurRadius: 5}}>
+                <ImageBackground source={truck_bg} style={{ width: '100%', height: '100%', marginBottom: 65}}>
                     <View  style={{justifyContent: "center", alignItems: "center",}}>
                         <TouchableOpacity onPress={()=>{Actions.Login()} }>
                             <Text style={{fontSize:18, color:'white',  marginTop:20,marginLeft:220}}>Login</Text>
                         </TouchableOpacity>
                     </View>
                 <View style={{ marginTop: "10%", justifyContent: "center", alignItems: "center" }}>
-                <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100, blurRadius: 5 }} />
+                <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100 }} />
             </View>
             {/* <View style={{ marginTop: "10%", justifyContent: "center", alignItems: "center" }}>
                   <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100,
-                  //  blurRadius: 5
                     }} />
               </View> */}
                 <View  style={{justifyContent: "center", alignItems: "center", marginTop: 50}}>
@@ -77,17 +76,3 @@ function redux_action_function_to_props(dispatch){
 }
 export default connect(redux_states_to_props,redux_action_function_to_props)(Guest);
 
-
-
-
-// <View style={{ marginTop: "10%", justifyContent: "center", alignItems: "center" }}>
-//     <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100, blurRadius: 5 }} />
-// </View>
-// {/* <View style={{ marginTop: "10%", justifyContent: "center", alignItems: "center" }}>
-//                         <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100,
-//                         //  blurRadius: 5
-//                             }} />
-//                     </View> */}
-// <View style={{ justifyContent: "center", alignItems: "center", marginTop: 50 }}>
-//     <Text style={{ color: 'white', fontSize: 25, fontFamily: 'sans-serif' }}>GLG Tack a Load </Text>
-//     <TextInput style={styles.text_input} placeholder="Enter Code Here" placeholderTextColor="white" onChangeText={text => this.setState({ load_id: text })} />
