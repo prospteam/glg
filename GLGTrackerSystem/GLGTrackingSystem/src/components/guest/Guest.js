@@ -50,11 +50,6 @@ class Guest extends Component {
                                 <Text style={{fontSize:18}}>Track</Text>
                             </TouchableOpacity>
                         </View>
-                            <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
-                                    <TouchableOpacity style={styles.button} onPress={() => this._handlePress()}>
-                                        <Text style={{fontSize:18}}>Track</Text>
-                                    </TouchableOpacity>
-                                </View>
                 </ImageBackground>
             </View>
 
