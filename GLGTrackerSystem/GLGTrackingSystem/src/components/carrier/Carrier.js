@@ -67,10 +67,12 @@ class Carrier extends Component {
             if(response.data.status){
                 this.fetch_loads();
             }
-            console.log(response.data);
+            console.log(response.data.status);
             console.log("_____+++++++++++____");
+        }).catch(function(err){
+            console.log(err);
+            alert('Status not found');
         });
-
    }
 
     render(){
@@ -213,7 +215,7 @@ class Carrier extends Component {
         }
         return (
             <MyLayout title="Assigned Loads">
-                <ScrollView>
+                <ScrollView style={{marginBottom:25}}>
                     <View style={styles.contentBody}>
                         {load_details}
                     </View>
