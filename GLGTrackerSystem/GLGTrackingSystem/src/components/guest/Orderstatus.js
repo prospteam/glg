@@ -32,14 +32,12 @@ class Orderstatus extends Component {
                     </View>
                     <View style={{flexDirection: 'column', justifyContent: "center", alignItems: "center"}}>
                         <View style={{ margin: 10}} />
-
                         <View style={{flexDirection: 'row', backgroundColor:'#ff9c00cf',  width: '70%', borderRadius:3}}>
                             <View style={{flexDirection: 'column'}}>
                                 <Text style={{fontSize:18, color:'white', marginLeft:75, fontWeight: 'bold'}}>Processing</Text>
                                 <Text style={{fontSize:15, color:'white', marginLeft:60}}>Mon, 01 June 2020</Text>
                             </View>
                         </View>
-
                     </View>
                 </MyLayout>
         );

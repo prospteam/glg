@@ -37,25 +37,27 @@ class Guest extends Component {
                 <View style={{ marginTop: "10%", justifyContent: "center", alignItems: "center" }}>
                 <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100 }} />
             </View>
-            {/* <View style={{ marginTop: "10%", justifyContent: "center", alignItems: "center" }}>
-                  <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100,
-                    }} />
-              </View> */}
+                {/*
+                    <View style={{ marginTop: "10%", justifyContent: "center", alignItems: "center" }}>
+                        <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100,
+                            }} />
+                    </View> 
+                */}
                 <View  style={{justifyContent: "center", alignItems: "center", marginTop: 50}}>
                     <Text style={{color:'white', fontSize:25, fontFamily: 'sans-serif' }}>GLG Tack a Load </Text>
                     <TextInput style={styles.text_input} placeholder="Enter Code Here"  placeholderTextColor="white" onChangeText={text => this.setState({ load_id: text })} />
                 </View>
                     <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
-                            <TouchableOpacity style={styles.button} onPress={() => Actions.Orderstatus()}>
-                                <Text style={{fontSize:18}}>Track</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity style={styles.button} onPress={() => Actions.Orderstatus()}>
+                            <Text style={{fontSize:18}}>Track</Text>
+                        </TouchableOpacity>
+                    </View>
                 </ImageBackground>
             </View>
-
         );
     }
 }
+
 function redux_states_to_props(state){
    // console.log('redux_session  ', state.redux_session)
    return {

@@ -38,7 +38,7 @@ class MyLayout extends Component {
                         }}>
                         <View
                             style={{
-                                flex: 1,
+                                flex: 2,
                                 flexDirection:'row',
                                 alignItems:'center',
                             }}>
