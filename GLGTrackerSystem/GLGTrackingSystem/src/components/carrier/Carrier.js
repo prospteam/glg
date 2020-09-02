@@ -59,18 +59,22 @@ class Carrier extends Component {
     }
 
     change_status(value) {
+        console.log("_______wanghiya1____");
         var self = this;
         axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/change_load_status/'+this.state.load_id+'/'+value,{
-            load_id: this.state.load_id,
-            tracking_status :value
-        }).then( function(response){
-            if(response.data.status){
-                this.fetch_loads();
-            }
-            console.log(response.data.status);
-            console.log("_____+++++++++++____");
+            // load_id: this.state.load_id,
+            // tracking_status :value
+        }).then(function (response) {
+            console.log(response);
+            console.log("_______rogen_maganda_cute_cute_super___");
+
+            // if(response.data.status){
+            //     self.fetch_loads();
+            // }
+            // console.log(response.data.status);
         }).catch(function(err){
             console.log(err);
+            console.log("_______wanghiya3____");
             alert('Status not found');
         });
    }
