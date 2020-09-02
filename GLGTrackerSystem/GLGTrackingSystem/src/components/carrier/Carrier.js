@@ -59,24 +59,11 @@ class Carrier extends Component {
     }
 
     change_status(value) {
-<<<<<<< HEAD
-        console.log("+++++++++++++TEEEST+++++++++");
-
-=======
         console.log("_______wanghiya1____");
->>>>>>> bab7cfd5bba304ae82c3ee13aad787d676a2a2a1
         var self = this;
         axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/change_load_status/'+this.state.load_id+'/'+value,{
             // load_id: this.state.load_id,
             // tracking_status :value
-<<<<<<< HEAD
-        }).then( function(response){
-            // if(response.data.status){
-            //     self.fetch_loads();
-            // }
-            console.log(response);
-            console.log("_____+++++++++++____");
-=======
         }).then(function (response) {
             console.log(response);
             console.log("_______rogen_maganda_cute_cute_super___");
@@ -85,7 +72,6 @@ class Carrier extends Component {
             //     self.fetch_loads();
             // }
             // console.log(response.data.status);
->>>>>>> bab7cfd5bba304ae82c3ee13aad787d676a2a2a1
         }).catch(function(err){
             console.log(err);
             console.log("_______wanghiya3____");
