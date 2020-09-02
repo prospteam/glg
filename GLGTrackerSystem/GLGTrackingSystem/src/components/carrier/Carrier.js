@@ -107,7 +107,7 @@ class Carrier extends Component {
                     <Card key={index}>
                         <CardItem header style={{backgroundColor:'#1fb599' }}>
                             <View style={{flexDirection: 'column', justifyContent: "center", alignItems: "center"}}>
-                                <Text style={{color:'#fff', flex: 1}}>Tracking No. {data.load_id}</Text>
+                                <Text style={{color:'#fff', flex: 1}}>Tracking No. 000{data.load_id}</Text>
                                 <Item picker>
                                     <Picker
                                     style={{backgroundColor:'orange', color: '#fff', height: 25, width: '100%'}}
