@@ -69,6 +69,13 @@ class Carrier extends Component {
             }
             console.log(response.data);
             console.log("_____+++++++++++____");
+        })
+        .catch(function (error) {
+
+            // that.setState({is_load_test:false});
+            // that.props.set_show_mini_loader(false);
+            console.log(error);
+            console.log("Errorr");
         });
 
    }
@@ -106,8 +113,8 @@ class Carrier extends Component {
                                     <Picker
                                     style={{backgroundColor:'orange', color: '#fff', height: 25, width: '100%'}}
                                        selectedValue={status_}
-                                        onValueChange={() =>{
-                                            this.change_status();
+                                        onValueChange={(asdasdasd) =>{
+                                            this.change_status(asdasdasd);
                                             this.setState({load_id:data.load_id});
                                         } }>
                                       <Picker.Item value={0} label={'Pending'} />
