@@ -48,7 +48,7 @@ class Guest extends Component {
                     <TextInput style={styles.text_input} placeholder="Enter Code Here"  placeholderTextColor="white" onChangeText={text => this.setState({ load_id: text })} />
                 </View>
                     <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
-                        <TouchableOpacity style={styles.button} onPress={() => Actions.Orderstatus()}>
+                        <TouchableOpacity style={styles.button} onPress={() => Actions.Orderstatus({ tracking_id: this.state.load_id})}>
                             <Text style={{fontSize:18}}>Track</Text>
                         </TouchableOpacity>
                     </View>

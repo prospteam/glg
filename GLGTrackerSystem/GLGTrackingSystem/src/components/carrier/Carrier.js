@@ -108,8 +108,8 @@ class Carrier extends Component {
                                     <Picker
                                     style={{backgroundColor:'orange', color: '#fff', height: 25, width: '100%'}}
                                        selectedValue={status_}
-                                        onValueChange={() =>{
-                                            this.change_status();
+                                        onValueChange={(asdasdasd) =>{
+                                            this.change_status(asdasdasd);
                                             this.setState({load_id:data.load_id});
                                         } }>
                                       <Picker.Item value={0} label={'Pending'} />
