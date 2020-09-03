@@ -62,16 +62,14 @@ class Carrier extends Component {
         console.log("_______wanghiya1____");
         var self = this;
         axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/change_load_status/'+this.state.load_id+'/'+value,{
-            // load_id: this.state.load_id,
-            // tracking_status :value
+            tracking_status :value
         }).then(function (response) {
-            console.log(response);
-            console.log("_______rogen_maganda_cute_cute_super___");
 
-            // if(response.data.status){
-            //     self.fetch_loads();
-            // }
-            // console.log(response.data.status);
+            if(response.data.status){
+                self.fetch_loads();
+            }
+            console.log("_______rogen_maganda_cute_cute_super___");
+            console.log(response);
         }).catch(function(err){
             console.log(err);
             console.log("_______wanghiya3____");
@@ -112,8 +110,8 @@ class Carrier extends Component {
                                     <Picker
                                     style={{backgroundColor:'orange', color: '#fff', height: 25, width: '100%'}}
                                        selectedValue={status_}
-                                        onValueChange={(asdasdasd) =>{
-                                            this.change_status(asdasdasd);
+                                        onValueChange={() =>{
+                                            this.change_status();
                                             this.setState({load_id:data.load_id});
                                         } }>
                                       <Picker.Item value={0} label={'Pending'} />
