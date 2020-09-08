@@ -69,26 +69,27 @@ class Shipper extends Component {
             </Card>
         }else{
             load_details = this.state.response.map((data,index) =>{
-                // let shipper_status;
-                // if (data.tracking_status == 0) {
-                //     shipper_status = <Text style={{color:'#fff', backgroundColor:'gray', width:'38%', borderRadius:3, padding:3}}>Pending</Text>
-                // }else if (data.tracking_status == 1) {
-                //     shipper_status = <Text style={{color:'#fff', backgroundColor:'red', width:'38%', borderRadius:3, padding:3}}>Processing</Text>
-                // }else {
-                //     shipper_status = <Text style={{color:'#fff', backgroundColor:'green', width:'38%', borderRadius:3, padding:3}}>Delivered</Text>
-                // }
                 let shipper_status;
                 if (data.tracking_status == 0) {
                     shipper_status =    <CardItem header style={{backgroundColor:'#429bcde8'}}>
-                                            <Text style={{justifyContent: "center", alignItems: "center",color:'#ffffff'}}>Pending</Text>
+                                            <View style={{flexDirection: 'row'}}>
+                                                <Text style={{color:'#ffffff', flex:1}}>{data.load_id}</Text>
+                                                <Text style={{color:'#ffffff'}}><Icon style={{color:'#1874e8f5', fontSize:17}} name="document-text"></Icon>Pending</Text>
+                                            </View>
                                         </CardItem>
                 }else if (data.tracking_status == 1) {
-                    shipper_status =  <CardItem header style={{backgroundColor:'#24b56be0'}}>
-                                            <Text style={{justifyContent: "center", alignItems: "center",color:'#ffffff'}}>Processing</Text>
+                    shipper_status =  <CardItem header style={{backgroundColor:'#e49c5ef0'}}>
+                                            <View style={{flexDirection: 'row',}}>
+                                                <Text style={{color:'#ffffff',flex:1}}>{data.load_id}</Text>
+                                                <Text style={{color:'#ffffff'}}><Icon style={{color:'#c9742a', fontSize:17}} name="train"></Icon>Processing</Text>
+                                            </View>
                                         </CardItem>
                 }else {
-                    shipper_status =  <CardItem header style={{backgroundColor:'#e49c5ef0'}}>
-                                            <Text style={{justifyContent: "center", alignItems: "center",color:'#ffffff'}}>Delivered</Text>
+                    shipper_status =  <CardItem header style={{backgroundColor:'#24b56be0'}}>
+                                            <View style={{flexDirection: 'row'}}>
+                                                <Text style={{color:'#ffffff', flex:1}}>{data.load_id}</Text>
+                                                <Text style={{color:'#ffffff'}}><Icon style={{color:'#05683c', fontSize:17}} name="home"></Icon>Delivered</Text>
+                                            </View>
                                     </CardItem>
                 }
 
