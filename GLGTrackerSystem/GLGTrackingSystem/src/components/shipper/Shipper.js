@@ -71,32 +71,14 @@ class Shipper extends Component {
             load_details = this.state.response.map((data,index) =>{
                 let shipper_status;
                 if (data.tracking_status == 0) {
-                    shipper_status =    <CardItem header style={{backgroundColor:'#429bcde8'}}>
-                                            <View style={{flexDirection: 'row'}}>
-                                                <Text style={{color:'#ffffff', flex:1}}>{data.load_id}</Text>
-                                                <Text style={{color:'#ffffff'}}><Icon style={{color:'#1874e8f5', fontSize:17}} name="document-text"></Icon>Pending</Text>
-                                            </View>
-                                        </CardItem>
-                }else if (data.tracking_status == 1) {
-                    shipper_status =  <CardItem header style={{backgroundColor:'#e49c5ef0'}}>
-                                            <View style={{flexDirection: 'row',}}>
-                                                <Text style={{color:'#ffffff',flex:1}}>{data.load_id}</Text>
-                                                <Text style={{color:'#ffffff'}}><Icon style={{color:'#c9742a', fontSize:17}} name="train"></Icon>Processing</Text>
-                                            </View>
-                                        </CardItem>
-                }else {
-                    shipper_status =  <CardItem header style={{backgroundColor:'#24b56be0'}}>
-                                            <View style={{flexDirection: 'row'}}>
-                                                <Text style={{color:'#ffffff', flex:1}}>{data.load_id}</Text>
-                                                <Text style={{color:'#ffffff'}}><Icon style={{color:'#05683c', fontSize:17}} name="home"></Icon>Delivered</Text>
-                                            </View>
-                                    </CardItem>
-                }
-
-                return(
-                    <>
+                    shipper_status =
                     <Card key={index}>
-                            {shipper_status}
+                        <CardItem header style={{backgroundColor:'#429bcde8'}}>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={{color:'#ffffff', flex:1}}>{data.load_id}</Text>
+                                <Text style={{color:'#ffffff'}}><Icon style={{color:'#1874e8f5', fontSize:17}} name="document-text"></Icon>Pending</Text>
+                            </View>
+                        </CardItem>
                         <CardItem>
                         <Body>
                             <View style={{flexDirection: 'row'}}>
@@ -105,19 +87,19 @@ class Shipper extends Component {
                                         <Text>Origin</Text>
                                         <View style={{ margin: 2}} />
                                         <View style={{flexDirection: 'row'}}>
-                                            <Icon name='ios-checkmark-circle' style={{color:'orange', fontSize:15, marginLeft:20}} />
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.origin} </Text>
+                                            <Icon name='ios-checkmark-circle' style={{color:'#429bcde8', fontSize:15, marginLeft:20}} />
+                                            <Text style={{fontSize:12, color:'#429bcde8', marginLeft:15, fontWeight: 'bold'}}>{data.origin} </Text>
                                         </View>
                                         <View style={{flexDirection: 'column', marginLeft:0}}>
-                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                            <Icon type="FontAwesome5" name='truck' style={{color:'orange', fontSize:15, marginLeft:20}} />
-                                            <Dash dashColor={'#57B9BB'} style={styles.dash} />
+                                            <Dash dashColor={'#000'} style={styles.dash} />
+                                            <Icon type="FontAwesome5" name='truck' style={{color:'#429bcde8', fontSize:15, marginLeft:20}} />
+                                            <Dash dashColor={'#000'} style={styles.dash} />
                                         </View>
                                         <View style={{
                                                     flexDirection: 'row'
                                                     }}>
-                                            <Icon name='ios-checkmark-circle' style={{color:'orange', fontSize:15, marginLeft:20}} />
-                                            <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.destination}
+                                            <Icon name='ios-checkmark-circle' style={{color:'#429bcde8', fontSize:15, marginLeft:20}} />
+                                            <Text style={{fontSize:12, color:'#429bcde8', marginLeft:15, fontWeight: 'bold'}}>{data.destination}
                                             </Text>
                                         </View>
                                         <View style={{ margin: 2}} />
@@ -130,18 +112,131 @@ class Shipper extends Component {
                                          }}>
                                     <View style={{textAlign:'right'}}>
                                         <Text>Rates</Text>
-                                        <Text style={{fontSize:20,fontWeight:'bold'}}>${data.rate}.00</Text>
+                                        <Text style={{fontSize:18,fontWeight:'bold', color:'#429bcde8'}}>${data.rate}.00</Text>
                                     </View>
                                     <View style={{ margin:20}} />
                                     <View style={{textAlign:'right'}}>
-                                        <Icon style={styles.vehicle_type} type="FontAwesome5" name="truck" />
+                                        <Icon style={styles.vehicle_type_pend} type="FontAwesome5" name="truck" />
+                                        <Text style={{fontSize:15}}>{data.trailer_type}</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </Body>
+                    </CardItem>
+                </Card>
+                }else if (data.tracking_status == 1) {
+                    shipper_status =
+                    <Card key={index}>
+                        <CardItem header style={{backgroundColor:'#e49c5ef0'}}>
+                            <View style={{flexDirection: 'row',}}>
+                                <Text style={{color:'#ffffff',flex:1}}>{data.load_id}</Text>
+                                <Text style={{color:'#ffffff'}}><Icon style={{color:'#c9742a', fontSize:17}} name="train"></Icon>Processing</Text>
+                            </View>
+                        </CardItem>
+                        <CardItem>
+                        <Body>
+                            <View style={{flexDirection: 'row'}}>
+                                <View style={styles.iconCompleted}>
+                                    <View style={{flexDirection: 'column'}}>
+                                        <Text>Origin</Text>
+                                        <View style={{ margin: 2}} />
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Icon name='ios-checkmark-circle' style={{color:'#e49c5ef0', fontSize:15, marginLeft:20}} />
+                                            <Text style={{fontSize:12, color:'#e49c5ef0', marginLeft:15, fontWeight: 'bold'}}>{data.origin} </Text>
+                                        </View>
+                                        <View style={{flexDirection: 'column', marginLeft:0}}>
+                                            <Dash dashColor={'#000'} style={styles.dash} />
+                                            <Icon type="FontAwesome5" name='truck' style={{color:'#e49c5ef0', fontSize:15, marginLeft:20}} />
+                                            <Dash dashColor={'#000'} style={styles.dash} />
+                                        </View>
+                                        <View style={{
+                                                    flexDirection: 'row'
+                                                    }}>
+                                            <Icon name='ios-checkmark-circle' style={{color:'#e49c5ef0', fontSize:15, marginLeft:20}} />
+                                            <Text style={{fontSize:12, color:'#e49c5ef0', marginLeft:15, fontWeight: 'bold'}}>{data.destination}
+                                            </Text>
+                                        </View>
+                                        <View style={{ margin: 2}} />
+                                        <Text>Destination</Text>
+                                    </View>
+                                </View>
+                                <View style={{flex: 1,flexDirection: 'column',
+                                         width:50,
+                                         alignItems:'center'
+                                         }}>
+                                    <View style={{textAlign:'right'}}>
+                                        <Text>Rates</Text>
+                                        <Text style={{fontSize:18,fontWeight:'bold', color:'#e49c5ef0'}}>${data.rate}.00</Text>
+                                    </View>
+                                    <View style={{ margin:20}} />
+                                    <View style={{textAlign:'right'}}>
+                                        <Icon style={styles.vehicle_type_proccess} type="FontAwesome5" name="truck" />
                                         <Text style={{fontSize:15}}>{data.trailer_type}</Text>
                                     </View>
                                 </View>
                             </View>
                         </Body>
                         </CardItem>
-                    </Card>
+                        </Card>
+                }else {
+                    shipper_status =
+                     <Card key={index}>
+                        <CardItem header style={{backgroundColor:'#24b56be0'}}>
+                           <View style={{flexDirection: 'row'}}>
+                               <Text style={{color:'#ffffff', flex:1}}>{data.load_id}</Text>
+                               <Text style={{color:'#ffffff'}}><Icon style={{color:'#05683c', fontSize:17}} name="home"></Icon>Delivered</Text>
+                           </View>
+                       </CardItem>
+                            <CardItem>
+                            <Body>
+                                <View style={{flexDirection: 'row'}}>
+                                    <View style={styles.iconCompleted}>
+                                        <View style={{flexDirection: 'column'}}>
+                                            <Text>Origin</Text>
+                                            <View style={{ margin: 2}} />
+                                            <View style={{flexDirection: 'row'}}>
+                                                <Icon name='ios-checkmark-circle' style={{color:'#24b56be0', fontSize:15, marginLeft:20}} />
+                                                <Text style={{fontSize:12, color:'#24b56be0', marginLeft:15, fontWeight: 'bold'}}>{data.origin} </Text>
+                                            </View>
+                                            <View style={{flexDirection: 'column', marginLeft:0}}>
+                                                <Dash dashColor={'#000'} style={styles.dash} />
+                                                <Icon type="FontAwesome5" name='truck' style={{color:'#24b56be0', fontSize:15, marginLeft:20}} />
+                                                <Dash dashColor={'#000'} style={styles.dash} />
+                                            </View>
+                                            <View style={{
+                                                        flexDirection: 'row'
+                                                        }}>
+                                                <Icon name='ios-checkmark-circle' style={{color:'#24b56be0', fontSize:15, marginLeft:20}} />
+                                                <Text style={{fontSize:12, color:'#24b56be0', marginLeft:15, fontWeight: 'bold'}}>{data.destination}
+                                                </Text>
+                                            </View>
+                                            <View style={{ margin: 2}} />
+                                            <Text>Destination</Text>
+                                        </View>
+                                    </View>
+                                    <View style={{flex: 1,flexDirection: 'column',
+                                             width:50,
+                                             alignItems:'center'
+                                             }}>
+                                        <View style={{textAlign:'right'}}>
+                                            <Text>Rates</Text>
+                                            <Text style={{fontSize:18,fontWeight:'bold', color:'#24b56be0'}}>${data.rate}.00</Text>
+                                        </View>
+                                        <View style={{ margin:20}} />
+                                        <View style={{textAlign:'right'}}>
+                                            <Icon style={styles.vehicle_type_deliv} type="FontAwesome5" name="truck" />
+                                            <Text style={{fontSize:15}}>{data.trailer_type}</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            </Body>
+                            </CardItem>
+                        </Card>
+                }
+
+                return(
+                    <>
+                    {shipper_status}
                     </>
                 );
             });
