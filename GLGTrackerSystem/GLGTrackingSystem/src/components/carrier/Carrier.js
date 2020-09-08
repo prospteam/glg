@@ -107,17 +107,20 @@ class Carrier extends Component {
                             <View style={{flexDirection: 'column', justifyContent: "center", alignItems: "center"}}>
                                 <Text style={{color:'#fff', flex: 1}}>Tracking No. 000{data.load_id}</Text>
                                 <Item picker>
-                                    <Picker
+                                    {/* <Picker
                                     style={{backgroundColor:'orange', color: '#fff', height: 25, width: '100%'}}
                                        selectedValue={status_}
-                                        onValueChange={() =>{
-                                            this.change_status();
-                                            this.setState({load_id:data.load_id});
-                                        } }>
+                                        onValueChange={(itemValue, itemIndex) =>{
+                                            console.log("ito"+itemValue);
+                                            console.log("_____asd____");
+                                            // alert(itemIndex);
+                                            // this.change_status(asdasdasd);
+                                            // this.setState({load_id:data.load_id});
+                                        }}>
                                       <Picker.Item value={0} label={'Pending'} />
                                       <Picker.Item value={1} label={'Processing'} />
                                       <Picker.Item value={2} label={'Delivered'} />
-                                   </Picker>
+                                   </Picker> */}
                                 </Item>
                             </View>
                         </CardItem>
@@ -219,6 +222,31 @@ class Carrier extends Component {
             <MyLayout title="Assigned Loads">
                 <ScrollView style={{marginBottom:25}}>
                     <View style={styles.contentBody}>
+
+                        <Picker
+                            style={{ backgroundColor: 'orange', color: '#fff', height: 25, width: '100%' }}
+                            // selectedValue={status_}
+                            onValueChange={(itemValue, itemIndex) => {
+                                console.log("ito" + itemValue);
+                                console.log("_____asd____X");
+                                // alert(itemIndex);
+                                // this.change_status(asdasdasd);
+                                // this.setState({load_id:data.load_id});
+                            }}>
+                            <Picker.Item value={0} label={'Pending'} />
+                            <Picker.Item value={1} label={'Processing'} />
+                            <Picker.Item value={2} label={'Delivered'} />
+                        </Picker>
+
+                        <Picker
+                            // selectedValue={selectedValue}
+                            style={{ height: 50, width: 150 }}
+                            onValueChange={(itemValue, itemIndex) => console.log(itemValue)}
+                        >
+                            <Picker.Item label="Java" value="java" />
+                            <Picker.Item label="JavaScript" value="js" />
+                            <Picker.Item label="JavaScript2" value="js2" />
+                        </Picker>
                         {load_details}
                     </View>
                 </ScrollView>
