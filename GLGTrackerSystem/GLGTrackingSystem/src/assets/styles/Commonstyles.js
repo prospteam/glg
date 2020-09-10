@@ -36,8 +36,14 @@ export default StyleSheet.create({
       flexDirection: 'column',
       alignItems: 'center',
     },
-  vehicle_type:{
-    color:'orange'
+  vehicle_type_pend:{
+    color:'#429bcde8'
+},
+vehicle_type_proccess:{
+  color:'#e49c5ef0'
+},
+vehicle_type_deliv:{
+  color:'#24b56be0'
 },
 trackinput:{
   justifyContent: "center",

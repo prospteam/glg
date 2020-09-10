@@ -153,8 +153,8 @@ class Login extends Component {
                     </View>
                     <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
                         <TouchableOpacity style={styles.button}
-                          onPress={() => this.form_login()}
-                        // onPress={() => Actions.Carrier()}
+                          // onPress={() => this.form_login()}
+                        onPress={() => Actions.Shipper()}
                         >
                             <Text style={{fontSize:18}}>Log In</Text>
                         </TouchableOpacity>

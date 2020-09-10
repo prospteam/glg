@@ -238,7 +238,7 @@ class Carrier extends Component {
                             <Picker.Item value={1} label={'Processing'} />
                             <Picker.Item value={2} label={'Delivered'} />
                         </Picker>
-
+                        
                         <Picker
                             // selectedValue={selectedValue}
                             style={{ height: 50, width: 150 }}
