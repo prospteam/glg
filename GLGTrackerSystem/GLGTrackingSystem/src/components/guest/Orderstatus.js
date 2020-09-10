@@ -56,8 +56,8 @@ class Orderstatus extends Component {
                 "select": "*",
                 "from": "glg_loads",
                 "where": {
-                    "load_id": "169",
-                    // "load_id": tracking_id,
+                    // "load_id": "169",
+                    "load_id": tracking_id,
                     // "username": this.state.username.toLowerCase(),
                     // "other_password": this.state.password.toLowerCase()
                 }
@@ -68,7 +68,7 @@ class Orderstatus extends Component {
             // that.props.set_show_mini_loader(false);
             // that.setState({is_load_test:false});
             if (response.data.length > 0) {
-                alert("Successfully Login");
+                alert("Retreived data successfully.");
                 // console.log('___________testxxx_________________');
                 // console.log(that.props);
                 // that.props.set_is_logged('set_is_logged', true);
@@ -90,11 +90,22 @@ class Orderstatus extends Component {
     }
 
     render(){
+        var tracking_status ="Empty";
+        
+        if (this.state.load_data.tracking_status == 0) {
+            tracking_status = "Pending";
+        } else if (this.state.load_data.tracking_status == 1) {
+            tracking_status = "Processing";
+        } else if (this.state.load_data.tracking_status == 2) {
+            tracking_status = "Delivered";
+        } 
         // console.log('________________________asd____');
         // console.log('ito na this : '+this.props.asd);
+        // console.log('________________________asd____');
+        // console.log(this.state.load_data);
         // this.form_login(this.props.tracking_id);
         return (
-            <MyLayout>
+            <MyLayout guest='true'>
                 <View style={{justifyContent: "center", alignItems: "center"}}>
                     <Image source={truck_bg} style={{ width: '100%', height: 180, }} />
                 </View>
@@ -102,14 +113,21 @@ class Orderstatus extends Component {
                     <Image source={logo} style={{ width: 150, height: 150, borderRadius: 100, marginTop: -65,  }} />
                 </View>
                 <View style={{justifyContent: "center", alignItems: "center", marginTop: 15}}>
-                    <Text style={{color:'white', fontSize:25, fontFamily: 'sans-serif' }}>Track Numbers: </Text>
-                    <TextInput style={styles.trackinput} placeholder="0123456789" placeholderTextColor="white" />
+                    <Text style={{color:'white', fontSize:25, fontFamily: 'sans-serif' }}>Track a load: </Text>
+                    <TextInput style={styles.trackinput} placeholder="example: 0000123 or 123" placeholderTextColor="gray" value={this.state.tracking_id}
+                        defaultValue={this.props.tracking_id} onChangeText={text => this.setState({ tracking_id: text })}/>
+
+                    <View style={{ justifyContent: "center", alignItems: "center", marginTop: 30 ,width:400}}>
+                        <TouchableOpacity style={styles.button} onPress={() => this.form_login(this.state.tracking_id)}>
+                            <Text style={{ fontSize: 18 }}>Track</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View style={{flexDirection: 'column', justifyContent: "center", alignItems: "center"}}>
                     <View style={{ margin: 10}} />
-                    <View style={{flexDirection: 'row', backgroundColor:'#ff9c00cf',  width: '70%', borderRadius:3}}>
+                    <View style={{ flexDirection: 'row', backgroundColor: '#ff9c00cf', width: '70%', borderRadius: 3, height: 100, alignItems: "center"}}>
                         <View style={{flexDirection: 'column'}}>
-                            <Text style={{ fontSize: 18, color: 'white', marginLeft: 75, fontWeight: 'bold' }}>{this.state.load_data ? this.state.load_data.tracking_status:"Processing"}</Text>
+                            <Text style={{ fontSize: 18, color: 'white', marginLeft: 75, fontWeight: 'bold' }}>{tracking_status}</Text>
                             <Text style={{fontSize:15, color:'white', marginLeft:60}}>Mon, 01 June 2020</Text>
                         </View>
                     </View>
