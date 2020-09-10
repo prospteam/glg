@@ -21,6 +21,7 @@ class MyLayout extends Component {
     }
     
     render(){
+        // alert(this.props.guest);
         return (
             <ImageBackground source={bg_image} style={{ width: '100%', height: '100%', marginBottom: 65, 
             }}>
@@ -30,6 +31,7 @@ class MyLayout extends Component {
                         // backgroundColor:'blue'
                         }}
                         >
+                    {(this.props.guest=="true")?null:
                     <View // Header section
                         style={{
                             flexDirection: 'row',
@@ -60,14 +62,6 @@ class MyLayout extends Component {
                                 flex: 1,
                             }}>
                                 <View style={{flexDirection:'row'}}>
-                                    {/* <TouchableOpacity onPress={() => this.end_session()}>
-                                        <Text style={{ color: '#fff', padding: 5 }}>
-                                            Logout
-                                        </Text>
-                                    </TouchableOpacity>
-                                    <Text style={{ color: '#fff', padding: 5 }}>
-                                        | 
-                                    </Text> */}
                                     <TouchableOpacity onPress={() => this.end_session()}>
                                         <Text style={{ color: '#fff',padding:5 }}>
                                             Logout
@@ -75,7 +69,7 @@ class MyLayout extends Component {
                                     </TouchableOpacity>
                                 </View>
                         </View>
-                    </View>
+                    </View>}
 					{this.props.children}
 			    </View>
             </ImageBackground>

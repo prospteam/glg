@@ -50,7 +50,8 @@ trackinput:{
    alignItems: "stretch",
    borderBottomWidth : 1,
    borderColor: "#24cea7",
-   width:'60%'
+   width:'60%',
+   color:'white',
 },
 dash:{
    width:1,

@@ -107,7 +107,8 @@ class Carrier extends Component {
                             <View style={{flexDirection: 'column', justifyContent: "center", alignItems: "center"}}>
                                 <Text style={{color:'#fff', flex: 1}}>Tracking No. 000{data.load_id}</Text>
                                 <Item picker>
-                                    {/* <Picker
+                                    {/* 
+                                    <Picker
                                     style={{backgroundColor:'orange', color: '#fff', height: 25, width: '100%'}}
                                        selectedValue={status_}
                                         onValueChange={(itemValue, itemIndex) =>{
@@ -120,11 +121,11 @@ class Carrier extends Component {
                                       <Picker.Item value={0} label={'Pending'} />
                                       <Picker.Item value={1} label={'Processing'} />
                                       <Picker.Item value={2} label={'Delivered'} />
-                                   </Picker> */}
+                                   </Picker>
+                                    */}
                                 </Item>
                             </View>
                         </CardItem>
-
                         <CardItem>
                             <Body>
                                 <View style={{ flexDirection: 'row' }}>
