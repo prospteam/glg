@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux';
 import { set_is_logged } from '../../redux/actions/Actions';
 import MyLayout from '../layout/MyLayout';
 
-class Shipper extends Component {
+class Shipper extends Component { 
     constructor(props){
         super(props);
         this.state = {
