@@ -25,10 +25,10 @@ class Carrier extends Component {
             date:'',
             rate:'',
             tracking_status: '',
-            services: ['Pending', 'Processing', 'Delivered'],
-            selectedService: 'Pending'
+            services: undefined
         };
     }
+
 
     componentDidMount() {
         this.fetch_loads();
@@ -58,7 +58,7 @@ class Carrier extends Component {
 
     }
 
-    change_status(value) {
+    change_status = (value) => {
         console.log("_______wanghiya1____");
         var self = this;
         axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/change_load_status/'+this.state.load_id+'/'+value,{
@@ -77,6 +77,12 @@ class Carrier extends Component {
         });
    }
 
+   // dropdownStatus(value: string) {
+   //     this.setState({
+   //         services: value
+   //     });
+   // }
+
     render(){
         let load_details;
         if (this.state.response.length==0) {
@@ -92,14 +98,18 @@ class Carrier extends Component {
             </Card>
         }else{
             load_details = this.state.response.map((data,index) =>{
-                let status_ ;
-                if(data.tracking_status===0){
-                    status_ = "Pending";
-                }else if(data.tracking_status===1) {
-                    status_ = "Processing";
-                }else{
-                    status_ = "Delivered";
-                }
+                        let status_;
+                        if(data.tracking_status===0){
+                            status_ = "Pending";
+                        }else if(data.tracking_status===1) {
+                            status_ = "Processing";
+                        }else{
+                            status_ = "Delivered";
+                        }
+
+                        // this.setState({
+                        //     dropdownStatus: status_
+                        // });
                 return(
                     <>
                     <Card key={index}>
@@ -107,22 +117,23 @@ class Carrier extends Component {
                             <View style={{flexDirection: 'column', justifyContent: "center", alignItems: "center"}}>
                                 <Text style={{color:'#fff', flex: 1}}>Tracking No. 000{data.load_id}</Text>
                                 <Item picker>
-                                    {/* 
+
                                     <Picker
                                     style={{backgroundColor:'orange', color: '#fff', height: 25, width: '100%'}}
-                                       selectedValue={status_}
-                                        onValueChange={(itemValue, itemIndex) =>{
-                                            console.log("ito"+itemValue);
-                                            console.log("_____asd____");
+                                       selectedValue={this.state.dropdownStatus}
+                                        onValueChange={(itemValue, index) =>{
+                                            // console.log(itemValue);
                                             // alert(itemIndex);
-                                            // this.change_status(asdasdasd);
-                                            // this.setState({load_id:data.load_id});
+                                            this.change_status(itemValue);
+                                            this.setState({
+                                                load_id:data.load_id,
+                                                status_:itemValue
+                                             });
                                         }}>
                                       <Picker.Item value={0} label={'Pending'} />
                                       <Picker.Item value={1} label={'Processing'} />
                                       <Picker.Item value={2} label={'Delivered'} />
                                    </Picker>
-                                    */}
                                 </Item>
                             </View>
                         </CardItem>
@@ -148,50 +159,6 @@ class Carrier extends Component {
                                                 <Icon name='ios-checkmark-circle' style={{ color: 'orange', fontSize: 15, marginLeft: 20 }} />
                                                 <Text style={{ fontSize: 12, color: 'orange', marginLeft: 15, fontWeight: 'bold' }}>{data.destination}
                                                 </Text>
-                        {/* <CardItem >
-                            <Body >
-                                    <View style={{ flexDirection: 'row' }} onPress={() => alert('clicked')}>
-                                        <View style={styles.iconCompleted}>
-                                            <View style={{ flexDirection: 'column' }}>
-                                                <Text>Origin</Text>
-                                                <View style={{ margin: 2 }} />
-                                                <View style={{ flexDirection: 'row' }}>
-                                                    <Icon name='ios-checkmark-circle' style={{ color: 'orange', fontSize: 15, marginLeft: 20 }} />
-                                                    <Text style={{ fontSize: 12, color: 'orange', marginLeft: 15, fontWeight: 'bold' }}>{data.origin} </Text>
-                                                </View>
-                                                <View style={{ flexDirection: 'column', marginLeft: 0 }}>
-                                                    <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                                    <Icon type="FontAwesome5" name='truck' style={{ color: 'orange', fontSize: 15, marginLeft: 20 }} />
-                                                    <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                                </View>
-                                                <View style={{
-                                                    flexDirection: 'row'
-                                                }}>
-                                                    <Icon name='ios-checkmark-circle' style={{ color: 'orange', fontSize: 15, marginLeft: 20 }} />
-                                                    <Text style={{ fontSize: 12, color: 'orange', marginLeft: 15, fontWeight: 'bold' }}>{data.destination}
-                                                    </Text>
-                            {/* <CardItem >
-                                <Body >
-                                        <View style={{ flexDirection: 'row' }} onPress={() => alert('clicked')}>
-                                            <View style={styles.iconCompleted}>
-                                                <View style={{flexDirection: 'column'}}>
-                                                    <Text>Origin</Text>
-                                                    <View style={{ margin: 2}} />
-                                                    <View style={{flexDirection: 'row'}}>
-                                                        <Icon name='ios-checkmark-circle' style={{color:'orange', fontSize:15, marginLeft:20}} />
-                                                        <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.origin} </Text>
-                                                    </View>
-                                                    <View style={{flexDirection: 'column', marginLeft:0}}>
-                                                        <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                                        <Icon type="FontAwesome5" name='truck' style={{color:'orange', fontSize:15, marginLeft:20}} />
-                                                        <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                                                    </View>
-                                                    <View style={{
-                                                                flexDirection: 'row'
-                                                                }}>
-                                                        <Icon name='ios-checkmark-circle' style={{color:'orange', fontSize:15, marginLeft:20}} />
-                                                        <Text style={{fontSize:12, color:'orange', marginLeft:15, fontWeight: 'bold'}}>{data.destination}
-                                                        </Text> */}
                                                     </View>
                                                     <View style={{ margin: 2}} />
                                                     <Text>Destination</Text>
@@ -223,31 +190,6 @@ class Carrier extends Component {
             <MyLayout title="Assigned Loads">
                 <ScrollView style={{marginBottom:25}}>
                     <View style={styles.contentBody}>
-
-                        <Picker
-                            style={{ backgroundColor: 'orange', color: '#fff', height: 25, width: '100%' }}
-                            // selectedValue={status_}
-                            onValueChange={(itemValue, itemIndex) => {
-                                console.log("ito" + itemValue);
-                                console.log("_____asd____X");
-                                // alert(itemIndex);
-                                // this.change_status(asdasdasd);
-                                // this.setState({load_id:data.load_id});
-                            }}>
-                            <Picker.Item value={0} label={'Pending'} />
-                            <Picker.Item value={1} label={'Processing'} />
-                            <Picker.Item value={2} label={'Delivered'} />
-                        </Picker>
-                        
-                        <Picker
-                            // selectedValue={selectedValue}
-                            style={{ height: 50, width: 150 }}
-                            onValueChange={(itemValue, itemIndex) => console.log(itemValue)}
-                        >
-                            <Picker.Item label="Java" value="java" />
-                            <Picker.Item label="JavaScript" value="js" />
-                            <Picker.Item label="JavaScript2" value="js2" />
-                        </Picker>
                         {load_details}
                     </View>
                 </ScrollView>
@@ -272,28 +214,3 @@ function redux_action_function_to_props(dispatch){
    },dispatch);
 }
 export default connect(redux_states_to_props,redux_action_function_to_props)(Carrier);
-
-
-
-{/* <CardItem>
-    <Body>
-        <View style={{ flexDirection: 'row' }}>
-            <View style={styles.iconCompleted}>
-                <View style={{ flexDirection: 'column' }}>
-                    <Text>Origin</Text>
-                    <View style={{ margin: 2 }} />
-                    <View style={{ flexDirection: 'row' }}>
-                        <Icon name='ios-checkmark-circle' style={{ color: 'orange', fontSize: 15, marginLeft: 20 }} />
-                        <Text style={{ fontSize: 12, color: 'orange', marginLeft: 15, fontWeight: 'bold' }}>{data.origin} </Text>
-                    </View>
-                    <View style={{ flexDirection: 'column', marginLeft: 0 }}>
-                        <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                        <Icon type="FontAwesome5" name='truck' style={{ color: 'orange', fontSize: 15, marginLeft: 20 }} />
-                        <Dash dashColor={'#57B9BB'} style={styles.dash} />
-                    </View>
-                    <View style={{
-                        flexDirection: 'row'
-                    }}>
-                        <Icon name='ios-checkmark-circle' style={{ color: 'orange', fontSize: 15, marginLeft: 20 }} />
-                        <Text style={{ fontSize: 12, color: 'orange', marginLeft: 15, fontWeight: 'bold' }}>{data.destination}
-                        </Text> */}

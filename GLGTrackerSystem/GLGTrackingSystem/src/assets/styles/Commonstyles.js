@@ -66,5 +66,27 @@ dash1:{
    top:0,
    flexDirection:'column',
 },
+MainContainerAddCamp :{
+flex:1,
+margin: 10,
+paddingTop: (Platform.OS === 'ios') ? 20 : 20,
+padding: 5,
+},
+TextInputStyleClass: {
+textAlign: 'left',
+paddingLeft: 7,
+marginBottom: 7,
+height: 40,
+borderWidth: 1,
+borderColor: '#00BCD4',
+},
+PickerStyleClass:{
+    backgroundColor:'#87ceeb',
+    paddingLeft: 7,
+marginBottom: 7,
+height: 40,
+borderWidth: 1,
+ borderColor: '#FF5722',
+}
 
 });

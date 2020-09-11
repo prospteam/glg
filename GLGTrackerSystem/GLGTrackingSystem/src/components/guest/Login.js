@@ -132,7 +132,7 @@ class Login extends Component {
         this.setState({
             color: text
         });
-    }
+    } 
 
     render(){
 
@@ -154,7 +154,7 @@ class Login extends Component {
                     <View  style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
                         <TouchableOpacity style={styles.button}
                           // onPress={() => this.form_login()}
-                        onPress={() => Actions.Shipper()}
+                        onPress={() => Actions.Carrier()}
                         >
                             <Text style={{fontSize:18}}>Log In</Text>
                         </TouchableOpacity>
