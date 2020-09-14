@@ -132,7 +132,7 @@ class Login extends Component {
         this.setState({
             color: text
         });
-    } 
+    }
 
     render(){
 
