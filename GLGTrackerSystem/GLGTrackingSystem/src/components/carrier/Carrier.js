@@ -120,13 +120,14 @@ class Carrier extends Component {
 
                                     <Picker
                                     style={{backgroundColor:'orange', color: '#fff', height: 25, width: '100%'}}
-                                       selectedValue={this.state.dropdownStatus}
+                                       selectedValue={status_}
                                         onValueChange={(itemValue, index) =>{
                                             // console.log(itemValue);
                                             // alert(itemIndex);
                                             this.change_status(itemValue);
                                             this.setState({
                                                 load_id:data.load_id,
+                                                // dropdownStatus:status_
                                                 status_:itemValue
                                              });
                                         }}>
