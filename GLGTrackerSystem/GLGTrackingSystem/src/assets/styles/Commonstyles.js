@@ -45,6 +45,7 @@ vehicle_type_proccess:{
 vehicle_type_deliv:{
   color:'#24b56be0'
 },
+vehicle_type:{  color:'orange'},
 trackinput:{
   justifyContent: "center",
    alignItems: "stretch",

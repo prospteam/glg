@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {ScrollView, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
 import { Text, Form, Item, Input, Label, Button,Icon, Card, CardItem, Body, View,Container, Header, Content, Picker } from 'native-base';
-import RNPickerSelect from 'react-native-picker-select';
+import { SCLAlert, SCLAlertButton} from 'react-native-scl-alert'
 import Dash from 'react-native-dash';
 import axios from 'axios';
 
@@ -25,13 +25,22 @@ class Carrier extends Component {
             date:'',
             rate:'',
             tracking_status: '',
-            services: undefined
+            services: undefined,
+            show: false,
+            msg: "",
+            theme: "sucess",
+            title: "Success",
         };
     }
 
 
+
     componentDidMount() {
         this.fetch_loads();
+    }
+
+    handleClose = () => {
+        this.setState({ show: false })
     }
 
     fetch_loads =()=>{
@@ -47,10 +56,11 @@ class Carrier extends Component {
             console.log("Rogen Gwapa na lagi ka,");
             console.log("__________________________________");
             console.log(response);
-            self.setState({response: response.data});
+            self.setState({
+                response: response.data,
+            });
             console.log("__________________________________");
             console.log("__________________________________");
-            alert('success');
         }).catch(function(err){
             console.log(err);
             alert('Hay NAKUUUUUUUUUUUUUUUU');
@@ -59,23 +69,45 @@ class Carrier extends Component {
     }
 
     change_status = (value) => {
+
         console.log("_______wanghiya1____");
         var self = this;
         axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/change_load_status/'+this.state.load_id+'/'+value,{
             tracking_status :value
         }).then(function (response) {
-
-            if(response.data.status){
+            if (response.data.status.length>0) {
                 self.fetch_loads();
+                self.setState({
+                    show: true,
+                    msg: "Change Status Successfully!",
+                    theme: "success",
+                    title: "Success!",
+                });
+
+            } else {
+                self.setState({
+                    show: true,
+                    msg: "Please Select Status!",
+                    theme: "warning",
+                    title: "Warning!"
+                });
             }
+
             console.log("_______rogen_maganda_cute_cute_super___");
-            console.log(response);
         }).catch(function(err){
             console.log(err);
             console.log("_______wanghiya3____");
-            alert('Status not found');
+            self.setState({
+                show: true,
+                msg: "Please Try Again!",
+                theme: "warning",
+                title: "Warning!"
+            });
         });
    }
+  //  handleOpen = () => {
+  //   this.setState({ show: true })
+  // }
 
    // dropdownStatus(value: string) {
    //     this.setState({
@@ -115,10 +147,11 @@ class Carrier extends Component {
                     <Card key={index}>
                         <CardItem header style={{backgroundColor:'#1fb599' }}>
                             <View style={{flexDirection: 'column', justifyContent: "center", alignItems: "center"}}>
-                                <Text style={{color:'#fff', flex: 1}}>Tracking No. 000{data.load_id}</Text>
+                                <Text style={{color:'#fff', flex: 1}}>No.000{data.load_id}</Text>
                                 <Item picker>
-
                                     <Picker
+                                    mode="dropdown"
+                                    Icon={<Icon name="arrow-down" style={{backgroundColor:'green', }}/> }
                                     style={{backgroundColor:'orange', color: '#fff', height: 25, width: '100%'}}
                                        selectedValue={status_}
                                         onValueChange={(itemValue, index) =>{
@@ -131,6 +164,7 @@ class Carrier extends Component {
                                                 status_:itemValue
                                              });
                                         }}>
+
                                       <Picker.Item value={0} label={'Pending'} />
                                       <Picker.Item value={1} label={'Processing'} />
                                       <Picker.Item value={2} label={'Delivered'} />
@@ -189,7 +223,16 @@ class Carrier extends Component {
         }
         return (
             <MyLayout title="Assigned Loads">
-                <ScrollView style={{marginBottom:25}}>
+            <ScrollView>
+                    <SCLAlert
+                        show={this.state.show}
+                        onRequestClose={this.change_status}
+                        theme={this.state.theme}
+                        title={this.state.title}
+                        subtitle={this.state.msg}
+                    >
+                    <SCLAlertButton theme="default" onPress={this.handleClose}>OK</SCLAlertButton>
+                    </SCLAlert>
                     <View style={styles.contentBody}>
                         {load_details}
                     </View>

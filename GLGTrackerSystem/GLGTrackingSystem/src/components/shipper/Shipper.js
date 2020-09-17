@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux';
 import { set_is_logged } from '../../redux/actions/Actions';
 import MyLayout from '../layout/MyLayout';
 
-class Shipper extends Component { 
+class Shipper extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -75,7 +75,7 @@ class Shipper extends Component {
                     <Card key={index}>
                         <CardItem header style={{backgroundColor:'#429bcde8'}}>
                             <View style={{flexDirection: 'row'}}>
-                                <Text style={{color:'#ffffff', flex:1}}>{data.load_id}</Text>
+                                <Text style={{color:'#ffffff', flex:1}}>No.000{data.load_id}</Text>
                                 <Text style={{color:'#ffffff'}}><Icon style={{color:'#1874e8f5', fontSize:17}} name="document-text"></Icon>Pending</Text>
                             </View>
                         </CardItem>
@@ -129,7 +129,7 @@ class Shipper extends Component {
                     <Card key={index}>
                         <CardItem header style={{backgroundColor:'#e49c5ef0'}}>
                             <View style={{flexDirection: 'row',}}>
-                                <Text style={{color:'#ffffff',flex:1}}>{data.load_id}</Text>
+                                <Text style={{color:'#ffffff',flex:1}}>No.000{data.load_id}</Text>
                                 <Text style={{color:'#ffffff'}}><Icon style={{color:'#c9742a', fontSize:17}} name="train"></Icon>Processing</Text>
                             </View>
                         </CardItem>
@@ -183,7 +183,7 @@ class Shipper extends Component {
                      <Card key={index}>
                         <CardItem header style={{backgroundColor:'#24b56be0'}}>
                            <View style={{flexDirection: 'row'}}>
-                               <Text style={{color:'#ffffff', flex:1}}>{data.load_id}</Text>
+                               <Text style={{color:'#ffffff', flex:1}}>No. 000{data.load_id}</Text>
                                <Text style={{color:'#ffffff'}}><Icon style={{color:'#05683c', fontSize:17}} name="home"></Icon>Delivered</Text>
                            </View>
                        </CardItem>
