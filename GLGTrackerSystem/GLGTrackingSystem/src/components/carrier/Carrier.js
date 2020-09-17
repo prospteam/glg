@@ -156,14 +156,11 @@ class Carrier extends Component {
                                     //    selectedValue={this.state.dropdownStatus}
                                         // selectedValue={status_}
                                         onValueChange={(itemValue, index) =>{
-                                            console.log("_______wanghiya3_d___");
-                                            console.log(itemValue);
-                                            console.log(index);
-                                            // this.change_status(itemValue, index);
-                                            // this.setState({
-                                            //     load_id:data.load_id,
-                                            //     status_:itemValue
-                                            //  });
+                                            this.change_status(itemValue, index);
+                                            this.setState({
+                                                load_id:data.load_id,
+                                                status_:itemValue
+                                             });
                                         }}>
 
                                       <Picker.Item value={0} label={'Pending'} />
