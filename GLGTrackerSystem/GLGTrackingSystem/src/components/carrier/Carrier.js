@@ -68,6 +68,7 @@ class Carrier extends Component {
 
     }
 
+<<<<<<< HEAD
     change_status = (value) => {
 
         console.log("_______wanghiya1____");
@@ -104,6 +105,29 @@ class Carrier extends Component {
                 title: "Warning!"
             });
         });
+=======
+    change_status = (value,asd) => {
+
+        console.log("_______wanghiyaaaaaa____");
+        console.log(value);
+        console.log(asd);
+        console.log("_______wanghiyaccccc____");
+        // var self = this;
+        // axios.post( 'https://glgfreight.com/loadboard_app/api_mobile/Loads/change_load_status/'+this.state.load_id+'/'+value,{
+        //     tracking_status :value
+        // }).then(function (response) {
+
+        //     if(response.data.status){
+        //         self.fetch_loads();
+        //     }
+        //     console.log("_______rogen_maganda_cute_cute_super___");
+        //     console.log(response);
+        // }).catch(function(err){
+        //     console.log(err);
+        //     console.log("_______wanghiya3____");
+        //     alert('Status not found');
+        // });
+>>>>>>> a2fcdd54943bf45b059fbd026c125af8d236eaf8
    }
   //  handleOpen = () => {
   //   this.setState({ show: true })
@@ -153,16 +177,17 @@ class Carrier extends Component {
                                     mode="dropdown"
                                     Icon={<Icon name="arrow-down" style={{backgroundColor:'green', }}/> }
                                     style={{backgroundColor:'orange', color: '#fff', height: 25, width: '100%'}}
-                                       selectedValue={status_}
+                                    //    selectedValue={this.state.dropdownStatus}
+                                        // selectedValue={status_}
                                         onValueChange={(itemValue, index) =>{
-                                            // console.log(itemValue);
-                                            // alert(itemIndex);
-                                            this.change_status(itemValue);
-                                            this.setState({
-                                                load_id:data.load_id,
-                                                // dropdownStatus:status_
-                                                status_:itemValue
-                                             });
+                                            console.log("_______wanghiya3_d___");
+                                            console.log(itemValue);
+                                            console.log(index);
+                                            // this.change_status(itemValue, index);
+                                            // this.setState({
+                                            //     load_id:data.load_id,
+                                            //     status_:itemValue
+                                            //  });
                                         }}>
 
                                       <Picker.Item value={0} label={'Pending'} />
