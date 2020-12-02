@@ -25,6 +25,12 @@ class Routes extends Component {
             <>
                 <Router>
                     <Scene key="root">
+                    <Scene
+                    key="Shipper"
+                    component={Shipper}
+                    title="Shipper"
+                    hideNavBar
+                    />
                         <Scene
                             key="Carrier"
                             component={Carrier}
@@ -35,12 +41,6 @@ class Routes extends Component {
                             key="Orderstatus"
                             component={Orderstatus}
                             title="Orderstatus"
-                            hideNavBar
-                        />
-                        <Scene
-                            key="Shipper"
-                            component={Shipper}
-                            title="Shipper"
                             hideNavBar
                         />
                         <Scene
